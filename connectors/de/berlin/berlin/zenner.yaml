@@ -1,0 +1,18 @@
+# Zenner – Berlin
+id: zenner
+name: Zenner
+city: Berlin
+address: Alt-Treptow 15
+lat: 52.4873
+lng: 13.4775
+website: "https://zenner.berlin"
+genres: Techno, House
+checked: 2026-08
+source: "Genres praezisiert (Venue fuer elektronische Musik); Biergarten/Weingarten plus Club- und Ballsaalbetrieb im Treptower Park; Korrigiert: Adresse von 'Alt-Treptow 14-17' auf die offizielle Anschrift Alt-Treptow 15; Koordinaten auf belegte 52.48731/13.47748"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://zenner.berlin"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

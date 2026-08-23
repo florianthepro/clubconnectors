@@ -1,0 +1,18 @@
+# Karree – Freiburg
+id: karree
+name: Karree
+city: Freiburg
+address: Fahnenbergplatz 1
+lat: 47.9993
+lng: 7.8498
+website: "https://www.daskarree.de/"
+genres: Techno, House
+note: Eventlocation mit Clubkultur am Fahnenbergplatz
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.daskarree.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

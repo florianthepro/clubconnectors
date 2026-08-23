@@ -1,0 +1,18 @@
+# 100 Hz Club – Augsburg
+id: 100hzclub
+name: 100 Hz Club
+city: Augsburg
+address: Fuggerstraße 14
+lat: 48.3686
+lng: 10.89366
+website: "https://100hz.club"
+genres: Techno, House
+note: Elektroclub in der Innenstadt (ehem; Cabaret Apollo)
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://100hz.club"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

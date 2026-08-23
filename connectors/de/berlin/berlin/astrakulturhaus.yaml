@@ -1,0 +1,18 @@
+# Astra Kulturhaus – Berlin
+id: astrakulturhaus
+name: Astra Kulturhaus
+city: Berlin
+address: Revaler Straße 99
+lat: 52.5069
+lng: 13.4547
+website: "https://astra-berlin.de"
+genres: Indie, Rock, Live
+note: Grosse Halle auf dem RAW-Gelaende; Konzert- und Partybetrieb
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://astra-berlin.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

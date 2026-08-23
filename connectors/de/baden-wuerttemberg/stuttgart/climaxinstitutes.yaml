@@ -1,0 +1,19 @@
+# Climax Institutes – Stuttgart
+id: climaxinstitutes
+name: Climax Institutes
+city: Stuttgart
+address: Calwer Straße 25
+lat: 48.7772
+lng: 9.1731
+website: "https://climax-institutes.de"
+genres: Techno, House
+hours: "Do 22:00-05:00; Fr,Sa 23:00-08:00"
+note: Kellerclub, seit 1996
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://climax-institutes.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

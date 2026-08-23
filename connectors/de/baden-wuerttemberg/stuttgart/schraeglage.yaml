@@ -1,0 +1,19 @@
+# Schräglage – Stuttgart
+id: schraeglage
+name: Schräglage
+city: Stuttgart
+address: Hirschstraße 14
+lat: 48.7752
+lng: 9.1738
+website: "https://schraeglage.tv"
+genres: Hip-Hop, Black Music
+hours: "Do,Fr,Sa 23:00-05:00"
+note: Hip-Hop/R&B-Club mit Halfpipe am Dancefloor
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://schraeglage.tv"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

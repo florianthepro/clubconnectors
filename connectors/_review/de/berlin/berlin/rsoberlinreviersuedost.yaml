@@ -1,0 +1,19 @@
+# RSO.Berlin (Revier Südost) – Berlin
+id: rsoberlinreviersuedost
+name: RSO.Berlin (Revier Südost)
+city: Berlin
+address: Schnellerstraße 137
+lat: 52.46
+lng: 13.5065
+website: "https://www.reviersuedost.de"
+genres: Techno, House
+note: Website auf reviersuedost.de (offizielle Programmseite); Nachfolger der Griessmuehle
+checked: 2026-08
+source: "Koordinate unklar: zwei Recherchen widersprechen sich (52.4582/13.5006 gegen 52.46/13.5065, ≈ 250 m auseinander) – bitte klären und zurück nach de/berlin/berlin/ verschieben; Korrigiert: Name auf RSO.Berlin (Club) im Kulturareal Revier Suedost; Koordinaten von 52.4582/13.5006 auf 52.4600/13.5065 (Baerenquell-Brauereigelaende, Niederschoeneweide) - alter Wert lag ca. 450 m daneben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.reviersuedost.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

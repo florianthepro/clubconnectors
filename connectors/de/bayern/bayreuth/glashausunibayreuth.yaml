@@ -1,0 +1,18 @@
+# Glashaus (Uni Bayreuth) – Bayreuth
+id: glashausunibayreuth
+name: Glashaus (Uni Bayreuth)
+city: Bayreuth
+address: Universitätsstraße 30
+lat: 49.9268
+lng: 11.5852
+website: "https://www.glashaus.org"
+genres: Indie, Live
+checked: 2026-08
+source: "Änderung: offizielle Website glashaus.org ergänzt; Betrieb 2026 mit Partys, Konzerten und Kulturprogramm belegt; tagsüber Café (Mo-Fr 11-16 Uhr) – das sind keine Clubzeiten, Partys sind eventbasiert, daher hours leer; Koordinaten auf dem Uni-Campus Bayreuth"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.glashaus.org"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

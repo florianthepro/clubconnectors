@@ -1,0 +1,19 @@
+# Mach1 Club – Nürnberg
+id: mach1club
+name: Mach1 Club
+city: Nürnberg
+address: Kaiserstraße 1-9
+lat: 49.45229
+lng: 11.07686
+website: "https://mach1-club.de"
+genres: House, Electro, Hip-Hop
+hours: "Fr,Sa 22:00-05:00"
+note: Klassiker in der Nürnberger Altstadt seit den 1990ern
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://mach1-club.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

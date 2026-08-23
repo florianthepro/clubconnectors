@@ -1,0 +1,18 @@
+# G3 Club – München
+id: g3
+name: G3 Club
+city: München
+address: Atelierstraße 12
+lat: 48.1244
+lng: 11.6076
+website: "https://g3club.de"
+genres: Mixed
+hours: "Fr,Sa 22:00-05:00"
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://g3club.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

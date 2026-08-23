@@ -1,0 +1,19 @@
+# Milchbar – München
+id: milchbar
+name: Milchbar
+city: München
+address: Sonnenstraße 27
+lat: 48.1356
+lng: 11.5659
+website: "https://milchundbar.de"
+genres: 80er/90er
+hours: "Mo-Do 22:00-06:00; Fr 23:00-07:00; Sa 23:00-08:00"
+note: Sonntag geschlossen
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://milchundbar.de/events/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

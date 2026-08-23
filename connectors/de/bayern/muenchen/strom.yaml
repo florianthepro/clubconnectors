@@ -1,0 +1,18 @@
+# Strom – München
+id: strom
+name: Strom
+city: München
+address: Lindwurmstraße 88
+lat: 48.1278
+lng: 11.5541
+website: "https://strom-muc.de"
+genres: Electro, Indie, Rock
+note: Konzerte ab ca. 20 Uhr, Clubnächte Fr/Sa
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://strom-muc.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

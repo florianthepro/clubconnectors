@@ -1,0 +1,19 @@
+# Proton the Club – Stuttgart
+id: protontheclub
+name: Proton the Club
+city: Stuttgart
+address: Königstraße 49
+lat: 48.7757
+lng: 9.1753
+website: "https://www.protontheclub.de"
+genres: Techno, Electro, Hip-Hop
+hours: "Fr,Sa 23:00-06:00"
+note: Größter Innenstadt-Club (600+ Gäste); Fr Elektro, Sa Hip-Hop/Afrobeats
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.protontheclub.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

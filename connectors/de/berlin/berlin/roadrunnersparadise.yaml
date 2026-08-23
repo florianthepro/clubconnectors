@@ -1,0 +1,19 @@
+# Roadrunner's Paradise – Berlin
+id: roadrunnersparadise
+name: Roadrunner's Paradise
+city: Berlin
+address: Saarbrücker Straße 24
+lat: 52.5305
+lng: 13.4134
+website: "https://www.roadrunners-paradise.de"
+genres: Rock, Live
+note: Rock'n'Roll-/Konzertclub mit regelmäßigen Partys, event-basiert
+checked: 2026-08
+source: Koordinaten korrigiert auf 52.53048/13.41336 (Adresse Saarbrücker Str. 24, 10405 Berlin), Website ergänzt
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.roadrunners-paradise.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

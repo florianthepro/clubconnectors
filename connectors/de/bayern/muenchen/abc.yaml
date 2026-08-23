@@ -1,0 +1,18 @@
+# ABC – Alte Börse Club – München
+id: abc
+name: ABC – Alte Börse Club
+city: München
+address: Lenbachplatz 2a
+lat: 48.1403
+lng: 11.5689
+website: "https://alte-boerse-club.de"
+genres: House, Electro
+note: Dinner & Dance, meist Do–Sa abends
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://alte-boerse-club.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

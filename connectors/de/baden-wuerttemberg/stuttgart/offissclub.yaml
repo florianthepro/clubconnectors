@@ -1,0 +1,18 @@
+# Offiss Club – Stuttgart
+id: offissclub
+name: Offiss Club
+city: Stuttgart
+address: Theodor-Heuss-Straße 24
+lat: 48.778
+lng: 9.1727
+website: "https://www.instagram.com/offiss.club/"
+genres: Hip-Hop, Black Music, Latin
+note: Teilnahme an der Langen Nacht der Clubs 2025
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.instagram.com/offiss.club/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

@@ -1,0 +1,18 @@
+# MS Connexion Complex – Mannheim
+id: msconnexioncomplex
+name: MS Connexion Complex
+city: Mannheim
+address: Angelstraße 33
+lat: 49.4585
+lng: 8.4838
+website: "https://www.msconnexion.com"
+genres: Techno, Drum and Bass
+note: Großer Club-Komplex in alter Fabrik (Neckarau), auch Gothic-/Dark-Events
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.msconnexion.com"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

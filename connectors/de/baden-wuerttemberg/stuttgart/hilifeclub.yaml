@@ -1,0 +1,17 @@
+# Hi Life Club – Stuttgart
+id: hilifeclub
+name: Hi Life Club
+city: Stuttgart
+address: Rotebühlplatz 11
+lat: 48.7747
+lng: 9.171
+website: "https://hilife-club.de"
+genres: Hip-Hop, Black Music
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://hilife-club.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

@@ -1,0 +1,18 @@
+# Der Cult – Nürnberg
+id: dercult
+name: Der Cult
+city: Nürnberg
+address: Dooser Straße 60
+lat: 49.46837
+lng: 11.0175
+website: "https://www.der-cult.de"
+genres: 80er/90er, Schlager
+note: Disco mit Themen-/Ü30-Partys
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.der-cult.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

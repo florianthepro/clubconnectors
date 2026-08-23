@@ -1,0 +1,18 @@
+# SO36 – Berlin
+id: so36
+name: SO36
+city: Berlin
+address: Oranienstraße 190
+lat: 52.5006
+lng: 13.4188
+website: "https://so36.de"
+genres: Rock, Live
+note: Legendaerer Punk- und Subkultur-Club in Kreuzberg SO36
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://so36.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

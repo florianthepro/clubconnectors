@@ -1,0 +1,18 @@
+# Cassiopeia – Berlin
+id: cassiopeia
+name: Cassiopeia
+city: Berlin
+address: Revaler Straße 99
+lat: 52.5075
+lng: 13.4529
+website: "https://cassiopeia-berlin.de"
+genres: Hip-Hop, Rock
+note: Auf dem RAW-Gelaende; mehrere Floors plus Biergarten
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://cassiopeia-berlin.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

@@ -1,0 +1,19 @@
+# Bar Italy – Augsburg
+id: baritaly
+name: Bar Italy
+city: Augsburg
+address: Theaterstraße 12
+lat: 48.37061
+lng: 10.89294
+website: "https://www.bar-italy.de"
+genres: Mixed
+hours: "Fr,Sa 22:00-05:00"
+note: Italienische Tanzbar/Disco am Theater
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.bar-italy.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

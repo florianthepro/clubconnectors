@@ -1,0 +1,19 @@
+# Humboldthain Club – Berlin
+id: humboldthainclub
+name: Humboldthain Club
+city: Berlin
+address: Hochstraße 46
+lat: 52.5438
+lng: 13.3783
+website: "https://humboldthain.com"
+genres: Techno, House
+note: Programm eventbasiert
+checked: 2026-08
+source: "Korrigiert: Koordinaten von 52.5428/13.3895 auf belegte 52.54384/13.37829 (Hochstrasse 46 am S-Bhf Humboldthain, Gesundbrunnen/Wedding); hours bewusst leer - kursierende Zeiten nur aus Aggregatoren, nicht offiziell belegt"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://humboldthain.com"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

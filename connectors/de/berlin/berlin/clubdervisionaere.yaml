@@ -1,0 +1,19 @@
+# Club der Visionäre – Berlin
+id: clubdervisionaere
+name: Club der Visionäre
+city: Berlin
+address: Am Flutgraben 1
+lat: 52.4968
+lng: 13.4505
+website: "https://clubdervisionaere.com"
+genres: Techno, House
+note: Winterprogramm auf der Hoppetosse
+checked: 2026-08
+source: "Korrigiert: Koordinaten von 52.4964/13.4518 auf belegte 52.4968/13.4504. Open-Air-Club am Flutgraben (Alt-Treptow), saisonal Sommerbetrieb"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://clubdervisionaere.com"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

@@ -1,0 +1,19 @@
+# Ritter Butzke – Berlin
+id: ritterbutzke
+name: Ritter Butzke
+city: Berlin
+address: Ritterstraße 24-27
+lat: 52.5029
+lng: 13.41
+website: "https://www.ritterbutzke.de"
+genres: Techno, House
+note: Technoclub in ehemaliger Fabrik nahe Moritzplatz
+checked: 2026-08
+source: "Koordinate unvollständig: lng nur auf 13.41 genau (≈ 750 m) – bitte nachmessen und zurück nach de/berlin/berlin/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.ritterbutzke.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

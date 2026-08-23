@@ -1,0 +1,20 @@
+# Odeon Lounge – Würzburg
+id: odeonlounge
+name: Odeon Lounge
+city: Würzburg
+address: Augustinerstraße 18
+lat: 49.7907
+lng: 9.9321
+website: "https://odeon-lounge.de"
+genres: Electro, Hip-Hop, Black Music
+hours: "Mi,Fr,Sa 23:00-05:00"
+note: Adresse und Innenstadtlage bestätigt
+checked: 2026-08
+source: "Änderungen: Öffnungszeiten ergänzt, Website ohne www (real existierend); Koordinaten unverändert (Altstadt Würzburg)"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://odeon-lounge.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

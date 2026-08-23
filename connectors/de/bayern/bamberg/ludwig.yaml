@@ -1,0 +1,19 @@
+# Ludwig – Bamberg
+id: ludwig
+name: Ludwig
+city: Bamberg
+address: Franz-Ludwig-Straße 5a
+lat: 49.8937
+lng: 10.8904
+website: "https://www.ludwig-bamberg.de"
+genres: Mixed
+hours: "Fr,Sa 23:00-04:00"
+checked: 2026-08
+source: Öffnungszeiten laut OSM
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.ludwig-bamberg.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

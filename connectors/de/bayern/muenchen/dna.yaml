@@ -1,0 +1,19 @@
+# DNA Club – München
+id: dna
+name: DNA Club
+city: München
+address: Atelierstraße 14
+lat: 48.1249
+lng: 11.6081
+website: "https://www.dna-club.de"
+genres: Techno, House
+hours: "Fr,Sa 23:00-06:00"
+note: Schließt Ende September 2026
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.dna-club.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

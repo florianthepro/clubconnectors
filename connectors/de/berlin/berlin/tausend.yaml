@@ -1,0 +1,19 @@
+# Tausend – Berlin
+id: tausend
+name: Tausend
+city: Berlin
+address: Schiffbauerdamm 11
+lat: 52.5209
+lng: 13.385
+website: "https://tausendberlin.com"
+genres: House
+hours: "Di-Sa 19:30-05:00"
+checked: 2026-08
+source: "Bar-Club unter den S-Bahn-Boegen an der Friedrichstrasse, kleine Tanzflaeche, Tuersteher-Auswahl; Korrigiert: lng von 13.3872 auf 13.3850 (belegte Koordinate 52.520867/13.385023 fuer Schiffbauerdamm 11), hours ergaenzt"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://tausendberlin.com"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

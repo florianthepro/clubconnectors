@@ -1,0 +1,18 @@
+# Disco Zwei – Mannheim
+id: discozwei
+name: Disco Zwei
+city: Mannheim
+address: T6, 14
+lat: 49.4907
+lng: 8.4747
+website: "https://discozwei.de"
+genres: Techno, Indie
+note: Indie-/Electro-Club am Ring
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://discozwei.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

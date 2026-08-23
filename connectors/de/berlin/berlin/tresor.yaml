@@ -1,0 +1,18 @@
+# Tresor – Berlin
+id: tresor
+name: Tresor
+city: Berlin
+address: Köpenicker Straße 70
+lat: 52.5107
+lng: 13.4192
+website: "https://tresorberlin.com"
+genres: Techno, House
+note: Techno-Institution im alten Kraftwerk; Floors Tresor, Globus und +4Bar
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://tresorberlin.com"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

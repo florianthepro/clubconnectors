@@ -1,0 +1,19 @@
+# AGAR Kneipe & Club – Freiburg
+id: agarkneipeclub
+name: AGAR Kneipe & Club
+city: Freiburg
+address: Löwenstraße 8
+lat: 47.9929
+lng: 7.8531
+website: "https://www.agar-kneipe-club.de/"
+genres: House, Latin
+hours: "Di-Do 23:00-04:00; Fr,Sa 23:00-05:00"
+note: laut Betreiber größte Tanzfläche Freiburgs
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.agar-kneipe-club.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

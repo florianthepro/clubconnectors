@@ -1,0 +1,19 @@
+# Nachtwerk – München
+id: nachtwerk
+name: Nachtwerk
+city: München
+address: Landsberger Straße 185
+lat: 48.1417
+lng: 11.5176
+website: "https://www.nachtwerk.de"
+genres: Hip-Hop, Rock
+hours: "Fr,Sa 22:30-05:00"
+note: 2026 wiedereröffnet
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.nachtwerk.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

@@ -1,0 +1,19 @@
+# Lucky Who – München
+id: luckywho
+name: Lucky Who
+city: München
+address: Brienner Straße 14
+lat: 48.1431
+lng: 11.5737
+website: "https://luckywho.de"
+genres: House, Hip-Hop
+hours: "Fr,Sa 22:00-05:00"
+note: Mo–Do Barbetrieb
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://luckywho.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

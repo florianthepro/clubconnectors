@@ -1,0 +1,18 @@
+# Cabaret Eden – Ulm
+id: cabareteden
+name: Cabaret Eden
+city: Ulm
+address: Karlstraße 71
+lat: 48.4072
+lng: 9.9922
+website: "https://www.eden-ulm.de/"
+genres: Techno, House, Black Music
+note: Club im ehemaligen Kasino/Cabaret, auch Afrobeats/Dancehall-Partys
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.eden-ulm.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

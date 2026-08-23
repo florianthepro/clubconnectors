@@ -1,0 +1,18 @@
+# Mississippi Queen – Nürnberg
+id: mississippiqueen
+name: Mississippi Queen
+city: Nürnberg
+address: Donaustraße 40
+lat: 49.41154
+lng: 11.06389
+website: "https://mq-nuernberg.de"
+genres: 80er/90er, Schlager
+note: Kult-Disco im Stil eines Mississippi-Dampfers im Süden Nürnbergs
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://mq-nuernberg.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

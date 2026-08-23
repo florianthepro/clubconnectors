@@ -1,0 +1,18 @@
+# Jazzkeller Sauschdall – Ulm
+id: jazzkellersauschdall
+name: Jazzkeller Sauschdall
+city: Ulm
+address: Prittwitzstraße 36
+lat: 48.4055
+lng: 9.995
+website: "https://www.sauschdall.de/"
+genres: Live
+note: studentischer Jazzkeller seit 1963 mit Partys
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.sauschdall.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

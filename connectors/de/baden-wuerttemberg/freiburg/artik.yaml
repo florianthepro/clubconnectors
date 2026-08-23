@@ -1,0 +1,18 @@
+# ArTik – Freiburg
+id: artik
+name: ArTik
+city: Freiburg
+address: Haslacher Straße 43
+lat: 47.9887
+lng: 7.8288
+website: "https://www.artik-freiburg.de/"
+genres: Rock, Live
+note: Jugend- und Kulturhaus mit Clubnächten und Konzerten
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.artik-freiburg.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

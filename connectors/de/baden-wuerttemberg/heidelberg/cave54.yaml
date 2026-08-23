@@ -1,0 +1,18 @@
+# Cave 54 – Heidelberg
+id: cave54
+name: Cave 54
+city: Heidelberg
+address: Krämergasse 2
+lat: 49.4118
+lng: 8.7098
+website: "https://www.cave54.de/"
+genres: Live
+note: ältester Studentenclub Deutschlands (seit 1954), Kellergewölbe in der Altstadt
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.cave54.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

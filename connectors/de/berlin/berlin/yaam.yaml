@@ -1,0 +1,18 @@
+# YAAM – Berlin
+id: yaam
+name: YAAM
+city: Berlin
+address: An der Schillingbrücke 3
+lat: 52.5087
+lng: 13.4291
+website: "https://www.yaam.de"
+genres: Black Music, Live
+note: "Young African Art Market: Beach-Areal, Konzerte und Clubnaechte an der Spree"
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.yaam.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

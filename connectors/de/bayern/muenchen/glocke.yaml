@@ -1,0 +1,19 @@
+# Glockenbachwerkstatt – München
+id: glocke
+name: Glockenbachwerkstatt
+city: München
+address: Blumenstraße 7
+lat: 48.1342
+lng: 11.5716
+website: "https://glockenbachwerkstatt.de"
+genres: Indie, Rock
+hours: "Fr 19:00-02:00"
+note: "Kulturzentrum, Café Mo–Do ab 17:30, Partys eventabhängig"
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://glockenbachwerkstatt.de/programm"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

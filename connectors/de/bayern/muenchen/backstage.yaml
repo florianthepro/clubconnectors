@@ -1,0 +1,19 @@
+# Backstage – München
+id: backstage
+name: Backstage
+city: München
+address: Reitknechtstraße 6
+lat: 48.1441
+lng: 11.526
+website: "https://backstage.eu"
+genres: Hip-Hop, Rock
+hours: "Fr,Sa 22:00-05:00"
+note: "Konzerte fast täglich ab ca. 19:30 (Werk, Halle, Club)"
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://backstage.eu/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

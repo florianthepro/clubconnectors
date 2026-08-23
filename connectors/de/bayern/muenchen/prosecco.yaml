@@ -1,0 +1,12 @@
+# Prosecco – München
+id: prosecco
+name: Prosecco
+city: München
+address: Theklastraße 1
+lat: 48.1334
+lng: 11.5689
+website: "https://www.prosecco-bar.de"
+genres: Schlager
+hours: "Fr,Sa 22:00-05:00"
+note: Vor Feiertagen auch sonntags
+checked: 2026-08

@@ -1,0 +1,18 @@
+# Void Club – Berlin
+id: voidclub
+name: Void Club
+city: Berlin
+address: Wiesenweg 5-9
+lat: 52.5038
+lng: 13.4841
+website: "https://www.void-club.de"
+genres: Techno, Drum and Bass, Goa
+checked: 2026-08
+source: Website void-club.de ergänzt (war leer); Lage im Gewerbegebiet Wiesenweg nahe Ostkreuz (10365 Berlin, Lichtenberg); Genre Goa/Psytrance ergänzt, da laut Quellen fester Programmbestandteil
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.void-club.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

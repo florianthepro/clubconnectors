@@ -1,0 +1,18 @@
+# Kaffee Burger – Berlin
+id: kaffeeburger
+name: Kaffee Burger
+city: Berlin
+address: Torstraße 60
+lat: 52.5287
+lng: 13.4103
+website: "https://www.kaffeeburger.de"
+genres: Indie, Rock, Live
+checked: 2026-08
+source: Tanzwirtschaft mit 3-4 Live-/Party-Abenden pro Woche (frueher Russendisko); auch Latin- und Techno-Abende
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.kaffeeburger.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

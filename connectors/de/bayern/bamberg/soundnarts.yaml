@@ -1,0 +1,19 @@
+# Sound-n-Arts – Bamberg
+id: soundnarts
+name: Sound-n-Arts
+city: Bamberg
+address: Obere Sandstraße 20
+lat: 49.8927
+lng: 10.8832
+website: "https://www.sound-n-arts.de"
+genres: Indie, Live
+note: kleiner Club mit Konzerten und Partys
+checked: 2026-08
+source: Koordinate auf Straßenniveau geschätzt
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.sound-n-arts.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

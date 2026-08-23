@@ -1,0 +1,5 @@
+# SPEC.md G5: Connectoren sind UTF-8 mit \n – auch nach einem Checkout unter Windows
+*.yaml text eol=lf
+*.md   text eol=lf
+*.php  text eol=lf
+*.yml  text eol=lf

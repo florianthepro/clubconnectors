@@ -1,0 +1,18 @@
+# 089 Bar – München
+id: bar089
+name: 089 Bar
+city: München
+address: Maximiliansplatz 5
+lat: 48.1418
+lng: 11.5699
+website: "https://www.089-bar.de"
+genres: Mixed
+hours: "Di-Sa 21:00-07:00"
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.089-bar.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

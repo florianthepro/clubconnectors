@@ -1,0 +1,18 @@
+# Tanzbar Augsburg – Augsburg
+id: tanzbaraugsburg
+name: Tanzbar Augsburg
+city: Augsburg
+address: Piccardstraße 6a
+lat: 48.34091
+lng: 10.8975
+website: "https://www.tanzbar-augsburg.de"
+genres: Mixed
+note: Disco im selben Komplex wie die Rockfabrik
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.tanzbar-augsburg.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

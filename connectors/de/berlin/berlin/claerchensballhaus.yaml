@@ -1,0 +1,18 @@
+# Clärchens Ballhaus – Berlin
+id: claerchensballhaus
+name: Clärchens Ballhaus
+city: Berlin
+address: Auguststraße 24
+lat: 52.5258
+lng: 13.3967
+website: "https://claerchensball.haus"
+genres: Live, Latin
+checked: 2026-08
+source: Historisches Ballhaus von 1913 mit fast taeglichen Tanzabenden (Salsa, Tango, Swing, Discofox) - kein klassischer Technoclub; offizielle Website auf claerchensball.haus korrigiert
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://claerchensball.haus"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

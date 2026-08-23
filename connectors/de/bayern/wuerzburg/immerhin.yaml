@@ -1,0 +1,19 @@
+# Immerhin – Würzburg
+id: immerhin
+name: Immerhin
+city: Würzburg
+address: Bahnhofplatz 2
+lat: 49.8013
+lng: 9.9346
+website: "https://www.immerhin-wuerzburg.de"
+genres: Indie, Rock
+hours: "Fr,Sa 21:00-02:00"
+checked: 2026-08
+source: "Wichtige Korrektur: Die Adresse 'Frankfurter Straße 87' (altes AKW/Zellerau) ist falsch – Immerhin sitzt seit 2010 im Keller der Posthalle am Hauptbahnhof; Adresse, Koordinaten, Website und Öffnungszeiten entsprechend korrigiert"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.immerhin-wuerzburg.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

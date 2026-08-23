@@ -1,0 +1,18 @@
+# Crack Bellmer – Berlin
+id: crackbellmer
+name: Crack Bellmer
+city: Berlin
+address: Revaler Straße 99
+lat: 52.5074
+lng: 13.4533
+website: "https://www.crackbellmer.de"
+genres: House
+note: Club-Bar mit Tanzfläche auf dem RAW-Gelaende
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.crackbellmer.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

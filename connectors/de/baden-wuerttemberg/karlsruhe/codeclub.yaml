@@ -1,0 +1,19 @@
+# CODE Club – Karlsruhe
+id: codeclub
+name: CODE Club
+city: Karlsruhe
+address: Baumeisterstraße 3
+lat: 49.0044
+lng: 8.4063
+website: "https://code-karlsruhe.de"
+genres: Techno, House
+hours: "Sa 23:00-04:30"
+note: Tech-House-Club im hinteren Teil der Stadtmitte, nur samstags
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://code-karlsruhe.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

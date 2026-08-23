@@ -1,0 +1,19 @@
+# Nachtkind – Nürnberg
+id: nachtkind
+name: Nachtkind
+city: Nürnberg
+address: Bahnhofstraße 11
+lat: 49.44756
+lng: 11.08491
+website: "https://nachtkind.info"
+genres: House, Hip-Hop
+hours: "Do,Fr,Sa 23:00-05:00"
+checked: 2026-08
+source: "Betrieb belegt; Änderungen: Öffnungszeiten Do-Sa 23-05 ergänzt, Genres von 'Mixed, House' auf 'Mixed, Hip-Hop, House' präzisiert (urbaner Sound); Adresse und Koordinaten (nahe ZOB/Hbf) bestätigt"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://nachtkind.info"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

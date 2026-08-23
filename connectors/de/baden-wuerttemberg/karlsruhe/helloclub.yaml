@@ -1,0 +1,18 @@
+# Hello Club – Karlsruhe
+id: helloclub
+name: Hello Club
+city: Karlsruhe
+address: Hirschstraße 18
+lat: 49.0087
+lng: 8.3952
+website: "https://helloclub.de"
+genres: Hip-Hop, Black Music
+hours: "Do 23:00-03:00; Fr,Sa 23:00-05:00"
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://helloclub.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

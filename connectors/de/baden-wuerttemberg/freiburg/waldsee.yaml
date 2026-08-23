@@ -1,0 +1,18 @@
+# Waldsee – Freiburg
+id: waldsee
+name: Waldsee
+city: Freiburg
+address: Waldseestraße 84
+lat: 47.9843
+lng: 7.8776
+website: "https://www.waldsee-freiburg.de/"
+genres: House
+note: Restaurant mit Tanzsaal und regelmäßigen Partyreihen
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.waldsee-freiburg.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

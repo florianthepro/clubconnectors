@@ -1,0 +1,19 @@
+# Chaplin Club – Mannheim
+id: chaplinclub
+name: Chaplin Club
+city: Mannheim
+address: N7, 10
+lat: 49.4862
+lng: 8.4757
+website: "https://www.chaplin-club.de"
+genres: Hip-Hop, Black Music
+hours: "Do,Fr,Sa 23:00-05:00"
+note: Charlie-Chaplin-Themenclub nahe Wasserturm, 2 Floors
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.chaplin-club.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

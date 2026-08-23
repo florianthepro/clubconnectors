@@ -1,0 +1,19 @@
+# Zarap Zap Zap – Regensburg
+id: zarapzapzap
+name: Zarap Zap Zap
+city: Regensburg
+address: Augustinergasse 3
+lat: 49.01766
+lng: 12.09515
+website: "https://www.zarapzapzap.de"
+genres: 80er/90er
+hours: "Mi 22:00-00:00; Do,Fr 22:00-03:00; Sa 22:00-04:00"
+note: Kult-Disco in der Altstadt
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.zarapzapzap.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

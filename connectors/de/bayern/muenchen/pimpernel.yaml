@@ -1,0 +1,12 @@
+# Pimpernel – München
+id: pimpernel
+name: Pimpernel
+city: München
+address: Müllerstraße 56
+lat: 48.1305
+lng: 11.5718
+website: "https://pimpernel.de"
+genres: House, 80er/90er
+hours: "Mo,Di,Do,So 22:00-06:00; Mi,Fr,Sa 22:00-07:00"
+note: Afterhour Mi/Fr/Sa
+checked: 2026-08

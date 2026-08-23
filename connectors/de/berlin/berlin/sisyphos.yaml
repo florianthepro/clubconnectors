@@ -1,0 +1,19 @@
+# Sisyphos – Berlin
+id: sisyphos
+name: Sisyphos
+city: Berlin
+address: Hauptstraße 15
+lat: 52.493
+lng: 13.4912
+website: "https://sisyphos-berlin.net"
+genres: Techno, House
+note: Event-basiert, Marathon-Wochenenden Fr–Mo, keine festen Öffnungszeiten publiziert
+checked: 2026-08
+source: Koordinaten korrigiert (Google-Maps-Marker 52.4929519/13.4912401 statt 52.4903/13.4934)
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://sisyphos-berlin.net"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

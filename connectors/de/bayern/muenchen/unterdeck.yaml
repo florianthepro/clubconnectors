@@ -1,0 +1,18 @@
+# Unter Deck – München
+id: unterdeck
+name: Unter Deck
+city: München
+address: Oberanger 26
+lat: 48.1346
+lng: 11.5694
+website: "https://www.livegigs.de/venues/muenchen-unter-deck"
+genres: Indie, Rock
+hours: "Mi,Do 20:00-01:00; Fr,Sa 20:00-03:00"
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.livegigs.de/venues/muenchen-unter-deck"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

@@ -1,0 +1,19 @@
+# Roxy Kulturzentrum – Ulm
+id: roxykulturzentrum
+name: Roxy Kulturzentrum
+city: Ulm
+address: Schillerstraße 1/12
+lat: 48.3941
+lng: 9.98
+website: "https://www.roxy.ulm.de/"
+genres: Live
+note: Kulturzentrum in den Magirus-Hallen mit regelmäßigen Partyreihen
+checked: 2026-08
+source: "Koordinate unvollständig: lng nur auf 9.98 genau (≈ 1 km) – bitte nachmessen und zurück nach de/baden-wuerttemberg/ulm/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.roxy.ulm.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

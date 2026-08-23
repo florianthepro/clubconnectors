@@ -1,0 +1,18 @@
+# KitKatClub – Berlin
+id: kitkatclub
+name: KitKatClub
+city: Berlin
+address: Köpenicker Straße 76
+lat: 52.5121
+lng: 13.4166
+website: "https://www.kitkatclub.org"
+genres: Techno, House
+checked: 2026-08
+source: Fetisch-/Sexpositive-Club mit striktem Dresscode, Eingang Brückenstraße 1; Symbiotikka mittwochs, CarneBall Bizarre samstags
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.kitkatclub.org"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

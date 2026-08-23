@@ -1,0 +1,18 @@
+# Kater Blau – Berlin
+id: katerblau
+name: Kater Blau
+city: Berlin
+address: Holzmarktstraße 25
+lat: 52.5122
+lng: 13.4267
+website: "https://katerblau.de"
+genres: Techno, House
+checked: 2026-08
+source: Auf dem Holzmarkt-Areal an der Spree, Bezirksgrenze zu Mitte; Nachfolger von Bar25/KaterHolzig
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://katerblau.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

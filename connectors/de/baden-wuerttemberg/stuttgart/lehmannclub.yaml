@@ -1,0 +1,18 @@
+# Lehmann Club – Stuttgart
+id: lehmannclub
+name: Lehmann Club
+city: Stuttgart
+address: Breitscheidstraße 12
+lat: 48.7808
+lng: 9.1682
+website: "https://lehmannclub.de"
+genres: Techno, House
+note: Nachfolger des Club Prag, Techno-Institution
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://lehmannclub.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

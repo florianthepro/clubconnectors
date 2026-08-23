@@ -1,0 +1,18 @@
+# WON – World of Nightlife – Nürnberg
+id: wonworldofnightlife
+name: WON – World of Nightlife
+city: Nürnberg
+address: Regensburger Straße 334b
+lat: 49.4318
+lng: 11.12925
+website: "https://won-disco.de"
+genres: Electro, Hip-Hop
+note: Großraumdisco mit mehreren Areas im Nürnberger Osten
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://won-disco.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

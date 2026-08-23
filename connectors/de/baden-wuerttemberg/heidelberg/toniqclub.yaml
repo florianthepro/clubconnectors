@@ -1,0 +1,18 @@
+# TONIQ Club – Heidelberg
+id: toniqclub
+name: TONIQ Club
+city: Heidelberg
+address: Hauptstraße 1
+lat: 49.4098
+lng: 8.6939
+website: "https://www.toniq-club.de/"
+genres: 80er/90er, Latin
+note: Nachtclub am westlichen Altstadteingang, Öffnung je nach Event
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.toniq-club.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

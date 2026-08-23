@@ -1,0 +1,18 @@
+# Scala – Regensburg
+id: scala
+name: Scala
+city: Regensburg
+address: Gesandtenstraße 6
+lat: 49.01894
+lng: 12.09278
+website: "https://www.scalaclub.de"
+genres: House, Hip-Hop
+note: Altstadt-Institution, LGBTQ-freundlich; zusätzlich Tanz-Events (Salsa) im Haus
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.scalaclub.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

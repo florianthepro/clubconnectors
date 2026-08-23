@@ -1,0 +1,18 @@
+# Rockfabrik Augsburg – Augsburg
+id: rockfabrikaugsburg
+name: Rockfabrik Augsburg
+city: Augsburg
+address: Piccardstraße 6a
+lat: 48.34102
+lng: 10.89744
+website: "https://rockfabrik-augsburg.de"
+genres: Rock
+note: Rock-/Metal-Disco im Univiertel, im selben Gebäude wie die Tanzbar
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://rockfabrik-augsburg.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

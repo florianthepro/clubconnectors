@@ -1,0 +1,18 @@
+# Alte Kantine – Berlin
+id: altekantine
+name: Alte Kantine
+city: Berlin
+address: Knaackstraße 97
+lat: 52.5403
+lng: 13.4144
+website: "https://alte-kantine.eu"
+genres: 80er/90er
+checked: 2026-08
+source: Adresse korrigiert auf Knaackstraße 97 (offizielle Anschrift statt Schönhauser Allee 36), Koordinaten 52.540252/13.414413 laut Berlinstadtservice, Website ergänzt
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://alte-kantine.eu"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

@@ -1,0 +1,18 @@
+# Fat Cat – München
+id: fatcat
+name: Fat Cat
+city: München
+address: Rosenheimer Straße 5
+lat: 48.1309
+lng: 11.5908
+website: "https://fatcat-muc.de"
+genres: Electro
+note: Kulturzentrum im alten Gasteig
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://fatcat-muc.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

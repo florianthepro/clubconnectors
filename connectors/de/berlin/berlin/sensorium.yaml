@@ -1,0 +1,19 @@
+# Sensorium – Berlin
+id: sensorium
+name: Sensorium
+city: Berlin
+address: Warschauer Platz 18
+lat: 52.5053
+lng: 13.4487
+website: "https://www.instagram.com/sensorium.berlin/"
+genres: Techno, House
+note: Woechentlicher Techno Mittwoch, Kapazitaet ca. 400
+checked: 2026-08
+source: "Frueher AVA Club - Name und Adresse korrigiert: der Club liegt unter den S-Bahn-Boegen am Warschauer Platz 18 in Friedrichshain, NICHT am Holzmarkt"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.instagram.com/sensorium.berlin/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

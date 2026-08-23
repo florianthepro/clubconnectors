@@ -1,0 +1,19 @@
+# Berry's – Konstanz
+id: berrys
+name: Berry's
+city: Konstanz
+address: Reichenaustraße 204
+lat: 47.6729
+lng: 9.1631
+website: "https://berrys-konstanz.de"
+genres: Black Music
+hours: "Mo,Fr,Sa 22:00-05:00"
+note: Klassische Disco im Industriegebiet
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://berrys-konstanz.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

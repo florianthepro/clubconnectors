@@ -1,0 +1,18 @@
+# Kesselhaus – Augsburg
+id: kesselhaus
+name: Kesselhaus
+city: Augsburg
+address: Riedingerstraße 26i
+lat: 48.38594
+lng: 10.89121
+website: "https://www.kesselhaus.eu"
+genres: Techno, House
+note: Techno-/House-Club im alten Riedinger-Industrieareal; event-basiert
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.kesselhaus.eu"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

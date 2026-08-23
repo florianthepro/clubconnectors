@@ -1,0 +1,19 @@
+# Das Zimmer – Mannheim
+id: daszimmer
+name: Das Zimmer
+city: Mannheim
+address: Q5, 14-22
+lat: 49.4886
+lng: 8.4708
+website: "https://www.daszimmer.com"
+genres: Techno, House
+hours: "Do,Fr,Sa 23:00-05:00"
+note: Etablierter Elektronik-Club in den Quadraten mit Gast-DJs
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.daszimmer.com"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

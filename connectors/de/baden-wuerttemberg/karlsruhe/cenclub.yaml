@@ -1,0 +1,18 @@
+# CEN Club – Karlsruhe
+id: cenclub
+name: CEN Club
+city: Karlsruhe
+address: Waldstraße 32
+lat: 49.0105
+lng: 8.3975
+website: "https://cen-club.de"
+genres: Hip-Hop, Black Music
+note: Hip-Hop-Club am Europaplatz, primär samstags
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://cen-club.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

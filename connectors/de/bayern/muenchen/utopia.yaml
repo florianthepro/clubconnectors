@@ -1,0 +1,17 @@
+# Utopia – München
+id: utopia
+name: Utopia
+city: München
+address: Heßstraße 132
+lat: 48.1573
+lng: 11.5588
+website: "https://www.utopia-munich.com"
+genres: Electro
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.utopia-munich.com/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

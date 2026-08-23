@@ -1,0 +1,12 @@
+# Havana Club – München
+id: havana
+name: Havana Club
+city: München
+address: Herrnstraße 30
+lat: 48.137
+lng: 11.5825
+website: "https://www.havanaclub-bar.de"
+genres: Latin
+hours: "Mo-Do 19:00-01:00; Fr,Sa 19:00-03:00"
+note: Tanz vor allem Do–Sa
+checked: 2026-08

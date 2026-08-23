@@ -1,0 +1,19 @@
+# Tiffany – Mannheim
+id: tiffany
+name: Tiffany
+city: Mannheim
+address: O7, 25
+lat: 49.4849
+lng: 8.4749
+website: "https://tiffany-mannheim.de"
+genres: House, 80er/90er
+hours: "Sa 20:00-05:00"
+note: Club-Legende seit 1969
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://tiffany-mannheim.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

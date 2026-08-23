@@ -1,0 +1,18 @@
+# Frau Berger – Ulm
+id: frauberger
+name: Frau Berger
+city: Ulm
+address: Ehinger Straße 19
+lat: 48.3941
+lng: 9.9846
+website: "https://frauberger.de/"
+genres: House, Hip-Hop
+note: Kellerclub am Ehinger Tor, 2025 wiedereröffnet
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://frauberger.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

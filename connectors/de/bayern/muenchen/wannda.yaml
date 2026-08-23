@@ -1,0 +1,18 @@
+# Wannda Circus – München
+id: wannda
+name: Wannda Circus
+city: München
+address: Völckerstraße 5
+lat: 48.194
+lng: 11.608
+website: "https://wannda.de"
+genres: Electro, Live
+note: Saisonal Mai–September, Open Air
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://wannda.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

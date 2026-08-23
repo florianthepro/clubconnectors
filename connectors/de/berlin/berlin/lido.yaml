@@ -1,0 +1,18 @@
+# Lido – Berlin
+id: lido
+name: Lido
+city: Berlin
+address: Cuvrystraße 7
+lat: 52.4991
+lng: 13.4432
+website: "https://www.lido-berlin.de"
+genres: Indie, Rock, Live
+note: Ehemaliges Kino am Schlesischen Tor; Konzerte und Clubnaechte
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.lido-berlin.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

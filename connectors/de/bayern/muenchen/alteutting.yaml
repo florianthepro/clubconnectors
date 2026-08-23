@@ -1,0 +1,19 @@
+# Alte Utting – München
+id: alteutting
+name: Alte Utting
+city: München
+address: Lagerhausstraße 15
+lat: 48.1195
+lng: 11.5542
+website: "https://www.alte-utting.de"
+genres: Electro, Indie, Live
+hours: "Mo-Mi 16:00-00:00; Do 16:00-01:00; Fr 16:00-02:00; Sa 14:00-02:00; So 11:00-22:00"
+note: Schiff auf der Brücke, Konzerte & DJ-Abende
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.alte-utting.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

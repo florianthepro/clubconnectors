@@ -1,0 +1,18 @@
+# ://about blank – Berlin
+id: aboutblank
+name: "://about blank"
+city: Berlin
+address: Markgrafendamm 24c
+lat: 52.5006
+lng: 13.4692
+website: "https://aboutblank.li"
+genres: Techno, House
+note: Club mit Garten am Ostkreuz; langfristig durch A100-Ausbau bedroht
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://aboutblank.li"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

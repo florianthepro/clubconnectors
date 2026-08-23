@@ -1,0 +1,18 @@
+# Gotec Club – Karlsruhe
+id: gotecclub
+name: Gotec Club
+city: Karlsruhe
+address: Gablonzer Straße 11
+lat: 48.9989
+lng: 8.3655
+website: "https://gotec-club.com"
+genres: Techno, House, Drum and Bass
+note: Karlsruhes Techno-Institution mit mehreren Floors und Open-Air-Events
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://gotec-club.com"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

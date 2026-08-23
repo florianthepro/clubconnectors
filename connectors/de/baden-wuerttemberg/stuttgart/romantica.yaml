@@ -1,0 +1,18 @@
+# Romantica – Stuttgart
+id: romantica
+name: Romantica
+city: Stuttgart
+address: Hauptstätter Straße 40
+lat: 48.7712
+lng: 9.1745
+website: "https://romantica-stuttgart.com"
+genres: Techno, House
+note: Elektronischer Club mit 'Bunte Hund'-Sonntagen
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://romantica-stuttgart.com"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

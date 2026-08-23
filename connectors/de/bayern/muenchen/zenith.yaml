@@ -1,0 +1,18 @@
+# Zenith / Kesselhaus – München
+id: zenith
+name: Zenith / Kesselhaus
+city: München
+address: Lilienthalallee 29
+lat: 48.1953
+lng: 11.601
+website: "https://zenith-muenchen.de"
+genres: Techno, Live
+note: Große Raves & Konzerte, auch Kohlebunker
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://zenith-muenchen.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

@@ -1,0 +1,18 @@
+# halle02 – Heidelberg
+id: halle02
+name: halle02
+city: Heidelberg
+address: Zollhofgarten 2
+lat: 49.4043
+lng: 8.6754
+website: "https://www.halle02.de/"
+genres: Techno, House, Drum and Bass
+note: eine der wichtigsten Elektro-Locations Süddeutschlands, am Hauptbahnhof
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.halle02.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

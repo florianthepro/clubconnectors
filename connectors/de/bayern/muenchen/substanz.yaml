@@ -1,0 +1,19 @@
+# Substanz – München
+id: substanz
+name: Substanz
+city: München
+address: Ruppertstraße 28
+lat: 48.125
+lng: 11.5551
+website: "https://substanz-club.de"
+genres: Indie, Rock
+hours: "Di,Mi 18:30-23:00; Do 18:30-01:00; Fr,Sa 18:30-03:00"
+note: So/Mo geschlossen
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://substanz-club.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

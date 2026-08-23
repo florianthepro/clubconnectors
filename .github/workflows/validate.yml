@@ -1,0 +1,38 @@
+name: Connectoren prüfen
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: mbstring, iconv
+          coverage: none
+
+      # Greift der Prüfer überhaupt noch bei jeder Regel?
+      - name: Prüfer selbst prüfen
+        run: php tools/selftest.php
+
+      # Fehler blockieren den Pull Request, Hinweise landen in der Zusammenfassung.
+      - name: Standard prüfen
+        run: php tools/validate.php --quiet
+
+      - name: Hinweise sammeln
+        if: always()
+        run: |
+          {
+            echo '## Connector-Prüfung'
+            echo
+            echo '```'
+            php tools/validate.php || true
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"

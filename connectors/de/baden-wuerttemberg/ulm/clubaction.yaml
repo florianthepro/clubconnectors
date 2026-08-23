@@ -1,0 +1,18 @@
+# Club Action – Ulm
+id: clubaction
+name: Club Action
+city: Ulm
+address: Beim Alten Fritz 3
+lat: 48.4106
+lng: 9.9997
+website: "https://www.instagram.com/clubaction_ulm/"
+genres: 80er/90er
+note: klassische Diskothek am Stadtrand
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.instagram.com/clubaction_ulm/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

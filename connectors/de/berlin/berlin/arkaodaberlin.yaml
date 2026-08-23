@@ -1,0 +1,18 @@
+# Arkaoda Berlin – Berlin
+id: arkaodaberlin
+name: Arkaoda Berlin
+city: Berlin
+address: Karl-Marx-Platz 16-18
+lat: 52.4738
+lng: 13.4427
+website: "https://berlin.arkaoda.com"
+genres: House, Indie
+checked: 2026-08
+source: "Genres um Indie ergaenzt (Post-Punk, Krautrock, Dub, Ambient, Disco, Elektronik); Club-Floor im Kellergeschoss unter Bar/Restaurant; Korrigiert: Adresse auf offizielle Schreibweise Karl-Marx-Platz 16-18 und Koordinaten auf belegte 52.4738267/13.4426702"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://berlin.arkaoda.com"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

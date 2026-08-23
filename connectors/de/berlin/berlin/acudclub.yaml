@@ -1,0 +1,18 @@
+# ACUD Club – Berlin
+id: acudclub
+name: ACUD Club
+city: Berlin
+address: Veteranenstraße 21
+lat: 52.5327
+lng: 13.4012
+website: "https://acudmachtneu.de"
+genres: Techno, House
+note: Clubetage im Kulturhaus ACUD MACHT NEU (Theater, Kino, Club, Studio, Galerie)
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://acudmachtneu.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

@@ -1,0 +1,18 @@
+# Maxxim Club – Berlin
+id: maxximclub
+name: Maxxim Club
+city: Berlin
+address: Joachimsthaler Straße 15
+lat: 52.5029
+lng: 13.3313
+website: "https://www.maxxim-berlin.de"
+genres: House, Hip-Hop, Black Music
+checked: 2026-08
+source: Koordinaten präzisiert (52.502932/13.331271); Täglicher Betrieb belegt, konkrete Uhrzeiten nicht sauber belegt – hours daher leer
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.maxxim-berlin.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

@@ -1,0 +1,19 @@
+# Park Café – München
+id: parkcafe
+name: Park Café
+city: München
+address: Sophienstraße 7
+lat: 48.1437
+lng: 11.5641
+website: "https://www.parkcafe089.de"
+genres: House
+hours: "Fr,Sa 23:00-04:00"
+note: Restaurant & Biergarten täglich
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.parkcafe089.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

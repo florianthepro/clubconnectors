@@ -1,0 +1,19 @@
+# Goldmark's – Stuttgart
+id: goldmarks
+name: Goldmark's
+city: Stuttgart
+address: Charlottenplatz 1
+lat: 48.7742
+lng: 9.184
+website: "https://www.goldmarks.de"
+genres: Rock, Live
+hours: "Fr,Sa 20:00-04:00"
+note: Bar/Konzertlocation mit Punkrock-Partys, auch Open-Air-Bereich
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.goldmarks.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

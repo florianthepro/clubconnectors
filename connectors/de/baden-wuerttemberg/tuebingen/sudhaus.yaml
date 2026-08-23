@@ -1,0 +1,18 @@
+# Sudhaus – Tübingen
+id: sudhaus
+name: Sudhaus
+city: Tübingen
+address: Hechinger Straße 203
+lat: 48.5039
+lng: 9.0483
+website: "https://www.sudhaus-tuebingen.de"
+genres: Indie, Live
+note: Soziokulturelles Zentrum (3000 qm) mit Konzerten und Partys
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.sudhaus-tuebingen.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

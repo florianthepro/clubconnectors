@@ -1,0 +1,18 @@
+# Grand Slam (Alte Mälzerei) – Regensburg
+id: grandslamaltemaelzerei
+name: Grand Slam (Alte Mälzerei)
+city: Regensburg
+address: Galgenbergstraße 20
+lat: 49.0071
+lng: 12.0996
+website: "https://www.alte-maelzerei.de"
+genres: Indie, Rock, Live
+note: Club im Kulturzentrum Alte Mälzerei; Partys und Konzerte event-basiert
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.alte-maelzerei.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

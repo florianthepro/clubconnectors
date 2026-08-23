@@ -1,0 +1,19 @@
+# Panke Culture – Berlin
+id: pankeculture
+name: Panke Culture
+city: Berlin
+address: Gerichtstraße 23, Hof 5
+lat: 52.5437
+lng: 13.3676
+website: "https://www.pankeculture.com"
+genres: Hip-Hop, Live
+note: Musikspektrum Hip-Hop, Bass, Global Beats, Reggae, Dub
+checked: 2026-08
+source: "Korrigiert: Adresszusatz 'Hof 5' ergaenzt, Koordinaten von 52.5418/13.3687 an die belegte Lage der Gerichtshoefe direkt am Nettelbeckplatz (ca. 100 m) angepasst"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.pankeculture.com"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

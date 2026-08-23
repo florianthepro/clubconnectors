@@ -1,0 +1,19 @@
+# Kesselhaus in der Kulturbrauerei – Berlin
+id: kesselhausinderkulturbrauerei
+name: Kesselhaus in der Kulturbrauerei
+city: Berlin
+address: Schönhauser Allee 36
+lat: 52.5394
+lng: 13.4137
+website: "https://www.kesselhaus.net"
+genres: Live, 80er/90er
+note: Primär Konzerthalle, aber mit wiederkehrenden großen Partyreihen
+checked: 2026-08
+source: Koordinaten auf Google-Maps-Marker 52.5393856/13.4137106 korrigiert, Website ergänzt
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.kesselhaus.net"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

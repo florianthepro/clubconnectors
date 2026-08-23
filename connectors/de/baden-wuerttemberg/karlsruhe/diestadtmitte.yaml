@@ -1,0 +1,18 @@
+# Die Stadtmitte – Karlsruhe
+id: diestadtmitte
+name: Die Stadtmitte
+city: Karlsruhe
+address: Baumeisterstraße 3
+lat: 49.0043
+lng: 8.4062
+website: "https://die-stadtmitte.de"
+genres: House, Rock, 80er/90er
+note: Club über 3 Floors mit Bühne und Außenbereich
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://die-stadtmitte.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

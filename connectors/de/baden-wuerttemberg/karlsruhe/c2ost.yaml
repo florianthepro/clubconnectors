@@ -1,0 +1,18 @@
+# C2 OST – Karlsruhe
+id: c2ost
+name: C2 OST
+city: Karlsruhe
+address: Essenweinstraße 9
+lat: 49.0075
+lng: 8.427
+website: "https://c2-ost.club"
+genres: Techno, House
+note: Ex-Culteum (seit 1995), neues Konzept mit Funktion-One-Soundsystem
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://c2-ost.club"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

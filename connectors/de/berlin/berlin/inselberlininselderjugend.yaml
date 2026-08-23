@@ -1,0 +1,19 @@
+# Insel Berlin (Insel der Jugend) – Berlin
+id: inselberlininselderjugend
+name: Insel Berlin (Insel der Jugend)
+city: Berlin
+address: Alt-Treptow 6
+lat: 52.4872
+lng: 13.4806
+website: "https://www.inselberlin.de"
+genres: Drum and Bass, Live
+note: Betreiber kulturALARM e.V., Konzerte plus Partys, eventbasiert
+checked: 2026-08
+source: "Korrigiert: Koordinaten von 52.4876/13.4749 auf belegte Inselposition 52.4872/13.4806 (Insel der Jugend, erreichbar ueber die Abteibruecke)"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.inselberlin.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

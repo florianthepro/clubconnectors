@@ -1,0 +1,18 @@
+# Schankstelle – Stuttgart
+id: schankstelle
+name: Schankstelle
+city: Stuttgart
+address: Jägerstraße 19
+lat: 48.784
+lng: 9.1745
+website: "https://schankstelle.de"
+genres: House
+note: Bar-Club in einer umgebauten Tankstelle
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://schankstelle.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

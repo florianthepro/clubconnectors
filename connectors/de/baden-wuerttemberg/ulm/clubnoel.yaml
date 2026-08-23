@@ -1,0 +1,18 @@
+# Club Noel – Ulm
+id: clubnoel
+name: Club Noel
+city: Ulm
+address: Lautenberg 1
+lat: 48.3966
+lng: 9.9922
+website: "https://clubnoelulm.de/"
+genres: Hip-Hop
+checked: 2026-08
+source: ehemals Myers/M-Club, u.a. Oldschool- und Ü30-Partys
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://clubnoelulm.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

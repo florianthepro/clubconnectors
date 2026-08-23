@@ -1,0 +1,18 @@
+# Spectrum Club – Augsburg
+id: spectrumclub
+name: Spectrum Club
+city: Augsburg
+address: Ulmer Straße 234a
+lat: 48.38025
+lng: 10.85009
+website: "https://spectrum-club.de"
+genres: Rock
+note: Traditionsdisco in Oberhausen; Betriebsstatus unsicher, bitte gesondert prüfen
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://spectrum-club.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

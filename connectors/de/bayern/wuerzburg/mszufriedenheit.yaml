@@ -1,0 +1,19 @@
+# MS Zufriedenheit – Würzburg
+id: mszufriedenheit
+name: MS Zufriedenheit
+city: Würzburg
+address: Oskar-Laredo-Platz 1
+lat: 49.8014
+lng: 9.9225
+website: "https://www.neueliebealterhafen.de"
+genres: Live
+hours: "Fr,Sa 23:00-05:00"
+checked: 2026-08
+source: "Änderungen: Adresse präzisiert (statt 'Alter Hafen (Willy-Brandt-Kai)' nun Oskar-Laredo-Platz 1, 97080 Würzburg), Koordinaten auf den per Websuche belegten Punkt des Oskar-Laredo-Platzes (49.8013639/9.9225039) gesetzt, Website ergänzt, Öffnungszeiten ergänzt, Genre 'Indie' mangels Beleg entfernt"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.neueliebealterhafen.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

@@ -1,0 +1,18 @@
+# Kulturhaus Caserne – Friedrichshafen
+id: kulturhauscaserne
+name: Kulturhaus Caserne
+city: Friedrichshafen
+address: Fallenbrunnen 17
+lat: 47.6648
+lng: 9.4453
+website: "https://www.kulturhaus-caserne.de"
+genres: Live, 80er/90er
+checked: 2026-08
+source: Kulturhaus mit Konzerten, Kino und regelmaessigen Disco-/Partyabenden; Oeffnungszeiten eventbasiert, daher leer; Koordinaten korrigiert (vorher 47.6621/9.4587 lag ausserhalb des Fallenbrunnen-Areals)
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.kulturhaus-caserne.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

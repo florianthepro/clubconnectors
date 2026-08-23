@@ -1,0 +1,18 @@
+# Perkins Park – Stuttgart
+id: perkinspark
+name: Perkins Park
+city: Stuttgart
+address: Stresemannstraße 39
+lat: 48.8046
+lng: 9.1699
+website: "https://www.perkinspark.de"
+genres: House, 80er/90er
+note: Kult-Club am Killesberg mit großem Außenbereich
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.perkinspark.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

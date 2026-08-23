@@ -1,0 +1,18 @@
+# Cocomo Club – Ulm
+id: cocomoclub
+name: Cocomo Club
+city: Ulm
+address: Hirschstraße 12
+lat: 48.3989
+lng: 9.9898
+website: "https://cocomo.one/ulm/"
+genres: Techno, 80er/90er, Latin
+note: Club im Herzen von Ulm, in den Räumen des früheren Theatro
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://cocomo.one/ulm/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

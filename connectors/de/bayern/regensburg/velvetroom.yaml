@@ -1,0 +1,19 @@
+# Velvet Room – Regensburg
+id: velvetroom
+name: Velvet Room
+city: Regensburg
+address: Sankt-Peters-Weg 15
+lat: 49.01531
+lng: 12.09654
+website: "https://www.velvet-regensburg.de"
+genres: Mixed
+hours: "Do 23:00-03:00; Fr,Sa 23:00-05:00"
+note: Neuerer Club im Nachtleben-Komplex am Sankt-Peters-Weg
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.velvet-regensburg.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

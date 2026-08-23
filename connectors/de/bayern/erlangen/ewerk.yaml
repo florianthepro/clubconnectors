@@ -1,0 +1,19 @@
+# E-Werk – Erlangen
+id: ewerk
+name: E-Werk
+city: Erlangen
+address: Fuchsenwiese 1
+lat: 49.5941
+lng: 10.9999
+website: "https://www.e-werk.de"
+genres: Techno, Live, 80er/90er
+note: Kulturzentrum mit Saal, Clubbühne und Garten
+checked: 2026-08
+source: "Änderung nur bei den Genres: 'Indie' durch das belegte '80er/90er' ersetzt (dokumentierte 80er-/90er-/EDM-/Techno-Partys); Programm eventbasiert -> hours leer"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.e-werk.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

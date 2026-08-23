@@ -1,0 +1,18 @@
+# Einstein Kultur – München
+id: einstein
+name: Einstein Kultur
+city: München
+address: Einsteinstraße 42
+lat: 48.1352
+lng: 11.601
+website: "https://www.einstein-kultur.de"
+genres: Techno, Goa
+note: Party- und Goa-Nächte in den Gewölbekellern, meist Fr/Sa
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.einstein-kultur.de/programm"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

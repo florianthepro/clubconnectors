@@ -1,0 +1,19 @@
+# SODA Club – Berlin
+id: sodaclub
+name: SODA Club
+city: Berlin
+address: Schönhauser Allee 36
+lat: 52.5394
+lng: 13.4143
+website: "https://www.soda-berlin.de"
+genres: House, Hip-Hop, Black Music
+note: Kulturbrauerei-Gelände, Prenzlauer Berg
+checked: 2026-08
+source: Koordinaten präzisiert (52.539406/13.4143311), Genres an tatsächliches Musikprofil angepasst, belegte Öffnungszeiten ergänzt
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.soda-berlin.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

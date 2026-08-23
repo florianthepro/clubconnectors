@@ -1,0 +1,13 @@
+# Charlie – München
+id: charlie
+name: Charlie
+city: München
+address: Schyrenstraße 8
+lat: 48.1205
+lng: 11.571
+website: "https://www.charl.ie"
+genres: House, 80er/90er
+hours: "Sa 23:00-05:00"
+note: Sommerpause, Reopening 10.10.2026
+pause: 2026-10-10
+checked: 2026-08

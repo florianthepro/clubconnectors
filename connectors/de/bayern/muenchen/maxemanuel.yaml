@@ -1,0 +1,18 @@
+# Max-Emanuel-Brauerei – München
+id: maxemanuel
+name: Max-Emanuel-Brauerei
+city: München
+address: Adalbertstraße 33
+lat: 48.1522
+lng: 11.576
+website: "https://www.max-emanuel-brauerei.de"
+genres: Latin
+note: Tanzabende im Ballsaal
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.max-emanuel-brauerei.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

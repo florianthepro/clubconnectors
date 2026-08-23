@@ -1,0 +1,18 @@
+# klub_k (Karlstorbahnhof) – Heidelberg
+id: klubkkarlstorbahnhof
+name: klub_k (Karlstorbahnhof)
+city: Heidelberg
+address: Marlene-Dietrich-Platz 3
+lat: 49.3886
+lng: 8.6904
+website: "https://www.karlstorbahnhof.de/"
+genres: Techno, Hip-Hop, Live
+note: Clubfloor des Kulturzentrums Karlstorbahnhof, seit 2022 in der Südstadt
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.karlstorbahnhof.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

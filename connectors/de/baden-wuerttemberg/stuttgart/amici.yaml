@@ -1,0 +1,18 @@
+# Amici – Stuttgart
+id: amici
+name: Amici
+city: Stuttgart
+address: Lautenschlagerstraße 2
+lat: 48.781
+lng: 9.1795
+website: "https://www.wilhelmer-gastronomie.de/amici"
+genres: House, Latin
+note: Restaurant-Bar-Club im Zeppelin Carré, seit 1999
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.wilhelmer-gastronomie.de/amici"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

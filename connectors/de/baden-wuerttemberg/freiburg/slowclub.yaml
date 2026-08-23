@@ -1,0 +1,18 @@
+# Slow Club – Freiburg
+id: slowclub
+name: Slow Club
+city: Freiburg
+address: Haslacher Straße 25
+lat: 47.9899
+lng: 7.8322
+website: "https://www.slowclub-freiburg.de/"
+genres: Indie, Rock, Live
+note: Mischung aus Konzertort, Off-Theater und Club
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.slowclub-freiburg.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

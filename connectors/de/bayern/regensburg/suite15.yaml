@@ -1,0 +1,19 @@
+# Suite15 – Regensburg
+id: suite15
+name: Suite15
+city: Regensburg
+address: Sankt-Peters-Weg 15
+lat: 49.01572
+lng: 12.09662
+website: "https://www.suite15.de"
+genres: House, Hip-Hop
+hours: "Di,Do 23:00-03:00; Fr,Sa 23:00-04:00"
+note: Club am Sankt-Peters-Weg; im Gebäude weitere Club-Flächen
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.suite15.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

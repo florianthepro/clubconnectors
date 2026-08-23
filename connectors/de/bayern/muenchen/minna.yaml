@@ -1,0 +1,18 @@
+# Minna Thiel – München
+id: minna
+name: Minna Thiel
+city: München
+address: Bernd-Eichinger-Platz 1
+lat: 48.1468
+lng: 11.5666
+website: "https://minnathiel.de"
+genres: Indie
+note: Saisonbetrieb Frühjahr–Herbst
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://minnathiel.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

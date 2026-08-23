@@ -1,0 +1,18 @@
+# Golden Gate – Berlin
+id: goldengate
+name: Golden Gate
+city: Berlin
+address: Schicklerstraße 4
+lat: 52.5151
+lng: 13.4172
+website: "https://goldengate-berlin.de"
+genres: Techno, House
+checked: 2026-08
+source: Techno-Club im Brueckenpfeiler der Stadtbahn nahe Jannowitzbruecke (Adresse auch als Dircksenstraße 77 gefuehrt); Partys laufen Do bis Mo teils durchgehend, daher keine festen Oeffnungszeiten; Koordinaten korrigiert - Original lag faelschlich oestlich der Bruecke
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://goldengate-berlin.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

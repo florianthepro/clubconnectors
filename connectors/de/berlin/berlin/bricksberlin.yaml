@@ -1,0 +1,19 @@
+# Bricks Berlin – Berlin
+id: bricksberlin
+name: Bricks Berlin
+city: Berlin
+address: Mohrenstraße 30
+lat: 52.5124
+lng: 13.3929
+website: "https://www.bricks-berlin.club"
+genres: Hip-Hop, Black Music
+note: Hip-Hop-Club auf ca. 970 qm im Untergeschoss des Hilton am Gendarmenmarkt, drei Floors
+checked: 2026-08
+source: offizielle Website ergaenzt, Koordinaten leicht praezisiert
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.bricks-berlin.club"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

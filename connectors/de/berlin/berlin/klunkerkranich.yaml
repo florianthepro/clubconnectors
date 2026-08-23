@@ -1,0 +1,18 @@
+# Klunkerkranich – Berlin
+id: klunkerkranich
+name: Klunkerkranich
+city: Berlin
+address: Karl-Marx-Straße 66
+lat: 52.4813
+lng: 13.4347
+website: "https://klunkerkranich.org"
+genres: Live
+checked: 2026-08
+source: "Rooftop-Kulturgarten mit taeglichem DJ-Programm und Tanzflaeche, kein klassischer Nachtclub; Korrigiert: hours ergaenzt (belegt via klunkerkranich.org/offen.net/oeffnungszeitenbuch)"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://klunkerkranich.org"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

@@ -1,0 +1,19 @@
+# ELPI – Freiburg
+id: elpi
+name: ELPI
+city: Freiburg
+address: Schiffstraße 16
+lat: 47.9961
+lng: 7.8512
+website: "https://www.elpi-freiburg.de/"
+genres: Indie, Rock
+hours: "Do 23:00-04:00; Fr,Sa 23:00-05:00"
+note: ältester Club Freiburgs
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.elpi-freiburg.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

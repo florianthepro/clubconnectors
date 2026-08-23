@@ -1,0 +1,18 @@
+# Duncker Club – Berlin
+id: dunckerclub
+name: Duncker Club
+city: Berlin
+address: Dunckerstraße 64
+lat: 52.5464
+lng: 13.4239
+website: "https://www.dunckerclub.de"
+genres: Indie, Rock, 80er/90er
+checked: 2026-08
+source: Koordinaten korrigiert (Apple-Maps 52.5464152/13.4238724 statt 52.5472/13.4266); Veranstaltungsbeginn 21 Uhr belegt, Schließzeit nicht publiziert – hours daher leer
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.dunckerclub.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

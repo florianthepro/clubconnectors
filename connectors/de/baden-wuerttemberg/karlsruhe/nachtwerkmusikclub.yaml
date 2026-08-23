@@ -1,0 +1,18 @@
+# Nachtwerk Musikclub – Karlsruhe
+id: nachtwerkmusikclub
+name: Nachtwerk Musikclub
+city: Karlsruhe
+address: Pfannkuchstraße 16
+lat: 49.0003
+lng: 8.369
+website: "https://www.nachtwerk-musikclub.de"
+genres: Rock, 80er/90er
+note: Musikclub im Gewölbekeller in Grünwinkel, eventbasiert
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.nachtwerk-musikclub.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

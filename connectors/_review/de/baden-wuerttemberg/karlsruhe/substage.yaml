@@ -1,0 +1,19 @@
+# Substage – Karlsruhe
+id: substage
+name: Substage
+city: Karlsruhe
+address: Alter Schlachthof 19
+lat: 49.0062
+lng: 8.43
+website: "https://substage.de"
+genres: Rock, Live, 80er/90er
+note: "Musikclub im Alten Schlachthof: Konzerte plus regelmäßige Partys"
+checked: 2026-08
+source: "Koordinate unvollständig: lng nur auf 8.43 genau (≈ 1 km). Anschrift Alter Schlachthof – bitte nachmessen und zurück nach de/baden-wuerttemberg/karlsruhe/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://substage.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

@@ -1,0 +1,19 @@
+# Festsaal Kreuzberg – Berlin
+id: festsaalkreuzberg
+name: Festsaal Kreuzberg
+city: Berlin
+address: Am Flutgraben 2
+lat: 52.4966
+lng: 13.4518
+website: "https://festsaal-kreuzberg.de"
+genres: Indie, Live
+note: Live-Venue mit regelmaessigen Club-/Partynaechten, hours bewusst leer (eventbasiert)
+checked: 2026-08
+source: "Korrigiert: Koordinaten von 52.4961/13.4522 auf belegte 52.4966371/13.4518179. Trotz Namens in Alt-Treptow"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://festsaal-kreuzberg.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

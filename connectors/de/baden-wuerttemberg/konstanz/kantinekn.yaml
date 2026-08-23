@@ -1,0 +1,18 @@
+# Kantine KN – Konstanz
+id: kantinekn
+name: Kantine KN
+city: Konstanz
+address: Oberlohnstraße 3
+lat: 47.6721
+lng: 9.1577
+website: "https://kantine-kn.de"
+genres: Techno, House, Hip-Hop
+note: Mittagstisch unter der Woche, Klub am Wochenende
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://kantine-kn.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

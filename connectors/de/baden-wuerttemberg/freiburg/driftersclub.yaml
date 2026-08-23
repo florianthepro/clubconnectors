@@ -1,0 +1,18 @@
+# Drifter's Club – Freiburg
+id: driftersclub
+name: Drifter's Club
+city: Freiburg
+address: Schnewlinstraße 7-9
+lat: 47.9951
+lng: 7.8392
+website: "https://www.instagram.com/driftersclubfreiburg/"
+genres: Techno, House, Electro
+note: Elektro-Club nahe Hauptbahnhof
+checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.instagram.com/driftersclubfreiburg/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

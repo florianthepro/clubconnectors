@@ -1,0 +1,19 @@
+# Colos-Saal – Aschaffenburg
+id: colossaal
+name: Colos-Saal
+city: Aschaffenburg
+address: Roßmarkt 19
+lat: 49.9764
+lng: 9.1465
+website: "https://www.colos-saal.de"
+genres: Rock, Live
+note: Schwerpunkt Live-Konzerte mit regelmäßigen Partys
+checked: 2026-08
+source: Betrieb 2026 klar belegt, Angaben der Vorlage stimmen; Programm eventbasiert -> hours leer (die genannten Zeiten sind reine Bürozeiten)
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.colos-saal.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto
