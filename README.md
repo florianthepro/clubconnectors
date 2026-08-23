@@ -45,27 +45,32 @@ verschiebt die Datei zurück und der Club ist wieder auf der Karte.
 
 ## Aufspielen
 
-Der Repo-Inhalt **ist** das fertige Web-Root. `index.php` liegt neben
-`connectors/` und findet die Clubs von selbst.
+**Der Repo-Inhalt ist die fertige Seite.** `index.php` liegt neben
+`connectors/` und findet die Clubs von selbst – kein Einrichten, kein Sync.
 
-- **Nur `index.php` kopieren.** Du legst die eine Datei auf deinen Webspace.
-  Beim ersten Aufruf steht die Karte da, aber noch leer; einmal
-  `?sync=1&key=<schlüssel>` aufrufen (siehe unten) holt die Clubs aus genau
-  diesem Repo nach. Danach nur diese eine Datei aktualisieren.
-- **Oder alles kopieren.** Repo als ZIP herunterladen oder klonen und den
-  Inhalt ins Web-Root legen – dann sind die Clubs sofort da, ohne Sync.
-  Aktuell halten mit `git pull`.
+1. Repo herunterladen: oben **Code → Download ZIP** (oder `git clone`).
+2. Entpacken, den **Inhalt** ins Web-Root deines Webspace legen
+   (`index.php` und `connectors/` müssen nebeneinander liegen).
+3. Seite aufrufen – die Karte ist sofort da.
 
-### Clubs ohne Upload nachziehen
+Das ist der einzige Weg, der überall funktioniert, auch auf kostenlosen
+Hostern. Aktualisieren: neue Version wieder herunterladen und hochladen
+(oder `git pull`).
 
-```
-/?sync=1&key=<admin-schlüssel>
-```
+> **„Bald" auf der Seite?** Dann liegt die `index.php` ohne `connectors/`
+> daneben. `?diag=1` aufrufen: steht dort `connectoren: 0 Clubs`, fehlt der
+> Ordner – einfach `connectors/` aus diesem Repo mit hochladen. Der Ordner
+> muss klein geschrieben `connectors` heißen und direkt neben der
+> `index.php` liegen.
 
-holt den aktuellen Stand direkt aus diesem Repo und tauscht die Clubdaten in
-einem Zug aus. Voraussetzung: eine Datei `data/admin.key` mit einem geheimen
-Schlüssel (eine Zeile) und die PHP-Erweiterung `zip`. So bleibt die eine
-`index.php` auf dem Server immer aktuell, ohne dass du etwas hochlädst.
+### Optional: Clubs per Knopfdruck aktualisieren (`?sync`)
+
+Wenn dein Hoster **ausgehende Verbindungen erlaubt** (viele kostenlose tun
+das nicht), kann die Seite die Clubs selbst aus diesem Repo nachziehen:
+`data/admin.key` mit einem geheimen Schlüssel anlegen, dann
+`/?sync=1&key=<schlüssel>` aufrufen. Braucht die PHP-Erweiterung `zip`.
+Klemmt der Sync (`?diag=1` zeigt `outbound-test … FEHLER`), bleibt es beim
+Hochladen von oben – das geht immer.
 
 ## Warum App und Daten zusammen
 
