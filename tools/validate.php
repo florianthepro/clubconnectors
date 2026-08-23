@@ -197,13 +197,15 @@ function yaml_files(string $dir): array
         return [];
     }
     $out = [];
+    $skip = strlen(str_replace('\\', '/', (string)(realpath($dir) ?: $dir)));
     $it = new RecursiveIteratorIterator(
         new RecursiveDirectoryIterator($dir, FilesystemIterator::SKIP_DOTS),
         RecursiveIteratorIterator::SELF_FIRST
     );
     foreach ($it as $f) {
         $path = str_replace('\\', '/', $f->getPathname());
-        if (strpos($path, '/_') !== false) {
+        // nur unterhalb der Wurzel schauen – ein "_" im Pfad davor zählt nicht
+        if (strpos(substr($path, $skip), '/_') !== false) {
             continue; // Entwurfsordner
         }
         if ($f->isFile() && strtolower($f->getExtension()) === 'yaml') {

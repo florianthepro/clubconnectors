@@ -36,7 +36,15 @@ connectors/<land>/<bundesland>/<stadt>/<id>.yaml
 | `<stadt>` | Slug des Ortes, aus `city` gebildet (Abschnitt 3) | `muenchen` |
 | `<id>.yaml` | Dateiname **ist** das Feld `id`, Endung immer `.yaml` | `rotesonne.yaml` |
 
-Ordner mit einem führenden `_` werden ignoriert (Platz für Entwürfe).
+Ordner mit einem führenden `_` überspringen Validator **und** Karte. Dort
+liegt, was noch nicht ausgeliefert werden soll:
+
+```
+connectors/_review/de/bayern/muenchen/xy.yaml    <- Klärfall, nicht auf der Karte
+```
+
+Warum ein Eintrag dort liegt, gehört in sein `source`-Feld. Ist die Sache
+geklärt, wandert die Datei zurück an ihren regulären Platz.
 
 ## 3. Slug-Regeln
 
