@@ -51,17 +51,25 @@ const DAYS = ['Mo' => 1, 'Di' => 2, 'Mi' => 3, 'Do' => 4, 'Fr' => 5, 'Sa' => 6, 
 /* ---------- Werkzeuge ---------- */
 
 /** Abschnitt 3: Slug-Bildung. Genau diese Schritte, in dieser Reihenfolge. */
+const ACCENTS = [
+    'à' => 'a', 'á' => 'a', 'â' => 'a', 'ã' => 'a', 'å' => 'a', 'ā' => 'a', 'ă' => 'a', 'ą' => 'a',
+    'ç' => 'c', 'ć' => 'c', 'č' => 'c', 'ĉ' => 'c',
+    'è' => 'e', 'é' => 'e', 'ê' => 'e', 'ë' => 'e', 'ē' => 'e', 'ė' => 'e', 'ę' => 'e', 'ě' => 'e',
+    'ì' => 'i', 'í' => 'i', 'î' => 'i', 'ï' => 'i', 'ī' => 'i', 'į' => 'i',
+    'ñ' => 'n', 'ń' => 'n',
+    'ò' => 'o', 'ó' => 'o', 'ô' => 'o', 'õ' => 'o', 'ø' => 'o', 'ō' => 'o', 'ő' => 'o',
+    'ù' => 'u', 'ú' => 'u', 'û' => 'u', 'ū' => 'u', 'ů' => 'u', 'ű' => 'u',
+    'ý' => 'y', 'ÿ' => 'y',
+    'ś' => 's', 'š' => 's', 'ż' => 'z', 'ź' => 'z', 'ž' => 'z', 'ł' => 'l', 'đ' => 'd', 'ð' => 'd', 'þ' => 'th',
+];
+
+/** Abschnitt 3: Slug-Bildung. Genau diese Schritte, in dieser Reihenfolge. */
 function slug(string $s): string
 {
     $s = mb_strtolower($s, 'UTF-8');
-    $s = strtr($s, ['ä' => 'ae', 'ö' => 'oe', 'ü' => 'ue', 'ß' => 'ss']);
-    if (function_exists('iconv')) {
-        $t = @iconv('UTF-8', 'ASCII//TRANSLIT', $s);
-        if ($t !== false) {
-            $s = strtolower($t);
-        }
-    }
-    return (string)preg_replace('/[^a-z0-9]/', '', $s);
+    $s = strtr($s, ['ä' => 'ae', 'ö' => 'oe', 'ü' => 'ue', 'ß' => 'ss']); // Schritt 2
+    $s = strtr($s, ACCENTS);                                              // Schritt 3, ohne iconv
+    return (string)preg_replace('/[^a-z0-9]/', '', $s);                   // Schritt 4
 }
 
 /** Ortsname vor dem Slug: Klammerzusätze weg. */
@@ -70,11 +78,34 @@ function city_slug(string $s): string
     return slug(trim((string)preg_replace('/\s*\(.*?\)/', '', $s)));
 }
 
-/** Flaches YAML lesen – exakt wie der Leser in index.php. */
+/*
+ * Einen YAML-Wert entpacken – exakt wie flat_value() in index.php.
+ * Erst die Anführungszeichen, dann fällt ein nachgestellter Kommentar weg;
+ * ein '#' innerhalb der Anführungszeichen bleibt Teil des Werts.
+ */
+function flat_value(string $v): string
+{
+    $v = trim($v);
+    if ($v !== '' && ($v[0] === '"' || $v[0] === "'")) {
+        $q = $v[0];
+        $end = strpos($v, $q, 1);
+        if ($end !== false) {
+            return substr($v, 1, $end - 1); // alles hinter dem schließenden Quote verwerfen
+        }
+    }
+    return rtrim((string)preg_replace('/\s+#.*$/', '', $v));
+}
+
+/*
+ * Flaches YAML lesen – dieselbe Werte-Logik wie yaml_flat() in index.php,
+ * plus getrennt geführte Metadaten (Zeilennummern, unlesbare Zeilen,
+ * doppelte Schlüssel). Die Metadaten liegen NICHT im Wertearray, damit ein
+ * Feld namens "__line" den Leser nicht abstürzen lässt.
+ * Rückgabe: [fields, line, junk, dupe].
+ */
 function read_flat(string $text): array
 {
-    $out = [];
-    $dupes = [];
+    $out = $lines = $junk = $dupes = [];
     $text = (string)preg_replace('/^\xEF\xBB\xBF/', '', $text); // wie yaml_flat()
     foreach (preg_split('#\r?\n#', $text) as $i => $line) {
         $line = trim($line);
@@ -82,25 +113,16 @@ function read_flat(string $text): array
             continue;
         }
         if (!preg_match('#^([A-Za-z_][\w-]*):\s*(.*)$#', $line, $m)) {
-            $out['__junk'][] = [$i + 1, $line];
+            $junk[] = [$i + 1, $line];
             continue;
-        }
-        $v = trim($m[2]);
-        if ($v !== '' && ($v[0] === '"' || $v[0] === "'") && strlen($v) > 1 && substr($v, -1) === $v[0]) {
-            $v = substr($v, 1, -1);
-        } else {
-            $v = rtrim((string)preg_replace('/\s+#.*$/', '', $v));
         }
         if (isset($out[$m[1]])) {
             $dupes[] = $m[1];
         }
-        $out[$m[1]] = $v;
-        $out['__line'][$m[1]] = $i + 1;
+        $out[$m[1]] = flat_value($m[2]);
+        $lines[$m[1]] = $i + 1;
     }
-    if ($dupes) {
-        $out['__dupe'] = $dupes;
-    }
-    return $out;
+    return [$out, $lines, $junk, $dupes];
 }
 
 function is_url(string $u, bool $httpsOnly = false): bool
@@ -196,22 +218,32 @@ function yaml_files(string $dir): array
     if (!is_dir($dir)) {
         return [];
     }
+    // Der Iterator baut die Pfade aus GENAU diesem Präfix – deshalb den
+    // Relativpfad davon abschneiden, nicht von realpath() (sonst greift die
+    // "_"-Regel bei relativer Wurzel nie).
+    $base = rtrim(str_replace('\\', '/', $dir), '/');
     $out = [];
-    $skip = strlen(str_replace('\\', '/', (string)(realpath($dir) ?: $dir)));
     $it = new RecursiveIteratorIterator(
         new RecursiveDirectoryIterator($dir, FilesystemIterator::SKIP_DOTS),
         RecursiveIteratorIterator::SELF_FIRST
     );
     foreach ($it as $f) {
         $path = str_replace('\\', '/', $f->getPathname());
-        // nur unterhalb der Wurzel schauen – ein "_" im Pfad davor zählt nicht
-        if (strpos(substr($path, $skip), '/_') !== false) {
-            continue; // Entwurfsordner
+        $rel = substr($path, strlen($base) + 1);
+        // ein Segment, das mit "_" beginnt (Entwurf/Klärfall), überspringt die Datei
+        $draft = false;
+        foreach (explode('/', $rel) as $seg) {
+            if ($seg !== '' && $seg[0] === '_') {
+                $draft = true;
+                break;
+            }
         }
-        if ($f->isFile() && strtolower($f->getExtension()) === 'yaml') {
-            $out[] = $path;
-        } elseif ($f->isFile() && strtolower($f->getExtension()) === 'yml') {
-            $out[] = $path; // wird unten als Fehler gemeldet
+        if ($draft) {
+            continue;
+        }
+        $ext = strtolower($f->getExtension());
+        if ($f->isFile() && ($ext === 'yaml' || $ext === 'yml')) {
+            $out[] = $path; // .yml wird unten als Endungs-Fehler gemeldet
         }
     }
     sort($out);
@@ -222,25 +254,51 @@ function validate(array $roots, Report $r): void
 {
     $ids = [];      // id => datei
     $coords = [];   // "lat,lng" => datei
-    $files = [];
+    $files = [];    // realpath => [anzeige, rel, ccRoot, pfad] – realpath dedupt
     foreach ($roots as $root) {
+        // Einzelne .yaml-Datei direkt prüfen
+        if (is_file($root)) {
+            if (!preg_match('/\.ya?ml$/i', $root)) {
+                $r->err($root, 'keine .yaml-Datei');
+                continue;
+            }
+            $rp = str_replace('\\', '/', (string)(realpath($root) ?: $root));
+            $rel = implode('/', array_slice(explode('/', $rp), -4)); // land/bundesland/stadt/id.yaml
+            $files[$rp] = ['connectors/' . $rel, $rel, '', $rp];
+            continue;
+        }
+        if (!is_dir($root)) {
+            $r->err($root, 'weder Ordner noch .yaml-Datei – Pfad prüfen');
+            continue;
+        }
         $real = str_replace('\\', '/', (string)(realpath($root) ?: $root));
         $name = basename($real);
-        // Wurzel kann der connectors-Ordner sein oder direkt ein Länderordner
+        // Wurzel: connectors-Ordner (enthält Länderordner) oder direkt ein Länderordner
         $ccRoot = isset(COUNTRIES[$name]) ? $name : '';
-        if ($ccRoot === '' && !is_dir($real . '/de') && !glob($real . '/*/*/*/*.yaml')) {
-            // z. B. ein Bundesland-Ordner: dann stimmt die Tiefe nie
-            fwrite(STDERR, "Hinweis: \"$root\" ist weder der connectors-Ordner noch ein Länderordner.\n");
+        $isConnectorsRoot = false;
+        foreach (array_keys(COUNTRIES) as $cc2) {
+            if (is_dir($real . '/' . $cc2)) {
+                $isConnectorsRoot = true;
+                break;
+            }
+        }
+        $found = yaml_files($root);
+        if ($ccRoot === '' && !$isConnectorsRoot) {
+            if ($found) {
+                $r->err($name, 'Wurzel ist weder der connectors-Ordner noch ein Länderordner ('
+                    . implode('/', array_keys(COUNTRIES)) . ') – bitte darauf zeigen');
+            }
+            continue; // nicht mit falscher Tiefe durch alle Dateien fluten
         }
         $cut = strlen($real) + 1;
-        foreach (yaml_files($root) as $f) {
-            $rel = substr(str_replace('\\', '/', (string)(realpath($f) ?: $f)), $cut);
-            $files[$name . '/' . $rel] = [$rel, $ccRoot, $f];
+        foreach ($found as $f) {
+            $rp = str_replace('\\', '/', (string)(realpath($f) ?: $f));
+            $files[$rp] = [$name . '/' . substr($rp, $cut), substr($rp, $cut), $ccRoot, $rp];
         }
     }
-    ksort($files);
+    uksort($files, fn($a, $b) => strcmp($files[$a][0], $files[$b][0]));
 
-    foreach ($files as $short => [$rel, $ccRoot, $path]) {
+    foreach ($files as [$short, $rel, $ccRoot, $path]) {
         $r->files++;
 
         /* --- Ablage (Abschnitt 2): connectors/<land>/<bundesland>/<stadt>/<id>.yaml --- */
@@ -289,15 +347,13 @@ function validate(array $roots, Report $r): void
             $r->warn($short, 'erste Zeile sollte "# <name> – <city>" sein');
         }
 
-        $y = read_flat($raw);
-        $line = $y['__line'] ?? [];
-        foreach ($y['__junk'] ?? [] as [$ln, $txt]) {
+        [$y, $line, $junk, $dupes] = read_flat($raw);
+        foreach ($junk as [$ln, $txt]) {
             $r->err($short, 'unlesbare Zeile: ' . $txt, $ln);
         }
-        foreach ($y['__dupe'] ?? [] as $k) {
+        foreach ($dupes as $k) {
             $r->err($short, 'Feld "' . $k . '" steht mehrfach in der Datei');
         }
-        unset($y['__junk'], $y['__dupe'], $y['__line']);
 
         /* --- Pflichtfelder (Abschnitt 5.1) --- */
         foreach (['id', 'name', 'city', 'address', 'lat', 'lng', 'genres', 'checked'] as $k) {
@@ -374,7 +430,7 @@ function validate(array $roots, Report $r): void
             if (preg_match('/\b\d{5}\b/', $addr)) {
                 $r->err($short, 'address enthält eine Postleitzahl – nur Straße und Hausnummer', $line['address'] ?? 0);
             }
-            if ($cityVal !== '' && stripos($addr, $cityVal) !== false) {
+            if ($cityVal !== '' && preg_match('/(^|[\s,])' . preg_quote($cityVal, '/') . '\s*$/iu', $addr)) {
                 $r->err($short, 'address enthält den Ortsnamen – nur Straße und Hausnummer', $line['address'] ?? 0);
             }
         }
@@ -559,6 +615,9 @@ foreach (array_slice($argv, 1) as $a) {
             exit(2);
         }
         $opts[$k] = true;
+    } elseif ($a !== '' && $a[0] === '-') {
+        fwrite(STDERR, "Optionen haben zwei Bindestriche: meintest du -$a?\n");
+        exit(2);
     } else {
         $roots[] = rtrim(str_replace('\\', '/', $a), '/');
     }

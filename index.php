@@ -43,6 +43,24 @@ const AREA_NAMES = [
  * Flaches YAML: "key: value" pro Zeile, Kommentare mit #.
  * hours-Format: "Fr,Sa 23:00-07:00; Mo-Do 22:00-06:00"
  */
+/*
+ * Einen YAML-Wert entpacken: erst die Anführungszeichen, dann fällt ein
+ * nachgestellter Kommentar weg; ein '#' innerhalb der Anführungszeichen
+ * bleibt Teil des Werts. Validator (tools/validate.php) nutzt dieselbe Logik.
+ */
+function flat_value(string $v): string
+{
+    $v = trim($v);
+    if ($v !== '' && ($v[0] === '"' || $v[0] === "'")) {
+        $q = $v[0];
+        $end = strpos($v, $q, 1);
+        if ($end !== false) {
+            return substr($v, 1, $end - 1);
+        }
+    }
+    return rtrim((string)preg_replace('/\s+#.*$/', '', $v));
+}
+
 function yaml_flat(string $text): array
 {
     $out = [];
@@ -55,13 +73,7 @@ function yaml_flat(string $text): array
         if (!preg_match('#^([A-Za-z_][\w-]*):\s*(.*)$#', $line, $m)) {
             continue;
         }
-        $v = trim($m[2]);
-        if ($v !== '' && ($v[0] === '"' || $v[0] === "'") && strlen($v) > 1 && substr($v, -1) === $v[0]) {
-            $v = substr($v, 1, -1);
-        } else {
-            $v = rtrim((string)preg_replace('/\s+#.*$/', '', $v)); // Inline-Kommentar
-        }
-        $out[$m[1]] = $v;
+        $out[$m[1]] = flat_value($m[2]);
     }
     return $out;
 }
@@ -431,6 +443,14 @@ if (isset($_GET['admin'])) {
  * Extraktions-Agent gemappt und die Connector-YAML erzeugt/gespeichert.
  * Schutz: Schlüssel in data/admin.key (Datei anlegen = Admin aktivieren).
  */
+/* Bundesland-Slug: wie admin_slug, aber Bindestriche bleiben (baden-wuerttemberg) */
+function admin_area_slug(string $s): string
+{
+    $s = strtolower(strtr($s, ['ä' => 'ae', 'ö' => 'oe', 'ü' => 'ue', 'ß' => 'ss', 'Ä' => 'ae', 'Ö' => 'oe', 'Ü' => 'ue']));
+    $s = trim((string)preg_replace('#[^a-z0-9]+#', '-', $s), '-');
+    return substr($s, 0, 40);
+}
+
 function admin_slug(string $s): string
 {
     $s = strtolower(strtr($s, ['ä' => 'ae', 'ö' => 'oe', 'ü' => 'ue', 'ß' => 'ss', 'Ä' => 'ae', 'Ö' => 'oe', 'Ü' => 'ue']));
@@ -490,25 +510,46 @@ function sync_connectors(): array
     if (!$fh) {
         return [false, 'Konnte keine Zwischendatei anlegen.'];
     }
+    // Anders als beim Scrapen (Club-Seiten mit kaputten Zertifikaten) MUSS
+    // der Sync das Zertifikat prüfen: die einzige Vertrauensannahme ist
+    // "kommt echt von GitHub". Ohne Prüfung könnte ein MITM beliebige
+    // Connectoren unterschieben.
     $ch = curl_init($url);
-    curl_setopt_array($ch, [
+    $opts = [
         CURLOPT_FILE => $fh,
         CURLOPT_FOLLOWLOCATION => true,
-        CURLOPT_MAXREDIRS => 4,
+        CURLOPT_MAXREDIRS => 3,
+        CURLOPT_PROTOCOLS => CURLPROTO_HTTPS,
+        CURLOPT_REDIR_PROTOCOLS => CURLPROTO_HTTPS, // kein Downgrade auf http
         CURLOPT_CONNECTTIMEOUT => 8,
         CURLOPT_TIMEOUT => 60,
-        CURLOPT_SSL_VERIFYPEER => false,
-        CURLOPT_SSL_VERIFYHOST => 0,
+        CURLOPT_SSL_VERIFYPEER => true,
+        CURLOPT_SSL_VERIFYHOST => 2,
+        CURLOPT_MAXFILESIZE => 33554432, // 32 MB reichen weit, deckelt einen Zip-Bombe-Download
         CURLOPT_USERAGENT => 'clubmap-sync',
-    ]);
+    ];
+    // Manche Umgebungen liefern das CA-Bundle nur über einen bekannten Pfad.
+    foreach (['/root/.ccr/ca-bundle.crt', '/etc/ssl/certs/ca-certificates.crt', '/etc/pki/tls/certs/ca-bundle.crt'] as $ca) {
+        if (is_file($ca)) {
+            $opts[CURLOPT_CAINFO] = $ca;
+            break;
+        }
+    }
+    curl_setopt_array($ch, $opts);
     $ok = curl_exec($ch);
     $code = (int)curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
+    $host = (string)parse_url((string)curl_getinfo($ch, CURLINFO_EFFECTIVE_URL), PHP_URL_HOST);
     $err = curl_error($ch);
     curl_close($ch);
     fclose($fh);
     if (!$ok || $code >= 400) {
         @unlink($zipFile);
         return [false, 'Download von GitHub fehlgeschlagen (' . ($err ?: 'HTTP ' . $code) . ').'];
+    }
+    // Nach allen Redirects muss die Antwort wirklich von GitHub kommen.
+    if ($host !== '' && !preg_match('/(^|\.)(github\.com|githubusercontent\.com)$/i', $host)) {
+        @unlink($zipFile);
+        return [false, 'Antwort kam nicht von GitHub, sondern von ' . $host . ' – abgebrochen.'];
     }
 
     $zip = new ZipArchive();
@@ -519,17 +560,22 @@ function sync_connectors(): array
     $new = $data . '/connectors.new';
     rm_tree($new);
     $count = 0;
+    $bytes = 0;
     for ($i = 0; $i < $zip->numFiles; $i++) {
         $st = $zip->statIndex($i);
         if (!$st) {
             continue;
         }
         // nur connectors/<…>.yaml – keine Pfade nach oben, nichts anderes
-        if (!preg_match('#^[^/]+/connectors/((?:[A-Za-z0-9_-]+/)+[A-Za-z0-9_-]+\.yaml)$#', $st['name'], $m)) {
+        if (!preg_match('#^[^/]+/connectors/((?:[A-Za-z0-9][A-Za-z0-9_-]*/)+[A-Za-z0-9][A-Za-z0-9_-]*\.yaml)$#', $st['name'], $m)) {
             continue;
         }
         if ($st['size'] > 65536 || $count >= 20000) {
             continue;
+        }
+        $bytes += (int)$st['size'];
+        if ($bytes > 67108864) { // 64 MB entpackt ist weit jenseits jedes echten Bestands
+            break;
         }
         $dst = $new . '/' . $m[1];
         if (!is_dir(dirname($dst)) && !@mkdir(dirname($dst), 0755, true)) {
@@ -546,8 +592,10 @@ function sync_connectors(): array
         rm_tree($new);
         return [false, 'Im Archiv lagen keine Connectoren – Repo oder Branch prüfen.'];
     }
-    // Ein halb übertragenes Archiv darf den Bestand nicht wegräumen.
-    $have = count(yaml_files($data . '/connectors'));
+    // Ein halb übertragenes Archiv darf den Bestand nicht wegräumen –
+    // gemessen am Baum, aus dem gerade wirklich gelesen wird (connectors/,
+    // regions/ oder ein früherer Sync), nicht nur am letzten Sync-Ordner.
+    $have = count(yaml_files(connector_root()[0]));
     $got = count(yaml_files($new));
     if ($have > 0 && $got < $have / 2 && empty($_GET['shrink'])) {
         rm_tree($new);
@@ -568,7 +616,7 @@ function sync_connectors(): array
         return [false, 'Der neue Ordner ließ sich nicht einhängen.'];
     }
     rm_tree($old);
-    return [true, $count . ' Connectoren von ' . CONNECTOR_REPO . ' (' . CONNECTOR_BRANCH . ') übernommen.'];
+    return [true, $got . ' Connectoren von ' . CONNECTOR_REPO . ' (' . CONNECTOR_BRANCH . ') übernommen.'];
 }
 
 /* Ordner samt Inhalt löschen – nur unterhalb von data/, ohne Symlinks zu folgen */
@@ -622,7 +670,7 @@ function admin_page(): void
     // Schritt 3: YAML speichern
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['saveyaml'])) {
         $cc = admin_slug((string)($_POST['cc'] ?? ''));
-        $land = admin_slug((string)($_POST['land'] ?? ''));
+        $land = admin_area_slug((string)($_POST['land'] ?? '')); // Bundesland: baden-wuerttemberg
         $stadt = admin_slug((string)($_POST['stadt'] ?? ''));
         $id = admin_slug((string)($_POST['cid'] ?? ''));
         $yaml = (string)($_POST['yaml'] ?? '');

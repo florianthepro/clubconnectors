@@ -127,6 +127,66 @@ foreach ($cases as $c) {
     echo ($hit ? 'ok   ' : 'FEHL ') . $name . "\n";
 }
 
+/* --- Diese Änderungen sind gültig und dürfen KEINEN Fehler geben --- */
+$okCases = [
+    ['Straßenname enthält den Ort', ['address: Maximiliansplatz 5' => 'address: Bonner Talweg 55', 'city: München' => 'city: München']],
+    ['Ort mit Klammerzusatz im Slug', []],
+    ['Wert in Anführungszeichen mit Kommentar', ['hours: Fr,Sa 23:00-07:00' => 'hours: "Fr,Sa 23:00-07:00"   # laut Aushang']],
+    ['Akzent-Ort ohne iconv (é→e)', []], // eigene Datei unten
+];
+foreach ($okCases as [$name, $subs]) {
+    $text = GOOD;
+    $ok = true;
+    foreach ($subs as $from => $to) {
+        if (strpos($text, $from) === false) { $ok = false; break; }
+        $text = str_replace($from, $to, $text);
+    }
+    if (!$ok) { $fails[] = "$name: Vorlage passt nicht"; continue; }
+    file_put_contents($root . '/pruefling.yaml', $text);
+    $res = run($tmp);
+    $bad = count($res['errors']);
+    echo ($bad === 0 ? 'ok   ' : 'FEHL ') . $name . "\n";
+    if ($bad) { $fails[] = "$name: erwartet 0 Fehler, bekommen: " . implode(' | ', array_column($res['errors'], 'msg')); }
+}
+file_put_contents($root . '/pruefling.yaml', GOOD);
+
+/* Akzent-Ort: eigener Länder-/Ordnerbaum ch/ge/geneve, city Genève -> geneve */
+$chDir = $tmp . '/connectors/ch/ge/geneve';
+@mkdir($chDir, 0700, true);
+file_put_contents($chDir . '/audioclub.yaml',
+    "# Audio – Genève\nid: audioclub\nname: Audio\ncity: Genève\naddress: Rue 1\n"
+    . "lat: 46.2044\nlng: 6.1432\nwebsite: https://example.org\ngenres: Techno\nchecked: 2026-08\n");
+$res = run($tmp);
+$accentOk = true;
+foreach ($res['errors'] as $e) {
+    if (strpos($e['file'], 'audioclub') !== false) { $accentOk = false; }
+}
+echo ($accentOk ? 'ok   ' : 'FEHL ') . "Akzent-Ort Genève -> geneve\n";
+if (!$accentOk) { $fails[] = 'Akzent-Ort schlägt fehl: ' . implode(' | ', array_column($res['errors'], 'msg')); }
+@unlink($chDir . '/audioclub.yaml');
+
+/* --- CLI-Verhalten: Rückgabewerte müssen stimmen --- */
+$php = escapeshellarg(PHP_BINARY ?: 'php');
+$vp  = escapeshellarg(__DIR__ . '/validate.php');
+$rc = function ($args) use ($php, $vp) {
+    $out = []; $code = 0;
+    exec("$php $vp $args >/dev/null 2>&1", $out, $code);
+    return $code;
+};
+file_put_contents($root . '/pruefling.yaml', str_replace('name: Prüfling', 'name: X', GOOD)); // 1 Fehler: name zu kurz? nein, X ok. lat kaputt:
+file_put_contents($root . '/pruefling.yaml', str_replace('lat: 48.1414', 'lat: 9.9', GOOD)); // außerhalb DE
+$cli = [
+    ['einzelne kaputte Datei -> 1', escapeshellarg($root . '/pruefling.yaml'), 1],
+    ['Tippfehler-Pfad -> 1', escapeshellarg($tmp . '/connectors/dee'), 1],
+    ['einzelner Bindestrich -> 2', '-strict', 2],
+];
+foreach ($cli as [$name, $arg, $want]) {
+    $got = $rc($arg);
+    echo ($got === $want ? 'ok   ' : 'FEHL ') . $name . " (bekommen $got)\n";
+    if ($got !== $want) { $fails[] = "$name: Rückgabewert $got statt $want"; }
+}
+file_put_contents($root . '/pruefling.yaml', GOOD);
+
 /* Doppelte id über zwei Dateien hinweg */
 file_put_contents($root . '/pruefling.yaml', GOOD);
 file_put_contents($root . '/zweiter.yaml', str_replace('id: pruefling', 'id: pruefling', GOOD));
@@ -177,8 +237,8 @@ if ($fails) {
     foreach ($fails as $f) {
         echo 'FEHLGESCHLAGEN: ' . $f . "\n";
     }
-    echo count($fails) . " von " . (count($cases) + 3) . " Prüfungen fehlgeschlagen\n";
+    echo count($fails) . " Prüfungen fehlgeschlagen\n";
     exit(1);
 }
-echo (count($cases) + 3) . " Prüfungen bestanden – der Validator greift bei jeder Regel\n";
+echo (count($cases) + count($okCases) + 7) . " Prüfungen bestanden – der Validator greift bei jeder Regel\n";
 exit(0);
