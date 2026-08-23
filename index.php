@@ -291,7 +291,9 @@ if (isset($_GET['diag'])) {
     if (is_file($stamp)) {
         echo 'letzter sync: ' . date('d.m.Y H:i', (int)filemtime($stamp)) . "\n";
     }
-    echo 'zip-Erweiterung: ' . (class_exists('ZipArchive') ? 'ok (?sync möglich)' : 'FEHLT (?sync geht nicht)') . "\n";
+    $canSync = class_exists('ZipArchive') || class_exists('PharData');
+    echo 'sync-fähig: ' . ($canSync ? 'ja (' . (class_exists('ZipArchive') ? 'zip' : 'tar.gz/phar') . ')'
+        : 'nein – weder zip noch phar, dann connectors/ per FTP hochladen') . "\n";
     echo 'admin/sync: ' . (admin_key() === '' ? 'aus (data/admin.key fehlt)' : 'aktiv') . "\n";
     echo 'modus: ' . (local_mode() ? 'lokal (/data/connector)' : 'regionen (' . (implode(', ', $rl) ?: 'keine') . ')') . "\n";
     $dcc = region() !== '' ? region() : (local_mode() ? '' : ($rl[0] ?? ''));
@@ -492,8 +494,10 @@ function sync_connectors(): array
     if (!is_dir($data) || !@is_writable($data)) {
         return [false, 'Ordner data/ ist nicht beschreibbar – Connectoren bitte per FTP hochladen.'];
     }
-    if (!class_exists('ZipArchive')) {
-        return [false, 'Die PHP-Erweiterung zip fehlt auf diesem Hoster. Ordner connectors/ aus dem Repo bitte per FTP neben die index.php legen.'];
+    $useZip = class_exists('ZipArchive');
+    $usePhar = !$useZip && class_exists('PharData');
+    if (!$useZip && !$usePhar) {
+        return [false, 'Weder zip noch phar auf diesem Hoster – Ordner connectors/ aus dem Repo bitte per FTP neben die index.php legen.'];
     }
     if (!function_exists('curl_init')) {
         return [false, 'curl fehlt – ohne das kommt der Server nicht an GitHub.'];
@@ -504,8 +508,9 @@ function sync_connectors(): array
     }
     @touch($stamp);
 
-    $zipFile = $data . '/connectors-' . substr(md5((string)mt_rand()), 0, 8) . '.zip';
-    $url = 'https://codeload.github.com/' . CONNECTOR_REPO . '/zip/refs/heads/' . CONNECTOR_BRANCH;
+    $fmt = $useZip ? 'zip' : 'tar.gz';           // tar.gz braucht nur phar, kein zip
+    $zipFile = $data . '/connectors-' . substr(md5((string)mt_rand()), 0, 8) . '.' . $fmt;
+    $url = 'https://codeload.github.com/' . CONNECTOR_REPO . '/' . $fmt . '/refs/heads/' . CONNECTOR_BRANCH;
     $fh = @fopen($zipFile, 'wb');
     if (!$fh) {
         return [false, 'Konnte keine Zwischendatei anlegen.'];
@@ -552,41 +557,60 @@ function sync_connectors(): array
         return [false, 'Antwort kam nicht von GitHub, sondern von ' . $host . ' – abgebrochen.'];
     }
 
-    $zip = new ZipArchive();
-    if ($zip->open($zipFile) !== true) {
-        @unlink($zipFile);
-        return [false, 'Das Archiv von GitHub ließ sich nicht öffnen.'];
-    }
     $new = $data . '/connectors.new';
     rm_tree($new);
     $count = 0;
     $bytes = 0;
-    for ($i = 0; $i < $zip->numFiles; $i++) {
-        $st = $zip->statIndex($i);
-        if (!$st) {
-            continue;
-        }
+    // Ein Eintrag im Archiv -> eine Datei unter $new, mit denselben Grenzen für
+    // beide Formate. $inner ist der Pfad im Archiv (z. B. repo-main/connectors/…).
+    $write = function (string $inner, int $size, callable $read) use (&$count, &$bytes, $new) {
         // nur connectors/<…>.yaml – keine Pfade nach oben, nichts anderes
-        if (!preg_match('#^[^/]+/connectors/((?:[A-Za-z0-9][A-Za-z0-9_-]*/)+[A-Za-z0-9][A-Za-z0-9_-]*\.yaml)$#', $st['name'], $m)) {
-            continue;
+        if (!preg_match('#^[^/]+/connectors/((?:[A-Za-z0-9][A-Za-z0-9_-]*/)+[A-Za-z0-9][A-Za-z0-9_-]*\.yaml)$#', $inner, $m)) {
+            return;
         }
-        if ($st['size'] > 65536 || $count >= 20000) {
-            continue;
+        if ($size > 65536 || $count >= 20000 || $bytes > 67108864) {
+            return;
         }
-        $bytes += (int)$st['size'];
-        if ($bytes > 67108864) { // 64 MB entpackt ist weit jenseits jedes echten Bestands
-            break;
-        }
+        $bytes += $size;
         $dst = $new . '/' . $m[1];
         if (!is_dir(dirname($dst)) && !@mkdir(dirname($dst), 0755, true)) {
-            continue;
+            return;
         }
-        $body = $zip->getFromIndex($i);
+        $body = $read();
         if ($body !== false && @file_put_contents($dst, $body) !== false) {
             $count++;
         }
+    };
+
+    if ($useZip) {
+        $zip = new ZipArchive();
+        if ($zip->open($zipFile) !== true) {
+            @unlink($zipFile);
+            return [false, 'Das Archiv von GitHub ließ sich nicht öffnen.'];
+        }
+        for ($i = 0; $i < $zip->numFiles; $i++) {
+            $st = $zip->statIndex($i);
+            if ($st) {
+                $write($st['name'], (int)$st['size'], fn() => $zip->getFromIndex($i));
+            }
+        }
+        $zip->close();
+    } else {
+        // tar.gz ohne zip-Erweiterung: PharData ist fast überall vorhanden
+        try {
+            $phar = new PharData($zipFile);
+            $pfx = 'phar://' . str_replace('\\', '/', $zipFile) . '/';
+            foreach (new RecursiveIteratorIterator($phar) as $f) {
+                $pn = str_replace('\\', '/', $f->getPathname());
+                if (strpos($pn, $pfx) === 0) {
+                    $write(substr($pn, strlen($pfx)), (int)$f->getSize(), fn() => @file_get_contents($f->getPathname()));
+                }
+            }
+        } catch (Throwable $e) {
+            @unlink($zipFile);
+            return [false, 'Das tar.gz von GitHub ließ sich nicht öffnen (' . $e->getMessage() . ').'];
+        }
     }
-    $zip->close();
     @unlink($zipFile);
     if ($count === 0) {
         rm_tree($new);

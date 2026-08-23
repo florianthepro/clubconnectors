@@ -68,9 +68,12 @@ Hostern. Aktualisieren: neue Version wieder herunterladen und hochladen
 Wenn dein Hoster **ausgehende Verbindungen erlaubt** (viele kostenlose tun
 das nicht), kann die Seite die Clubs selbst aus diesem Repo nachziehen:
 `data/admin.key` mit einem geheimen Schlüssel anlegen, dann
-`/?sync=1&key=<schlüssel>` aufrufen. Braucht die PHP-Erweiterung `zip`.
-Klemmt der Sync (`?diag=1` zeigt `outbound-test … FEHLER`), bleibt es beim
-Hochladen von oben – das geht immer.
+`/?sync=1&key=<schlüssel>` aufrufen. Sie lädt das Repo als Archiv und tauscht
+`data/connectors/` in einem Zug aus – nutzt `zip`, und wenn das fehlt, das
+`tar.gz` über `phar` (fast überall vorhanden). Ob dein Hoster überhaupt raus
+darf, zeigt `?diag=1`: steht dort `outbound-test … FEHLER`, geht **kein**
+Sync (das ist eine Sperre des Hosters, kein Fehler der Seite) – dann bleibt
+es beim Hochladen von oben, das geht immer.
 
 ## Warum App und Daten zusammen
 
