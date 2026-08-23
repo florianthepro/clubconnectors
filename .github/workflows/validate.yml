@@ -18,6 +18,10 @@ jobs:
           extensions: mbstring, iconv
           coverage: none
 
+      # Die App selbst muss syntaktisch heil bleiben
+      - name: index.php prüfen
+        run: php -l index.php
+
       # Greift der Prüfer überhaupt noch bei jeder Regel?
       - name: Prüfer selbst prüfen
         run: php tools/selftest.php
