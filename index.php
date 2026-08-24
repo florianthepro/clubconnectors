@@ -26,6 +26,15 @@ const CONNECTOR_BRANCH = 'main';
 const CONNECTOR_DIRS = ['data/connectors', 'connectors', 'regions']; // erster Treffer gewinnt
 const CONNECTOR_AUTO = true;   // leere Seite holt sich die Clubs selbst aus dem Repo
 const CONNECTOR_REFRESH = 86400; // Selbst-Aktualisierung der geholten Clubs (Sekunden)
+
+/* Alles über die eigene Domain: Bilder, Kacheln und Leaflet kommen über
+   diese index.php – der Browser spricht nur noch mit dem eigenen Server. */
+const PROXY_IMAGES = true;   // Clubfotos über ?img= statt direkt vom Club-Server
+const PROXY_TILES = true;    // Kartenkacheln über ?tile= (false = direkt vom CDN)
+const IMG_TTL = 604800;      // Clubfotos 7 Tage vorhalten
+const TILE_TTL = 2592000;    // Kacheln 30 Tage vorhalten
+const IMG_MAX = 4194304;     // 4 MB je Bild reicht weit
+const TILE_URL = 'https://{s}.basemaps.cartocdn.com/{style}/{z}/{x}/{y}{r}.png';
 const REGIONS_DIR = 'regions';           // Altbestand, nur noch Fallback
 const FLAG_DIR = 'flag';                  // relativer Pfad zu den Flaggen-Icons
 const REGION_NAMES = ['de' => 'Deutschland', 'us' => 'USA'];
@@ -257,6 +266,120 @@ if (isset($_GET['icon'])) {
     icon(is_string($_GET['icon']) ? $_GET['icon'] : '');
     exit;
 }
+/* Leaflet & Co. aus dem eigenen Haus: vendor/ neben der index.php oder
+   data/vendor/ (per Sync geholt). Kein fremder CDN, kein fremdes Zertifikat. */
+function vendor_file(string $name): ?string
+{
+    foreach ([__DIR__ . '/vendor', __DIR__ . '/data/vendor'] as $dir) {
+        foreach ([$dir . '/' . $name, $dir . '/images/' . $name] as $f) {
+            if (is_file($f)) {
+                return $f;
+            }
+        }
+    }
+    return null;
+}
+
+function have_vendor(): bool
+{
+    return vendor_file('leaflet.js') !== null && vendor_file('leaflet.css') !== null;
+}
+
+if (isset($_GET['asset'])) {
+    // feste Liste – es wird nichts ausgeliefert, was nicht hier steht
+    $types = [
+        'leaflet.js' => 'application/javascript; charset=utf-8',
+        'leaflet.css' => 'text/css; charset=utf-8',
+        'layers.png' => 'image/png', 'layers-2x.png' => 'image/png',
+        'marker-icon.png' => 'image/png', 'marker-icon-2x.png' => 'image/png',
+        'marker-shadow.png' => 'image/png',
+    ];
+    $name = (string)$_GET['asset'];
+    $file = isset($types[$name]) ? vendor_file($name) : null;
+    if (!$file) {
+        http_response_code(404);
+        exit;
+    }
+    $body = (string)file_get_contents($file);
+    if ($name === 'leaflet.css') {
+        // die CSS zeigt auf images/… – bei ?asset= liegt das woanders
+        $body = preg_replace('#url\((["\']?)images/([A-Za-z0-9._-]+)\1\)#', 'url(?asset=$2)', $body);
+    }
+    serve_bytes($body, $types[$name], 31536000);
+}
+
+if (isset($_GET['img'])) {
+    // Clubfoto über die eigene Domain. Nur signierte Adressen – sonst wäre
+    // das ein offener Proxy, über den Fremde beliebige Inhalte spiegeln.
+    $url = unproxy_img((string)$_GET['img'], (string)($_GET['s'] ?? ''));
+    if ($url === null) {
+        http_response_code(403);
+        exit;
+    }
+    $dir = cache_dir('img');
+    $key = sha1($url);
+    $bin = $dir ? $dir . '/' . $key : null;
+    if ($bin && is_file($bin) && is_file($bin . '.t') && time() - (int)filemtime($bin) < IMG_TTL) {
+        serve_bytes((string)file_get_contents($bin), (string)file_get_contents($bin . '.t'), IMG_TTL);
+    }
+    $got = fetch_binary($url, IMG_MAX, 'image/');
+    if (!$got) {
+        // altes Bild lieber zeigen als gar keins
+        if ($bin && is_file($bin) && is_file($bin . '.t')) {
+            serve_bytes((string)file_get_contents($bin), (string)file_get_contents($bin . '.t'), 3600);
+        }
+        http_response_code(404);
+        exit;
+    }
+    if ($bin) {
+        @file_put_contents($bin . '.tmp', $got[0]);
+        @rename($bin . '.tmp', $bin);
+        @file_put_contents($bin . '.t', $got[1]);
+    }
+    serve_bytes($got[0], $got[1], IMG_TTL);
+}
+
+if (isset($_GET['tile'])) {
+    // Kartenkacheln über die eigene Domain, mit Plattencache
+    if (!PROXY_TILES || !preg_match('#^(\d{1,2})/(\d{1,7})/(\d{1,7})$#', (string)$_GET['tile'], $m)) {
+        http_response_code(404);
+        exit;
+    }
+    [, $z, $x, $y] = $m;
+    $z = (int)$z;
+    $x = (int)$x;
+    $y = (int)$y;
+    $max = $z < 31 ? (1 << $z) : 0;
+    if ($z > 19 || $max === 0 || $x >= $max || $y >= $max) {
+        http_response_code(404);
+        exit;
+    }
+    $style = ($_GET['m'] ?? '') === 'dark' ? 'dark_all' : 'light_all';
+    $r = preg_match('/^@?2x$/', (string)($_GET['r'] ?? '')) ? '@2x' : '';
+    $dir = cache_dir('tile/' . $style . '/' . $z . '/' . $x);
+    $bin = $dir ? $dir . '/' . $y . $r . '.png' : null;
+    if ($bin && is_file($bin) && time() - (int)filemtime($bin) < TILE_TTL) {
+        serve_bytes((string)file_get_contents($bin), 'image/png', TILE_TTL);
+    }
+    $up = strtr(TILE_URL, [
+        '{s}' => ['a', 'b', 'c'][($x + $y) % 3],
+        '{style}' => $style, '{z}' => (string)$z, '{x}' => (string)$x, '{y}' => (string)$y, '{r}' => $r,
+    ]);
+    $got = fetch_binary($up, 1048576, 'image/');
+    if (!$got) {
+        if ($bin && is_file($bin)) {
+            serve_bytes((string)file_get_contents($bin), 'image/png', 3600);
+        }
+        http_response_code(404);
+        exit;
+    }
+    if ($bin) {
+        @file_put_contents($bin . '.tmp', $got[0]);
+        @rename($bin . '.tmp', $bin);
+    }
+    serve_bytes($got[0], $got[1], TILE_TTL);
+}
+
 if (isset($_GET['sync'])) {
     // Connectoren aus dem GitHub-Repo holen. Nur mit Admin-Schlüssel,
     // weil dabei Dateien geschrieben werden.
@@ -297,6 +420,27 @@ if (isset($_GET['diag'])) {
     echo 'sync-fähig: ' . ($canSync ? 'ja (' . (class_exists('ZipArchive') ? 'zip' : 'tar.gz/phar') . ')'
         : 'nein – weder zip noch phar, dann connectors/ per FTP hochladen') . "\n";
     echo 'admin/sync: ' . (admin_key() === '' ? 'aus (data/admin.key fehlt)' : 'aktiv') . "\n";
+    // Alles über die eigene Domain?
+    $vsrc = vendor_file('leaflet.js');
+    echo 'leaflet: ' . ($vsrc ? 'eigene Domain (' . (strpos($vsrc, '/data/') !== false ? 'data/vendor' : 'vendor') . ')'
+        : 'FEHLT – fällt auf unpkg.com zurück') . "\n";
+    $du = function (string $sub) {
+        $d = cache_file('x');
+        $d = $d ? dirname($d) . '/' . $sub : '';
+        if (!$d || !is_dir($d)) {
+            return '0 Dateien';
+        }
+        $n = $b = 0;
+        foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($d, FilesystemIterator::SKIP_DOTS)) as $f) {
+            if ($f->isFile()) {
+                $n++;
+                $b += $f->getSize();
+            }
+        }
+        return $n . ' Dateien, ' . round($b / 1048576, 1) . ' MB';
+    };
+    echo 'bild-proxy: ' . (PROXY_IMAGES ? 'an' : 'aus') . ', Cache ' . $du('img') . "\n";
+    echo 'kachel-proxy: ' . (PROXY_TILES ? 'an' : 'aus') . ', Cache ' . $du('tile') . "\n";
     echo 'modus: ' . (local_mode() ? 'lokal (/data/connector)' : 'regionen (' . (implode(', ', $rl) ?: 'keine') . ')') . "\n";
     $dcc = region() !== '' ? region() : (local_mode() ? '' : ($rl[0] ?? ''));
     $t = load_connectors($dcc);
@@ -362,7 +506,7 @@ if (isset($_GET['live'])) {
     $netFile = cache_file('net-' . (region() === '' ? 'local' : region()));
     $net = $netFile && is_file($netFile) ? (json_decode((string)file_get_contents($netFile), true) ?: []) : [];
     echo json_encode([
-        'live' => array_map(fn($e) => array_intersect_key((array)$e, ['events' => 1, 'images' => 1, 'info' => 1, 'warn' => 1]), $cache['data'] ?? []),
+        'live' => live_payload((array)($cache['data'] ?? [])),
         'pending' => $pending,
         'neterr' => (isset($net['ok']) && !$net['ok']) ? (string)($net['err'] ?: 'blockiert') : '',
     ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG);
@@ -572,11 +716,30 @@ function sync_connectors(): array
     rm_tree($new);
     $count = 0;
     $bytes = 0;
+    $vend = 0;
+    rm_tree($data . '/vendor.new');
     // Ein Eintrag im Archiv -> eine Datei unter $new, mit denselben Grenzen für
     // beide Formate. $inner ist der Pfad im Archiv (z. B. repo-main/connectors/…).
-    $write = function (string $inner, int $size, callable $read) use (&$count, &$bytes, $new) {
-        // nur connectors/<…>.yaml – keine Pfade nach oben, nichts anderes
-        if (!preg_match('#^[^/]+/connectors/((?:[A-Za-z0-9][A-Za-z0-9_-]*/)+[A-Za-z0-9][A-Za-z0-9_-]*\.yaml)$#', $inner, $m)) {
+    $write = function (string $inner, int $size, callable $read) use (&$count, &$bytes, &$vend, $new, $data) {
+        // Connectoren: nur connectors/<…>.yaml – keine Pfade nach oben
+        $isYaml = (bool)preg_match('#^[^/]+/connectors/((?:[A-Za-z0-9][A-Za-z0-9_-]*/)+[A-Za-z0-9][A-Za-z0-9_-]*\.yaml)$#', $inner, $m);
+        // Leaflet & Co. aus vendor/ – feste Namensliste, sonst nichts
+        $isVend = (bool)preg_match('#^[^/]+/vendor/(?:images/)?(leaflet\.(?:js|css)|[a-z0-9-]+\.png)$#', $inner, $v);
+        if (!$isYaml && !$isVend) {
+            return;
+        }
+        if ($isVend) {
+            if ($size > 1048576) {
+                return;
+            }
+            $dstv = $data . '/vendor.new/' . basename($v[1]);
+            if (!is_dir(dirname($dstv)) && !@mkdir(dirname($dstv), 0755, true)) {
+                return;
+            }
+            $bodyv = $read();
+            if ($bodyv !== false && @file_put_contents($dstv, $bodyv) !== false) {
+                $vend++;
+            }
             return;
         }
         if ($size > 65536 || $count >= 20000 || $bytes > 67108864) {
@@ -623,6 +786,18 @@ function sync_connectors(): array
         }
     }
     @unlink($zipFile);
+    // Leaflet einhängen, sobald vollständig – unabhängig von den Connectoren
+    if ($vend >= 2 && is_file($data . '/vendor.new/leaflet.js') && is_file($data . '/vendor.new/leaflet.css')) {
+        rm_tree($data . '/vendor.old');
+        if (is_dir($data . '/vendor')) {
+            @rename($data . '/vendor', $data . '/vendor.old');
+        }
+        if (!@rename($data . '/vendor.new', $data . '/vendor')) {
+            @rename($data . '/vendor.old', $data . '/vendor');
+        }
+        rm_tree($data . '/vendor.old');
+    }
+    rm_tree($data . '/vendor.new');
     if ($count === 0) {
         rm_tree($new);
         return [false, 'Im Archiv lagen keine Connectoren – Repo oder Branch prüfen.'];
@@ -693,6 +868,211 @@ function maybe_bootstrap(): string
     @set_time_limit(90);
     [$ok] = sync_connectors(); // holt NUR das feste Repo
     return $ok ? 'filled' : 'pending';
+}
+
+/*
+ * Eigenes Geheimnis je Installation – damit signieren wir die Bild-Adressen.
+ * Ohne Signatur wäre ?img= ein offener Proxy für beliebige Fremdinhalte.
+ */
+/* Was der Browser vom Cache sehen darf – Bildadressen laufen über uns. */
+function live_payload(array $data): array
+{
+    $out = [];
+    foreach ($data as $id => $e) {
+        $e = array_intersect_key((array)$e, ['events' => 1, 'images' => 1, 'info' => 1, 'warn' => 1]);
+        if (!empty($e['images']) && is_array($e['images'])) {
+            // http->https und Größen-Dubletten (gleicher Pfad, andere Query)
+            // hier abräumen – nach dem Signieren ginge das nicht mehr.
+            $seen = [];
+            $imgs = [];
+            foreach ($e['images'] as $u) {
+                $u = (string)$u;
+                if ($u === '') {
+                    continue;
+                }
+                $u = (string)preg_replace('#^http://#i', 'https://', $u);
+                $k = strtok($u, '?');
+                if (isset($seen[$k])) {
+                    continue;
+                }
+                $seen[$k] = true;
+                $imgs[] = proxy_img($u);
+            }
+            $e['images'] = $imgs;
+        }
+        if (!empty($e['events']) && is_array($e['events'])) {
+            $e['events'] = array_map(function ($ev) {
+                if (is_array($ev) && !empty($ev['image'])) {
+                    $ev['image'] = proxy_img((string)$ev['image']);
+                }
+                return $ev;
+            }, $e['events']);
+        }
+        $out[$id] = $e;
+    }
+    return $out;
+}
+
+function app_secret(): string
+{
+    static $sec = null;
+    if ($sec !== null) {
+        return $sec;
+    }
+    $f = __DIR__ . '/data/secret.key';
+    if (is_file($f)) {
+        $sec = trim((string)file_get_contents($f));
+        if ($sec !== '') {
+            return $sec;
+        }
+    }
+    try {
+        $sec = bin2hex(random_bytes(32));
+    } catch (Throwable $e) {
+        $sec = hash('sha256', __FILE__ . filemtime(__FILE__) . php_uname());
+    }
+    if (!is_dir(__DIR__ . '/data')) {
+        @mkdir(__DIR__ . '/data', 0755, true);
+    }
+    if (@file_put_contents($f, $sec) !== false) {
+        @chmod($f, 0600);
+    } else {
+        // nicht beschreibbar: dann wenigstens stabil aus der Datei ableiten
+        $sec = hash('sha256', __FILE__ . (string)@filemtime(__FILE__));
+    }
+    return $sec;
+}
+
+function sign_url(string $u): string
+{
+    return substr(hash_hmac('sha256', $u, app_secret()), 0, 16);
+}
+
+/* Adresse -> eigener Link. base64url hält es ohne Server-Register selbsttragend. */
+function proxy_img(string $u): string
+{
+    if (!PROXY_IMAGES || $u === '' || strpos($u, 'data:') === 0 || strpos($u, '?img=') === 0) {
+        return $u;
+    }
+    $b = rtrim(strtr(base64_encode($u), '+/', '-_'), '=');
+    return '?img=' . $b . '&s=' . sign_url($u);
+}
+
+function unproxy_img(string $b64, string $sig): ?string
+{
+    $u = base64_decode(strtr($b64, '-_', '+/'), true);
+    if ($u === false || $u === '' || !hash_equals(sign_url($u), $sig)) {
+        return null;
+    }
+    return $u;
+}
+
+/*
+ * Holt eine Binärdatei sicher: nur http/https, nur Port 80/443, keine
+ * privaten Adressen (sonst wäre der Proxy ein Weg ins interne Netz), jeder
+ * Umleitungsschritt wird erneut geprüft, harte Größengrenze.
+ * Rückgabe [bytes, content-type] oder null.
+ */
+function fetch_binary(string $url, int $maxBytes, string $typePrefix): ?array
+{
+    if (!function_exists('curl_init')) {
+        return null;
+    }
+    for ($hop = 0; $hop < 4; $hop++) {
+        $u = parse_url($url);
+        if (!$u || empty($u['host'])) {
+            return null;
+        }
+        $scheme = strtolower($u['scheme'] ?? '');
+        if ($scheme !== 'http' && $scheme !== 'https') {
+            return null;
+        }
+        $port = (int)($u['port'] ?? ($scheme === 'https' ? 443 : 80));
+        if ($port !== 80 && $port !== 443) {
+            return null; // ausdrücklich nur die Web-Ports
+        }
+        // Namen selbst auflösen und die Verbindung darauf festnageln:
+        // sonst könnte zwischen Prüfung und Abruf eine andere IP kommen.
+        $ips = @gethostbynamel($u['host']);
+        if (!$ips) {
+            return null;
+        }
+        $ip = '';
+        foreach ($ips as $cand) {
+            if (filter_var($cand, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE)) {
+                $ip = $cand;
+                break;
+            }
+        }
+        if ($ip === '') {
+            return null; // nur private/reservierte Adressen -> nicht anfassen
+        }
+        $body = '';
+        $ch = curl_init($url);
+        curl_setopt_array($ch, [
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_FOLLOWLOCATION => false, // Umleitungen selbst prüfen
+            CURLOPT_CONNECTTIMEOUT => 5,
+            CURLOPT_TIMEOUT => 12,
+            CURLOPT_PROTOCOLS => CURLPROTO_HTTP | CURLPROTO_HTTPS,
+            CURLOPT_RESOLVE => [$u['host'] . ':' . $port . ':' . $ip],
+            CURLOPT_SSL_VERIFYPEER => false, // Clubserver haben oft kaputte Zertifikate
+            CURLOPT_SSL_VERIFYHOST => 0,
+            CURLOPT_USERAGENT => 'Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Mobile Safari/537.36',
+            CURLOPT_WRITEFUNCTION => function ($c, $chunk) use (&$body, $maxBytes) {
+                $body .= $chunk;
+                return strlen($body) > $maxBytes ? -1 : strlen($chunk);
+            },
+        ]);
+        curl_exec($ch);
+        $code = (int)curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
+        $ct = strtolower(trim(explode(';', (string)curl_getinfo($ch, CURLINFO_CONTENT_TYPE))[0]));
+        $loc = (string)curl_getinfo($ch, CURLINFO_REDIRECT_URL);
+        curl_close($ch);
+        if ($code >= 300 && $code < 400 && $loc !== '') {
+            $url = $loc; // nächste Runde prüft die neue Adresse genauso
+            continue;
+        }
+        if ($code !== 200 || $body === '' || strlen($body) > $maxBytes) {
+            return null;
+        }
+        if ($typePrefix !== '' && strpos($ct, $typePrefix) !== 0) {
+            return null;
+        }
+        return [$body, $ct ?: 'application/octet-stream'];
+    }
+    return null;
+}
+
+/* Datei mit Cache-Kopfzeilen ausliefern, inkl. 304 bei unverändertem ETag */
+function serve_bytes(string $body, string $ct, int $maxAge): void
+{
+    $etag = '"' . substr(sha1($body), 0, 20) . '"';
+    header('Content-Type: ' . $ct);
+    header('Cache-Control: public, max-age=' . $maxAge . ', immutable');
+    header('ETag: ' . $etag);
+    header('X-Content-Type-Options: nosniff');
+    if (trim((string)($_SERVER['HTTP_IF_NONE_MATCH'] ?? '')) === $etag) {
+        http_response_code(304);
+        exit;
+    }
+    header('Content-Length: ' . strlen($body));
+    echo $body;
+    exit;
+}
+
+/* Ordner im Cache, z. B. data/cache/img – null wenn nicht beschreibbar */
+function cache_dir(string $sub): ?string
+{
+    $base = cache_file('x');
+    if (!$base) {
+        return null;
+    }
+    $dir = dirname($base) . '/' . $sub;
+    if (!is_dir($dir) && !@mkdir($dir, 0700, true)) {
+        return null;
+    }
+    return is_dir($dir) && @is_writable($dir) ? $dir : null;
 }
 
 /* Ordner samt Inhalt löschen – nur unterhalb von data/, ohne Symlinks zu folgen */
@@ -1719,7 +2099,7 @@ h1 { margin: 0; font-size: 26px; letter-spacing: -0.02em; }
 <script>
 // Standort entscheidet, welches Land geöffnet wird; die Flaggen bleiben Fallback
 const CENT = <?= json_encode($cent, JSON_HEX_TAG) ?>;
-if (navigator.geolocation && Object.keys(CENT).length > 1) {
+function pickByLocation() {
     const msg = document.getElementById('locmsg');
     msg.hidden = false;
     navigator.geolocation.getCurrentPosition(p => {
@@ -1734,6 +2114,17 @@ if (navigator.geolocation && Object.keys(CENT).length > 1) {
         else msg.hidden = true;
     }, () => { msg.hidden = true; }, { timeout: 6000, maximumAge: 300000 });
 }
+if (navigator.geolocation && Object.keys(CENT).length > 1) {
+    if (navigator.permissions && navigator.permissions.query) {
+        navigator.permissions.query({ name: 'geolocation' })
+            .then(st => { if (st.state === 'granted') pickByLocation(); })
+            .catch(() => {});
+    } else {
+        try {
+            if (localStorage.getItem('ncm.geo.ok') === '1') pickByLocation();
+        } catch (e) { /* privater Modus: dann eben die Flaggen */ }
+    }
+}
 </script>
 </body>
 </html>
@@ -1747,10 +2138,7 @@ if (isset($_GET['refresh'])) {
 }
 $cache = cache_read($cc);
 // interne Felder (ft/etag/lm/h/ck) nicht an den Browser ausliefern
-$live = array_map(
-    fn($e) => array_intersect_key((array)$e, ['events' => 1, 'images' => 1, 'info' => 1, 'warn' => 1]),
-    $cache['data'] ?? []
-);
+$live = live_payload((array)($cache['data'] ?? []));
 $oldestFt = PHP_INT_MAX;
 foreach ($connectors as $cid => $c) {
     $oldestFt = min($oldestFt, (int)($cache['data'][$cid]['ft'] ?? 0));
@@ -1776,9 +2164,13 @@ $payload = json_encode(
 <meta name="apple-mobile-web-app-title" content="Clubs">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0c0c0c">
+<?php if (have_vendor()): // aus dem eigenen Haus – kein fremder CDN ?>
+<link rel="stylesheet" href="?asset=leaflet.css" media="print" onload="this.media='all'">
+<?php else: ?>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
       integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""
       media="print" onload="this.media='all'">
+<?php endif; ?>
 <style>
 :root {
     --bg: #ffffff;
@@ -2029,6 +2421,10 @@ body {
 .icon-btn.busy svg { animation: locpulse 1s ease-in-out infinite; }
 @keyframes locpulse { 50% { opacity: .25; } }
 .icon-btn.on { border-color: var(--fg); }
+/* iOS fragt nur auf Fingertipp – deshalb den Knopf sichtbar anbieten */
+.icon-btn.hint { border-color: var(--fg); animation: lochint 1.4s ease-in-out 3; }
+@keyframes lochint { 50% { transform: scale(1.12); } }
+@media (prefers-reduced-motion: reduce) { .icon-btn.hint { animation: none; } }
 .icon-btn img { width: 24px; height: 24px; border-radius: 5px; display: block; }
 /* Suchvorschläge */
 #sugg { border-top: 1px solid var(--line); padding-top: 4px; max-height: 316px; overflow-y: auto; }
@@ -2644,7 +3040,10 @@ const POS = (() => {
     }
     return pos;
 })();
+const TILEPROXY = <?= PROXY_TILES ? 'true' : 'false' ?>;
 function tileUrl(dark) {
+    // über die eigene Domain (443/80) statt direkt vom Karten-CDN
+    if (TILEPROXY) return '?tile={z}/{x}/{y}&m=' + (dark ? 'dark' : 'light') + '&r={r}';
     return 'https://{s}.basemaps.cartocdn.com/' + (dark ? 'dark_all' : 'light_all') + '/{z}/{x}/{y}{r}.png';
 }
 function mapFailed() {
@@ -3142,25 +3541,62 @@ function locFail(err) {
     return 'Standort gerade nicht verfügbar.';
 }
 let locBusy = false;
+const GEOKEY = 'ncm.geo.ok';
+/* Ein Aufruf, überall gleich. WICHTIG: muss synchron in der Tap-Behandlung
+   stehen – iOS/Safari zeigt den Systemdialog nur mit frischer Nutzergeste. */
+function geoAsk(pan) {
+    if (locBusy) return;
+    locBusy = true;
+    $('loc').classList.remove('hint');
+    $('loc').classList.add('busy');
+    const done = ok => {
+        if (!locBusy) return false;
+        locBusy = false;
+        clearTimeout(watchdog);
+        $('loc').classList.remove('busy');
+        return true;
+    };
+    // Antwortet der Browser gar nicht (iOS bei blockierter Seite), nicht ewig hängen
+    const watchdog = setTimeout(() => {
+        if (done()) locNote('Standort antwortet nicht – im Browser unter „Website-Einstellungen“ erlauben.');
+    }, 15000);
+    navigator.geolocation.getCurrentPosition(p => {
+        if (!done()) return;
+        try { localStorage.setItem(GEOKEY, '1'); } catch (e) { /* privater Modus */ }
+        setUserPos(p.coords.latitude, p.coords.longitude, pan && uiIdle());
+        if (uiIdle()) { suggMode = 'near'; renderSugg(); }
+    }, err => {
+        if (!done()) return;
+        if (err && err.code === 1) {
+            try { localStorage.removeItem(GEOKEY); } catch (e) { /* egal */ }
+        }
+        if (!userPos) locNote(locFail(err));
+    }, { enableHighAccuracy: false, timeout: 12000, maximumAge: 120000 });
+}
+
+/* Ohne Fingertipp fragen wir nur, wenn die Erlaubnis schon erteilt ist –
+   sonst verpufft der Aufruf auf dem iPhone und der Dialog kommt nie mehr. */
+function geoAuto(pan) {
+    if (locBlocked()) return;
+    const ask = () => geoAsk(pan);
+    const offer = () => { $('loc').classList.add('hint'); };
+    if (navigator.permissions && navigator.permissions.query) {
+        navigator.permissions.query({ name: 'geolocation' })
+            .then(st => { st.state === 'granted' ? ask() : offer(); })
+            .catch(offer);
+        return;
+    }
+    // Kein Permissions-API: nur wenn es hier schon einmal geklappt hat
+    let known = false;
+    try { known = localStorage.getItem(GEOKEY) === '1'; } catch (e) { /* egal */ }
+    known ? ask() : offer();
+}
 $('loc').onclick = () => {
     const blocked = locBlocked();
     if (blocked) { locNote(blocked); return; }
-    if (locBusy) return;
-    locBusy = true;
     locNote('');
-    $('loc').classList.add('busy');
     if (userPos) { suggMode = 'near'; renderSugg(); }
-    // erst grob und schnell (reicht für „in meiner Nähe“), das spart Wartezeit
-    navigator.geolocation.getCurrentPosition(p => {
-        locBusy = false;
-        $('loc').classList.remove('busy');
-        setUserPos(p.coords.latitude, p.coords.longitude, uiIdle());
-        if (uiIdle()) { suggMode = 'near'; renderSugg(); }
-    }, err => {
-        locBusy = false;
-        $('loc').classList.remove('busy');
-        if (!userPos) locNote(locFail(err));
-    }, { enableHighAccuracy: false, timeout: 12000, maximumAge: 120000 });
+    geoAsk(true); // direkt in der Geste – sonst kein Dialog auf dem iPhone
 };
 
 /* ---- Chips + Dropdowns ---- */
@@ -3393,13 +3829,12 @@ function closeLb() {
     $('lb').textContent = '';
 }
 /* Bild-Liste säubern: http→https (Mixed Content) und Größen-Dubletten raus */
+/* Aufräumen macht der Server (live_payload) – hier nur noch harte Dubletten */
 function cleanImgs(list) {
     const seen = new Set(), out = [];
-    for (let u of list || []) {
-        u = u.replace(/^http:\/\//i, 'https://');
-        const k = u.split('?')[0];
-        if (seen.has(k)) continue;
-        seen.add(k);
+    for (const u of list || []) {
+        if (!u || seen.has(u)) continue;
+        seen.add(u);
         out.push(u);
     }
     return out;
@@ -3713,16 +4148,13 @@ syncUrl();
 const bootClub = DATA.clubs.find(c => c.id === boot.get('club'));
 if (bootClub) openSheet(bootClub, true);
 if (boot.get('near')) {
-    // vom Start weitergereicht: Standort direkt übernehmen
+    // Vom Start weitergereicht. Ohne Fingertipp fragen wir nur, wenn die
+    // Erlaubnis schon steht; sonst blinkt der Standort-Knopf einmal.
     const blocked = locBlocked();
     if (blocked) {
         locNote(blocked);
     } else {
-        navigator.geolocation.getCurrentPosition(
-            p => setUserPos(p.coords.latitude, p.coords.longitude, !bootClub),
-            err => { if (err && err.code === 1) locNote(locFail(err)); },
-            { enableHighAccuracy: false, timeout: 12000, maximumAge: 120000 }
-        );
+        geoAuto(!bootClub);
     }
 }
 
@@ -3798,8 +4230,12 @@ if (DATA.cron) {
     }, 1500);
 }
 </script>
+<?php if (have_vendor()): ?>
+<script async src="?asset=leaflet.js" onload="initMap()" onerror="mapFailed()"></script>
+<?php else: ?>
 <script async src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""
         onload="initMap()" onerror="mapFailed()"></script>
+<?php endif; ?>
 </body>
 </html>
