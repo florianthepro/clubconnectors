@@ -30,7 +30,17 @@ const CONNECTOR_REFRESH = 86400; // Selbst-Aktualisierung der geholten Clubs (Se
 /* Alles über die eigene Domain: Bilder, Kacheln und Leaflet kommen über
    diese index.php – der Browser spricht nur noch mit dem eigenen Server. */
 const PROXY_IMAGES = true;   // Clubfotos über ?img= statt direkt vom Club-Server
-const PROXY_TILES = true;    // Kartenkacheln über ?tile= (false = direkt vom CDN)
+/*
+ * Kartenkacheln über den eigenen Server? Standardmäßig NEIN – und das mit
+ * Absicht: eine einzige Kartenansicht lädt 50–150 Kacheln. Auf Gratis-Hostern
+ * (InfinityFree & Co.) zählt jede davon gegen das Tageslimit von ~50.000
+ * Zugriffen und belegt einen der ~10 gleichzeitigen PHP-Prozesse – die Seite
+ * wäre nach ein paar hundert Besuchern gesperrt und zwischendurch mit
+ * "Resource Limit Reached" nicht erreichbar. Direkt vom Karten-CDN geladen
+ * kostet sie den eigenen Server dagegen null.
+ * Auf eigenem Server mit echten Ressourcen: auf true stellen.
+ */
+const PROXY_TILES = false;
 const IMG_TTL = 604800;      // Clubfotos 7 Tage vorhalten
 const TILE_TTL = 2592000;    // Kacheln 30 Tage vorhalten
 const IMG_MAX = 4194304;     // 4 MB je Bild reicht weit
@@ -292,6 +302,17 @@ function have_vendor(): bool
     return vendor_file('leaflet.js') !== null && vendor_file('leaflet.css') !== null;
 }
 
+/*
+ * Adresse für eine mitgelieferte Datei. Liegt vendor/ offen im Web-Root,
+ * holt der Browser sie direkt bei Apache – das spart auf Gratis-Hostern je
+ * Besucher zwei PHP-Prozesse. Nur wenn die Dateien im geschützten
+ * data/vendor/ liegen (per Sync geholt), muss PHP sie durchreichen.
+ */
+function asset_url(string $name): string
+{
+    return is_file(__DIR__ . '/vendor/' . $name) ? 'vendor/' . $name . '?v=1' : '?asset=' . $name;
+}
+
 if (isset($_GET['asset'])) {
     // feste Liste – es wird nichts ausgeliefert, was nicht hier steht
     $types = [
@@ -342,6 +363,9 @@ if (isset($_GET['img'])) {
         @file_put_contents($bin . '.tmp', $got[0]);
         @rename($bin . '.tmp', $bin);
         @file_put_contents($bin . '.t', $got[1]);
+        if (random_int(1, 25) === 1) {
+            cache_prune($dir, 4000); // 2 Dateien je Bild -> höchstens 2000 Bilder
+        }
     }
     serve_bytes($got[0], $got[1], IMG_TTL);
 }
@@ -489,6 +513,40 @@ if (isset($_GET['diag'])) {
         }
         echo "  (steht bei scraper-test FEHLER, kommt der Scraper nicht durch –\n   dann gibt es weder Programm noch Bilder)\n";
     }
+
+
+    // Was kostet ein Besuch den Hoster? (InfinityFree & Co.: ~50.000
+    // Zugriffe/Tag, ~10 gleichzeitige PHP-Prozesse, ~30.000 Dateien)
+    $perVisit = 1;                       // die Seite selbst
+    $perVisit += have_vendor() ? 2 : 0;  // leaflet.js + .css (einmal, dann 1 Jahr im Browser-Cache)
+    $phpPerVisit = 1;
+    if (PROXY_TILES) {
+        $perVisit += 100;
+        $phpPerVisit += 100;
+    }
+    $dConn = $t[1];
+    $pend = 0;
+    foreach ($dConn as $cid => $c) {
+        if ((int)($dc['data'][$cid]['ft'] ?? 0) === 0) {
+            $pend++;
+        }
+    }
+    $poll = $pend > 0 ? 14 : 1;          // Nachlade-Anfragen, mit wachsendem Abstand
+    echo "\n-- Hoster-Limits --\n";
+    echo 'zugriffe je Besuch: ~' . ($perVisit + $poll) . ' (davon PHP: ~' . ($phpPerVisit + $poll) . ')'
+        . ($pend > 0 ? ' – solange die Erstbefüllung läuft' : '') . "\n";
+    echo 'bei 50.000 Zugriffen/Tag reicht das für ~' . (int)floor(50000 / max(1, $perVisit + $poll)) . " Besuche/Tag\n";
+    $inodes = 0;
+    $cbase = cache_file('x') ? dirname(cache_file('x')) : '';
+    if ($cbase && is_dir($cbase)) {
+        foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($cbase, FilesystemIterator::SKIP_DOTS)) as $f) {
+            $inodes++;
+        }
+    }
+    echo 'dateien im cache: ' . $inodes . ' (Bilder werden bei 4.000 aufgeräumt)' . "\n";
+    echo 'kacheln: ' . (PROXY_TILES
+        ? 'ACHTUNG über den eigenen Server – auf Gratis-Hostern schnell gesperrt'
+        : 'direkt vom Karten-CDN – kostet den eigenen Server nichts') . "\n";
     exit;
 }
 if (isset($_GET['live'])) {
@@ -1169,6 +1227,34 @@ function serve_bytes(string $body, string $ct, int $maxAge): void
     header('Content-Length: ' . strlen($body));
     echo $body;
     exit;
+}
+
+/*
+ * Cache-Ordner klein halten. Gratis-Hoster begrenzen nicht nur den Platz,
+ * sondern die ANZAHL Dateien (InfinityFree: ~30.000 inodes gesamt). Läuft der
+ * Ordner voll, fliegen die ältesten Dateien raus. Wird nur gelegentlich
+ * ausgeführt, damit es nichts kostet.
+ */
+function cache_prune(string $dir, int $maxFiles): void
+{
+    $files = glob($dir . '/*') ?: [];
+    if (count($files) <= $maxFiles) {
+        return;
+    }
+    $byAge = [];
+    foreach ($files as $f) {
+        if (is_file($f)) {
+            $byAge[$f] = (int)@filemtime($f);
+        }
+    }
+    asort($byAge); // älteste zuerst
+    $drop = count($byAge) - $maxFiles;
+    foreach (array_keys($byAge) as $f) {
+        if ($drop-- <= 0) {
+            break;
+        }
+        @unlink($f);
+    }
 }
 
 /* Ordner im Cache, z. B. data/cache/img – null wenn nicht beschreibbar */
@@ -2407,7 +2493,7 @@ $payload = json_encode(
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0c0c0c">
 <?php if (have_vendor()): // aus dem eigenen Haus – kein fremder CDN ?>
-<link rel="stylesheet" href="?asset=leaflet.css" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="<?= htmlspecialchars(asset_url('leaflet.css')) ?>" media="print" onload="this.media='all'">
 <?php else: ?>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
       integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""
@@ -4422,7 +4508,14 @@ if (DATA.cron) {
     liveBusy = true; // dezenter „lädt“-Hinweis in der Legende
     render();
     let lastPending = -1, stuck = 0, netNote = false;
-    const again = ms => { if (++liveTries < 45) { setTimeout(liveTick, ms); } else { liveBusy = false; render(); } };
+    // Gratis-Hoster zählen jede Anfrage gegen ein Tageslimit. Deshalb wird
+    // der Abstand mit jedem Durchgang größer und nach wenigen Runden ist Schluss.
+    let wait = 9000;
+    const again = ms => {
+        if (++liveTries >= 14) { liveBusy = false; render(); return; }
+        wait = Math.min(Math.round((ms || wait) * 1.45), 60000);
+        setTimeout(liveTick, wait);
+    };
     const liveTick = () => {
         // Bringt der Hintergrund-Ping nichts, den Poll selbst arbeiten lassen
         const work = stuck >= 2 ? '&work=1' : '';
@@ -4452,7 +4545,7 @@ if (DATA.cron) {
             if (netNote) { netNote = false; locNote(''); } // geht wieder
             if (j.pending > 0) {
                 fetch(EP('cron=1'), { keepalive: true }).catch(() => {});
-                again(9000);
+                again(0); // 0 = mit dem gewachsenen Abstand weiter
             } else {
                 liveBusy = false;
                 changed = true;
@@ -4473,7 +4566,7 @@ if (DATA.cron) {
 }
 </script>
 <?php if (have_vendor()): ?>
-<script async src="?asset=leaflet.js" onload="initMap()" onerror="mapFailed()"></script>
+<script async src="<?= htmlspecialchars(asset_url('leaflet.js')) ?>" onload="initMap()" onerror="mapFailed()"></script>
 <?php else: ?>
 <script async src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""
