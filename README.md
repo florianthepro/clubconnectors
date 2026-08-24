@@ -45,12 +45,25 @@ verschiebt die Datei zurück und der Club ist wieder auf der Karte.
 
 ## Aufspielen
 
-**Der Repo-Inhalt ist die fertige Seite.** `index.php` liegt neben
-`connectors/` und findet die Clubs von selbst – kein Einrichten, kein Sync.
+Zwei Wege, such dir den bequemeren aus.
+
+**A) Nur `index.php` – der Rest passiert von selbst.** Wenn dein Hoster
+ausgehende Verbindungen erlaubt (siehe `?diag=1` → `outbound-test: … ok`),
+brauchst du nichts weiter als Apache + PHP:
+
+1. Die eine Datei `index.php` ins Web-Root legen.
+2. Seite aufrufen. Findet sie keine Clubs, holt sie sie beim ersten Aufruf
+   selbst aus diesem Repo („Clubs werden geladen …"), danach ist die Karte da.
+   Aktuell hält sie sich danach allein (einmal am Tag im Hintergrund).
+
+Kein Schlüssel, kein Ordner, kein Handgriff. Abschaltbar über
+`CONNECTOR_AUTO = false` oben in der Datei.
+
+**B) Alles hochladen – läuft überall, auch ohne ausgehende Verbindung.**
 
 1. Repo herunterladen: oben **Code → Download ZIP** (oder `git clone`).
-2. Entpacken, den **Inhalt** ins Web-Root deines Webspace legen
-   (`index.php` und `connectors/` müssen nebeneinander liegen).
+2. Entpacken, den **Inhalt** ins Web-Root legen (`index.php` und
+   `connectors/` nebeneinander).
 3. Seite aufrufen – die Karte ist sofort da.
 
 Das ist der einzige Weg, der überall funktioniert, auch auf kostenlosen

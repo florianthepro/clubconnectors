@@ -24,6 +24,8 @@ const CACHE_V = 2;
 const CONNECTOR_REPO = 'florianthepro/clubconnectors';
 const CONNECTOR_BRANCH = 'main';
 const CONNECTOR_DIRS = ['data/connectors', 'connectors', 'regions']; // erster Treffer gewinnt
+const CONNECTOR_AUTO = true;   // leere Seite holt sich die Clubs selbst aus dem Repo
+const CONNECTOR_REFRESH = 86400; // Selbst-Aktualisierung der geholten Clubs (Sekunden)
 const REGIONS_DIR = 'regions';           // Altbestand, nur noch Fallback
 const FLAG_DIR = 'flag';                  // relativer Pfad zu den Flaggen-Icons
 const REGION_NAMES = ['de' => 'Deutschland', 'us' => 'USA'];
@@ -380,6 +382,15 @@ if (isset($_GET['cron'])) {
     } elseif (function_exists('litespeed_finish_request')) {
         litespeed_finish_request();
     }
+    // Sind die Clubs per Selbst-Start geholt? Dann hält der Ping sie aktuell –
+    // höchstens einmal am Tag, sonst kostet es nur Zeit.
+    if (CONNECTOR_AUTO && connector_root()[1] === CONNECTOR_DIRS[0]) {
+        $rstamp = __DIR__ . '/data/refresh.stamp';
+        if (!is_file($rstamp) || time() - (int)filemtime($rstamp) > CONNECTOR_REFRESH) {
+            @touch($rstamp);
+            sync_connectors();
+        }
+    }
     $cc = region();
     [, $conn] = load_connectors($cc);
     // Batch pro Ping; das Zeitbudget in fetch_all begrenzt den Lauf real
@@ -641,6 +652,47 @@ function sync_connectors(): array
     }
     rm_tree($old);
     return [true, $got . ' Connectoren von ' . CONNECTOR_REPO . ' (' . CONNECTOR_BRANCH . ') übernommen.'];
+}
+
+/* Sind überhaupt Connectoren da (lokal, im Repo-Ordner oder per Sync geholt)? */
+function connectors_present(): bool
+{
+    return local_mode() || region_list() !== [];
+}
+
+/*
+ * Selbst-Start: ist die Seite leer und der Server darf ins Netz, holt sie die
+ * Clubs beim ersten Aufruf allein aus dem festen Repo – ohne Schlüssel, ohne
+ * Handgriff. Nur Apache + PHP + index.php, den Rest macht das Script.
+ * Sicher, weil ausschließlich das fest verdrahtete CONNECTOR_REPO geladen wird
+ * (TLS-geprüft, auf connectors/<…>.yaml gefiltert, größen- und schrumpfgesichert).
+ */
+function maybe_bootstrap(): string
+{
+    // 'filled' = frisch geholt (Aufrufer leitet auf frischen Request um),
+    // 'pending' = wird geholt/gerade probiert (Ladeseite), 'cannot' = geht hier nicht.
+    if (!CONNECTOR_AUTO || connectors_present()) {
+        return 'cannot';
+    }
+    if (!function_exists('curl_init') || !(class_exists('ZipArchive') || class_exists('PharData'))) {
+        return 'cannot';
+    }
+    $data = __DIR__ . '/data';
+    if (!is_dir($data)) {
+        @mkdir($data, 0755, true);
+    }
+    if (!is_dir($data) || !@is_writable($data)) {
+        return 'cannot';
+    }
+    // nicht bei jedem Treffer neu versuchen, falls GitHub gerade klemmt
+    $stamp = $data . '/bootstrap.stamp';
+    if (is_file($stamp) && time() - (int)filemtime($stamp) < 20) {
+        return 'pending';
+    }
+    @touch($stamp);
+    @set_time_limit(90);
+    [$ok] = sync_connectors(); // holt NUR das feste Repo
+    return $ok ? 'filled' : 'pending';
 }
 
 /* Ordner samt Inhalt löschen – nur unterhalb von data/, ohne Symlinks zu folgen */
@@ -1560,6 +1612,16 @@ function scrape_refresh(array $old, array $connectors, int $limit = 24, string $
  * Aktualisiert wird über einen unsichtbaren Hintergrund-Ping (?cron=1),
  * den der Browser nach dem Laden abschickt.
  */
+// Selbst-Start: leere Seite füllt sich beim ersten Aufruf aus dem Repo
+$bootState = 'cannot';
+if (!local_mode() && !connectors_present()) {
+    $bootState = maybe_bootstrap();
+    if ($bootState === 'filled') {
+        // frisch geholt – sauberer neuer Request, damit alle Caches greifen
+        header('Location: ' . strtok((string)($_SERVER['REQUEST_URI'] ?? '/'), '#'));
+        exit;
+    }
+}
 $cc = region();
 if (!local_mode() && $cc === '') {
     // Start: Standort entscheidet – Länderwahl nur als Fallback
@@ -1636,8 +1698,13 @@ h1 { margin: 0; font-size: 26px; letter-spacing: -0.02em; }
 <body>
 <main>
     <h1>Nightclubmap</h1>
-<?php if (!$regions): ?>
-    <p class="none">Bald.</p>
+<?php if (!$regions && $bootState === 'pending'): ?>
+    <p class="none">Clubs werden geladen …</p>
+    <script>setTimeout(function(){ location.reload(); }, 3000);</script>
+<?php elseif (!$regions): ?>
+    <p class="none">Noch keine Clubs. Ordner <code>connectors/</code> aus dem
+    Repo neben die <code>index.php</code> legen – oder <code>?diag=1</code>
+    zeigt, warum der Selbst-Start nicht greift.</p>
 <?php endif; ?>
     <p class="none" id="locmsg" hidden>Standort wird verwendet …</p>
 <?php foreach ($regions as $code => $n): ?>
