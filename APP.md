@@ -90,6 +90,37 @@ Kommen die Connectoren gerade per `?sync` aus dem Repo, speichert der Admin
 **nicht** – ein Club dort wäre beim nächsten Sync weg. Stattdessen zeigt er die
 fertige YAML zum Kopieren: die gehört als Pull Request ins Connector-Repo.
 
+### Viele Clubs auf einmal
+
+Im Admin unten steht ein Feld für den Massen-Import – eine Zeile je Club:
+
+```
+Website | Name | Stadt | Bundesland | Straße Nr. | lat | lng | Musik [| Öffnungszeiten]
+https://rote-sonne.com | Rote Sonne | München | bayern | Maximiliansplatz 5 | 48.1414 | 11.5706 | Techno, House | Fr,Sa 23:00-07:00
+```
+
+„Zeilen prüfen" macht **nichts kaputt**, sondern zeigt je Zeile, was fehlt:
+Koordinate zu ungenau oder vertauscht, Postleitzahl in der Adresse, unbekannte
+Musikrichtung, `id` oder Koordinate schon vergeben, Website nicht erreichbar.
+Nebenbei ruft der Server jede Seite auf und stellt die Extraktion selbst ein
+(Bilder/Programm/Infotext). Erst „Clubs anlegen" schreibt die Dateien – nach
+dem Standard, mit `checked` auf den aktuellen Monat.
+
+## Alles über die eigene Domain
+
+Der Browser spricht nur mit deinem Server, auf 443/80:
+
+- **Leaflet** liegt in `vendor/` und kommt über `?asset=leaflet.js|leaflet.css`.
+  Fehlt der Ordner, fällt die Seite auf unpkg zurück – `?diag=1` sagt, was gilt.
+- **Clubfotos** laufen über `?img=…`: der Server holt sie, legt sie in
+  `data/cache/img/` und liefert sie selbst aus. Das löst zugleich
+  Mixed-Content, Hotlink-Sperren und fehlende Vorschaubilder.
+- **Kartenkacheln** laufen über `?tile=z/x/y`, ebenfalls mit Plattencache.
+
+Abschaltbar oben in der Datei: `PROXY_IMAGES`, `PROXY_TILES`. Der Bild-Proxy
+nimmt nur selbst signierte Adressen an (kein offener Proxy), nur `http(s)` auf
+Port 80/443, keine privaten Netze, jede Umleitung wird neu geprüft, 4 MB Grenze.
+
 ## Datenstand
 
 **244 Connectoren** in 26 Städten (Bayern 109, Baden-Württemberg 80,

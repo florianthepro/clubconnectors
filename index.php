@@ -35,6 +35,13 @@ const IMG_TTL = 604800;      // Clubfotos 7 Tage vorhalten
 const TILE_TTL = 2592000;    // Kacheln 30 Tage vorhalten
 const IMG_MAX = 4194304;     // 4 MB je Bild reicht weit
 const TILE_URL = 'https://{s}.basemaps.cartocdn.com/{style}/{z}/{x}/{y}{r}.png';
+
+/* Geschlossene Liste aus SPEC.md Abschnitt 6 */
+const OK_GENRES = ['80er/90er', 'Black Music', 'Drum and Bass', 'Electro', 'Goa', 'Hip-Hop',
+    'House', 'Indie', 'Latin', 'Live', 'Mixed', 'Rock', 'Schlager', 'Techno'];
+/* Land-Rahmen aus SPEC.md Abschnitt 8: lat_min lat_max lng_min lng_max */
+const BBOX = ['de' => [47.20, 55.10, 5.80, 15.10], 'at' => [46.30, 49.10, 9.50, 17.20],
+    'ch' => [45.80, 47.85, 5.90, 10.55]];
 const REGIONS_DIR = 'regions';           // Altbestand, nur noch Fallback
 const FLAG_DIR = 'flag';                  // relativer Pfad zu den Flaggen-Icons
 const REGION_NAMES = ['de' => 'Deutschland', 'us' => 'USA'];
@@ -600,6 +607,109 @@ if (isset($_GET['admin'])) {
  * Extraktions-Agent gemappt und die Connector-YAML erzeugt/gespeichert.
  * Schutz: Schlüssel in data/admin.key (Datei anlegen = Admin aktivieren).
  */
+/*
+ * Eine Zeile des Massen-Imports zerlegen und gegen den Standard prüfen.
+ * Format (mit | oder Tab getrennt):
+ *   URL | Name | Stadt | Bundesland | Adresse | lat | lng | Genres [| hours]
+ * Rückgabe: ['ok'=>bool, 'err'=>[…], 'y'=>[Feld=>Wert], 'land'=>…]
+ */
+function bulk_parse(string $line, string $cc): array
+{
+    $err = [];
+    $f = preg_split('#\s*\|\s*|\t+#', trim($line));
+    $f = array_map('trim', (array)$f);
+    if (count($f) < 8) {
+        return ['ok' => false, 'err' => ['zu wenige Felder (' . count($f) . ' von mindestens 8)'], 'y' => []];
+    }
+    [$url, $name, $city, $land, $addr, $lat, $lng, $genres] = array_slice($f, 0, 8);
+    $hours = $f[8] ?? '';
+
+    if (!preg_match('#^https?://#i', $url)) {
+        $err[] = 'Website ist keine http(s)-Adresse';
+    }
+    if (mb_strlen($name) < 2 || mb_strlen($name) > 60) {
+        $err[] = 'Name muss 2–60 Zeichen haben';
+    }
+    if ($city === '') {
+        $err[] = 'Stadt fehlt';
+    }
+    $land = admin_area_slug($land);
+    if ($land === '') {
+        $err[] = 'Bundesland fehlt';
+    }
+    if (mb_strlen($addr) < 4 || mb_strlen($addr) > 60) {
+        $err[] = 'Adresse muss 4–60 Zeichen haben (nur Straße + Hausnummer)';
+    }
+    if (preg_match('/\b\d{5}\b/', $addr)) {
+        $err[] = 'Adresse enthält eine Postleitzahl';
+    }
+    foreach (['lat' => $lat, 'lng' => $lng] as $k => $v) {
+        if (!preg_match('/^-?\d{1,3}\.\d{3,6}$/', $v)) {
+            $err[] = $k . ' braucht 3–6 Nachkommastellen (bekommen: "' . $v . '")';
+        }
+    }
+    $bb = BBOX[$cc] ?? null;
+    if ($bb && !$err) {
+        if ((float)$lat < $bb[0] || (float)$lat > $bb[1] || (float)$lng < $bb[2] || (float)$lng > $bb[3]) {
+            $err[] = 'Koordinate liegt außerhalb von ' . $cc . ' – lat und lng vertauscht?';
+        }
+    }
+    $gs = [];
+    foreach (preg_split('#\s*,\s*#', $genres) as $g) {
+        if ($g === '') {
+            continue;
+        }
+        $hit = null;
+        foreach (OK_GENRES as $ok) {
+            if (strcasecmp($ok, $g) === 0) {
+                $hit = $ok;
+            }
+        }
+        if ($hit === null) {
+            $err[] = 'unbekannte Musikrichtung "' . $g . '"';
+        } elseif (!in_array($hit, $gs, true)) {
+            $gs[] = $hit;
+        }
+    }
+    if (!$gs && !$err) {
+        $err[] = 'mindestens eine Musikrichtung nötig';
+    }
+    if (count($gs) > 3) {
+        $err[] = 'höchstens 3 Musikrichtungen';
+    }
+    if (count($gs) > 1 && in_array('Mixed', $gs, true)) {
+        $err[] = '"Mixed" steht allein oder gar nicht';
+    }
+    if ($hours !== '' && !parse_hours($hours)) {
+        $err[] = 'Öffnungszeiten unlesbar – Format: Fr,Sa 23:00-05:00';
+    }
+    return ['ok' => !$err, 'err' => $err, 'land' => $land, 'y' => [
+        'id' => admin_slug($name), 'name' => $name, 'city' => $city, 'address' => $addr,
+        'lat' => $lat, 'lng' => $lng, 'website' => $url, 'genres' => implode(', ', $gs),
+        'hours' => $hours,
+    ]];
+}
+
+/* Aus den geprüften Feldern die YAML nach SPEC.md bauen */
+function bulk_yaml(array $y, string $imgMode, string $evMode, string $infoMode): string
+{
+    $out = ['# ' . $y['name'] . ' – ' . $y['city']];
+    foreach (['id', 'name', 'city', 'address', 'lat', 'lng', 'website', 'genres', 'hours'] as $k) {
+        if (($y[$k] ?? '') !== '') {
+            $out[] = $k . ': ' . admin_yaml_val((string)$y[$k]);
+        }
+    }
+    $out[] = 'checked: ' . date('Y-m');
+    $out[] = '';
+    $out[] = '# Wie die Website ausgelesen wird';
+    $out[] = 'scrape_url: ' . admin_yaml_val((string)$y['website']);
+    $out[] = 'scrape_events: ' . $evMode;
+    $out[] = 'scrape_images: ' . $imgMode;
+    $out[] = 'scrape_info: ' . $infoMode;
+    $out[] = 'scrape_closed: auto';
+    return implode("\n", $out) . "\n";
+}
+
 /* Bundesland-Slug: wie admin_slug, aber Bindestriche bleiben (baden-wuerttemberg) */
 function admin_area_slug(string $s): string
 {
@@ -1123,6 +1233,126 @@ function admin_page(): void
     $h = fn($s) => htmlspecialchars((string)$s, ENT_QUOTES);
     $kq = '&amp;key=' . $h(rawurlencode($key));
 
+    // Wohin darf geschrieben werden? (nicht in den Sync-Ordner, der wird überschrieben)
+    $writeBlocked = !local_mode() && connector_root()[1] === CONNECTOR_DIRS[0];
+
+    // Massen-Import: viele Clubs auf einmal, eine Zeile je Club
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['bulkgo']) || isset($_POST['bulksave']))) {
+        $cc = admin_slug((string)($_POST['bcc'] ?? 'de')) ?: 'de';
+        $raw = (string)($_POST['bulk'] ?? '');
+        $save = isset($_POST['bulksave']);
+        $rows = [];
+        foreach (preg_split('#\r?\n#', $raw) as $ln => $line) {
+            if (trim($line) === '' || substr(trim($line), 0, 1) === '#') {
+                continue;
+            }
+            $rows[$ln + 1] = bulk_parse($line, $cc);
+        }
+        if (!$rows) {
+            echo '<p class="err">Keine Zeilen erkannt.</p>';
+        }
+        // Was es schon gibt: id und Koordinate dürfen sich nicht wiederholen
+        [$exClubs] = load_connectors(local_mode() ? '' : $cc);
+        $haveId = $haveXY = [];
+        foreach ($exClubs as $ec) {
+            $haveId[$ec['id']] = true;
+            $haveXY[number_format($ec['lat'], 4, '.', '') . ',' . number_format($ec['lng'], 4, '.', '')] = $ec['name'];
+        }
+        foreach ($rows as $i => $r) {
+            if (!$r['ok']) {
+                continue;
+            }
+            $id = $r['y']['id'];
+            $xy = number_format((float)$r['y']['lat'], 4, '.', '') . ',' . number_format((float)$r['y']['lng'], 4, '.', '');
+            if (isset($haveId[$id])) {
+                $rows[$i]['ok'] = false;
+                $rows[$i]['err'][] = 'id "' . $id . '" gibt es schon – Ortsnamen anhängen';
+            }
+            if (isset($haveXY[$xy])) {
+                $rows[$i]['ok'] = false;
+                $rows[$i]['err'][] = 'gleiche Koordinate wie "' . $haveXY[$xy] . '"';
+            }
+            $haveId[$id] = true;
+            $haveXY[$xy] = $r['y']['name'];
+        }
+        // Erreichbarkeit in einem Rutsch prüfen (sagt auch, wie gescrapt wird)
+        $urls = [];
+        foreach ($rows as $i => $r) {
+            if ($r['ok']) {
+                $urls[$i] = $r['y']['website'];
+            }
+        }
+        $res = $urls ? fetch_all($urls, [], 60) : [];
+        echo '<h2>' . ($save ? 'Gespeichert' : 'Prüfung') . '</h2><table style="width:100%;border-collapse:collapse;font-size:13.5px">';
+        echo '<tr><th align="left">Zeile</th><th align="left">Club</th><th align="left">Ergebnis</th></tr>';
+        $good = $bad = 0;
+        foreach ($rows as $i => $r) {
+            $nameCell = $h($r['y']['name'] ?? '?') . ' <span class="muted">' . $h($r['y']['city'] ?? '') . '</span>';
+            if (!$r['ok']) {
+                $bad++;
+                echo '<tr><td>' . $i . '</td><td>' . $nameCell . '</td><td class="err">' . $h(implode('; ', $r['err'])) . '</td></tr>';
+                continue;
+            }
+            $hit = $res[$i] ?? null;
+            if (!$hit || $hit['code'] === 0) {
+                $bad++;
+                echo '<tr><td>' . $i . '</td><td>' . $nameCell . '</td><td class="err">Website nicht erreichbar: '
+                    . $h($hit['err'] ?? 'keine Antwort') . '</td></tr>';
+                continue;
+            }
+            // Extraktions-Modi aus dem, was die Seite wirklich hergibt
+            $html = $hit['body'];
+            $base = $hit['url'] ?: $r['y']['website'];
+            $imgMode = extract_images($html, $base, 'auto', 4) ? 'auto' : (extract_images($html, $base, 'og', 2) ? 'og' : 'none');
+            $evMode = jsonld_events($html) ? 'jsonld' : (auto_events($html, null, null) ? 'auto' : 'none');
+            $infoMode = extract_info($html) !== '' ? 'auto' : 'none';
+            $yaml = bulk_yaml($r['y'], $imgMode, $evMode, $infoMode);
+            $note = 'Bilder ' . $imgMode . ', Programm ' . $evMode . ', Info ' . $infoMode;
+            if ($save) {
+                if ($writeBlocked) {
+                    $bad++;
+                    echo '<tr><td>' . $i . '</td><td>' . $nameCell . '</td><td class="err">nicht gespeichert (Sync-Ordner aktiv)</td></tr>';
+                    continue;
+                }
+                $dir = local_mode() ? __DIR__ . '/data/connector'
+                    : region_dir($cc) . '/' . $r['land'] . '/' . admin_slug($r['y']['city']);
+                @mkdir($dir, 0755, true);
+                $file = $dir . '/' . $r['y']['id'] . '.yaml';
+                if (is_file($file)) {
+                    $bad++;
+                    echo '<tr><td>' . $i . '</td><td>' . $nameCell . '</td><td class="err">gibt es schon: '
+                        . $h(str_replace(__DIR__ . '/', '', $file)) . '</td></tr>';
+                    continue;
+                }
+                if (@file_put_contents($file, $yaml) === false) {
+                    $bad++;
+                    echo '<tr><td>' . $i . '</td><td>' . $nameCell . '</td><td class="err">Schreiben fehlgeschlagen</td></tr>';
+                    continue;
+                }
+                $good++;
+                echo '<tr><td>' . $i . '</td><td>' . $nameCell . '</td><td class="ok">' . $h(str_replace(__DIR__ . '/', '', $file))
+                    . ' <span class="muted">(' . $h($note) . ')</span></td></tr>';
+            } else {
+                $good++;
+                echo '<tr><td>' . $i . '</td><td>' . $nameCell . '</td><td class="ok">bereit – ' . $h($note) . '</td></tr>';
+            }
+        }
+        echo '</table><p>' . $good . ' in Ordnung, ' . $bad . ' mit Problem.</p>';
+        if (!$save && $good > 0) {
+            if ($writeBlocked) {
+                echo '<p class="err">Die Connectoren kommen zurzeit per <code>?sync</code> aus ' . $h(CONNECTOR_REPO)
+                    . ' – hier Gespeichertes wäre beim nächsten Sync weg. Zeilen ins Repo geben.</p>';
+            } else {
+                echo '<form method="post"><input type="hidden" name="key" value="' . $h($key) . '">'
+                    . '<input type="hidden" name="bcc" value="' . $h($cc) . '">'
+                    . '<textarea name="bulk" hidden>' . $h($raw) . '</textarea>'
+                    . '<button name="bulksave" value="1">' . $good . ' Clubs anlegen</button></form>';
+            }
+        }
+        echo '<p><a href="?admin=1' . $kq . '">Zurück</a></p></body></html>';
+        return;
+    }
+
     // Schritt 3: YAML speichern
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['saveyaml'])) {
         $cc = admin_slug((string)($_POST['cc'] ?? ''));
@@ -1268,6 +1498,18 @@ function admin_page(): void
             echo '</select><br><br><button>YAML erzeugen</button></form>';
         }
     }
+    // Viele Clubs auf einmal: eine Zeile je Club
+    echo '<h2>Viele Clubs auf einmal</h2>';
+    echo '<p class="muted">Eine Zeile je Club, Felder mit <code>|</code> getrennt:<br>'
+        . '<code>Website | Name | Stadt | Bundesland | Straße Nr. | lat | lng | Musik [| Öffnungszeiten]</code><br>'
+        . 'Beispiel: <code>https://rote-sonne.com | Rote Sonne | München | bayern | Maximiliansplatz 5 | 48.1414 | 11.5706 | Techno, House | Fr,Sa 23:00-07:00</code><br>'
+        . 'Der Server prüft jede Zeile gegen den Standard, ruft die Website auf und stellt die Extraktion selbst ein. '
+        . 'Koordinaten mit 4 Nachkommastellen; Musik nur aus: ' . $h(implode(', ', OK_GENRES)) . '.</p>';
+    echo '<form method="post"><input type="hidden" name="key" value="' . $h($key) . '">';
+    echo '<div class="grid"><div><label>Land</label><input name="bcc" value="de"></div><div></div></div>';
+    echo '<textarea name="bulk" placeholder="https://… | Name | Stadt | bayern | Straße 1 | 48.1414 | 11.5706 | Techno"></textarea>';
+    echo '<button name="bulkgo" value="1">Zeilen prüfen</button></form>';
+
     // Connectoren aus dem Repo nachziehen – die Clubdaten liegen ja dort.
     [, $csrc] = connector_root();
     echo '<h2>Connectoren</h2><p class="muted">Quelle: <code>' . $h($csrc) . '/</code>'
