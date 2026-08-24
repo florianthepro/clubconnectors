@@ -61,6 +61,18 @@ Options -Indexes
     # Beweist der index.php, dass Umschreiben ueberhaupt moeglich ist.
     RewriteRule ^ - [E=NCM_REWRITE:1]
 
+    # Fremde Seiten sollen den Cache nicht als eigene Bild-/Kachelquelle
+    # einbinden. Der Referer-Host muss gleich dem eigenen Host sein; die
+    # Rueckwaertsreferenz \1 vergleicht beide, ohne dass die Domain hier
+    # eingetragen werden muss.
+    # Ohne Referer wird durchgelassen - viele Browser senden aus
+    # Datenschutzgruenden keinen, und wer das ausnutzt, laesst sich auf
+    # diesem Weg nicht abhalten. Das Nachladen NEUER Kacheln (der teure Teil)
+    # verlangt die index.php trotzdem eine echte Herkunft, siehe tile_allowed().
+    RewriteCond %{HTTP_REFERER} !^$
+    RewriteCond %{HTTP_REFERER}::%{HTTP_HOST} !^https?://([^/:]+)(?::[0-9]+)?/.*::\1(?::[0-9]+)?$ [NC]
+    RewriteRule ^cache/ - [F,L]
+
     # KEIN QSA: das haengt die Query des Aufrufers HINTEN an, und bei doppelt
     # genanntem Parameter gewinnt in PHP der letzte - der Aufrufer koennte
     # tile, m und r also selbst bestimmen. Stattdessen muss die Query genau

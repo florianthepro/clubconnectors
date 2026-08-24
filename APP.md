@@ -140,8 +140,17 @@ Was die Proxys absichern:
   Auslieferung entscheidet allein sie über den Content-Type.
 - `cache/` bekommt automatisch eine `.htaccess`, die erst alles verbietet und
   dann genau die fünf Bildendungen erlaubt.
-- Der Kachel-Weg verlangt ein Token aus der Seite und weist fremde Referer ab,
-  damit niemand den Server als Kachelquelle für seine eigene Karte einspannt.
+- Eine **neue** Kachel holt der Server nur, wenn der Abruf nachweislich von
+  der eigenen Domain kommt (Referer oder Origin) und das Token aus der Seite
+  stimmt. Das Token allein reicht nicht – es steht im Quelltext und ist
+  abschreibbar. Wer den Referer im Browser ganz abschaltet, sieht deshalb nur
+  noch bereits zwischengespeicherte Kacheln.
+- Für **bereits zwischengespeicherte** Kacheln und Fotos greift das nicht:
+  die liefert Apache aus, ohne dass PHP läuft. Dagegen steht in der
+  `.htaccess` eine Referer-Regel, die fremde Einbindungen abweist – die
+  stoppt den bequemen Fall, aber keinen, der den Referer unterdrückt.
+  Es geht dabei um Bandbreite, nicht um Daten: der Inhalt ist ohnehin
+  öffentlich.
 
 **Offen:** Ob CARTO das serverseitige Zwischenspeichern seiner Kacheln
 erlaubt, ist nicht nachgeprüft – `docs.carto.com/faqs/carto-basemaps` und

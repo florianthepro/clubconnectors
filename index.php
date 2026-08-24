@@ -471,10 +471,20 @@ function tile_token(): string
 }
 
 /*
- * Darf dieser Abruf eine Kachel nachladen? Der teure Weg ist der Fehltreffer:
- * er kostet einen Abruf beim Karten-Anbieter und Platz auf der Platte.
- * Zwei Hürden, absichtlich weich: ein fremder Referer fliegt raus, ein
- * fehlender nicht (viele Browser senden aus Datenschutzgründen keinen).
+ * Darf dieser Abruf eine Kachel NACHLADEN? Das ist der teure Weg: er kostet
+ * einen Abruf beim Karten-Anbieter und Platz auf der Platte.
+ *
+ * Verlangt wird eine nachweisbare Herkunft von der eigenen Seite. Das Token
+ * allein reicht nicht – es steht im Seitenquelltext und ist damit für jeden
+ * abschreibbar. Fehlt Referer UND Origin, wird abgewiesen: die eigene Seite
+ * schickt bei gleicher Domain immer einen Referer mit, eine fremde Karte mit
+ * referrerPolicy="no-referrer" dagegen nicht – und genau die soll draußen
+ * bleiben. Preis: wer den Referer im Browser komplett abschaltet, sieht nur
+ * noch bereits zwischengespeicherte Kacheln.
+ *
+ * Für schon zwischengespeicherte Kacheln greift das hier NICHT – die liefert
+ * Apache aus, ohne dass PHP läuft. Dagegen hilft nur die Referer-Regel in
+ * der .htaccess, und die stoppt bloß den bequemen Fall.
  */
 function tile_allowed(): bool
 {
@@ -482,19 +492,24 @@ function tile_allowed(): bool
     if ($tok !== '' && !hash_equals($tok, (string)($_GET['t'] ?? ''))) {
         return false;
     }
+    $me = strtolower((string)($_SERVER['HTTP_HOST'] ?? ''));
+    $me = (string)(strpos($me, ':') !== false ? strstr($me, ':', true) : $me);
+    if ($me === '') {
+        return false; // ohne eigenen Namen ist nichts vergleichbar
+    }
+    $herkunft = false;
     foreach (['HTTP_ORIGIN', 'HTTP_REFERER'] as $k) {
         $v = (string)($_SERVER[$k] ?? '');
         if ($v === '') {
             continue;
         }
+        $herkunft = true;
         $h = strtolower((string)(parse_url($v, PHP_URL_HOST) ?: ''));
-        $me = strtolower((string)($_SERVER['HTTP_HOST'] ?? ''));
-        $me = (string)(strpos($me, ':') !== false ? strstr($me, ':', true) : $me);
-        if ($h !== '' && $me !== '' && $h !== $me) {
+        if ($h !== $me) {
             return false; // fremde Seite bindet unsere Kacheln ein
         }
     }
-    return true;
+    return $herkunft;
 }
 
 /* Kacheln als Dateipfad ausliefern (Apache) statt über ?tile= (PHP)? */
@@ -828,7 +843,9 @@ if (isset($_GET['diag'])) {
     }
     echo 'statische auslieferung: ' . (tile_static() ? 'an – Apache liefert gecachte Kacheln selbst aus'
         : 'aus (' . (implode(', ', $warum) ?: 'kachel-proxy aus') . '), alles läuft über PHP') . "\n";
-    echo 'kachel-token: ' . (tile_token() !== '' ? 'gesetzt' : 'keins (ohne Schlüssel kein Schutz vor fremder Nutzung)') . "\n";
+    echo 'kachel-schutz: ' . (tile_token() === '' ? 'keiner (ohne Schlüssel kein Token)'
+        : 'Nachladen nur mit Herkunft von der eigenen Domain; bereits '
+          . 'zwischengespeicherte Kacheln liefert Apache an jeden aus') . "\n";
     echo 'modus: ' . (local_mode() ? 'lokal (/data/connector)' : 'regionen (' . (implode(', ', $rl) ?: 'keine') . ')') . "\n";
     $dcc = region() !== '' ? region() : (local_mode() ? '' : ($rl[0] ?? ''));
     $t = load_connectors($dcc);
