@@ -7,7 +7,7 @@ if (isset($_GET['debug'])) {
     error_reporting(E_ALL);
 }
 
-const CACHE_TTL = 3600;   // stündlich nachsehen – dank ETag/Hash-Abgleich günstig
+const CACHE_TTL = 900;    // ab wann die Seite wieder einen ?cron-Ping auslöst
 const CACHE_V = 2;
 
 /*
@@ -31,24 +31,84 @@ const CONNECTOR_REFRESH = 86400; // Selbst-Aktualisierung der geholten Clubs (Se
    diese index.php – der Browser spricht nur noch mit dem eigenen Server. */
 const PROXY_IMAGES = true;   // Clubfotos über ?img= statt direkt vom Club-Server
 /*
- * Kartenkacheln über den eigenen Server? Standardmäßig NEIN – und das mit
- * Absicht: eine einzige Kartenansicht lädt 50–150 Kacheln. Auf Gratis-Hostern
- * (InfinityFree & Co.) zählt jede davon gegen das Tageslimit von ~50.000
- * Zugriffen und belegt einen der ~10 gleichzeitigen PHP-Prozesse – die Seite
- * wäre nach ein paar hundert Besuchern gesperrt und zwischendurch mit
- * "Resource Limit Reached" nicht erreichbar. Direkt vom Karten-CDN geladen
- * kostet sie den eigenen Server dagegen null.
- * Auf eigenem Server mit echten Ressourcen: auf true stellen.
+ * Kartenkacheln über den eigenen Server. Eine Kartenansicht lädt 50–150
+ * Kacheln; damit daraus nicht 50–150 PHP-Aufrufe werden, landen sie in
+ * cache/tile/ und Apache liefert jede weitere Anfrage selbst aus – PHP läuft
+ * nur noch beim allerersten Mal. Auf einem Gratis-Hoster mit Zugriffszählung
+ * gehört das auf false, dort kostet jede Kachel gegen das Tageslimit.
+ *
+ * Ungeklärt: ob CARTO das serverseitige Zwischenspeichern seiner Kacheln
+ * erlaubt, ist NICHT nachgeprüft – die Bedingungen unter
+ * docs.carto.com/faqs/carto-basemaps und carto.com/attributions waren beim
+ * Bauen nicht erreichbar. Wer auf Nummer sicher gehen will, liest dort nach
+ * und stellt notfalls diese eine Zeile zurück auf false.
  */
-const PROXY_TILES = false;
+const PROXY_TILES = true;
 const IMG_TTL = 604800;      // Clubfotos 7 Tage vorhalten
-const TILE_TTL = 2592000;    // Kacheln 30 Tage vorhalten
+const TILE_TTL = 604800;     // Kacheln 7 Tage – Untergrenze der OSM-Kachelregeln
 const IMG_MAX = 4194304;     // 4 MB je Bild reicht weit
+/* Wie viele Kacheln je Stil/Zoom/x-Spalte höchstens liegen bleiben. Auf
+   eigenem Server ist Platte billig – veraltete räumt TILE_TTL weg. */
+const TILE_KEEP = 4096;   // je Stil/Zoom/x-Spalte – eine Spalte hat nie mehr
+const IMG_KEEP = 20000;   // Clubfotos insgesamt, eine Datei je Foto
+/* Ein ehrlicher Name für den Kachel-Abruf: der Anbieter soll sehen, wer da
+   holt. Für Clubseiten bleibt es beim Browser-Namen, sonst sperren sie aus. */
+const TILE_UA = 'Nightclubmap/1.0 (Kartenanzeige, +https://github.com/florianthepro/clubconnectors)';
 /* Welche Bildtypen der Proxy weiterreicht – und als was er sie ausliefert.
    Bewusst ohne SVG: eine SVG-Datei darf Skript enthalten und käme von der
    eigenen Domain, könnte also im Namen der Seite mitlesen. */
 const IMG_TYPES = ['image/png' => 'image/png', 'image/jpeg' => 'image/jpeg', 'image/jpg' => 'image/jpeg',
     'image/gif' => 'image/gif', 'image/webp' => 'image/webp', 'image/avif' => 'image/avif'];
+/* Endung je geprüftem Typ. Liefert Apache die Datei direkt aus, entscheidet
+   allein die Endung über den Content-Type – sie muss also aus dem GEPRÜFTEN
+   Typ kommen, nie aus dem, was der fremde Server behauptet. */
+const IMG_EXT = ['image/png' => 'png', 'image/jpeg' => 'jpg', 'image/gif' => 'gif',
+    'image/webp' => 'webp', 'image/avif' => 'avif'];
+
+/*
+ * Schutz für den öffentlichen Cache. Wird beim ersten Schreiben angelegt.
+ * Absichtlich als POSITIVE Liste: erst alles verbieten, dann genau die fünf
+ * Bildendungen erlauben. Ein "RemoveHandler .php" oder "php_flag engine off"
+ * würde bei PHP-FPM nämlich gar nichts bewirken – eine Zugriffsverweigerung
+ * dagegen kann kein Handler überstimmen.
+ * Bewusst ohne "Options"-Zeile: die verlangt AllowOverride Options und würde
+ * sonst den ganzen Ordner mit Fehler 500 lahmlegen. Wer den eigenen Apache
+ * härten will, setzt "Options -FollowSymLinks -MultiViews" in der vHost.
+ */
+const PUB_CACHE_HTACCESS = <<<'HTA'
+# Hier liegen nur Bytes von fremden Servern - niemals ausfuehren.
+<IfModule mod_authz_core.c>
+    Require all denied
+    <FilesMatch "\.(png|jpe?g|gif|webp|avif)$">
+        Require all granted
+    </FilesMatch>
+</IfModule>
+<IfModule !mod_authz_core.c>
+    Order allow,deny
+    <FilesMatch "\.(png|jpe?g|gif|webp|avif)$">
+        Allow from all
+    </FilesMatch>
+</IfModule>
+<IfModule mod_mime.c>
+    AddType image/webp .webp
+    AddType image/avif .avif
+</IfModule>
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/png  "access plus 7 days"
+    ExpiresByType image/jpeg "access plus 7 days"
+    ExpiresByType image/gif  "access plus 7 days"
+    ExpiresByType image/webp "access plus 7 days"
+    ExpiresByType image/avif "access plus 7 days"
+</IfModule>
+<IfModule mod_headers.c>
+    # Ueberschreibt die Ein-Jahr-Regel aus dem Web-Root: was hier liegt, ist
+    # geholt und kann sich aendern - "immutable" liesse sich nie zurueckrufen.
+    Header set Cache-Control "public, max-age=604800"
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set Content-Security-Policy "default-src 'none'; sandbox"
+</IfModule>
+HTA;
 const TILE_URL = 'https://{s}.basemaps.cartocdn.com/{style}/{z}/{x}/{y}{r}.png';
 
 /* Geschlossene Liste aus SPEC.md Abschnitt 6 */
@@ -328,6 +388,225 @@ function asset_url(string $name): string
     return is_file(__DIR__ . '/vendor/' . $name) ? 'vendor/' . $name . '?v=1' : '?asset=' . $name;
 }
 
+/*
+ * Der öffentliche Byte-Cache: cache/ NEBEN der index.php, nicht unter data/.
+ * Was hier liegt, darf Apache direkt ausliefern – deshalb 0755/0644 und nicht
+ * 0700 wie beim privaten Cache: der Apache-Prozess ist oft ein anderer
+ * Benutzer als PHP und käme sonst nicht an die eigenen Dateien.
+ * data/ bleibt unverändert komplett gesperrt.
+ */
+/*
+ * Legt einen Ordner samt Zwischenstufen an und setzt jede Ebene ausdrücklich
+ * auf 0755. mkdir() zieht die umask ab – bei umask 077 entstünden sonst
+ * 0700-Ordner, und Apache (oft ein anderer Benutzer als PHP) käme nicht
+ * einmal durch die oberen Ebenen hindurch. Ein chmod nur auf die letzte
+ * Ebene reicht dafür nicht.
+ */
+function mkdir_pub(string $dir): bool
+{
+    if (is_dir($dir)) {
+        return true;
+    }
+    $teile = explode('/', str_replace('\\', '/', $dir));
+    $pfad = '';
+    foreach ($teile as $t) {
+        $pfad .= $t . '/';
+        if ($t === '') {
+            continue;
+        }
+        if (!is_dir($pfad) && !@mkdir($pfad, 0755)) {
+            return false;
+        }
+        @chmod($pfad, 0755);
+    }
+    return is_dir($dir);
+}
+
+function pub_cache_dir(string $sub = ''): ?string
+{
+    static $root = false;
+    if ($root === false) {
+        $p = __DIR__ . '/cache';
+        mkdir_pub($p);
+        $root = (is_dir($p) && !is_link($p) && @is_writable($p)) ? $p : null;
+        if ($root !== null && !is_file($p . '/.htaccess')) {
+            // Apache MUSS die Schutzdatei lesen können, sonst antwortet es mit
+            // Fehler 500 statt sie anzuwenden.
+            if (@file_put_contents($p . '/.htaccess', PUB_CACHE_HTACCESS) !== false) {
+                @chmod($p . '/.htaccess', 0644);
+            }
+        }
+    }
+    if ($root === null || $sub === '') {
+        return $root;
+    }
+    $d = $root . '/' . $sub;
+    if (!mkdir_pub($d)) {
+        return null;
+    }
+    return is_dir($d) && @is_writable($d) ? $d : null;
+}
+
+/*
+ * Kann Apache Anfragen umschreiben? Die .htaccess setzt dafür eine Variable.
+ * Damit ist zweierlei bewiesen: mod_rewrite ist da UND die .htaccess wird
+ * überhaupt gelesen (AllowOverride). Beides muss stimmen, sonst laufen die
+ * Kacheln ins Leere.
+ */
+function can_rewrite(): bool
+{
+    return !empty($_SERVER['NCM_REWRITE']) || !empty($_SERVER['REDIRECT_NCM_REWRITE']);
+}
+
+/*
+ * Kacheltoken. Steht offen im Seitenquelltext – es ist kein Geheimnis,
+ * sondern eine Hürde: ohne den Wert taugt die eigene Adresse nicht als
+ * Kachelquelle für fremde Karten. Bleibt über Wochen gleich, damit der
+ * Browser-Cache nicht täglich verfällt; ein neuer Schlüssel entwertet es.
+ */
+function tile_token(): string
+{
+    $sec = app_secret();
+    return $sec === '' ? '' : substr(hash_hmac('sha256', 'tile', $sec), 0, 12);
+}
+
+/*
+ * Darf dieser Abruf eine Kachel nachladen? Der teure Weg ist der Fehltreffer:
+ * er kostet einen Abruf beim Karten-Anbieter und Platz auf der Platte.
+ * Zwei Hürden, absichtlich weich: ein fremder Referer fliegt raus, ein
+ * fehlender nicht (viele Browser senden aus Datenschutzgründen keinen).
+ */
+function tile_allowed(): bool
+{
+    $tok = tile_token();
+    if ($tok !== '' && !hash_equals($tok, (string)($_GET['t'] ?? ''))) {
+        return false;
+    }
+    foreach (['HTTP_ORIGIN', 'HTTP_REFERER'] as $k) {
+        $v = (string)($_SERVER[$k] ?? '');
+        if ($v === '') {
+            continue;
+        }
+        $h = strtolower((string)(parse_url($v, PHP_URL_HOST) ?: ''));
+        $me = strtolower((string)($_SERVER['HTTP_HOST'] ?? ''));
+        $me = (string)(strpos($me, ':') !== false ? strstr($me, ':', true) : $me);
+        if ($h !== '' && $me !== '' && $h !== $me) {
+            return false; // fremde Seite bindet unsere Kacheln ein
+        }
+    }
+    return true;
+}
+
+/* Kacheln als Dateipfad ausliefern (Apache) statt über ?tile= (PHP)? */
+function tile_static(): bool
+{
+    return PROXY_TILES && can_rewrite() && pub_cache_dir('tile') !== null;
+}
+
+/*
+ * Pfad-Präfix der eigenen Seite, z. B. "/" oder "/karte/". Nötig, weil ein
+ * relativer Pfad wie "cache/tile/…" sich gegen das VERZEICHNIS auflöst: bei
+ * /karte (ohne Schrägstrich) läge er sonst plötzlich unter /.
+ */
+function url_base(): string
+{
+    $d = str_replace('\\', '/', dirname((string)($_SERVER['SCRIPT_NAME'] ?? '/index.php')));
+    return rtrim($d, '/') . '/';
+}
+
+/*
+ * Dateiname eines zwischengespeicherten Bildes. Aus dem Geheimnis abgeleitet,
+ * nicht aus der Adresse: sonst könnte jeder durchprobieren, welche Clubseiten
+ * der Server je besucht hat. Neuer Schlüssel = kalter Cache, das ist gewollt.
+ */
+function img_key(string $url): string
+{
+    $sec = app_secret();
+    return $sec === '' ? sha1($url) : substr(hash_hmac('sha256', 'img|' . $url, $sec), 0, 32);
+}
+
+/*
+ * Was sagen die ersten Bytes? Der behauptete Content-Type reicht nicht: bei
+ * statischer Auslieferung entscheidet die Endung, und die soll zum wirklichen
+ * Inhalt passen. Bewusst ohne fileinfo – die Erweiterung fehlt oft, und
+ * ältere libmagic kennt AVIF/WebP nicht.
+ */
+/*
+ * Liegt das Bild schon da? Zurück kommt [Pfad, Typ] oder null. Probiert die
+ * Endungen in der Reihenfolge, in der sie auf Clubseiten vorkommen – meist
+ * ist beim ersten Versuch Schluss.
+ */
+/*
+ * Einmal den Ordner lesen statt je Bild fünfmal nachzufragen.
+ * live_payload() geht über ALLE Clubs mit allen Fotos – mit je fünf
+ * Dateiabfragen wären das bei 244 Clubs schnell zehntausend Systemaufrufe,
+ * und zwar bei jedem Seitenaufbau und jeder Live-Abfrage.
+ * Rückgabe: Schlüssel => Endung.
+ */
+function img_index(string $dir): array
+{
+    static $map = [];
+    if (isset($map[$dir])) {
+        return $map[$dir];
+    }
+    $m = [];
+    foreach (@scandir($dir) ?: [] as $f) {
+        if ($f === '' || $f[0] === '.') {
+            continue; // Zwischendateien und . / .. übergehen
+        }
+        $punkt = strrpos($f, '.');
+        if ($punkt !== false && $punkt > 0) {
+            $m[substr($f, 0, $punkt)] = substr($f, $punkt + 1);
+        }
+    }
+    return $map[$dir] = $m;
+}
+
+function img_cached(string $dir, string $key, int $maxAge = 0): ?array
+{
+    foreach (['jpg' => 'image/jpeg', 'png' => 'image/png', 'webp' => 'image/webp',
+              'gif' => 'image/gif', 'avif' => 'image/avif'] as $ext => $type) {
+        $f = $dir . '/' . $key . '.' . $ext;
+        if (!is_file($f)) {
+            continue;
+        }
+        // Auf dem statischen Weg kommt PHP nie wieder an dieser Datei vorbei –
+        // die Frist muss also hier gelten, sonst hängt ein Foto ewig fest.
+        if ($maxAge > 0 && time() - (int)@filemtime($f) > $maxAge) {
+            return null;
+        }
+        return [$f, $type];
+    }
+    return null;
+}
+
+function sniff_image(string $b): string
+{
+    if (strncmp($b, "\x89PNG\r\n\x1a\n", 8) === 0) {
+        return 'image/png';
+    }
+    if (strncmp($b, "\xff\xd8\xff", 3) === 0) {
+        return 'image/jpeg';
+    }
+    if (strncmp($b, 'GIF87a', 6) === 0 || strncmp($b, 'GIF89a', 6) === 0) {
+        return 'image/gif';
+    }
+    if (strncmp($b, 'RIFF', 4) === 0 && substr($b, 8, 4) === 'WEBP') {
+        return 'image/webp';
+    }
+    // ISO-BMFF: ....ftyp<marke>, danach die Liste verträglicher Marken.
+    // Manche Werkzeuge schreiben 'mif1' als Hauptmarke und nennen 'avif'
+    // erst in der Liste – deshalb beides ansehen.
+    if (substr($b, 4, 4) === 'ftyp') {
+        $box = max(16, min(64, (int)unpack('N', substr($b . str_repeat("\0", 4), 0, 4))[1]));
+        $marken = substr($b, 8, $box - 8);
+        if (strpos($marken, 'avif') !== false || strpos($marken, 'avis') !== false) {
+            return 'image/avif';
+        }
+    }
+    return '';
+}
+
 if (isset($_GET['asset'])) {
     // feste Liste – es wird nichts ausgeliefert, was nicht hier steht
     $types = [
@@ -359,29 +638,42 @@ if (isset($_GET['img'])) {
         http_response_code(403);
         exit;
     }
-    $dir = cache_dir('img');
-    $key = sha1($url);
-    $bin = $dir ? $dir . '/' . $key : null;
-    if ($bin && is_file($bin) && is_file($bin . '.t') && time() - (int)filemtime($bin) < IMG_TTL) {
-        $ct = trim((string)file_get_contents($bin . '.t'));
-        serve_bytes((string)file_get_contents($bin), IMG_TYPES[$ct] ?? 'application/octet-stream', IMG_TTL);
+    // Die Endung steckt jetzt im Namen: liefert Apache die Datei direkt aus,
+    // entscheidet allein sie über den Content-Type.
+    $dir = pub_cache_dir('img') ?? cache_dir('img');
+    $key = img_key($url);
+    $hit = $dir ? img_cached($dir, $key) : null;
+    if ($hit && time() - (int)filemtime($hit[0]) < IMG_TTL) {
+        serve_bytes((string)file_get_contents($hit[0]), $hit[1], IMG_TTL);
     }
     $got = fetch_binary($url, IMG_MAX, IMG_TYPES);
     if (!$got) {
         // altes Bild lieber zeigen als gar keins
-        if ($bin && is_file($bin) && is_file($bin . '.t')) {
-            $ct = trim((string)file_get_contents($bin . '.t'));
-            serve_bytes((string)file_get_contents($bin), IMG_TYPES[$ct] ?? 'application/octet-stream', 3600);
+        if ($hit) {
+            serve_bytes((string)file_get_contents($hit[0]), $hit[1], 3600);
         }
         http_response_code(404);
         exit;
     }
-    if ($bin) {
-        @file_put_contents($bin . '.tmp', $got[0]);
-        @rename($bin . '.tmp', $bin);
-        @file_put_contents($bin . '.t', $got[1]);
-        if (random_int(1, 25) === 1) {
-            cache_prune($dir, 4000); // 2 Dateien je Bild -> höchstens 2000 Bilder
+    if ($dir) {
+        $bin = $dir . '/' . $key . '.' . IMG_EXT[$got[1]];
+        // Punkt voran: die halbfertige Datei ist als versteckte Datei gesperrt.
+        // Der Name muss je Vorgang eindeutig sein – zwei gleichzeitige Abrufe
+        // desselben Bildes würden sich sonst gegenseitig die Datei zerschreiben.
+        $tmp = $dir . '/.' . $key . '.' . getmypid() . '.' . random_int(1000, 9999) . '.tmp';
+        // Kurzschreiber (Platte voll, Kontingent erschöpft) meldet keinen
+        // Fehler, schreibt aber nur einen Teil – Länge vergleichen.
+        $wrote = @file_put_contents($tmp, $got[0]);
+        if ($wrote === strlen($got[0]) && @rename($tmp, $bin)) {
+            @chmod($bin, 0644);
+            if ($hit && $hit[0] !== $bin) {
+                @unlink($hit[0]); // Typ hat gewechselt – alte Endung wegräumen
+            }
+        } else {
+            @unlink($tmp); // nur wegräumen, das alte Bild bleibt liegen
+        }
+        if (random_int(1, 60) === 1) {
+            cache_prune($dir, IMG_KEEP, IMG_TTL);
         }
     }
     serve_bytes($got[0], $got[1], IMG_TTL);
@@ -393,6 +685,12 @@ if (isset($_GET['tile'])) {
         http_response_code(404);
         exit;
     }
+    if (!tile_allowed()) {
+        // Sonst wäre das ein Kachelserver für fremde Karten: die kosten uns
+        // ausgehende Abrufe und Platte, ohne dass jemand die Seite besucht.
+        http_response_code(403);
+        exit;
+    }
     [, $z, $x, $y] = $m;
     $z = (int)$z;
     $x = (int)$x;
@@ -402,10 +700,19 @@ if (isset($_GET['tile'])) {
         http_response_code(404);
         exit;
     }
+    // $style entsteht hier und nur hier – nie aus dem Pfad übernehmen,
+    // sonst wandert Fremdes in den Dateipfad UND in die Adresse beim CDN.
     $style = ($_GET['m'] ?? '') === 'dark' ? 'dark_all' : 'light_all';
     $r = preg_match('/^@?2x$/', (string)($_GET['r'] ?? '')) ? '@2x' : '';
-    $base = cache_file('x') ? dirname((string)cache_file('x')) : '';
-    $dir = $base !== '' ? $base . '/tile/' . $style . '/' . $z . '/' . $x : '';
+    // Bevorzugt der öffentliche Cache: von dort holt Apache die Kachel beim
+    // nächsten Mal selbst. Sonst der private – dann bleibt es bei PHP.
+    $pub = pub_cache_dir('tile');
+    $root = $pub;
+    if ($root === null) {
+        $priv = cache_file('x');
+        $root = $priv ? dirname((string)$priv) . '/tile' : null;
+    }
+    $dir = $root !== null ? $root . '/' . $style . '/' . $z . '/' . $x : '';
     $bin = $dir !== '' ? $dir . '/' . $y . $r . '.png' : null;
     if ($bin && is_file($bin) && time() - (int)filemtime($bin) < TILE_TTL) {
         serve_bytes((string)file_get_contents($bin), 'image/png', TILE_TTL);
@@ -414,7 +721,7 @@ if (isset($_GET['tile'])) {
         '{s}' => ['a', 'b', 'c'][($x + $y) % 3],
         '{style}' => $style, '{z}' => (string)$z, '{x}' => (string)$x, '{y}' => (string)$y, '{r}' => $r,
     ]);
-    $got = fetch_binary($up, 1048576, ['image/png' => 'image/png']);
+    $got = fetch_binary($up, 1048576, ['image/png' => 'image/png'], TILE_UA, true);
     if (!$got) {
         if ($bin && is_file($bin)) {
             serve_bytes((string)file_get_contents($bin), 'image/png', 3600);
@@ -422,12 +729,24 @@ if (isset($_GET['tile'])) {
         http_response_code(404);
         exit;
     }
-    // erst jetzt Ordner anlegen: ein Fehlschlag hinterlässt keine leeren Reste
-    if ($bin && (is_dir($dir) || @mkdir($dir, 0700, true))) {
-        @file_put_contents($bin . '.tmp', $got[0]);
-        @rename($bin . '.tmp', $bin);
-        if (random_int(1, 40) === 1) {
-            cache_prune($dir, 512); // je Zoom/x-Spalte begrenzen
+    // erst jetzt Ordner anlegen: ein Fehlschlag hinterlässt keine leeren Reste.
+    // 0755/0644 im öffentlichen Cache – Apache läuft oft als anderer Benutzer
+    // als PHP und käme sonst nicht an die eigenen Dateien.
+    $angelegt = $pub ? mkdir_pub($dir) : (is_dir($dir) || @mkdir($dir, 0700, true));
+    if ($bin && $angelegt) {
+        $tmp = $dir . '/.' . $y . $r . '.' . getmypid() . '.' . random_int(1000, 9999) . '.tmp';
+        $wrote = @file_put_contents($tmp, $got[0]);
+        if ($wrote === strlen($got[0]) && @rename($tmp, $bin)) {
+            if ($pub) {
+                @chmod($bin, 0644);
+            }
+        } else {
+            @unlink($tmp);
+        }
+        if (random_int(1, 50) === 1) {
+            // Liefert Apache direkt aus, läuft die Verfallsprüfung oben nie –
+            // TILE_TTL muss deshalb hier durchgesetzt werden.
+            cache_prune($dir, TILE_KEEP, TILE_TTL);
         }
     }
     serve_bytes($got[0], $got[1], TILE_TTL);
@@ -478,8 +797,12 @@ if (isset($_GET['diag'])) {
     echo 'leaflet: ' . ($vsrc ? 'eigene Domain (' . (strpos($vsrc, '/data/') !== false ? 'data/vendor' : 'vendor') . ')'
         : 'FEHLT – fällt auf unpkg.com zurück') . "\n";
     $du = function (string $sub) {
-        $d = cache_file('x');
-        $d = $d ? dirname($d) . '/' . $sub : '';
+        // erst im öffentlichen Cache nachsehen, dort landet jetzt das meiste
+        $d = pub_cache_dir() !== null ? pub_cache_dir() . '/' . $sub : '';
+        if ($d === '' || !is_dir($d)) {
+            $c = cache_file('x');
+            $d = $c ? dirname($c) . '/' . $sub : '';
+        }
         if (!$d || !is_dir($d)) {
             return '0 Dateien';
         }
@@ -494,6 +817,18 @@ if (isset($_GET['diag'])) {
     };
     echo 'bild-proxy: ' . (PROXY_IMAGES ? 'an' : 'aus') . ', Cache ' . $du('img') . "\n";
     echo 'kachel-proxy: ' . (PROXY_TILES ? 'an' : 'aus') . ', Cache ' . $du('tile') . "\n";
+    // Der gefährliche Zustand ist "läuft halb": nichts sieht kaputt aus,
+    // aber jede Kachel kostet weiterhin einen PHP-Prozess.
+    $warum = [];
+    if (pub_cache_dir() === null) {
+        $warum[] = 'cache/ nicht beschreibbar';
+    }
+    if (!can_rewrite()) {
+        $warum[] = 'mod_rewrite/AllowOverride fehlt';
+    }
+    echo 'statische auslieferung: ' . (tile_static() ? 'an – Apache liefert gecachte Kacheln selbst aus'
+        : 'aus (' . (implode(', ', $warum) ?: 'kachel-proxy aus') . '), alles läuft über PHP') . "\n";
+    echo 'kachel-token: ' . (tile_token() !== '' ? 'gesetzt' : 'keins (ohne Schlüssel kein Schutz vor fremder Nutzung)') . "\n";
     echo 'modus: ' . (local_mode() ? 'lokal (/data/connector)' : 'regionen (' . (implode(', ', $rl) ?: 'keine') . ')') . "\n";
     $dcc = region() !== '' ? region() : (local_mode() ? '' : ($rl[0] ?? ''));
     $t = load_connectors($dcc);
@@ -543,8 +878,10 @@ if (isset($_GET['diag'])) {
     $perVisit += have_vendor() ? 2 : 0;  // leaflet.js + .css (einmal, dann 1 Jahr im Browser-Cache)
     $phpPerVisit = 1;
     if (PROXY_TILES) {
-        $perVisit += 100;
-        $phpPerVisit += 100;
+        $perVisit += 100;                // rund 100 Kacheln je Kartenansicht
+        // Liefert Apache die Kacheln direkt aus, kostet nur der allererste
+        // Abruf je Kachel einen PHP-Prozess – danach keinen mehr.
+        $phpPerVisit += tile_static() ? 0 : 100;
     }
     $dConn = $t[1];
     $pend = 0;
@@ -553,7 +890,7 @@ if (isset($_GET['diag'])) {
             $pend++;
         }
     }
-    $poll = $pend > 0 ? 14 : 1;          // Nachlade-Anfragen, mit wachsendem Abstand
+    $poll = $pend > 0 ? 25 : 1;          // Nachlade-Anfragen, mit wachsendem Abstand
     echo "\n-- Hoster-Limits --\n";
     echo 'zugriffe je Besuch: ~' . ($perVisit + $poll) . ' (davon PHP: ~' . ($phpPerVisit + $poll) . ')'
         . ($pend > 0 ? ' – solange die Erstbefüllung läuft' : '') . "\n";
@@ -565,10 +902,20 @@ if (isset($_GET['diag'])) {
             $inodes++;
         }
     }
-    echo 'dateien im cache: ' . $inodes . ' (Bilder werden bei 4.000 aufgeräumt)' . "\n";
-    echo 'kacheln: ' . (PROXY_TILES
-        ? 'ACHTUNG über den eigenen Server – auf Gratis-Hostern schnell gesperrt'
-        : 'direkt vom Karten-CDN – kostet den eigenen Server nichts') . "\n";
+    $pubRoot = pub_cache_dir();
+    if ($pubRoot !== null && is_dir($pubRoot)) {
+        foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($pubRoot, FilesystemIterator::SKIP_DOTS)) as $f) {
+            $inodes++;
+        }
+    }
+    echo 'dateien im cache: ' . $inodes . ' (Bilder ab ' . IMG_KEEP . ', Kacheln ab '
+        . TILE_KEEP . ' je Spalte; älter als die Frist räumt der Hintergrund-Ping weg)' . "\n";
+    echo 'kacheln: ' . (!PROXY_TILES
+        ? 'direkt vom Karten-CDN – kostet den eigenen Server nichts'
+        : (tile_static()
+            ? 'über den eigenen Server, gecachte liefert Apache ohne PHP aus'
+            : 'ACHTUNG über den eigenen Server UND jede einzelne durch PHP – '
+              . 'auf Gratis-Hostern schnell gesperrt')) . "\n";
     exit;
 }
 if (isset($_GET['live'])) {
@@ -622,10 +969,11 @@ if (isset($_GET['cron'])) {
             sync_connectors();
         }
     }
+    cache_sweep(); // veraltete Bilder/Kacheln weg – sonst räumt sie niemand
     $cc = region();
     [, $conn] = load_connectors($cc);
     // Batch pro Ping; das Zeitbudget in fetch_all begrenzt den Lauf real
-    scrape_refresh(cache_read($cc)['data'] ?? [], $conn, 24, $cc);
+    scrape_refresh(cache_read($cc)['data'] ?? [], $conn, 48, $cc);
     exit;
 }
 if (isset($_GET['check'])) {
@@ -1118,7 +1466,7 @@ function maybe_bootstrap(): string
         return 'pending';
     }
     @touch($stamp);
-    @set_time_limit(90);
+    @set_time_limit(180);
     [$ok] = sync_connectors(); // holt NUR das feste Repo
     return $ok ? 'filled' : 'pending';
 }
@@ -1210,6 +1558,21 @@ function proxy_img(string $u): string
         || app_secret() === '') {
         return $u; // kein Schlüssel speicherbar -> lieber direkt als unsigniert
     }
+    // Liegt das Bild schon im öffentlichen Cache, gibt es die Adresse direkt
+    // auf die Datei – Apache liefert sie aus, PHP läuft dafür gar nicht erst
+    // an. Eine Signatur braucht dieser Weg nicht: er holt nichts nach,
+    // sondern liest nur, was ohnehin schon geprüft auf der Platte liegt.
+    $dir = pub_cache_dir('img');
+    if ($dir !== null) {
+        // Nur ein Blick in die einmal gelesene Ordnerliste – kein
+        // Dateizugriff je Bild. Das Verfallsdatum setzt cache_sweep()
+        // durch (stündlich beim Hintergrund-Ping); ein Foto höchstens eine
+        // Stunde über der Frist zu zeigen ist bei sieben Tagen belanglos.
+        $ext = img_index($dir)[img_key($u)] ?? '';
+        if ($ext !== '') {
+            return url_base() . 'cache/img/' . img_key($u) . '.' . $ext;
+        }
+    }
     $b = rtrim(strtr(base64_encode($u), '+/', '-_'), '=');
     return '?img=' . $b . '&s=' . sign_url($u);
 }
@@ -1232,7 +1595,7 @@ function unproxy_img(string $b64, string $sig): ?string
  * Umleitungsschritt wird erneut geprüft, harte Größengrenze.
  * Rückgabe [bytes, content-type] oder null.
  */
-function fetch_binary(string $url, int $maxBytes, array $okTypes): ?array
+function fetch_binary(string $url, int $maxBytes, array $okTypes, string $ua = '', bool $strictTls = false): ?array
 {
     if (!function_exists('curl_init')) {
         return null;
@@ -1275,9 +1638,12 @@ function fetch_binary(string $url, int $maxBytes, array $okTypes): ?array
             CURLOPT_TIMEOUT => 12,
             CURLOPT_PROTOCOLS => CURLPROTO_HTTP | CURLPROTO_HTTPS,
             CURLOPT_RESOLVE => [$u['host'] . ':' . $port . ':' . $ip],
-            CURLOPT_SSL_VERIFYPEER => false, // Clubserver haben oft kaputte Zertifikate
-            CURLOPT_SSL_VERIFYHOST => 0,
-            CURLOPT_USERAGENT => 'Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Mobile Safari/537.36',
+            // Clubserver haben oft kaputte Zertifikate; ein Karten-CDN nicht,
+            // dort wird ordentlich geprüft.
+            CURLOPT_SSL_VERIFYPEER => $strictTls,
+            CURLOPT_SSL_VERIFYHOST => $strictTls ? 2 : 0,
+            CURLOPT_USERAGENT => $ua !== '' ? $ua
+                : 'Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Mobile Safari/537.36',
             CURLOPT_WRITEFUNCTION => function ($c, $chunk) use (&$body, $maxBytes) {
                 $body .= $chunk;
                 return strlen($body) > $maxBytes ? -1 : strlen($chunk);
@@ -1298,7 +1664,16 @@ function fetch_binary(string $url, int $maxBytes, array $okTypes): ?array
         if (!isset($okTypes[$ct])) {
             return null; // svg, html, alles andere: nicht anfassen
         }
-        return [$body, $okTypes[$ct]]; // unser Typ, nicht der behauptete
+        // Entscheidend sind die ersten Bytes, nicht die Kopfzeile: bei
+        // statischer Auslieferung bestimmt die Endung den Content-Type, und
+        // die soll den wirklichen Inhalt benennen. Ein Server, der ein JPEG
+        // als image/png ausgibt, wird damit richtiggestellt statt verworfen –
+        // wer aber HTML oder SVG als Bild ausgibt, fliegt raus.
+        $real = sniff_image($body);
+        if ($real === '' || !isset($okTypes[$real])) {
+            return null;
+        }
+        return [$body, $okTypes[$real]];
     }
     return null;
 }
@@ -1326,17 +1701,112 @@ function serve_bytes(string $body, string $ct, int $maxAge): void
  * Ordner voll, fliegen die ältesten Dateien raus. Wird nur gelegentlich
  * ausgeführt, damit es nichts kostet.
  */
-function cache_prune(string $dir, int $maxFiles): void
+/*
+ * Wie viele Seiten gleichzeitig geholt werden. Die Grenze ist nicht der
+ * Hoster, sondern der Speicher: jeder Abruf hält seinen Text bis zu 3 MB im
+ * RAM, bei 12 parallel sind das gut 36 MB Spitze. Also am memory_limit
+ * ausrichten statt eine Zahl zu raten.
+ */
+function curl_batch(): int
+{
+    static $n = 0;
+    if ($n > 0) {
+        return $n;
+    }
+    $lim = trim((string)ini_get('memory_limit'));
+    if ($lim === '' || $lim === '-1') {
+        return $n = 12; // unbegrenzt: trotzdem höflich bleiben
+    }
+    $mb = (int)$lim;
+    $unit = strtoupper(substr($lim, -1));
+    if ($unit === 'G') {
+        $mb *= 1024;
+    } elseif ($unit === 'K') {
+        $mb = intdiv($mb, 1024);
+    } elseif (ctype_digit(substr($lim, -1))) {
+        $mb = intdiv($mb, 1048576); // Angabe in Bytes
+    }
+    // 3 MB je Abruf, und höchstens die Hälfte des Limits dafür verplanen
+    return $n = max(4, min(12, intdiv(max($mb, 0), 6)));
+}
+
+/*
+ * Räumt den öffentlichen Cache auf. Nötig, weil cache_prune() nur im
+ * Fehltreffer-Zweig läuft: sobald alles zwischengespeichert ist, gibt es
+ * keine Fehltreffer mehr – und damit ohne diesen Durchgang auch nie wieder
+ * eine Aufräumung. Liefert Apache die Dateien direkt aus, kommt PHP an der
+ * Frist ohnehin nicht mehr vorbei.
+ * Läuft höchstens einmal je Stunde und nur beim Hintergrund-Ping.
+ */
+function cache_sweep(): void
+{
+    $root = pub_cache_dir();
+    if ($root === null) {
+        return;
+    }
+    $stamp = $root . '/.sweep';
+    if (is_file($stamp) && time() - (int)@filemtime($stamp) < 3600) {
+        return;
+    }
+    @touch($stamp);
+    @chmod($stamp, 0644);
+    foreach (['img' => IMG_TTL, 'tile' => TILE_TTL] as $sub => $ttl) {
+        $d = $root . '/' . $sub;
+        if (!is_dir($d)) {
+            continue;
+        }
+        $now = time();
+        $it = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator($d, FilesystemIterator::SKIP_DOTS),
+            RecursiveIteratorIterator::CHILD_FIRST
+        );
+        foreach ($it as $f) {
+            $path = $f->getPathname();
+            if ($f->isDir()) {
+                @rmdir($path); // greift nur, wenn leer – sonst zählen Ordner ewig mit
+                continue;
+            }
+            if (!$f->isFile()) {
+                continue;
+            }
+            $age = $now - (int)@filemtime($path);
+            // Übriggebliebene Zwischendateien eines abgebrochenen Laufs
+            if (substr($f->getFilename(), -4) === '.tmp') {
+                if ($age > 3600) {
+                    @unlink($path);
+                }
+                continue;
+            }
+            if ($age > $ttl) {
+                @unlink($path);
+            }
+        }
+    }
+}
+
+function cache_prune(string $dir, int $maxFiles, int $maxAge = 0): void
 {
     $files = glob($dir . '/*') ?: [];
-    if (count($files) <= $maxFiles) {
+    if (count($files) <= $maxFiles && $maxAge === 0) {
         return;
     }
     $byAge = [];
+    $now = time();
     foreach ($files as $f) {
-        if (is_file($f)) {
-            $byAge[$f] = (int)@filemtime($f);
+        if (!is_file($f)) {
+            continue;
         }
+        $mt = (int)@filemtime($f);
+        // Liefert Apache die Datei direkt aus, kommt PHP nie mehr am
+        // Verfallsdatum vorbei – also muss es hier durchgesetzt werden.
+        if ($maxAge > 0 && $now - $mt > $maxAge) {
+            @unlink($f);
+            continue;
+        }
+        $byAge[$f] = $mt;
+    }
+    if (count($byAge) <= $maxFiles) {
+        return;
     }
     asort($byAge); // älteste zuerst
     $drop = count($byAge) - $maxFiles;
@@ -1825,7 +2295,7 @@ function fetch_all(array $urls, array $cond = [], int $budget = 40): array
     $meta = [];
     $bodies = [];
     $over = [];
-    foreach (array_chunk($urls, 6, true) as $chunk) {
+    foreach (array_chunk($urls, curl_batch(), true) as $chunk) {
         if (time() > $deadline) {
             break;
         }
@@ -2033,7 +2503,7 @@ function abs_url(string $src, string $base): ?string
 }
 
 /* og:image zuerst, danach Content-Bilder; Logos/Icons u. ä. aussortiert */
-function extract_images(string $html, string $base, string $mode, int $max = 4): array
+function extract_images(string $html, string $base, string $mode, int $max = 8): array
 {
     $found = [];
     if (preg_match_all('#<meta[^>]+(?:property|name)=["\'](?:og:image(?::url)?|twitter:image)["\'][^>]*>#i', $html, $tags)) {
@@ -2250,7 +2720,7 @@ function scrape_refresh(array $old, array $connectors, int $limit = 24, string $
         return;
     }
     @ignore_user_abort(true);
-    @set_time_limit(90);
+    @set_time_limit(180);
     // unter dem Lock erneut lesen: hat ein anderer Prozess gerade
     // aktualisiert, nichts überschreiben
     $cache = cache_read($cc);
@@ -2261,7 +2731,16 @@ function scrape_refresh(array $old, array $connectors, int $limit = 24, string $
         }
     }
     // Drosselung gilt erst, wenn die Erstbefüllung durch ist
-    if ($limit > 0 && $unseen === 0 && time() - ($cache['ts'] ?? 0) < 300) {
+    // Dieses Fenster schützt nicht den eigenen Server, sondern die fremden
+    // Club-Websites: den ?cron-Ping schickt JEDER Besucher, ohne die Sperre
+    // würde der ausgehende Verkehr mit der Besucherzahl mitwachsen – und
+    // genau dafür sperren Club-Hoster IP-Adressen.
+    // Abstand je Club-Website = Fenster × (Clubs ÷ Batch).
+    // Heute: 180 s × (244 ÷ 48) ≈ 15 Minuten. Wer die Zahlen ändert, rechnet
+    // das nach; unter ~10 Minuten wird es unhöflich.
+    // Während der Erstbefüllung greift die Sperre nicht ($unseen > 0) –
+    // die Startgeschwindigkeit hängt am Batch und am Zeitbudget, nicht hier.
+    if ($limit > 0 && $unseen === 0 && time() - ($cache['ts'] ?? 0) < 180) {
         flock($lock, LOCK_UN);
         fclose($lock);
         return;
@@ -2292,12 +2771,12 @@ function scrape_refresh(array $old, array $connectors, int $limit = 24, string $
             : ['etag' => '', 'lm' => ''];
     }
     $night = date('Y-m-d', time() - 12 * 3600); // Tagesgrenze Mittag: laufende Nacht zählt als heute
-    $deadline = time() + ($secs > 0 ? $secs : ($limit > 0 ? 22 : 70));
+    $deadline = time() + ($secs > 0 ? $secs : ($limit > 0 ? 45 : 120));
     $tried = $failed = 0;
     $lastErr = '';
     // In Teilpaketen arbeiten und nach jedem Paket speichern: bricht der
     // Hoster den Lauf ab, ist das bis dahin Geholte trotzdem gesichert.
-    $chunks = array_chunk($connectors, 6, true);
+    $chunks = array_chunk($connectors, curl_batch(), true);
     $rest = count($chunks);
     foreach ($chunks as $batch) {
         if (time() >= $deadline) {
@@ -3460,10 +3939,21 @@ const POS = (() => {
     return pos;
 })();
 const TILEPROXY = <?= PROXY_TILES ? 'true' : 'false' ?>;
+/* Dateipfad statt Abfrage: liegt die Kachel schon im Cache, liefert Apache
+   sie selbst aus und PHP läuft dafür gar nicht erst an. Nur ein Fehltreffer
+   wird per .htaccess auf die index.php umgeschrieben. Ist das nicht
+   eingerichtet (kein mod_rewrite, cache/ nicht beschreibbar), bleibt es beim
+   Abfrage-Weg – dann geht jede Kachel durch PHP, aber nichts ist kaputt. */
+const TILESTATIC = <?= tile_static() ? 'true' : 'false' ?>;
+const TILEBASE = <?= json_encode(url_base() . 'cache/tile/', JSON_HEX_TAG) ?>;
+const TILETOK = <?= json_encode(tile_token(), JSON_HEX_TAG) ?>;
 function tileUrl(dark) {
+    const style = dark ? 'dark_all' : 'light_all';
     // über die eigene Domain (443/80) statt direkt vom Karten-CDN
-    if (TILEPROXY) return '?tile={z}/{x}/{y}&m=' + (dark ? 'dark' : 'light') + '&r={r}';
-    return 'https://{s}.basemaps.cartocdn.com/' + (dark ? 'dark_all' : 'light_all') + '/{z}/{x}/{y}{r}.png';
+    if (TILESTATIC) return TILEBASE + style + '/{z}/{x}/{y}{r}.png' + (TILETOK ? '?t=' + TILETOK : '');
+    if (TILEPROXY) return '?tile={z}/{x}/{y}&m=' + (dark ? 'dark' : 'light') + '&r={r}'
+        + (TILETOK ? '&t=' + TILETOK : '');
+    return 'https://{s}.basemaps.cartocdn.com/' + style + '/{z}/{x}/{y}{r}.png';
 }
 function mapFailed() {
     $('map').textContent = '';
@@ -3475,7 +3965,7 @@ function initMap() {
     map = L.map('map', { zoomControl: false, maxBoundsViscosity: 1.0 }).setView([48.1372, 11.5755], 12);
     const tiles = L.tileLayer(tileUrl(mq.matches), {
         maxZoom: 19,
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a> · Ohne Gewähr'
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap-Mitwirkende</a> &copy; <a href="https://carto.com/attributions">CARTO</a> · Ohne Gewähr'
     }).addTo(map);
     mq.addEventListener('change', e => tiles.setUrl(tileUrl(e.matches)));
     // Namen erst zeigen, wenn man nah genug dran ist – sonst wird es unlesbar
@@ -4601,12 +5091,13 @@ if (DATA.cron) {
     liveBusy = true; // dezenter „lädt“-Hinweis in der Legende
     render();
     let lastPending = -1, stuck = 0, netNote = false;
-    // Gratis-Hoster zählen jede Anfrage gegen ein Tageslimit. Deshalb wird
-    // der Abstand mit jedem Durchgang größer und nach wenigen Runden ist Schluss.
-    let wait = 9000;
+    // Der Abstand wächst weiterhin – aber langsamer als früher, als jede
+    // Anfrage gegen ein Tageslimit zählte. Der harte Abbruch bleibt: sonst
+    // wird aus einem vergessenen Tab eine Dauerschleife.
+    let wait = 4000;
     const again = ms => {
-        if (++liveTries >= 14) { liveBusy = false; render(); return; }
-        wait = Math.min(Math.round((ms || wait) * 1.45), 60000);
+        if (++liveTries >= 25) { liveBusy = false; render(); return; }
+        wait = Math.min(Math.round((ms || wait) * 1.25), 30000);
         setTimeout(liveTick, wait);
     };
     const liveTick = () => {
@@ -4632,7 +5123,7 @@ if (DATA.cron) {
                 netNote = true;
                 locNote('Programm und Bilder können nicht geladen werden: Der Webhoster blockiert ausgehende Verbindungen (' + j.neterr + ').');
                 render();
-                again(j.pending > 0 ? 30000 : 60000); // auf Erholung warten
+                again(j.pending > 0 ? 20000 : 30000); // auf Erholung warten
                 return;
             }
             if (netNote) { netNote = false; locNote(''); } // geht wieder
@@ -4649,12 +5140,12 @@ if (DATA.cron) {
             // Wackler im Netz oder abgebrochener Arbeitslauf: nicht aufgeben,
             // nur langsamer weitermachen und den Notbetrieb zurücksetzen
             stuck = 0;
-            again(15000);
+            again(8000);
         });
     };
     setTimeout(() => {
         fetch(EP('cron=1'), { keepalive: true }).catch(() => {});
-        setTimeout(liveTick, 9000);
+        setTimeout(liveTick, 4000);
     }, 1500);
 }
 </script>

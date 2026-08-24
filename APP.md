@@ -112,14 +112,42 @@ Der Browser spricht nur mit deinem Server, auf 443/80:
 
 - **Leaflet** liegt in `vendor/` und kommt über `?asset=leaflet.js|leaflet.css`.
   Fehlt der Ordner, fällt die Seite auf unpkg zurück – `?diag=1` sagt, was gilt.
-- **Clubfotos** laufen über `?img=…`: der Server holt sie, legt sie in
-  `data/cache/img/` und liefert sie selbst aus. Das löst zugleich
+- **Clubfotos** laufen beim ersten Mal über `?img=…`: der Server holt das Bild,
+  prüft es und legt es unter `cache/img/<schlüssel>.<endung>` ab. Ab dem
+  zweiten Mal steht der Dateipfad direkt im Seitenquelltext und **Apache
+  liefert das Bild aus, ohne dass PHP anläuft**. Das löst zugleich
   Mixed-Content, Hotlink-Sperren und fehlende Vorschaubilder.
-- **Kartenkacheln** laufen über `?tile=z/x/y`, ebenfalls mit Plattencache.
+- **Kartenkacheln** laufen genauso: `cache/tile/<stil>/z/x/y.png`. Ist die
+  Kachel da, liefert Apache sie selbst aus; fehlt sie, schreibt `.htaccess` die
+  Anfrage auf die `index.php` um, die sie holt und ablegt. Eine Kartenansicht
+  lädt 50–150 Kacheln – ohne diesen Weg wären das ebenso viele PHP-Prozesse.
 
-Abschaltbar oben in der Datei: `PROXY_IMAGES`, `PROXY_TILES`. Der Bild-Proxy
-nimmt nur selbst signierte Adressen an (kein offener Proxy), nur `http(s)` auf
-Port 80/443, keine privaten Netze, jede Umleitung wird neu geprüft, 4 MB Grenze.
+Ohne `mod_rewrite` oder wenn `cache/` nicht beschreibbar ist, läuft alles wie
+vorher über `?tile=`/`?img=` durch PHP – langsamer, aber nichts ist kaputt.
+`?diag` zeigt unter **statische auslieferung**, was gerade gilt.
+
+Abschaltbar oben in der Datei: `PROXY_IMAGES`, `PROXY_TILES`.
+
+Was die Proxys absichern:
+
+- Nur `http(s)` auf Port 80/443, keine privaten Netze, jede Umleitung wird neu
+  geprüft, 4 MB Grenze je Bild.
+- Der Bild-Proxy nimmt nur selbst signierte Adressen an – kein offener Proxy.
+- Der Inhaltstyp wird zweimal geprüft: die Kopfzeile des fremden Servers *und*
+  die ersten Bytes der Datei. Nur PNG, JPEG, GIF, WebP und AVIF kommen durch.
+  Kein SVG: das darf Skript enthalten und käme von der eigenen Domain.
+- Die Endung im Cache stammt aus dem *geprüften* Typ – bei statischer
+  Auslieferung entscheidet allein sie über den Content-Type.
+- `cache/` bekommt automatisch eine `.htaccess`, die erst alles verbietet und
+  dann genau die fünf Bildendungen erlaubt.
+- Der Kachel-Weg verlangt ein Token aus der Seite und weist fremde Referer ab,
+  damit niemand den Server als Kachelquelle für seine eigene Karte einspannt.
+
+**Offen:** Ob CARTO das serverseitige Zwischenspeichern seiner Kacheln
+erlaubt, ist nicht nachgeprüft – `docs.carto.com/faqs/carto-basemaps` und
+`carto.com/attributions` waren beim Bauen nicht erreichbar. Wer das geklärt
+haben will, liest dort nach; `PROXY_TILES = false` schaltet den Kachel-Proxy
+wieder ab, dann holt der Browser die Kacheln wie vorher direkt beim Anbieter.
 
 ## Datenstand
 
