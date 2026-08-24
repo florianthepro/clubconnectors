@@ -44,6 +44,11 @@ const PROXY_TILES = false;
 const IMG_TTL = 604800;      // Clubfotos 7 Tage vorhalten
 const TILE_TTL = 2592000;    // Kacheln 30 Tage vorhalten
 const IMG_MAX = 4194304;     // 4 MB je Bild reicht weit
+/* Welche Bildtypen der Proxy weiterreicht – und als was er sie ausliefert.
+   Bewusst ohne SVG: eine SVG-Datei darf Skript enthalten und käme von der
+   eigenen Domain, könnte also im Namen der Seite mitlesen. */
+const IMG_TYPES = ['image/png' => 'image/png', 'image/jpeg' => 'image/jpeg', 'image/jpg' => 'image/jpeg',
+    'image/gif' => 'image/gif', 'image/webp' => 'image/webp', 'image/avif' => 'image/avif'];
 const TILE_URL = 'https://{s}.basemaps.cartocdn.com/{style}/{z}/{x}/{y}{r}.png';
 
 /* Geschlossene Liste aus SPEC.md Abschnitt 6 */
@@ -52,6 +57,16 @@ const OK_GENRES = ['80er/90er', 'Black Music', 'Drum and Bass', 'Electro', 'Goa'
 /* Land-Rahmen aus SPEC.md Abschnitt 8: lat_min lat_max lng_min lng_max */
 const BBOX = ['de' => [47.20, 55.10, 5.80, 15.10], 'at' => [46.30, 49.10, 9.50, 17.20],
     'ch' => [45.80, 47.85, 5.90, 10.55]];
+/* Untereinheiten je Land, ebenfalls SPEC.md Abschnitt 8 */
+const OK_AREAS = [
+    'de' => ['baden-wuerttemberg', 'bayern', 'berlin', 'brandenburg', 'bremen', 'hamburg', 'hessen',
+        'mecklenburg-vorpommern', 'niedersachsen', 'nordrhein-westfalen', 'rheinland-pfalz', 'saarland',
+        'sachsen', 'sachsen-anhalt', 'schleswig-holstein', 'thueringen'],
+    'at' => ['burgenland', 'kaernten', 'niederoesterreich', 'oberoesterreich', 'salzburg', 'steiermark',
+        'tirol', 'vorarlberg', 'wien'],
+    'ch' => ['ag', 'ai', 'ar', 'be', 'bl', 'bs', 'fr', 'ge', 'gl', 'gr', 'ju', 'lu', 'ne', 'nw', 'ow',
+        'sg', 'sh', 'so', 'sz', 'tg', 'ti', 'ur', 'vd', 'vs', 'zg', 'zh'],
+];
 const REGIONS_DIR = 'regions';           // Altbestand, nur noch Fallback
 const FLAG_DIR = 'flag';                  // relativer Pfad zu den Flaggen-Icons
 const REGION_NAMES = ['de' => 'Deutschland', 'us' => 'USA'];
@@ -348,13 +363,15 @@ if (isset($_GET['img'])) {
     $key = sha1($url);
     $bin = $dir ? $dir . '/' . $key : null;
     if ($bin && is_file($bin) && is_file($bin . '.t') && time() - (int)filemtime($bin) < IMG_TTL) {
-        serve_bytes((string)file_get_contents($bin), (string)file_get_contents($bin . '.t'), IMG_TTL);
+        $ct = trim((string)file_get_contents($bin . '.t'));
+        serve_bytes((string)file_get_contents($bin), IMG_TYPES[$ct] ?? 'application/octet-stream', IMG_TTL);
     }
-    $got = fetch_binary($url, IMG_MAX, 'image/');
+    $got = fetch_binary($url, IMG_MAX, IMG_TYPES);
     if (!$got) {
         // altes Bild lieber zeigen als gar keins
         if ($bin && is_file($bin) && is_file($bin . '.t')) {
-            serve_bytes((string)file_get_contents($bin), (string)file_get_contents($bin . '.t'), 3600);
+            $ct = trim((string)file_get_contents($bin . '.t'));
+            serve_bytes((string)file_get_contents($bin), IMG_TYPES[$ct] ?? 'application/octet-stream', 3600);
         }
         http_response_code(404);
         exit;
@@ -387,8 +404,9 @@ if (isset($_GET['tile'])) {
     }
     $style = ($_GET['m'] ?? '') === 'dark' ? 'dark_all' : 'light_all';
     $r = preg_match('/^@?2x$/', (string)($_GET['r'] ?? '')) ? '@2x' : '';
-    $dir = cache_dir('tile/' . $style . '/' . $z . '/' . $x);
-    $bin = $dir ? $dir . '/' . $y . $r . '.png' : null;
+    $base = cache_file('x') ? dirname((string)cache_file('x')) : '';
+    $dir = $base !== '' ? $base . '/tile/' . $style . '/' . $z . '/' . $x : '';
+    $bin = $dir !== '' ? $dir . '/' . $y . $r . '.png' : null;
     if ($bin && is_file($bin) && time() - (int)filemtime($bin) < TILE_TTL) {
         serve_bytes((string)file_get_contents($bin), 'image/png', TILE_TTL);
     }
@@ -396,7 +414,7 @@ if (isset($_GET['tile'])) {
         '{s}' => ['a', 'b', 'c'][($x + $y) % 3],
         '{style}' => $style, '{z}' => (string)$z, '{x}' => (string)$x, '{y}' => (string)$y, '{r}' => $r,
     ]);
-    $got = fetch_binary($up, 1048576, 'image/');
+    $got = fetch_binary($up, 1048576, ['image/png' => 'image/png']);
     if (!$got) {
         if ($bin && is_file($bin)) {
             serve_bytes((string)file_get_contents($bin), 'image/png', 3600);
@@ -404,9 +422,13 @@ if (isset($_GET['tile'])) {
         http_response_code(404);
         exit;
     }
-    if ($bin) {
+    // erst jetzt Ordner anlegen: ein Fehlschlag hinterlässt keine leeren Reste
+    if ($bin && (is_dir($dir) || @mkdir($dir, 0700, true))) {
         @file_put_contents($bin . '.tmp', $got[0]);
         @rename($bin . '.tmp', $bin);
+        if (random_int(1, 40) === 1) {
+            cache_prune($dir, 512); // je Zoom/x-Spalte begrenzen
+        }
     }
     serve_bytes($got[0], $got[1], TILE_TTL);
 }
@@ -666,6 +688,63 @@ if (isset($_GET['admin'])) {
  * Schutz: Schlüssel in data/admin.key (Datei anlegen = Admin aktivieren).
  */
 /*
+ * Öffnungszeiten streng nach SPEC.md Abschnitt 7 prüfen. parse_hours() ist
+ * der tolerante Leser der Karte – zum Anlegen muss es exakt stimmen.
+ */
+function hours_strict(string $s): array
+{
+    $days = ['Mo' => 1, 'Di' => 2, 'Mi' => 3, 'Do' => 4, 'Fr' => 5, 'Sa' => 6, 'So' => 7];
+    $err = [];
+    $used = [];
+    if (trim($s) !== $s) {
+        $err[] = 'Leerzeichen am Rand';
+    }
+    foreach (explode(';', $s) as $i => $raw) {
+        $blk = trim($raw);
+        if ($i > 0 && substr($raw, 0, 1) !== ' ') {
+            $err[] = 'Blöcke mit "; " trennen';
+        }
+        if ($blk === '') {
+            $err[] = 'leerer Block';
+            continue;
+        }
+        if (!preg_match('#^([A-Za-z,\-]+) (\d{2}):(\d{2})-(\d{2}):(\d{2})$#', $blk, $m)) {
+            $err[] = '"' . $blk . '" passt nicht auf: Tage HH:MM-HH:MM';
+            continue;
+        }
+        if ((int)$m[2] > 23 || (int)$m[3] > 59 || (int)$m[4] > 23 || (int)$m[5] > 59) {
+            $err[] = 'Uhrzeit gibt es nicht in "' . $blk . '"';
+        }
+        if ($m[2] . $m[3] === $m[4] . $m[5]) {
+            $err[] = 'Öffnen und Schließen gleich in "' . $blk . '"';
+        }
+        foreach (explode(',', $m[1]) as $tok) {
+            $list = [];
+            if (isset($days[$tok])) {
+                $list[] = $days[$tok];
+            } elseif (preg_match('#^(\w\w)-(\w\w)$#', $tok, $r) && isset($days[$r[1]], $days[$r[2]])) {
+                for ($d = $days[$r[1]], $g = 0; $g < 8; $d = $d % 7 + 1, $g++) {
+                    $list[] = $d;
+                    if ($d === $days[$r[2]]) {
+                        break;
+                    }
+                }
+            } else {
+                $err[] = 'unbekannter Tag "' . $tok . '"';
+                continue;
+            }
+            foreach ($list as $d) {
+                if (isset($used[$d])) {
+                    $err[] = 'Tag ' . array_search($d, $days, true) . ' kommt mehrfach vor';
+                }
+                $used[$d] = true;
+            }
+        }
+    }
+    return $err;
+}
+
+/*
  * Eine Zeile des Massen-Imports zerlegen und gegen den Standard prüfen.
  * Format (mit | oder Tab getrennt):
  *   URL | Name | Stadt | Bundesland | Adresse | lat | lng | Genres [| hours]
@@ -692,8 +771,10 @@ function bulk_parse(string $line, string $cc): array
         $err[] = 'Stadt fehlt';
     }
     $land = admin_area_slug($land);
-    if ($land === '') {
-        $err[] = 'Bundesland fehlt';
+    if (!isset(BBOX[$cc])) {
+        $err[] = 'unbekanntes Land "' . $cc . '" – erlaubt: ' . implode(', ', array_keys(BBOX));
+    } elseif (!in_array($land, OK_AREAS[$cc], true)) {
+        $err[] = 'unbekanntes Bundesland "' . $land . '" für ' . $cc;
     }
     if (mb_strlen($addr) < 4 || mb_strlen($addr) > 60) {
         $err[] = 'Adresse muss 4–60 Zeichen haben (nur Straße + Hausnummer)';
@@ -738,11 +819,15 @@ function bulk_parse(string $line, string $cc): array
     if (count($gs) > 1 && in_array('Mixed', $gs, true)) {
         $err[] = '"Mixed" steht allein oder gar nicht';
     }
-    if ($hours !== '' && !parse_hours($hours)) {
-        $err[] = 'Öffnungszeiten unlesbar – Format: Fr,Sa 23:00-05:00';
+    foreach ($hours !== '' ? hours_strict($hours) : [] as $he) {
+        $err[] = 'Öffnungszeiten: ' . $he;
+    }
+    $id = admin_slug($name);
+    if (!preg_match('/^[a-z0-9]{2,40}$/', $id) || $id === 'club') {
+        $err[] = 'aus "' . $name . '" lässt sich keine brauchbare id bilden – bitte umbenennen';
     }
     return ['ok' => !$err, 'err' => $err, 'land' => $land, 'y' => [
-        'id' => admin_slug($name), 'name' => $name, 'city' => $city, 'address' => $addr,
+        'id' => $id, 'name' => $name, 'city' => $city, 'address' => $addr,
         'lat' => $lat, 'lng' => $lng, 'website' => $url, 'genres' => implode(', ', $gs),
         'hours' => $hours,
     ]];
@@ -1070,8 +1155,9 @@ function live_payload(array $data): array
         }
         if (!empty($e['events']) && is_array($e['events'])) {
             $e['events'] = array_map(function ($ev) {
-                if (is_array($ev) && !empty($ev['image'])) {
-                    $ev['image'] = proxy_img((string)$ev['image']);
+                // jsonld_events() speichert unter 'img' – 'image' gibt es nicht
+                if (is_array($ev) && !empty($ev['img'])) {
+                    $ev['img'] = proxy_img((string)preg_replace('#^http://#i', 'https://', (string)$ev['img']));
                 }
                 return $ev;
             }, $e['events']);
@@ -1095,20 +1181,21 @@ function app_secret(): string
         }
     }
     try {
-        $sec = bin2hex(random_bytes(32));
+        $new = bin2hex(random_bytes(32));
     } catch (Throwable $e) {
-        $sec = hash('sha256', __FILE__ . filemtime(__FILE__) . php_uname());
+        return $sec = ''; // ohne Zufall kein Schlüssel – lieber gar keiner
     }
     if (!is_dir(__DIR__ . '/data')) {
         @mkdir(__DIR__ . '/data', 0755, true);
     }
-    if (@file_put_contents($f, $sec) !== false) {
-        @chmod($f, 0600);
-    } else {
-        // nicht beschreibbar: dann wenigstens stabil aus der Datei ableiten
-        $sec = hash('sha256', __FILE__ . (string)@filemtime(__FILE__));
+    if (@file_put_contents($f, $new) === false) {
+        // Nicht speicherbar. Einen aus Pfad und Datum abgeleiteten Schlüssel
+        // könnte jeder nachrechnen (die Seite zeigt ja Adresse UND Signatur) –
+        // dann wäre ?img= ein offener Proxy. Also lieber ohne Proxy arbeiten.
+        return $sec = '';
     }
-    return $sec;
+    @chmod($f, 0600);
+    return $sec = $new;
 }
 
 function sign_url(string $u): string
@@ -1119,8 +1206,9 @@ function sign_url(string $u): string
 /* Adresse -> eigener Link. base64url hält es ohne Server-Register selbsttragend. */
 function proxy_img(string $u): string
 {
-    if (!PROXY_IMAGES || $u === '' || strpos($u, 'data:') === 0 || strpos($u, '?img=') === 0) {
-        return $u;
+    if (!PROXY_IMAGES || $u === '' || strpos($u, 'data:') === 0 || strpos($u, '?img=') === 0
+        || app_secret() === '') {
+        return $u; // kein Schlüssel speicherbar -> lieber direkt als unsigniert
     }
     $b = rtrim(strtr(base64_encode($u), '+/', '-_'), '=');
     return '?img=' . $b . '&s=' . sign_url($u);
@@ -1128,6 +1216,9 @@ function proxy_img(string $u): string
 
 function unproxy_img(string $b64, string $sig): ?string
 {
+    if (app_secret() === '') {
+        return null; // ohne Schlüssel ist keine Signatur prüfbar
+    }
     $u = base64_decode(strtr($b64, '-_', '+/'), true);
     if ($u === false || $u === '' || !hash_equals(sign_url($u), $sig)) {
         return null;
@@ -1141,7 +1232,7 @@ function unproxy_img(string $b64, string $sig): ?string
  * Umleitungsschritt wird erneut geprüft, harte Größengrenze.
  * Rückgabe [bytes, content-type] oder null.
  */
-function fetch_binary(string $url, int $maxBytes, string $typePrefix): ?array
+function fetch_binary(string $url, int $maxBytes, array $okTypes): ?array
 {
     if (!function_exists('curl_init')) {
         return null;
@@ -1204,10 +1295,10 @@ function fetch_binary(string $url, int $maxBytes, string $typePrefix): ?array
         if ($code !== 200 || $body === '' || strlen($body) > $maxBytes) {
             return null;
         }
-        if ($typePrefix !== '' && strpos($ct, $typePrefix) !== 0) {
-            return null;
+        if (!isset($okTypes[$ct])) {
+            return null; // svg, html, alles andere: nicht anfassen
         }
-        return [$body, $ct ?: 'application/octet-stream'];
+        return [$body, $okTypes[$ct]]; // unser Typ, nicht der behauptete
     }
     return null;
 }
@@ -3872,13 +3963,15 @@ let locBusy = false;
 const GEOKEY = 'ncm.geo.ok';
 /* Ein Aufruf, überall gleich. WICHTIG: muss synchron in der Tap-Behandlung
    stehen – iOS/Safari zeigt den Systemdialog nur mit frischer Nutzergeste. */
+let geoReq = 0;
 function geoAsk(pan) {
     if (locBusy) return;
     locBusy = true;
+    const my = ++geoReq;           // nur der jüngste Versuch darf etwas ändern
     $('loc').classList.remove('hint');
     $('loc').classList.add('busy');
-    const done = ok => {
-        if (!locBusy) return false;
+    const done = () => {
+        if (my !== geoReq) return false;  // veralteter Rückruf: ignorieren
         locBusy = false;
         clearTimeout(watchdog);
         $('loc').classList.remove('busy');
