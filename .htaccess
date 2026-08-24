@@ -1,0 +1,33 @@
+# Nightclubmap – für Gratis-Hoster (InfinityFree & Co.) ausgelegt.
+# Dort zählt JEDER Abruf gegen ein Tageslimit. Was der Browser behalten darf,
+# kostet beim nächsten Besuch nichts mehr.
+
+Options -Indexes
+
+<IfModule mod_expires.c>
+    ExpiresActive On
+    # Leaflet und Flaggen ändern sich nie – ein Jahr im Browser behalten
+    ExpiresByType application/javascript "access plus 1 year"
+    ExpiresByType text/css              "access plus 1 year"
+    ExpiresByType image/png             "access plus 1 year"
+    ExpiresByType image/x-icon          "access plus 1 year"
+    ExpiresByType image/vnd.microsoft.icon "access plus 1 year"
+    ExpiresByType image/svg+xml         "access plus 1 year"
+</IfModule>
+
+<IfModule mod_headers.c>
+    <FilesMatch "\.(js|css|png|ico|svg)$">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </FilesMatch>
+</IfModule>
+
+# Die YAML-Connectoren sind Daten, keine Webseiten – nicht ausliefern.
+<FilesMatch "\.(yaml|yml)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>
