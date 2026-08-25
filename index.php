@@ -1064,18 +1064,57 @@ if (isset($_GET['setup'])) {
     // alle Clubs einmal durch sind. Kein Ratelimit – nur die PHP-Laufzeit
     // begrenzt, was ein Aufruf schafft; der Rest kommt beim nächsten.
     header('Content-Type: application/json; charset=utf-8');
-    @set_time_limit(0); // wo erlaubt; sonst greift der Hoster-Deckel, dann eben weniger
     $cc = region();
     [, $conn] = load_connectors($cc);
-    cache_sweep();       // bei der Gelegenheit alten Bild-/Kachel-Cache wegräumen
-    $before = scrape_done($cc, $conn)[0];
-    scrape_refresh(cache_read($cc)['data'] ?? [], $conn, SETUP_BATCH, $cc, SETUP_SECS);
-    [$done, $withData] = scrape_done($cc, $conn);
+    $ganz = count($conn);
+    // "Weiter zur Karte": der Nutzer bricht ab – dann nicht bei jedem Aufruf
+    // erneut mit dem Balken nerven.
+    if (isset($_GET['skip'])) {
+        setup_finish($cc);
+        echo json_encode(['done' => $ganz, 'withData' => scrape_done($cc, $conn)[1],
+            'total' => $ganz, 'moved' => 0, 'fertig' => true]);
+        exit;
+    }
+    @set_time_limit(0); // wo erlaubt; sonst greift der Hoster-Deckel, dann eben weniger
+    $start = setup_begin($cc);
+    $zaehl = function (array $conn, int $start) use ($cc): array {
+        $data = cache_read($cc)['data'] ?? [];
+        $fertig = $mit = 0;
+        foreach ($conn as $id => $cfg) {
+            if ((int)($data[$id]['ft'] ?? 0) >= $start) {
+                $fertig++;
+            }
+            $e = $data[$id] ?? [];
+            if (!empty($e['events']) || !empty($e['images']) || !empty($e['info'])) {
+                $mit++;
+            }
+        }
+        return [$fertig, $mit, $data];
+    };
+    [$vorher, , $data] = $zaehl($conn, $start);
+    // nur die in DIESEM Durchlauf noch nicht angefassten Clubs
+    $offen = [];
+    foreach ($conn as $id => $cfg) {
+        if ((int)($data[$id]['ft'] ?? 0) < $start) {
+            $offen[$id] = $cfg;
+        }
+    }
+    if ($offen) {
+        cache_sweep(); // bei der Gelegenheit alten Bild-/Kachel-Cache wegräumen
+        // $force: sonst würgt die 180-Sekunden-Drosselung den Durchlauf ab.
+        // $keep: sonst wirft der Teil-Lauf alle anderen Clubs aus dem Cache.
+        scrape_refresh($data, $offen, SETUP_BATCH, $cc, SETUP_SECS, true, $conn);
+    }
+    [$fertig, $mitDaten] = $zaehl($conn, $start);
+    if ($fertig >= $ganz) {
+        setup_finish($cc);
+    }
     echo json_encode([
-        'done' => $done,
-        'withData' => $withData,
-        'total' => count($conn),
-        'moved' => $done - $before, // 0 = kein Fortschritt -> Balken hört auf
+        'done' => $fertig,
+        'withData' => $mitDaten,
+        'total' => $ganz,
+        'moved' => $fertig - $vorher, // 0 = kein Fortschritt -> Balken hört auf
+        'fertig' => $fertig >= $ganz,
     ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     exit;
 }
@@ -1096,7 +1135,7 @@ if (isset($_GET['fresh'])) {
         // sonst reicht der Cache und die Kachel geht ohne Wartezeit auf
         if (time() - $ft >= CLUB_FRESH) {
             @set_time_limit(0);
-            scrape_refresh($cache['data'] ?? [], [$id => $conn[$id]], 1, $cc, CLUB_SECS, true);
+            scrape_refresh($cache['data'] ?? [], [$id => $conn[$id]], 1, $cc, CLUB_SECS, true, $conn);
             $cache = cache_read($cc);
         }
         $lp = live_payload([$id => ($cache['data'][$id] ?? [])]);
@@ -2841,6 +2880,45 @@ function cache_write(string $file, array $data): void
  * $limit 0 = alle (für ?refresh und ?check).
  */
 /*
+ * Stempel neben dem Cache. Der Ladebalken hängt daran und NICHT an 'ft':
+ * 'ft' heißt nur "Versuch gelaufen" und wird auch bei Fehlschlag gesetzt –
+ * eine ältere Fassung hat es für alle Clubs gesetzt, ohne dass je Daten kamen.
+ */
+function setup_file(string $cc, string $kind): ?string
+{
+    $c = cache_file('x');
+    return $c ? dirname($c) . '/setup-' . $kind . '-' . ($cc !== '' ? $cc : 'local') . '.stamp' : null;
+}
+/* Läuft der Ladebalken noch? Ohne beschreibbaren Cache gar nicht erst anfangen. */
+function setup_needed(string $cc): bool
+{
+    $f = setup_file($cc, 'done');
+    return $f !== null && !is_file($f);
+}
+/* Beginn des Durchlaufs. Alles, was ab dieser Sekunde geholt wurde, gilt als
+   erledigt – auch ein Fehlschlag, sonst bliebe der Balken für immer stehen. */
+function setup_begin(string $cc): int
+{
+    $f = setup_file($cc, 'start');
+    if ($f === null) {
+        return 0;
+    }
+    if (!is_file($f)) {
+        @touch($f);
+        @chmod($f, 0644);
+    }
+    return (int)@filemtime($f);
+}
+function setup_finish(string $cc): void
+{
+    $f = setup_file($cc, 'done');
+    if ($f !== null) {
+        @touch($f);
+        @chmod($f, 0644);
+    }
+}
+
+/*
  * Fortschritt der Erstbefüllung: [wieviele versucht, wieviele mit Inhalt].
  * "versucht" (ft gesetzt) treibt den Ladebalken – auch ein nicht erreichbarer
  * Club zählt als erledigt, sonst bliebe der Balken für immer stehen.
@@ -2861,7 +2939,7 @@ function scrape_done(string $cc, array $conn): array
     return [$done, $withData];
 }
 
-function scrape_refresh(array $old, array $connectors, int $limit = 24, string $cc = '', int $secs = 0, bool $force = false): void
+function scrape_refresh(array $old, array $connectors, int $limit = 24, string $cc = '', int $secs = 0, bool $force = false, ?array $keep = null): void
 {
     if (!$connectors) {
         return; // nie mit leerer Liste den Datenbestand wegräumen
@@ -2908,7 +2986,10 @@ function scrape_refresh(array $old, array $connectors, int $limit = 24, string $
     // rennt nicht jeder folgende Request erneut hinein
     cache_write($file, $old);
 
-    $data = array_intersect_key($old, $connectors); // entfernte Connectoren aufräumen
+    // Aufräumen NUR gegen die vollständige Connector-Liste. Wird die Funktion
+    // mit einer Teilmenge gerufen (ein Club beim Öffnen, ein Häppchen der
+    // Erstbefüllung), würde $connectors sonst alles andere aus dem Cache werfen.
+    $data = array_intersect_key($old, $keep ?? $connectors);
     // die am längsten nicht geprüften zuerst
     uksort($connectors, fn($a, $b) => (int)($old[$a]['ft'] ?? 0) <=> (int)($old[$b]['ft'] ?? 0));
     if ($limit > 0) {
@@ -2966,8 +3047,14 @@ function scrape_refresh(array $old, array $connectors, int $limit = 24, string $
             }
         }
         foreach ($batch as $id => $cfg) {
+        if (!isset($results[$id])) {
+            // Im Zeitbudget gar nicht abgeschickt – das ist kein Versuch.
+            // Sonst gilt ein nie abgerufener Club als erledigt und die
+            // Erstbefüllung wäre "fertig", ohne ihn je geholt zu haben.
+            continue;
+        }
         $data[$id]['ft'] = time(); // Versuch zählt, sonst klemmt ein toter Host die Rotation
-        if (!isset($results[$id]) || $results[$id]['code'] === 0) {
+        if ($results[$id]['code'] === 0) {
             continue; // nicht erreichbar – bestehende Daten behalten
         }
         if ($results[$id]['code'] === 304) {
@@ -3216,17 +3303,12 @@ if (isset($_GET['refresh'])) {
 $cache = cache_read($cc);
 // interne Felder (ft/etag/lm/h/ck) nicht an den Browser ausliefern
 $live = live_payload((array)($cache['data'] ?? []));
-$pending = 0;
-foreach ($connectors as $cid => $c) {
-    if (empty($cache['data'][$cid]['ft'])) {
-        $pending++; // noch nie geholt -> Ladebalken beim ersten Aufruf
-    }
-}
+$needSetup = $connectors && setup_needed($cc); // Ladebalken bis der Durchlauf steht
 $cities = array_values(array_unique(array_map(fn($c) => $c['city'], $clubs)));
 $pageTitle = count($cities) === 1 ? 'Clubs ' . $cities[0] : 'Clubs';
 $payload = json_encode(
     ['clubs' => $clubs, 'live' => $live, 'cc' => $cc,
-        'pending' => $pending, 'total' => count($connectors)],
+        'setup' => $needSetup, 'total' => count($connectors)],
     JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG
 );
 ?>
@@ -4634,16 +4716,27 @@ function locBlocked() {
     return '';
 }
 function locFail(err) {
-    if (err && err.code === 1) return 'Standort ist für diese Seite blockiert – im Browser unter „Website-Einstellungen“ erlauben.';
+    if (err && err.code === 1) {
+        // iOS nennt den Weg anders als der Rest – hier den konkreten nennen,
+        // sonst sucht man sich auf dem iPhone tot.
+        return /iPhone|iPad|iPod/.test(navigator.userAgent)
+            ? 'Standort ist für diese Seite blockiert. In Safari oben auf „AA“ → '
+              + 'Website-Einstellungen → Standort → Erlauben. Hilft das nicht: '
+              + 'Einstellungen → Safari → Standort.'
+            : 'Standort ist für diese Seite blockiert – im Browser unter „Website-Einstellungen“ erlauben.';
+    }
     if (err && err.code === 3) return 'Standort dauert zu lange – draußen oder mit WLAN nochmal versuchen.';
     return 'Standort gerade nicht verfügbar.';
 }
 let locBusy = false;
 const GEOKEY = 'ncm.geo.ok';
 /* Ein Aufruf, überall gleich. WICHTIG: muss synchron in der Tap-Behandlung
-   stehen – iOS/Safari zeigt den Systemdialog nur mit frischer Nutzergeste. */
+   stehen – iOS/Safari zeigt den Systemdialog nur mit frischer Nutzergeste.
+   still = automatischer Versuch ohne Fingertipp: der darf NIE eine Meldung
+   zeigen. Sonst begrüßt die Seite jeden Besucher mit „Standort blockiert“,
+   obwohl er nie danach gefragt hat. */
 let geoReq = 0;
-function geoAsk(pan) {
+function geoAsk(pan, still) {
     if (locBusy) return;
     locBusy = true;
     const my = ++geoReq;           // nur der jüngste Versuch darf etwas ändern
@@ -4658,7 +4751,7 @@ function geoAsk(pan) {
     };
     // Antwortet der Browser gar nicht (iOS bei blockierter Seite), nicht ewig hängen
     const watchdog = setTimeout(() => {
-        if (done()) locNote('Standort antwortet nicht – im Browser unter „Website-Einstellungen“ erlauben.');
+        if (done() && !still) locNote('Standort antwortet nicht – im Browser unter „Website-Einstellungen“ erlauben.');
     }, 15000);
     navigator.geolocation.getCurrentPosition(p => {
         if (!done()) return;
@@ -4670,7 +4763,7 @@ function geoAsk(pan) {
         if (err && err.code === 1) {
             try { localStorage.removeItem(GEOKEY); } catch (e) { /* egal */ }
         }
-        if (!userPos) locNote(locFail(err));
+        if (!userPos && !still) locNote(locFail(err));
     }, { enableHighAccuracy: false, timeout: 12000, maximumAge: 120000 });
 }
 
@@ -4678,11 +4771,21 @@ function geoAsk(pan) {
    sonst verpufft der Aufruf auf dem iPhone und der Dialog kommt nie mehr. */
 function geoAuto(pan) {
     if (locBlocked()) return;
-    const ask = () => geoAsk(pan);
+    // still: ohne Fingertipp wird nie gemeckert, höchstens der Knopf blinkt
+    const ask = () => geoAsk(pan, true);
     const offer = () => { $('loc').classList.add('hint'); };
     if (navigator.permissions && navigator.permissions.query) {
-        navigator.permissions.query({ name: 'geolocation' })
-            .then(st => { st.state === 'granted' ? ask() : offer(); })
+        let q = null;
+        // Safari wirft hier je nach Version sofort, statt abzulehnen – ohne
+        // dieses try/catch stirbt der ganze Startblock und mit ihm der Ladebalken
+        try { q = navigator.permissions.query({ name: 'geolocation' }); } catch (e) { q = null; }
+        if (!q || typeof q.then !== 'function') { offer(); return; }
+        q.then(st => {
+                if (st.state === 'granted') { ask(); return; }
+                // abgelehnt: blinken würde nur zu einem Knopf locken, der
+                // ohne Umweg über die Browser-Einstellungen nichts tut
+                if (st.state !== 'denied') { offer(); }
+            })
             .catch(offer);
         return;
     }
@@ -5254,6 +5357,9 @@ if (bootDate === 'alle') {
 renderChips();
 render();
 syncUrl();
+// Ladebalken zuerst anstoßen: ein Fehler im Standort-Teil darunter darf ihn
+// niemals verschlucken (alles hier liegt in EINEM <script>-Block).
+if (DATA.setup) { runSetup(); }
 const bootClub = DATA.clubs.find(c => c.id === boot.get('club'));
 if (bootClub) openSheet(bootClub, true);
 if (boot.get('near')) {
@@ -5315,20 +5421,42 @@ async function runSetup() {
         // kein Fortschritt mehr (Hoster kappt jeden Aufruf) -> nicht ewig drehen
         if (!j.moved) { if (++stall >= 3) { break; } } else { stall = 0; }
     }
-    if (last && last.done >= (last.total || total0) && (last.withData || 0) === 0) {
-        // alle abgeklappert, aber nichts kam an -> Server kommt nicht ins Netz
-        bar.style.width = '100%';
-        sub.textContent = 'Programm und Bilder ließen sich nicht laden – der Server '
-            + 'kommt nicht ins Netz. Die Karte funktioniert trotzdem.';
+    const fertig = last && last.fertig;
+    const leer = !last || (last.withData || 0) === 0;
+    if (fertig && !leer) {
+        location.reload(); // alles da -> einmal frisch laden
+        return;
+    }
+    if (!leer) {
+        // Teilstand: etwas ist angekommen, aber der Durchlauf steht noch.
+        // NICHT neu laden – das ergäbe eine Endlosschleife aus Reloads.
+        sub.textContent = (last.done || 0) + ' von ' + (last.total || total0)
+            + ' geladen. Der Rest kommt beim nächsten Besuch dazu.';
+        const w = el('button', 'setupgo', 'Weiter zur Karte');
+        w.onclick = () => { ov.hidden = true; };
+        ov.querySelector('.box').appendChild(w);
+        return;
+    }
+    {
+        // Nichts angekommen – entweder kommt der Server nicht ins Netz oder er
+        // bricht jeden Durchlauf ab. Klartext statt endlos drehendem Balken.
+        sub.textContent = fertig
+            ? 'Programm und Bilder ließen sich nicht laden – der Server kommt nicht '
+              + 'ins Netz. Die Karte, Öffnungszeiten und Routen gehen trotzdem.'
+            : 'Das Laden kommt nicht voran – der Server bricht jeden Durchlauf ab. '
+              + 'Die Karte, Öffnungszeiten und Routen gehen trotzdem.';
         const b = el('button', 'setupgo', 'Weiter zur Karte');
-        b.onclick = () => { ov.hidden = true; };
+        b.onclick = () => {
+            ov.hidden = true;
+            // nicht bei jedem Aufruf erneut nerven
+            fetch(EP('setup=1&skip=1')).catch(() => {});
+        };
         ov.querySelector('.box').appendChild(b);
         return;
     }
     // fertig -> mit vollem Datenstand frisch laden
     location.reload();
 }
-if (DATA.pending > 0) { runSetup(); }
 </script>
 <?php if (have_vendor()): ?>
 <script async src="<?= htmlspecialchars(asset_url('leaflet.js')) ?>" onload="initMap()" onerror="mapFailed()"></script>
