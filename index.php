@@ -16,6 +16,9 @@ const SETUP_BATCH = 12;   // Clubs je Ladebalken-Schritt (Zeit begrenzt real)
 const SETUP_SECS = 20;    // Zeitbudget je Ladebalken-Schritt
 const CLUB_SECS = 15;     // Zeitbudget beim Öffnen eines einzelnen Clubs
 const CLUB_FRESH = 900;   // so lange gilt ein Club als frisch (kein Neuscrape)
+/* Wie oft höchstens im Repo nachgesehen wird, ob sich Connectoren geändert
+   haben. Der Abgleich selbst ist ein einziger Zipball-Download. */
+const UPDATE_EVERY = 21600;
 
 /*
  * Alles unter einer Domain: Regionen sind Unterordner in /regions/<land>/
@@ -337,6 +340,11 @@ function load_connectors(string $cc = ''): array
             'genres' => array_values(array_filter(array_map('trim', explode(',', $y['genres'] ?? '')))),
             'hours' => parse_hours($y['hours'] ?? ''),
         ];
+        if (!empty($y['about'])) {
+            // Kurzbeschreibung aus dem Connector – das "was erwartet mich",
+            // auch wenn die Website nichts liefert oder gar nicht gelesen wird
+            $club['about'] = $y['about'];
+        }
         if (!empty($y['note'])) {
             $club['note'] = $y['note'];
         }
@@ -346,6 +354,9 @@ function load_connectors(string $cc = ''): array
         $st = $y['state'] ?? $stateDir;
         if ($st !== '') {
             $club['state'] = AREA_NAMES[$st] ?? ucwords(str_replace('-', ' ', $st));
+        }
+        if (empty($y['scrape_url'])) {
+            $club['nolive'] = true; // Kachel erst gar nicht nach frischen Daten fragen
         }
         $clubs[] = $club;
         if (!empty($y['scrape_url'])) {
@@ -1059,6 +1070,51 @@ if (isset($_GET['diag'])) {
               . 'auf Gratis-Hostern schnell gesperrt')) . "\n";
     exit;
 }
+if (isset($_GET['update'])) {
+    // Abgleich mit dem Repo: hat sich dort ein Connector geändert (oder kam
+    // einer dazu / fiel weg), wird der Ladebalken neu scharfgestellt – er
+    // holt dann dank der ck-Regel nur die Neuen und Geänderten. Der Browser
+    // pingt das einmal je Seitenaufruf an; gearbeitet wird höchstens alle
+    // UPDATE_EVERY Sekunden, alles dazwischen ist ein billiger Sofort-Exit.
+    header('Content-Type: application/json; charset=utf-8');
+    $cc = region();
+    $base = cache_file('x');
+    $stamp = $base ? dirname((string)$base) . '/update-check.stamp' : null;
+    $faellig = $stamp !== null
+        && (!is_file($stamp) || time() - (int)filemtime($stamp) > UPDATE_EVERY || !empty($_GET['force']));
+    if (!$faellig) {
+        echo json_encode(['update' => false, 'checked' => false]);
+        exit;
+    }
+    @touch($stamp);
+    @chmod($stamp, 0644);
+    // Im Sync-Modus frisch von GitHub holen. Liegen die Connectoren als
+    // Dateien neben der index.php (FTP/git), erkennt der Fingerabdruck-
+    // Vergleich darunter deren Änderungen genauso – nur ohne Download.
+    if (CONNECTOR_AUTO && connector_root()[1] === CONNECTOR_DIRS[0]) {
+        @set_time_limit(120);
+        sync_connectors();
+    }
+    [, $conn] = load_connectors($cc);
+    $fp = conn_fingerprint($conn);
+    $alt = setup_done_fp($cc);
+    // Nur wenn ein fertiger Durchlauf existiert UND der Stand abweicht.
+    // Läuft gerade einer (kein done-Stempel), nichts anfassen.
+    $update = $conn && $alt !== null && $alt !== $fp;
+    if ($update) {
+        // Beide Stempel erneuern: bliebe der alte Startzeitpunkt stehen,
+        // gälte ein eben erst geänderter Club über sein altes ft als
+        // erledigt und würde nie neu geholt.
+        foreach (['done', 'start'] as $k) {
+            $f = setup_file($cc, $k);
+            if ($f !== null && is_file($f)) {
+                @unlink($f);
+            }
+        }
+    }
+    echo json_encode(['update' => $update, 'checked' => true]);
+    exit;
+}
 if (isset($_GET['setup'])) {
     // Erstbefüllung in Häppchen. Der Ladebalken ruft das so lange auf, bis
     // alle Clubs einmal durch sind. Kein Ratelimit – nur die PHP-Laufzeit
@@ -1077,7 +1133,7 @@ if (isset($_GET['setup'])) {
             echo json_encode(['done' => 0, 'withData' => 0, 'total' => $ganz, 'moved' => 0, 'fertig' => false]);
             exit;
         }
-        setup_finish($cc);
+        setup_finish($cc, conn_fingerprint($conn));
         echo json_encode(['done' => $ganz, 'withData' => scrape_done($cc, $conn)[1],
             'total' => $ganz, 'moved' => 0, 'fertig' => true]);
         exit;
@@ -1097,14 +1153,26 @@ if (isset($_GET['setup'])) {
             'total' => $ganz, 'moved' => 0, 'fertig' => false, 'kaputt' => true]);
         exit;
     }
-    $zaehl = function (array $conn, int $start) use ($cc): array {
+    // Erledigt ist ein Club, wenn er in DIESEM Durchlauf angefasst wurde
+    // (ft >= Start; auch ein Fehlschlag zählt, sonst steht der Balken ewig) –
+    // ODER wenn ein gelungener Scrape mit unveränderter Konfiguration
+    // vorliegt (gespeicherte ck passt). Zweiteres macht Updates billig: nach
+    // einer Repo-Änderung läuft der Balken nur über Neue und Geänderte, der
+    // Rest zählt sofort.
+    $erledigt = function (array $e, array $cfg, int $start): bool {
+        if ((int)($e['ft'] ?? 0) >= $start) {
+            return true;
+        }
+        return ($e['ck'] ?? '') !== '' && ($e['ck'] ?? '') === md5(json_encode($cfg));
+    };
+    $zaehl = function (array $conn, int $start) use ($cc, $erledigt): array {
         $data = cache_read($cc)['data'] ?? [];
         $fertig = $mit = 0;
         foreach ($conn as $id => $cfg) {
-            if ((int)($data[$id]['ft'] ?? 0) >= $start) {
+            $e = $data[$id] ?? [];
+            if ($erledigt($e, $cfg, $start)) {
                 $fertig++;
             }
-            $e = $data[$id] ?? [];
             if (!empty($e['events']) || !empty($e['images']) || !empty($e['info'])) {
                 $mit++;
             }
@@ -1112,10 +1180,9 @@ if (isset($_GET['setup'])) {
         return [$fertig, $mit, $data];
     };
     [$vorher, , $data] = $zaehl($conn, $start);
-    // nur die in DIESEM Durchlauf noch nicht angefassten Clubs
     $offen = [];
     foreach ($conn as $id => $cfg) {
-        if ((int)($data[$id]['ft'] ?? 0) < $start) {
+        if (!$erledigt($data[$id] ?? [], $cfg, $start)) {
             $offen[$id] = $cfg;
         }
     }
@@ -1129,7 +1196,7 @@ if (isset($_GET['setup'])) {
     // $ganz > 0: sonst wäre eine leere Liste sofort "fertig" und der Stempel
     // stünde für immer, ohne dass je ein Club geholt wurde.
     if ($ganz > 0 && $fertig >= $ganz) {
-        setup_finish($cc);
+        setup_finish($cc, conn_fingerprint($conn));
     }
     echo json_encode([
         'done' => $fertig,
@@ -2946,13 +3013,40 @@ function setup_begin(string $cc): ?int
     @chmod($f, 0644);
     return $t;
 }
-function setup_finish(string $cc): void
+/*
+ * Fingerabdruck über alle Scrape-Konfigurationen. Ändert sich im Repo ein
+ * Connector (oder kommt einer dazu / fällt weg), ändert er sich mit – daran
+ * erkennt der Update-Abgleich, dass der Ladebalken noch einmal laufen muss.
+ */
+function conn_fingerprint(array $conn): string
+{
+    $teile = [];
+    foreach ($conn as $id => $cfg) {
+        $teile[$id] = md5(json_encode($cfg));
+    }
+    ksort($teile);
+    return md5(json_encode($teile));
+}
+
+function setup_finish(string $cc, string $fp = ''): void
 {
     $f = setup_file($cc, 'done');
     if ($f !== null) {
-        @touch($f);
+        // Der Stempel trägt den Stand, GEGEN den der Durchlauf lief – der
+        // Update-Abgleich vergleicht dagegen.
+        @file_put_contents($f, $fp);
         @chmod($f, 0644);
     }
+}
+
+/* Gegen welchen Connector-Stand lief der letzte fertige Durchlauf? */
+function setup_done_fp(string $cc): ?string
+{
+    $f = setup_file($cc, 'done');
+    if ($f === null || !is_file($f)) {
+        return null;
+    }
+    return trim((string)@file_get_contents($f));
 }
 
 /*
@@ -3932,6 +4026,7 @@ body {
 .infotext { margin: 0; color: var(--fg); font-size: 15px; }
 /* Beschreibungstext des Clubs in der Kachel */
 #sheet .about { margin: 0 0 16px; color: var(--muted); font-size: 14.5px; line-height: 1.5; }
+#sheet .about.lead { color: var(--fg); font-size: 15px; }
 /* Sonderschließungs-Hinweis von der Club-Website */
 .warnline {
     margin: 0 0 14px;
@@ -4606,12 +4701,12 @@ function render() {
         const alive = DATA.live[activeId] || {};
         const imgs = cleanImgs(alive.images).slice(0, 4);
         if (body && imgs.length && !body.querySelector('.pics')) {
-            const tags = body.querySelector('.tags');
-            if (tags) tags.after(buildPics(imgs));
+            const anker = body.querySelector('.about.lead') || body.querySelector('.tags');
+            if (anker) anker.after(buildPics(imgs));
         }
-        if (body && alive.info && !body.querySelector('.about')) {
-            const anchor = body.querySelector('.pics') || body.querySelector('.tags');
-            if (anchor) anchor.after(el('p', 'about', alive.info));
+        if (body && alive.info && !body.querySelector('.about:not(.lead)')) {
+            const anker = body.querySelector('.pics') || body.querySelector('.about.lead') || body.querySelector('.tags');
+            if (anker) anker.after(el('p', 'about', alive.info));
         }
         if (progRefresh) progRefresh();
     }
@@ -4719,7 +4814,7 @@ function buildSugg(box) {
         if (other) box.appendChild(allDaysBtn(renderSugg));
     }
 }
-function setUserPos(lat, lng, pan) {
+function setUserPos(lat, lng, pan, still) {
     userPos = { lat, lng };
     $('loc').classList.add('on');
     // Weit außerhalb? Dann nicht wortlos auf eine leere Karte fahren.
@@ -4728,7 +4823,9 @@ function setUserPos(lat, lng, pan) {
     const far = isFinite(near) && near > 150;
     placeYou(far ? false : pan);
     render();
-    if (far) {
+    // Nur nach einem echten Fingertipp erklären – ein automatischer Versuch
+    // beim Laden darf niemanden ungefragt mit Meldungen begrüßen.
+    if (far && !still) {
         locNote('Hier gibt es noch keine Clubs – der nächste liegt ' + fmtKm(near) + ' entfernt.');
     }
 }
@@ -4776,8 +4873,15 @@ const GEOKEY = 'ncm.geo.ok';
    zeigen. Sonst begrüßt die Seite jeden Besucher mit „Standort blockiert“,
    obwohl er nie danach gefragt hat. */
 let geoReq = 0;
+let locStill = false; // läuft gerade ein stiller (automatischer) Versuch?
 function geoAsk(pan, still) {
-    if (locBusy) return;
+    if (locBusy) {
+        // Tippt jemand, während der stille Automatik-Versuch noch läuft,
+        // wird der laufende Versuch laut – sonst verpufft der Tap wortlos.
+        if (!still) locStill = false;
+        return;
+    }
+    locStill = !!still;
     locBusy = true;
     const my = ++geoReq;           // nur der jüngste Versuch darf etwas ändern
     $('loc').classList.remove('hint');
@@ -4791,19 +4895,27 @@ function geoAsk(pan, still) {
     };
     // Antwortet der Browser gar nicht (iOS bei blockierter Seite), nicht ewig hängen
     const watchdog = setTimeout(() => {
-        if (done() && !still) locNote('Standort antwortet nicht – im Browser unter „Website-Einstellungen“ erlauben.');
+        if (!done()) return;
+        if (locStill) { $('loc').classList.add('hint'); return; }
+        locNote(locFail({ code: 1 })); // gleicher Weg-Text wie bei Ablehnung
     }, 15000);
     navigator.geolocation.getCurrentPosition(p => {
         if (!done()) return;
         try { localStorage.setItem(GEOKEY, '1'); } catch (e) { /* privater Modus */ }
-        setUserPos(p.coords.latitude, p.coords.longitude, pan && uiIdle());
+        setUserPos(p.coords.latitude, p.coords.longitude, pan && uiIdle(), locStill);
         if (uiIdle()) { suggMode = 'near'; renderSugg(); }
     }, err => {
         if (!done()) return;
         if (err && err.code === 1) {
             try { localStorage.removeItem(GEOKEY); } catch (e) { /* egal */ }
         }
-        if (!userPos && !still) locNote(locFail(err));
+        if (locStill) {
+            // Automatik gescheitert: nichts melden, aber den Knopf anbieten –
+            // sonst verschwände selbst das Blinken kommentarlos.
+            $('loc').classList.add('hint');
+        } else if (!userPos) {
+            locNote(locFail(err));
+        }
     }, { enableHighAccuracy: false, timeout: 12000, maximumAge: 120000 });
 }
 
@@ -5252,7 +5364,8 @@ function openSheet(c, pan) {
     // Diesen Club frisch nachladen und ins offene Sheet einspielen. Kein
     // Ratelimit – ein Abruf je Öffnen ist unkritisch. render() reicht die
     // frischen Bilder/Infos/Programme in die schon offene Kachel nach.
-    fetch(EP('fresh=' + encodeURIComponent(c.id))).then(r => r.json()).then(j => {
+    // Clubs ohne Scrape-Quelle gar nicht erst fragen – da kommt nie etwas.
+    if (!c.nolive) fetch(EP('fresh=' + encodeURIComponent(c.id))).then(r => r.json()).then(j => {
         if (j && j.live && activeId === c.id) {
             DATA.live[c.id] = j.live;
             render();
@@ -5280,10 +5393,14 @@ function openSheet(c, pan) {
     }
     body.appendChild(tags);
 
+    // Kurzprofil aus dem Connector: steht immer da, egal was die Website
+    // liefert – damit man weiß, was einen erwartet, bevor Fotos laden.
+    if (c.about) body.appendChild(el('p', 'about lead', c.about));
+
     const imgs = cleanImgs(live.images).slice(0, 4);
     if (imgs.length) body.appendChild(buildPics(imgs));
 
-    if (live.info) body.appendChild(el('p', 'about', live.info));
+    if (live.info && live.info !== c.about) body.appendChild(el('p', 'about', live.info));
 
     body.appendChild(progSection(c));
 
@@ -5400,14 +5517,26 @@ syncUrl();
 // Ladebalken zuerst anstoßen: ein Fehler im Standort-Teil darunter darf ihn
 // niemals verschlucken (alles hier liegt in EINEM <script>-Block).
 if (DATA.setup) { runSetup(); }
+if (!DATA.setup) {
+    // Einmal je Besuch beim Server nachfragen, ob das Connector-Repo neuere
+    // Stände hat. Meistens ein Billig-Ping; höchstens alle paar Stunden lädt
+    // der Server das Repo nach und stellt dann den Ladebalken neu scharf –
+    // der holt dank ck-Regel nur die neuen und geänderten Clubs.
+    setTimeout(() => {
+        fetch(EP('update=1')).then(r => r.json()).then(j => {
+            if (j && j.update) { runSetup(); }
+        }).catch(() => {});
+    }, 2500);
+}
 const bootClub = DATA.clubs.find(c => c.id === boot.get('club'));
 if (bootClub) openSheet(bootClub, true);
 if (boot.get('near')) {
     // Vom Start weitergereicht. Ohne Fingertipp fragen wir nur, wenn die
     // Erlaubnis schon steht; sonst blinkt der Standort-Knopf einmal.
-    const blocked = locBlocked();
-    if (blocked) {
-        locNote(blocked);
+    // Ohne Fingertipp keine Meldung: kann der Browser keinen Standort oder
+    // fehlt HTTPS, wird das erst beim Tipp auf den Knopf erklärt.
+    if (locBlocked()) {
+        $('loc').classList.add('hint');
     } else {
         geoAuto(!bootClub);
     }

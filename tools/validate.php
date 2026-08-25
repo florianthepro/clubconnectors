@@ -35,7 +35,7 @@ const AREAS = [
 
 /* Abschnitt 5, Reihenfolge der Felder */
 const ORDER = ['id', 'name', 'city', 'address', 'lat', 'lng', 'website', 'genres', 'hours',
-    'note', 'pause', 'checked', 'source', 'state', 'scrape_url', 'scrape_events',
+    'about', 'note', 'pause', 'checked', 'source', 'state', 'scrape_url', 'scrape_events',
     'scrape_images', 'scrape_info', 'scrape_closed', 'scrape_info_url', 'scrape_images_url',
     'scrape_from', 'scrape_to'];
 
@@ -519,6 +519,18 @@ function validate(array $roots, Report $r): void
         if (isset($y['hours'])) {
             foreach (check_hours((string)$y['hours']) as $msg) {
                 $r->err($short, $msg, $line['hours'] ?? 0);
+            }
+        }
+
+        /* --- about --- */
+        if (isset($y['about'])) {
+            $about = (string)$y['about'];
+            $alen = mb_strlen($about, 'UTF-8');
+            if ($alen < 40 || $alen > 220) {
+                $r->err($short, 'about ist ' . $alen . ' Zeichen lang, erlaubt sind 40-220', $line['about'] ?? 0);
+            }
+            if ($alen && substr($about, -1) !== '.') {
+                $r->warn($short, 'about soll aus ganzen Saetzen bestehen und mit einem Punkt enden', $line['about'] ?? 0);
             }
         }
 

@@ -7,6 +7,7 @@ lat: 47.7746
 lng: 9.6007
 website: "https://clubdouala.de"
 genres: Techno, House
+about: "Club für Techno und House in der Schubertstraße in Ravensburg."
 checked: 2026-08
 source: "Name auf 'Club Douala' und Website auf clubdouala.de korrigiert (die im Ausgangsdatensatz genannte douala.de ist nicht die Clubseite); Koordinaten korrigiert (vorher 47.7838/9.6058, ca. 1 km daneben); Oeffnungszeiten leer gelassen, da sich die Verzeichnisquellen widersprechen (Fr/Sa 22:00-06:00 vs. 22:30-06:00) und keine offizielle Angabe auffindbar war"
 

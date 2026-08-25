@@ -119,6 +119,7 @@ scrape_closed: auto
 | `website` | **soll** | absolute URL | `https://` bevorzugt. Startseite des Clubs. Instagram nur, wenn es keine eigene Seite gibt. |
 | `genres` | **ja** | 1–3 Werte, mit `, ` getrennt | Nur Wörter aus der Liste in Abschnitt 6, exakte Schreibweise. |
 | `hours` | nein | Grammatik aus Abschnitt 7 | Nur reguläre, wiederkehrende Öffnungszeiten. |
+| `about` | **soll** | 1–2 Sätze, 40–220 Zeichen | **Was einen dort erwartet.** Vollständige Sätze mit Punkt, nüchtern und belegbar: Art des Ladens, Lage/Gebäude, was ihn auszeichnet („Technoclub im ehemaligen Heizkraftwerk; strenger Einlass, Fotoverbot."). Nur Aussagen, die aus den übrigen Feldern oder der belegten Quelle folgen – keine Werbetexte, nichts Erfundenes. |
 | `note` | nein | Text, ≤ 90 Zeichen | **Was der Besucher lesen soll.** Ein Satz, kein Punkt am Ende, für das, was `hours` nicht ausdrückt („Einzelne Events auch donnerstags"). Keine Werbung, keine Änderungshistorie, keine Recherchenotiz – die eine gehört in die Commit-Nachricht, die andere in `source`. |
 | `pause` | nein | `JJJJ-MM-TT` | Betrieb ruht **bis** zu diesem Datum (Umbau, Winterpause). Vergangene Daten werden entfernt, nicht stehengelassen. |
 | `checked` | **ja** | `JJJJ-MM` | Monat, in dem die Angaben zuletzt an der Quelle geprüft wurden. Nicht in der Zukunft, nicht älter als 24 Monate. |

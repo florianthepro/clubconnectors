@@ -7,7 +7,7 @@ lat: 49.5941
 lng: 10.9999
 website: "https://www.e-werk.de"
 genres: Techno, Live, 80er/90er
-note: Kulturzentrum mit Saal, Clubbühne und Garten
+about: "Das Kulturzentrum in Erlangen umfasst Saal, Clubbühne und Garten. Das Programm läuft eventbasiert und reicht von Konzerten bis zu Techno- und 80er/90er-Partys."
 checked: 2026-08
 source: "Änderung nur bei den Genres: 'Indie' durch das belegte '80er/90er' ersetzt (dokumentierte 80er-/90er-/EDM-/Techno-Partys); Programm eventbasiert -> hours leer"
 
