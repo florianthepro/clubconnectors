@@ -1070,13 +1070,33 @@ if (isset($_GET['setup'])) {
     // "Weiter zur Karte": der Nutzer bricht ab – dann nicht bei jedem Aufruf
     // erneut mit dem Balken nerven.
     if (isset($_GET['skip'])) {
+        // Nur abschalten, wenn wirklich ein Durchlauf begonnen hat – sonst
+        // wäre ein einzelner Aufruf von aussen ein Aus-Schalter für alles.
+        $sf = setup_file($cc, 'start');
+        if ($sf === null || !is_file($sf)) {
+            echo json_encode(['done' => 0, 'withData' => 0, 'total' => $ganz, 'moved' => 0, 'fertig' => false]);
+            exit;
+        }
         setup_finish($cc);
         echo json_encode(['done' => $ganz, 'withData' => scrape_done($cc, $conn)[1],
             'total' => $ganz, 'moved' => 0, 'fertig' => true]);
         exit;
     }
+    if (!$conn) {
+        // Nichts zu tun – aber NICHT als erledigt abstempeln, sonst kommt der
+        // Ladebalken nie wieder, falls die Connectoren gleich da sind.
+        echo json_encode(['done' => 0, 'withData' => 0, 'total' => 0, 'moved' => 0, 'fertig' => false]);
+        exit;
+    }
     @set_time_limit(0); // wo erlaubt; sonst greift der Hoster-Deckel, dann eben weniger
     $start = setup_begin($cc);
+    if ($start === null) {
+        // Kein beschreibbarer Stempel -> der Durchlauf ließe sich nicht
+        // verfolgen. Ehrlich melden statt endlos zu drehen.
+        echo json_encode(['done' => 0, 'withData' => scrape_done($cc, $conn)[1],
+            'total' => $ganz, 'moved' => 0, 'fertig' => false, 'kaputt' => true]);
+        exit;
+    }
     $zaehl = function (array $conn, int $start) use ($cc): array {
         $data = cache_read($cc)['data'] ?? [];
         $fertig = $mit = 0;
@@ -1099,14 +1119,16 @@ if (isset($_GET['setup'])) {
             $offen[$id] = $cfg;
         }
     }
+    $busy = false;
     if ($offen) {
-        cache_sweep(); // bei der Gelegenheit alten Bild-/Kachel-Cache wegräumen
         // $force: sonst würgt die 180-Sekunden-Drosselung den Durchlauf ab.
         // $keep: sonst wirft der Teil-Lauf alle anderen Clubs aus dem Cache.
-        scrape_refresh($data, $offen, SETUP_BATCH, $cc, SETUP_SECS, true, $conn);
+        scrape_refresh($data, $offen, SETUP_BATCH, $cc, SETUP_SECS, true, $conn, $busy);
     }
     [$fertig, $mitDaten] = $zaehl($conn, $start);
-    if ($fertig >= $ganz) {
+    // $ganz > 0: sonst wäre eine leere Liste sofort "fertig" und der Stempel
+    // stünde für immer, ohne dass je ein Club geholt wurde.
+    if ($ganz > 0 && $fertig >= $ganz) {
         setup_finish($cc);
     }
     echo json_encode([
@@ -1114,7 +1136,9 @@ if (isset($_GET['setup'])) {
         'withData' => $mitDaten,
         'total' => $ganz,
         'moved' => $fertig - $vorher, // 0 = kein Fortschritt -> Balken hört auf
-        'fertig' => $fertig >= $ganz,
+        // Ein anderer Besucher hält gerade die Sperre – das ist KEIN Stillstand
+        'busy' => $busy,
+        'fertig' => $ganz > 0 && $fertig >= $ganz,
     ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     exit;
 }
@@ -2897,17 +2921,30 @@ function setup_needed(string $cc): bool
 }
 /* Beginn des Durchlaufs. Alles, was ab dieser Sekunde geholt wurde, gilt als
    erledigt – auch ein Fehlschlag, sonst bliebe der Balken für immer stehen. */
-function setup_begin(string $cc): int
+function setup_begin(string $cc): ?int
 {
     $f = setup_file($cc, 'start');
     if ($f === null) {
-        return 0;
+        return null;
     }
-    if (!is_file($f)) {
-        @touch($f);
-        @chmod($f, 0644);
+    // Der Startzeitpunkt steht IM Stempel, nicht in seiner Änderungszeit:
+    // 'ft' kommt von time() (Uhr des PHP-Prozesses), filemtime von der Uhr
+    // des Dateisystems – auf Gratis-Hostern laufen die auseinander.
+    if (is_file($f)) {
+        $t = (int)trim((string)@file_get_contents($f));
+        // Steht der Stempel und ist trotzdem nichts fertig geworden, ist der
+        // Lauf hängengeblieben – nach 6 Stunden frisch anfangen, sonst gilt
+        // nach einem Zurücksetzen alles sofort als erledigt.
+        if ($t > 0 && time() - $t < 6 * 3600) {
+            return $t;
+        }
     }
-    return (int)@filemtime($f);
+    $t = time();
+    if (@file_put_contents($f, (string)$t) === false) {
+        return null; // nicht schreibbar
+    }
+    @chmod($f, 0644);
+    return $t;
 }
 function setup_finish(string $cc): void
 {
@@ -2939,7 +2976,7 @@ function scrape_done(string $cc, array $conn): array
     return [$done, $withData];
 }
 
-function scrape_refresh(array $old, array $connectors, int $limit = 24, string $cc = '', int $secs = 0, bool $force = false, ?array $keep = null): void
+function scrape_refresh(array $old, array $connectors, int $limit = 24, string $cc = '', int $secs = 0, bool $force = false, ?array $keep = null, ?bool &$busy = null): void
 {
     if (!$connectors) {
         return; // nie mit leerer Liste den Datenbestand wegräumen
@@ -2953,6 +2990,9 @@ function scrape_refresh(array $old, array $connectors, int $limit = 24, string $
         if ($lock) {
             fclose($lock);
         }
+        // Ein anderer Aufruf arbeitet gerade. Das dem Aufrufer sagen, sonst
+        // hält der Ladebalken das für Stillstand und gibt zu früh auf.
+        $busy = true;
         return;
     }
     @ignore_user_abort(true);
@@ -3217,25 +3257,6 @@ h1 { margin: 0; font-size: 26px; letter-spacing: -0.02em; }
 .flag span { flex: 1; }
 .flag small { color: var(--muted); font-weight: 400; font-size: 14px; }
 .none { color: var(--muted); }
-
-/* Ladebalken der Erstbefüllung – füllt sich einmal, dann ist Ruhe */
-#setup { position: fixed; inset: 0; z-index: 4000; display: flex;
-    align-items: center; justify-content: center; background: var(--bg);
-    padding: 24px; }
-#setup[hidden] { display: none; }
-#setup .box { width: 100%; max-width: 360px; text-align: center; }
-#setup .ttl { font-size: 17px; font-weight: 600; color: var(--fg); margin-bottom: 16px; }
-#setup .pbar { height: 8px; border-radius: 999px; background: var(--line);
-    overflow: hidden; }
-#setup .pbar > i { display: block; height: 100%; width: 0;
-    background: var(--fg); border-radius: 999px; transition: width .35s ease; }
-#setup .txt { margin-top: 10px; font-variant-numeric: tabular-nums;
-    font-size: 14px; color: var(--fg); }
-#setup .sub { margin-top: 6px; font-size: 13px; color: var(--muted);
-    line-height: 1.4; }
-#setup .setupgo { margin-top: 16px; padding: 10px 18px; border: 0;
-    border-radius: 999px; background: var(--inv-bg); color: var(--inv-fg);
-    font-size: 14px; font-weight: 600; cursor: pointer; }
 
 </style>
 </head>
@@ -3935,6 +3956,25 @@ body {
     #sheet .grip { display: none; }
     #veil { background: rgba(0, 0, 0, .15); }
 }
+
+/* Ladebalken der Erstbefüllung – füllt sich einmal, dann ist Ruhe */
+#setup { position: fixed; inset: 0; z-index: 4000; display: flex;
+    align-items: center; justify-content: center; background: var(--bg);
+    padding: 24px; }
+#setup[hidden] { display: none; }
+#setup .box { width: 100%; max-width: 360px; text-align: center; }
+#setup .ttl { font-size: 17px; font-weight: 600; color: var(--fg); margin-bottom: 16px; }
+#setup .pbar { height: 8px; border-radius: 999px; background: var(--line);
+    overflow: hidden; }
+#setup .pbar > i { display: block; height: 100%; width: 0;
+    background: var(--fg); border-radius: 999px; transition: width .35s ease; }
+#setup .txt { margin-top: 10px; font-variant-numeric: tabular-nums;
+    font-size: 14px; color: var(--fg); }
+#setup .sub { margin-top: 6px; font-size: 13px; color: var(--muted);
+    line-height: 1.4; }
+#setup .setupgo { margin-top: 16px; padding: 10px 18px; border: 0;
+    border-radius: 999px; background: var(--inv-bg); color: var(--inv-fg);
+    font-size: 14px; font-weight: 600; cursor: pointer; }
 </style>
 </head>
 <body>
@@ -5417,9 +5457,21 @@ async function runSetup() {
         bar.style.width = Math.min(100, Math.round(done / total * 100)) + '%';
         txt.textContent = done + ' / ' + total + ' Clubs';
         last = j;
-        if (done >= total) { break; }
-        // kein Fortschritt mehr (Hoster kappt jeden Aufruf) -> nicht ewig drehen
-        if (!j.moved) { if (++stall >= 3) { break; } } else { stall = 0; }
+        if (j.fertig || done >= total) { break; }
+        if (j.kaputt) { break; } // Stempel nicht schreibbar – nicht endlos drehen
+        if (j.busy) {
+            // Ein anderer Besucher arbeitet gerade – das ist kein Stillstand
+            await setupSleep(2000);
+            continue;
+        }
+        // kein Fortschritt mehr (Hoster kappt jeden Aufruf) -> nicht ewig drehen.
+        // Mit Pause, sonst schlägt "kein Fortschritt" in Millisekunden dreimal zu.
+        if (!j.moved) {
+            if (++stall >= 3) { break; }
+            await setupSleep(1500);
+        } else {
+            stall = 0;
+        }
     }
     const fertig = last && last.fertig;
     const leer = !last || (last.withData || 0) === 0;
