@@ -2,8 +2,17 @@
 id: adiamoessen
 name: Adiamo Essen
 city: Essen
+address: Pferdemarkt 2
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://adiamo-essen.de"
 about: Das Adiamo ist ein Club in Essen, in dem Tanzmusik gespielt wird.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.yelp.com/search?cflt=danceclubs&find_loc=Essen,+Nordrhein-Westfalen; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/nordrhein-westfalen/essen/ verschieben"
+source: "Web-Recherche 08/2026: https://www.yelp.com/search?cflt=danceclubs&find_loc=Essen,+Nordrhein-Westfalen; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut https://www.yelp.de/biz/adiamo-essen-essen; Adresse laut https://www.yelp.de/biz/adiamo-essen-essen, https://branchenbuch.meinestadt.de/essen-ruhr/company/11129990; fehlt: genres; danach nach de/nordrhein-westfalen/essen/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://adiamo-essen.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

@@ -2,8 +2,9 @@
 id: alterweinkeller
 name: Alter Weinkeller
 city: Dortmund
+address: Märkische Str. 22
 lat: NACHMESSEN
 lng: NACHMESSEN
 about: Der Alte Weinkeller ist ein Kellerclub und eine Diskothek in Dortmund.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.discos.de/dortmund; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/nordrhein-westfalen/dortmund/ verschieben"
+source: "Web-Recherche 08/2026: www.discos.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Adresse laut www.yelp.com, dortmund.deutschbranchenbuch.com; fehlt: website, genres; Zweifel: Uneinheitliche Einordnung in den Treffern: Yelp fuehrt es als 'Venues & Event Spaces', cylex als 'Partyservice', deutschbranchenbuch als 'Nachtclub' - moeg…; danach nach de/nordrhein-westfalen/dortmund/ verschieben"

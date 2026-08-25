@@ -2,9 +2,18 @@
 id: connykramer
 name: Conny Kramer
 city: Münster
+address: Am Hawerkamp 31
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://connykramer.ms"
 genres: House, Techno
 about: Das Conny Kramer ist ein Club in Münster mit Themenabenden und Musik von House bis Techno.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://ms-aktuell.de/gastronomie/clubs-in-muenster/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/nordrhein-westfalen/muenster/ verschieben"
+source: "Web-Recherche 08/2026: https://ms-aktuell.de/gastronomie/clubs-in-muenster/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut https://de.ra.co/clubs/80338; Adresse laut https://de.ra.co/clubs/80338, https://cityseeker.com/muenster-de/1123802-conny-kramer; Zweifel: Laut Suchergebnis-Zusammenfassung dauerhaft geschlossen ('permanently closed'); danach nach de/nordrhein-westfalen/muenster/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://connykramer.ms"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

@@ -2,9 +2,10 @@
 id: oberbayernsanton
 name: Oberbayern's Anton
 city: Duisburg
+address: Koloniestr. 97
 lat: NACHMESSEN
 lng: NACHMESSEN
 genres: Schlager
 about: Das Oberbayern's Anton ist eine Party- und Schlagerdiskothek in Duisburg.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.discos.de/duisburg; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/nordrhein-westfalen/duisburg/ verschieben"
+source: "Web-Recherche 08/2026: https://www.discos.de/duisburg; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Adresse laut https://www.yelp.com/biz/oberbayerns-anton-duisburg-2, http://www.deutscheseiten.de/modulsystem/module/landkarte/extern.php?region=NW/Kreisfreie+Stadt+Duisburg/Duisburg&bereich=B10112&adresse=Koloniestr.+97&param=Oberbayern; fehlt: website; danach nach de/nordrhein-westfalen/duisburg/ verschieben"

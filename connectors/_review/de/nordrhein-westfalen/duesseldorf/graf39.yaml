@@ -2,9 +2,18 @@
 id: graf39
 name: Graf 39
 city: Düsseldorf
+address: Graf-Adolf-Straße 39
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://graf.events"
 genres: Techno
 about: Das Graf 39 ist ein Kulturzentrum in Düsseldorf, in dem Techno-Clubnächte stattfinden.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://lifeinduesseldorf.com/best-electronic-music/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; Zweifel: Kulturzentrum mit Clubnächten, kein reiner Nachtclub.; danach nach de/nordrhein-westfalen/duesseldorf/ verschieben"
+source: "Web-Recherche 08/2026: lifeinduesseldorf.com; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut duesseldorf-festival.de; Adresse laut www.facebook.com, duesseldorf-festival.de; Zweifel: Wird teils als Eventlocation vermarktet ('GRAF Event Location', neuindus.de); groove.de berichtete 09/2025 über Probleme bei der Club-Eröffnung ('Club-Eröffnung muss früher enden'); danach nach de/nordrhein-westfalen/duesseldorf/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://graf.events"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

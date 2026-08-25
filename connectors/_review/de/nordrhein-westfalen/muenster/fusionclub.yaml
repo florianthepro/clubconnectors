@@ -2,13 +2,14 @@
 id: fusionclub
 name: Fusion Club
 city: Münster
+address: Hafenweg 46
 lat: NACHMESSEN
 lng: NACHMESSEN
 website: "https://www.fusion-club.de/"
 genres: Electro
 about: Der Fusion Club ist ein Club für elektronische Musik in einem ehemaligen Kino in Münster.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.fusion-club.de/events/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address; danach nach de/nordrhein-westfalen/muenster/ verschieben"
+source: "Web-Recherche 08/2026: https://www.fusion-club.de/events/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Adresse laut https://www.fusion-club.de/; Zweifel: Aeltere Portal-Treffer nennen Am Hawerkamp 31; laut Suchergebnis nennt die offizielle Website aktuell Hafenweg 46 und verweist im Kontakt auf www.dockland.de - moeglicher Umzug/Standortwechsel; danach nach de/nordrhein-westfalen/muenster/ verschieben"
 
 # Wie die Website ausgelesen wird
 scrape_url: "https://www.fusion-club.de/"

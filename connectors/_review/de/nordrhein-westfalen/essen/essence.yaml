@@ -2,8 +2,17 @@
 id: essence
 name: Essence
 city: Essen
+address: Viehoferstr. 38-52
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://club-essence.com/"
 about: Das Essence ist ein Club und eine Diskothek in Essen.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.yelp.com/search?cflt=danceclubs&find_loc=Essen,+Nordrhein-Westfalen; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/nordrhein-westfalen/essen/ verschieben"
+source: "Web-Recherche 08/2026: https://www.yelp.com/search?cflt=danceclubs&find_loc=Essen,+Nordrhein-Westfalen; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut https://club-essence.com/; Adresse laut https://club-essence.com/, https://www.yelp.com/biz/essence-essen; fehlt: genres; danach nach de/nordrhein-westfalen/essen/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://club-essence.com/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

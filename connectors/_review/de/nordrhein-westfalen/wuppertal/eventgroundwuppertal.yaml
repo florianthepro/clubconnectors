@@ -2,12 +2,13 @@
 id: eventgroundwuppertal
 name: Eventground Wuppertal
 city: Wuppertal
+address: Bundesallee 268-274
 lat: NACHMESSEN
 lng: NACHMESSEN
 website: "https://www.eventground-wuppertal.de/"
 about: Der Eventground Wuppertal ist eine Event- und Partylocation in Wuppertal.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.eventground-wuppertal.de/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, genres; Zweifel: Als Event- und Partylocation geführt; evtl. kein regulärer Nachtclub.; danach nach de/nordrhein-westfalen/wuppertal/ verschieben"
+source: "Web-Recherche 08/2026: www.eventground-wuppertal.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; evtl. kein regulärer Nachtclub.; Pruefung 08/2026 (1 Websuche je Club); Adresse laut www.eventground-wuppertal.de; fehlt: genres; Zweifel: Treffer beschreiben es als 'dance and night club with a live music venue'; Adresse stammt aus dem aggregierten Snippet mit Kontaktdaten der eigenen Website (identischer Geb…; danach nach de/nordrhein-westfalen/wuppertal/ verschieben"
 
 # Wie die Website ausgelesen wird
 scrape_url: "https://www.eventground-wuppertal.de/"

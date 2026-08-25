@@ -2,9 +2,18 @@
 id: residenzclubdiskothek
 name: Residenz Club & Diskothek
 city: Paderborn
+address: Marienstraße 1-3
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://r-esidenz.de/"
 genres: Mixed
 about: Die Residenz ist ein Club und eine Diskothek mit mehreren Floors in Paderborn; musikalisch reicht das Angebot von Allround bis Techno.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://partyborn.de/residenz-club-diskothek-paderborn; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/nordrhein-westfalen/paderborn/ verschieben"
+source: "Web-Recherche 08/2026: https://partyborn.de/residenz-club-diskothek-paderborn; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut https://r-esidenz.de/; Adresse laut https://www.yelp.com/biz/residenz-paderborn, https://www.paderborn.de/veranstaltungsorte/109010100000089649.php; danach nach de/nordrhein-westfalen/paderborn/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://r-esidenz.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

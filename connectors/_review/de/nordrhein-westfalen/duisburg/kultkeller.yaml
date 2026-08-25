@@ -2,8 +2,9 @@
 id: kultkeller
 name: Kultkeller
 city: Duisburg
+address: Steinsche Gasse 48
 lat: NACHMESSEN
 lng: NACHMESSEN
 about: Der Kultkeller ist ein Kellerclub und eine Diskothek in Duisburg.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.discos.de/duisburg; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/nordrhein-westfalen/duisburg/ verschieben"
+source: "Web-Recherche 08/2026: https://www.discos.de/duisburg; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Adresse laut https://foursquare.com/v/kultkeller/4b53204df964a520a68f27e3, https://www.yelp.com/biz/kultkeller-duisburg; fehlt: website, genres; danach nach de/nordrhein-westfalen/duisburg/ verschieben"

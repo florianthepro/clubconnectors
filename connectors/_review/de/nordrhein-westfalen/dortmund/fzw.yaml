@@ -2,8 +2,18 @@
 id: fzw
 name: FZW
 city: Dortmund
+address: Ritterstraße 20
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://fzw.de/"
+genres: Live
 about: Das FZW ist ein Kulturzentrum in Dortmund, in dem Clubnächte stattfinden.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.discos.de/dortmund; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; Zweifel: Kulturzentrum mit Clubnächten, kein reiner Nachtclub.; danach nach de/nordrhein-westfalen/dortmund/ verschieben"
+source: "Web-Recherche 08/2026: https://www.discos.de/dortmund; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut https://fzw.de/; Adresse laut https://fzw.de/; Genres laut https://fzw.de/; Zweifel: Primär Konzert-/Veranstaltungslocation ('Freizeitzentrum West') mit Partys, kein reiner Club; danach nach de/nordrhein-westfalen/dortmund/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://fzw.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

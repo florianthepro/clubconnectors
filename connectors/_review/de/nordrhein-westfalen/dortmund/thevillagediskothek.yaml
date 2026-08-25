@@ -2,8 +2,17 @@
 id: thevillagediskothek
 name: The Village Diskothek
 city: Dortmund
+address: Westenhellweg 85
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://village-club.jimdofree.com/"
 about: The Village ist eine kleine Diskothek in Dortmund.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.werkenntdenbesten.de/disco/dortmund; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/nordrhein-westfalen/dortmund/ verschieben"
+source: "Web-Recherche 08/2026: www.werkenntdenbesten.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut village-club.jimdofree.com; Adresse laut www.yelp.com, unilocal.net; fehlt: genres; Zweifel: Ruhrnachrichten-Treffer 'Dortmund: Edel-Club Village steht zur Neuvermietung' legt nahe, dass der Club dauerhaft geschlossen ist und die Flaeche neu vermietet wird; danach nach de/nordrhein-westfalen/dortmund/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://village-club.jimdofree.com/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

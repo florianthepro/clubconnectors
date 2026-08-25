@@ -2,8 +2,17 @@
 id: ufer8
 name: Ufer 8
 city: Düsseldorf
+address: Rathausufer 8
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://ufer8.de"
 about: Das Ufer 8 ist eine Lounge und ein Tanzclub an der Rheinpromenade in Düsseldorf.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.mrduesseldorf.de/die-besten-clubs-in-duesseldorf/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/nordrhein-westfalen/duesseldorf/ verschieben"
+source: "Web-Recherche 08/2026: www.mrduesseldorf.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut onlinestreet.de; Adresse laut www.tripadvisor.com, www.eventlokale.de; fehlt: genres; Zweifel: Treffer deuten auf Umbenennung/Nachfolger 'The Eight' (the-eight.de, 'Eventlocation & Club in Düsseldorf') am selben Standort hin; Website ufer8.de daher evtl. veraltet; danach nach de/nordrhein-westfalen/duesseldorf/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://ufer8.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

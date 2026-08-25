@@ -2,8 +2,9 @@
 id: loverslane
 name: Lovers Lane
 city: Mönchengladbach
+address: Waldhausener Str. 55
 lat: NACHMESSEN
 lng: NACHMESSEN
 about: Lovers Lane ist eine Diskothek und ein Club in Mönchengladbach.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://11km.de/lovers-lane/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/nordrhein-westfalen/moenchengladbach/ verschieben"
+source: "Web-Recherche 08/2026: 11km.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Adresse laut www.alamy.de, wo-war-das.de; fehlt: website, genres; Zweifel: Historischer Club von Guenter Netzer (eroeffnet 1971); Treffer zufolge steht das Gebaeude heute leer - dauerhaft geschlossen, kein aktiver Club; danach nach de/nordrhein-westfalen/moenchengladbach/ verschieben"

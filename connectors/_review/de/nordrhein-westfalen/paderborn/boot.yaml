@@ -2,8 +2,9 @@
 id: boot
 name: Boot
 city: Paderborn
+address: Heierstraße 25
 lat: NACHMESSEN
 lng: NACHMESSEN
 about: Beim Boot handelt es sich um einen Musikclub in Paderborn.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.tripadvisor.com/Attractions-g187384-Activities-c20-t99-Paderborn_North_Rhine_Westphalia.html; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/nordrhein-westfalen/paderborn/ verschieben"
+source: "Web-Recherche 08/2026: www.tripadvisor.com; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Adresse laut m.virtualnights.com, alle-offnungszeiten.de; fehlt: website, genres; Zweifel: Laut Treffer dauerhaft geschlossen: 'Paderborner Boot Music Club schliesst am 02.07' (paderstadt.org); danach nach de/nordrhein-westfalen/paderborn/ verschieben"

@@ -2,8 +2,17 @@
 id: vortex
 name: Vortex
 city: Siegen
+address: Auf den Hütten 4
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.vortex-surfer.de/"
 about: Das Vortex ist eine Nightlife-Location in Siegen.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.wkh-siegen.de/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; Zweifel: Nur als Nightlife-Location gelistet; unklar, ob regulärer Nachtclub.; danach nach de/nordrhein-westfalen/siegen/ verschieben"
+source: "Web-Recherche 08/2026: www.wkh-siegen.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; unklar, ob regulärer Nachtclub.; Pruefung 08/2026 (1 Websuche je Club); Website laut www.oeffnungszeitenbuch.de; Adresse laut www.oeffnungszeitenbuch.de, m.virtualnights.com; fehlt: genres; Zweifel: Laeuft in den Treffern unter dem vollen Namen 'Vortex Surfer Musikclub' (Siegen-Weidenau); danach nach de/nordrhein-westfalen/siegen/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.vortex-surfer.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

@@ -5,6 +5,14 @@ city: Wuppertal
 address: Uellendahler Strasse 316A
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "http://www.skyribar-club.de/"
 about: Der Skyribar Club ist ein Club und eine Diskothek in der Uellendahler Straße 316A in Wuppertal.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.goyellow.de/suche/diskothek/wuppertal; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: website, genres; danach nach de/nordrhein-westfalen/wuppertal/ verschieben"
+source: "Web-Recherche 08/2026: https://www.goyellow.de/suche/diskothek/wuppertal; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut http://www.skyribar-club.de/; fehlt: genres; Zweifel: Treffer deuten auf Swingerclub statt Musikclub: 'Skyribar Swinger-Club Deutschland' (swinginghimmel.de), 'Skyribar Tempel Der Lust Wuppertal' (partyzettel.de); danach nach de/nordrhein-westfalen/wuppertal/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "http://www.skyribar-club.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

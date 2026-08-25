@@ -2,8 +2,17 @@
 id: meyer
 name: Meyer
 city: Siegen
+address: Hindenburgstr. 7a
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.meyer-siegen.de/"
 about: Das Meyer ist eine Nightlife-Location in Siegen.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.wkh-siegen.de/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; Zweifel: Nur als Nightlife-Location gelistet, genaue Betriebsart unklar.; danach nach de/nordrhein-westfalen/siegen/ verschieben"
+source: "Web-Recherche 08/2026: https://www.wkh-siegen.de/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Zweifel: Nur als Nightlife-Location gelistet, genaue Betriebsart unklar.; Pruefung 08/2026 (1 Websuche je Club); Website laut https://www.meyer-siegen.de/; Adresse laut https://meyer-siegen.de/contact/, https://www.yelp.com/biz/meyer-siegen; fehlt: genres; danach nach de/nordrhein-westfalen/siegen/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.meyer-siegen.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

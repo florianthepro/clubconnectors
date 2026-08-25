@@ -2,9 +2,18 @@
 id: stollen134
 name: Stollen134
 city: Dortmund
+address: Westenhellweg 134
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.stollen134.de/"
 genres: Techno, House
 about: Der Stollen134 ist ein Club unter dem Westenhellweg in Dortmund, in dem Techno und House gespielt werden.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://rausgegangen.de/en/locations/stollen134/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/nordrhein-westfalen/dortmund/ verschieben"
+source: "Web-Recherche 08/2026: https://rausgegangen.de/en/locations/stollen134/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut https://www.stollen134.de/; Adresse laut https://www.stollen134.de/, https://www.facebook.com/p/Stollen-134-Westenhellweg-Dortmund-100091911686908/; danach nach de/nordrhein-westfalen/dortmund/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.stollen134.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

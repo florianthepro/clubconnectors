@@ -2,8 +2,18 @@
 id: redroosterclub
 name: Red Rooster Club
 city: Duisburg
+address: Kaiser-Friedrich-Str. 150
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "http://www.the-redrooster.de/"
+genres: Live
 about: Der Red Rooster Club ist ein Club beziehungsweise eine Diskothek in Duisburg.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.discos.de/duisburg; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/nordrhein-westfalen/duisburg/ verschieben"
+source: "Web-Recherche 08/2026: www.discos.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut www.the-redrooster.de; Adresse laut www.yellowmap.de, www.yelp.com; Genres laut www.backstagepro.de; Zweifel: Treffer beschreiben eher eine Kulturkneipe/Live-Location (Blues-Club) als einen Disco-Club; danach nach de/nordrhein-westfalen/duisburg/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "http://www.the-redrooster.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

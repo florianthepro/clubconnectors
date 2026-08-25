@@ -2,8 +2,17 @@
 id: zentrumaltenberg
 name: Zentrum Altenberg
 city: Oberhausen
+address: Hansastraße 20
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.zentrumaltenberg.de/"
 about: Das Zentrum Altenberg ist ein soziokulturelles Zentrum mit Disco in Oberhausen.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.oberhausen.de/de/index/tourismus-freizeit/freizeit-und-erholung/unterhaltung-nachtleben/diskotheken.php; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; Zweifel: Soziokulturelles Zentrum, Disco ist nur Teil des Angebots.; danach nach de/nordrhein-westfalen/oberhausen/ verschieben"
+source: "Web-Recherche 08/2026: www.oberhausen.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut www.zentrumaltenberg.de; Adresse laut www.waze.com, www.oberhausen.de; fehlt: genres; Zweifel: Treffer weisen es als soziokulturelles Zentrum/Kultur- und Veranstaltungszentrum aus (oberhausen.de 'soziokulturelle Zentren', miz.org 'Institution', e…; danach nach de/nordrhein-westfalen/oberhausen/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.zentrumaltenberg.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

@@ -2,8 +2,17 @@
 id: iroomcocktailbarnachtclub
 name: iROOM Cocktailbar & Nachtclub
 city: Dortmund
+address: Kampstraße 45
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.iroomclub.de"
 about: Das iROOM in Dortmund verbindet eine Cocktailbar mit einem Nachtclub.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.discos.de/dortmund; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/nordrhein-westfalen/dortmund/ verschieben"
+source: "Web-Recherche 08/2026: www.discos.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut www.iroomclub.de; Adresse laut www.tripadvisor.com, entdecke.dein-nrw.de; fehlt: genres; danach nach de/nordrhein-westfalen/dortmund/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.iroomclub.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

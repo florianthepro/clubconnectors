@@ -2,9 +2,18 @@
 id: hotelshanghai
 name: Hotel Shanghai
 city: Essen
+address: Steeler Str. 33
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://hotelshanghai.de"
 genres: Electro, Live
 about: Das Hotel Shanghai ist ein Club in Essen mit Elektro und Live-Acts.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.essen-magazin.de/beste-clubs-in-essen; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/nordrhein-westfalen/essen/ verschieben"
+source: "Web-Recherche 08/2026: https://www.essen-magazin.de/beste-clubs-in-essen; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut https://www.facebook.com/hotelshanghai/about/; Adresse laut https://www.yelp.com/biz/hotel-shanghai-essen, https://essen.deutschbranchenbuch.com/night-club/elektronik-musik-klub-hotel-shanghai-e-k/; danach nach de/nordrhein-westfalen/essen/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://hotelshanghai.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

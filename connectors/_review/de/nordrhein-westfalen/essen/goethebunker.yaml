@@ -4,7 +4,15 @@ name: Goethebunker
 city: Essen
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.goethebunker.net/"
 genres: Techno
 about: Der Goethebunker ist ein Techno-Club in einem ehemaligen Luftschutzbunker in Essen.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.essen-magazin.de/beste-clubs-in-essen; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/nordrhein-westfalen/essen/ verschieben"
+source: "Web-Recherche 08/2026: https://www.essen-magazin.de/beste-clubs-in-essen; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut https://www.goethebunker.net/; fehlt: address; Zweifel: Adresse 'Goethestr. 67' nur in der Suchzusammenfassung ohne zuordenbare Einzeltreffer, daher nicht übernommen; Zusammenfassung nennt zudem goethebunker.de statt des Treffers goethebunker.net; danach nach de/nordrhein-westfalen/essen/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.goethebunker.net/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

@@ -4,6 +4,15 @@ name: Hudson's
 city: Essen
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.hudsons-essen.com/"
+genres: Live
 about: Das Hudson's ist ein Ü30-Club im Essener Stadtteil Rüttenscheid.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.essen-magazin.de/beste-clubs-in-essen; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/nordrhein-westfalen/essen/ verschieben"
+source: "Web-Recherche 08/2026: https://www.essen-magazin.de/beste-clubs-in-essen; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut https://www.hudsons-essen.com/; Genres laut https://dienstagslive.de/; fehlt: address; Zweifel: Treffer zeigen 'Hudson's Metropolitan Bar und Dining' (Bar/Restaurant mit Livemusik-Abenden), kein Club; danach nach de/nordrhein-westfalen/essen/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.hudsons-essen.com/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

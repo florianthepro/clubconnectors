@@ -2,8 +2,9 @@
 id: pulp
 name: PULP
 city: Duisburg
+address: Wanheimer Str. 231 A
 lat: NACHMESSEN
 lng: NACHMESSEN
 about: Das PULP ist ein Club und eine Diskothek in Duisburg.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.discos.de/duisburg; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/nordrhein-westfalen/duisburg/ verschieben"
+source: "Web-Recherche 08/2026: www.discos.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Adresse laut www.golocal.de, www.11880.com; fehlt: website, genres; Zweifel: Firmiert als 'PULP Event-Schloss GmbH'; ruhr-guide nennt es 'Allround-Location' - eher Eventlocation als reiner Club. Hausnummer 231 A nur aus der Snippet-Zusammenfassung, Titel-Snippets zeigen nur 'Wanheimer Str.'; danach nach de/nordrhein-westfalen/duisburg/ verschieben"

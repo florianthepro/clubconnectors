@@ -2,8 +2,10 @@
 id: nachtgalerie
 name: Nachtgalerie
 city: Mönchengladbach
+address: Turmstiege 5
 lat: NACHMESSEN
 lng: NACHMESSEN
+genres: 80er/90er
 about: Die Nachtgalerie ist ein Club beziehungsweise eine Diskothek in Mönchengladbach.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.golocal.de/moenchengladbach/diskotheken/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/nordrhein-westfalen/moenchengladbach/ verschieben"
+source: "Web-Recherche 08/2026: www.golocal.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Adresse laut www.nochoffen.de, monchengladbach.deutschbranchenbuch.com; Genres laut intern.muetze-katze.de; fehlt: website; Zweifel: Ein Portal (finde-offen.de) nennt abweichend 'Turmstiege 5-7'; keine eigene Website in den Treffern eindeu…; danach nach de/nordrhein-westfalen/moenchengladbach/ verschieben"

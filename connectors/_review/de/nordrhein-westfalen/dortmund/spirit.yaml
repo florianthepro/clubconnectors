@@ -2,8 +2,9 @@
 id: spirit
 name: Spirit
 city: Dortmund
+address: Helle 9
 lat: NACHMESSEN
 lng: NACHMESSEN
 about: Das Spirit ist ein Club und eine Diskothek in Dortmund.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.werkenntdenbesten.de/disco/dortmund; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/nordrhein-westfalen/dortmund/ verschieben"
+source: "Web-Recherche 08/2026: www.werkenntdenbesten.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Adresse laut m.yelp.com, www.golocal.de; fehlt: website, genres; Zweifel: coolibri.de meldet Umbenennung: 'Neuer Club in Dortmund: Aus Spirit wird Nummer Neun' (https://www.coolibri.de/magazin/nummer-neun/); weitere Treffer firmieren als 'Spirit 2.0'; danach nach de/nordrhein-westfalen/dortmund/ verschieben"

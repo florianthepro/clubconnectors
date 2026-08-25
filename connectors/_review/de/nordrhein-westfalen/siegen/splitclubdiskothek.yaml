@@ -2,12 +2,13 @@
 id: splitclubdiskothek
 name: SPLIT Club & Diskothek
 city: Siegen
+address: Birlenbacher Hütte 11
 lat: NACHMESSEN
 lng: NACHMESSEN
 website: "https://www.split-diskothek.de/"
 about: Das SPLIT ist ein Club und eine Diskothek in Siegen mit einer Fläche von 525 Quadratmetern und wechselnden Partys.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.split-diskothek.de/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, genres; danach nach de/nordrhein-westfalen/siegen/ verschieben"
+source: "Web-Recherche 08/2026: https://www.split-diskothek.de/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Adresse laut https://www.split-diskothek.de/, https://siegen.deutschbranchenbuch.com/night-club/split-club-and-diskothek/; fehlt: genres; Zweifel: Hausnummer uneinheitlich: eigene Website nennt Birlenbacher Hütte 11, Branchenbuch-Treffer Birlenbacher Hütte 12-18; danach nach de/nordrhein-westfalen/siegen/ verschieben"
 
 # Wie die Website ausgelesen wird
 scrape_url: "https://www.split-diskothek.de/"

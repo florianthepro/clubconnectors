@@ -2,8 +2,10 @@
 id: franzferdinand
 name: Franz Ferdinand
 city: Paderborn
+address: Marienstraße 9
 lat: NACHMESSEN
 lng: NACHMESSEN
+genres: Techno
 about: Das Franz Ferdinand ist ein Club in Paderborn mit Studentenabenden.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://partyborn.de/kategorie/diskotheken; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/nordrhein-westfalen/paderborn/ verschieben"
+source: "Web-Recherche 08/2026: partyborn.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Adresse laut sg.trip.com, m.facebook.com; Genres laut allevents.in; fehlt: website; Zweifel: Keine eigene Website in den Treffern erkennbar (nur Facebook-Präsenz; E-Mail-Domain franzferdinand.club deutet auf mögliche eigene Domain hin, aber kein Treffer belegt eine Website); danach nach de/nordrhein-westfalen/paderborn/ verschieben"

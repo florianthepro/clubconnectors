@@ -2,9 +2,10 @@
 id: clubpavillon
 name: Club Pavillon
 city: Wuppertal
+address: Bundesallee 268-272
 lat: NACHMESSEN
 lng: NACHMESSEN
 genres: Live
 about: Der Club Pavillon ist eine Konzert- und Clublocation in Wuppertal.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.livegigs.de/venues/wuppertal-club-pavillon; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/nordrhein-westfalen/wuppertal/ verschieben"
+source: "Web-Recherche 08/2026: www.livegigs.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Adresse laut www.oeffnungszeitenbuch.de, www.yelp.de; fehlt: website; Zweifel: Dauerhaft geschlossen laut mehreren Treffern: 'Club Pavillon (Jetzt geschlossen)' (foursquare), 'DISKOTHEK PAVILLION - GESCHLOSSEN' (yelp.de); danach nach de/nordrhein-westfalen/wuppertal/ verschieben"

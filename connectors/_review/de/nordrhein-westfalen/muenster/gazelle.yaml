@@ -2,12 +2,14 @@
 id: gazelle
 name: Gazelle
 city: Münster
+address: Wolbecker Straße 1
 lat: NACHMESSEN
 lng: NACHMESSEN
 website: "https://www.gazelle.ms/"
+genres: Mixed
 about: Die Gazelle ist ein Tanz- und Nachtclub am Servatiiplatz in Münster.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.gazelle.ms/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, genres; danach nach de/nordrhein-westfalen/muenster/ verschieben"
+source: "Web-Recherche 08/2026: https://www.gazelle.ms/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Adresse laut https://www.gazelle.ms/; Genres laut https://evendo.com/locations/germany/munster/nightclub/gazelle; danach nach de/nordrhein-westfalen/muenster/ verschieben"
 
 # Wie die Website ausgelesen wird
 scrape_url: "https://www.gazelle.ms/"

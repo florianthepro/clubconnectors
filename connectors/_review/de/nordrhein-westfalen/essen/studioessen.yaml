@@ -2,8 +2,17 @@
 id: studioessen
 name: StudioEssen
 city: Essen
+address: Schützenbahn 31
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.studio-essen.com"
 about: Das StudioEssen ist ein Club und eine Diskothek in Essen.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.yelp.com/search?cflt=danceclubs&find_loc=Essen,+Nordrhein-Westfalen; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/nordrhein-westfalen/essen/ verschieben"
+source: "Web-Recherche 08/2026: www.yelp.com,+Nordrhein-Westfalen; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut www.studio-essen.com; Adresse laut www.studio-essen.com, www.nochoffen.de; fehlt: genres; Zweifel: Laut Suchergebnis-Zusammenfassung hat der Club seine Schließung angekündigt (Team weiter als Veranstalter aktiv); danach nach de/nordrhein-westfalen/essen/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.studio-essen.com"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

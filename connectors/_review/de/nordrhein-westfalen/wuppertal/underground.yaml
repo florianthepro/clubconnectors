@@ -2,9 +2,18 @@
 id: underground
 name: Underground
 city: Wuppertal
+address: Bundesallee 268-274
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "http://www.underground-wuppertal.de/"
 genres: 80er/90er, Live
 about: Das Underground ist eine Diskothek in Wuppertal mit 80er-Musik und Livebands.
 checked: 2026-08
-source: "Web-Recherche 08/2026: http://m.virtualnights.com/wuppertal/citytipp/die-besten-clubs-und-diskotheken-in-wuppertal.108; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/nordrhein-westfalen/wuppertal/ verschieben"
+source: "Web-Recherche 08/2026: http://m.virtualnights.com/wuppertal/citytipp/die-besten-clubs-und-diskotheken-in-wuppertal.108; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut http://www.underground-wuppertal.de/; Adresse laut http://www.underground-wuppertal.de/; Zweifel: Treffer beschreiben es als Metal-Bar mit Konzerten, evtl. eher Bar/Live-Location als klassischer Club; danach nach de/nordrhein-westfalen/wuppertal/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "http://www.underground-wuppertal.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

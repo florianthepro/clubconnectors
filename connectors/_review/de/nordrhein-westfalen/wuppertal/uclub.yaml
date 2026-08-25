@@ -2,9 +2,18 @@
 id: uclub
 name: U-Club
 city: Wuppertal
+address: Friedrich-Ebert-Strasse 191
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.u-club.de/"
 genres: Rock, Live
 about: Der U-Club in Wuppertal ist ein Club mit Reggae und Rock, in dem auch Konzerte stattfinden.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.fazemag.de/wuppertaler-nightlife-die-besten-locations-zum-ausgehen-und-feiern/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/nordrhein-westfalen/wuppertal/ verschieben"
+source: "Web-Recherche 08/2026: https://www.fazemag.de/wuppertaler-nightlife-die-besten-locations-zum-ausgehen-und-feiern/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut https://www.u-club.de/; Adresse laut https://www.u-club.de/kontakt/; Zweifel: Ein Treffer nennt moegliche Schliessung: 'the club may have closed at the end of 2025' - vor Nutzung pruefen; danach nach de/nordrhein-westfalen/wuppertal/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.u-club.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

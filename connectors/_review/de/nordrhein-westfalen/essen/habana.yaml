@@ -4,6 +4,14 @@ name: Habana
 city: Essen
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://habanaclub-restaurant.de/"
 about: Das Habana ist ein Club und Tanzlokal in Essen.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.yelp.com/search?cflt=danceclubs&find_loc=Essen,+Nordrhein-Westfalen; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/nordrhein-westfalen/essen/ verschieben"
+source: "Web-Recherche 08/2026: www.yelp.com,+Nordrhein-Westfalen; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut habanaclub-restaurant.de; fehlt: address, genres; Zweifel: Treffer zeigen durchgehend 'Habana Restaurant & Barlounge' mit kubanischem Flair in Ruettenscheid (Restaurant/Bar mit Tanzveranstaltungen), kein klassischer Nachtclub. Hausnummer Zweigertstr. 55 nur in ei…; danach nach de/nordrhein-westfalen/essen/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://habanaclub-restaurant.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

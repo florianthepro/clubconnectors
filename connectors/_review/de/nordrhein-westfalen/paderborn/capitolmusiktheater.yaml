@@ -8,7 +8,7 @@ website: "https://capitol-paderborn.de/"
 genres: Mixed
 about: Im Capitol Musiktheater in Paderborn laufen Charts, Hip-Hop und Pop.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://partyborn.de/capitol-club-diskothek-paderborn; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address; Zweifel: Als Musiktheater beschrieben, möglicherweise eher Veranstaltungsort als klassischer Nachtclub.; danach nach de/nordrhein-westfalen/paderborn/ verschieben"
+source: "Web-Recherche 08/2026: partyborn.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); fehlt: address; Zweifel: Widerspruch zur vorhandenen Website capitol-paderborn.de (Treffer der Stadt Paderborn nennt www.capitol-musiktheater.de); Adresse widersprüchlich: Leostr. 39 (paderborn.de) vs. Kilianstr. (dasoertliche.de-Titel) - daher nicht übernommen; danach nach de/nordrhein-westfalen/paderborn/ verschieben"
 
 # Wie die Website ausgelesen wird
 scrape_url: "https://capitol-paderborn.de/"
