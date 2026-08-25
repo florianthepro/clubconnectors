@@ -7,8 +7,15 @@ if (isset($_GET['debug'])) {
     error_reporting(E_ALL);
 }
 
-const CACHE_TTL = 900;    // ab wann die Seite wieder einen ?cron-Ping auslöst
 const CACHE_V = 2;
+/* Scrapen läuft im Vordergrund: leerer Cache -> Ladebalken, der alles einmal
+   holt; danach wird ein Club beim Öffnen frisch nachgeholt. Kein Ratelimit,
+   aber die PHP-Laufzeit je Aufruf bleibt begrenzt – deshalb in Häppchen.
+   SETUP_SECS/CLUB_SECS bewusst unter dem üblichen 30-s-Deckel vieler Hoster. */
+const SETUP_BATCH = 12;   // Clubs je Ladebalken-Schritt (Zeit begrenzt real)
+const SETUP_SECS = 20;    // Zeitbudget je Ladebalken-Schritt
+const CLUB_SECS = 15;     // Zeitbudget beim Öffnen eines einzelnen Clubs
+const CLUB_FRESH = 900;   // so lange gilt ein Club als frisch (kein Neuscrape)
 
 /*
  * Alles unter einer Domain: Regionen sind Unterordner in /regions/<land>/
@@ -941,11 +948,9 @@ if (isset($_GET['diag'])) {
         $b = curl_exec($ch);
         echo 'outbound-test (einfach): ' . ($b !== false && $b !== '' ? strlen($b) . ' Bytes ok' : 'FEHLER: ' . curl_error($ch)) . "\n";
         echo 'curl_multi: ' . (function_exists('curl_multi_init') ? 'vorhanden' : 'FEHLT (nutze Einzelabruf)') . "\n";
-        // Hintergrundlauf möglich? Ohne das läuft ?cron nur, solange der
-        // Browser die Verbindung offen hält – auf vielen Gratis-Hostern nicht.
-        echo 'hintergrundlauf: ' . (function_exists('fastcgi_finish_request') ? 'fastcgi'
-            : (function_exists('litespeed_finish_request') ? 'litespeed'
-                : 'NEIN – Scrapen läuft nur inline über die Poll-Abfrage')) . "\n";
+        // Scrapen läuft im Vordergrund (Ladebalken beim ersten Aufruf, dann
+        // je Club beim Öffnen) – kein Hintergrundlauf nötig, läuft überall.
+        echo 'scrape-modell: Ladebalken einmalig, dann je Club beim Öffnen' . "\n";
         echo 'max_execution_time: ' . ((int)ini_get('max_execution_time') ?: 'unbegrenzt')
             . ', set_time_limit ' . ($stl ?? '?') . "\n";
         // Wie weit ist der Scraper? getrennt zeigen: versucht vs. mit Inhalt
@@ -954,8 +959,8 @@ if (isset($_GET['diag'])) {
             if (!empty($e['ft'])) { $nTried++; }
             if (!empty($e['events']) || !empty($e['images']) || !empty($e['info'])) { $nBody++; }
         }
-        echo 'scrape-fortschritt: ' . $nTried . ' von ' . count($t[1]) . ' versucht, '
-            . $nBody . " mit Inhalt\n";
+        echo 'scrape-fortschritt: ' . $nTried . ' von ' . count($t[1]) . ' geladen, '
+            . $nBody . " mit Inhalt (Ladebalken bis alle durch sind)\n";
         // Zwei getrennte Live-Tests, jeder für sich abgesichert, damit ?diag
         // NIE mittendrin abbricht: erst Einzel-curl, dann curl_multi.
         $dt = array_slice($t[1], 0, 2, true);
@@ -1054,69 +1059,53 @@ if (isset($_GET['diag'])) {
               . 'auf Gratis-Hostern schnell gesperrt')) . "\n";
     exit;
 }
-if (isset($_GET['live'])) {
-    // aktueller Datenstand als JSON – der Browser holt damit frisch
-    // gescrapte Bilder/Programme nach, ohne die Seite neu zu laden
+if (isset($_GET['setup'])) {
+    // Erstbefüllung in Häppchen. Der Ladebalken ruft das so lange auf, bis
+    // alle Clubs einmal durch sind. Kein Ratelimit – nur die PHP-Laufzeit
+    // begrenzt, was ein Aufruf schafft; der Rest kommt beim nächsten.
     header('Content-Type: application/json; charset=utf-8');
-    [, $conn] = load_connectors(region());
-    // Auf eingeschränkten Hostern läuft der ?cron-Hintergrundlauf oft gar
-    // nicht (kein fastcgi_finish_request, Prozess wird nach der Antwort
-    // beendet). Dann wird bei JEDER Poll-Abfrage ein kleines Häppchen direkt
-    // hier geholt – langsamer, aber es kommt überhaupt etwas an. Sonst nur
-    // auf ausdrückliches ?work=1, wenn der Hintergrundlauf nichts bringt.
-    if (isset($_GET['work']) || host_limited()) {
-        @set_time_limit(60);
-        // klein halten: viele Hoster kappen bei ~30 s max_execution_time
-        $n = host_limited() ? 4 : 6;
-        scrape_refresh(cache_read(region())['data'] ?? [], $conn, $n, region(), 12);
-    }
-    $cache = cache_read(region());
-    $pending = 0;
-    foreach ($conn as $cid => $c) {
-        if ((int)($cache['data'][$cid]['ft'] ?? 0) === 0) {
-            $pending++;
-        }
-    }
-    $netFile = cache_file('net-' . (region() === '' ? 'local' : region()));
-    $net = $netFile && is_file($netFile) ? (json_decode((string)file_get_contents($netFile), true) ?: []) : [];
-    echo json_encode([
-        'live' => live_payload((array)($cache['data'] ?? [])),
-        'pending' => $pending,
-        'neterr' => (isset($net['ok']) && !$net['ok']) ? (string)($net['err'] ?: 'blockiert') : '',
-    ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG);
-    exit;
-}
-if (isset($_GET['cron'])) {
-    // Hintergrund-Ping vom Browser: einen kleinen Batch aktualisieren.
-    // Drosselung (5 min) und Lock stecken in scrape_refresh selbst.
-    http_response_code(204);
-    header('Connection: close');
-    while (ob_get_level() > 0) {
-        @ob_end_flush();
-    }
-    @flush();
-    if (function_exists('fastcgi_finish_request')) {
-        fastcgi_finish_request();
-    } elseif (function_exists('litespeed_finish_request')) {
-        litespeed_finish_request();
-    }
-    // Sind die Clubs per Selbst-Start geholt? Dann hält der Ping sie aktuell –
-    // höchstens einmal am Tag, sonst kostet es nur Zeit.
-    if (CONNECTOR_AUTO && connector_root()[1] === CONNECTOR_DIRS[0]) {
-        $rstamp = __DIR__ . '/data/refresh.stamp';
-        if (!is_file($rstamp) || time() - (int)filemtime($rstamp) > CONNECTOR_REFRESH) {
-            @touch($rstamp);
-            sync_connectors();
-        }
-    }
-    cache_sweep(); // veraltete Bilder/Kacheln weg – sonst räumt sie niemand
+    @set_time_limit(0); // wo erlaubt; sonst greift der Hoster-Deckel, dann eben weniger
     $cc = region();
     [, $conn] = load_connectors($cc);
-    // Batch pro Ping; das Zeitbudget in fetch_all begrenzt den Lauf real
-    scrape_refresh(cache_read($cc)['data'] ?? [], $conn, 48, $cc);
+    cache_sweep();       // bei der Gelegenheit alten Bild-/Kachel-Cache wegräumen
+    $before = scrape_done($cc, $conn)[0];
+    scrape_refresh(cache_read($cc)['data'] ?? [], $conn, SETUP_BATCH, $cc, SETUP_SECS);
+    [$done, $withData] = scrape_done($cc, $conn);
+    echo json_encode([
+        'done' => $done,
+        'withData' => $withData,
+        'total' => count($conn),
+        'moved' => $done - $before, // 0 = kein Fortschritt -> Balken hört auf
+    ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     exit;
 }
-if (isset($_GET['check'])) {
+if (isset($_GET['fresh'])) {
+    // Eine einzelne Kachel frisch holen – passiert beim Öffnen eines Clubs.
+    // Ein Club = ein Abruf, das passt immer ins Laufzeitbudget.
+    // Bewusst NICHT ?club= – das ist der Deeplink, mit dem die Seite selbst
+    // einen Club in der Adresse teilt; der muss die Karte liefern, kein JSON.
+    header('Content-Type: application/json; charset=utf-8');
+    $cc = region();
+    [, $conn] = load_connectors($cc);
+    $id = (string)$_GET['fresh'];
+    $out = null;
+    if (isset($conn[$id])) {
+        $cache = cache_read($cc);
+        $ft = (int)($cache['data'][$id]['ft'] ?? 0);
+        // nur wirklich neu holen, wenn die letzte Aktualisierung her ist –
+        // sonst reicht der Cache und die Kachel geht ohne Wartezeit auf
+        if (time() - $ft >= CLUB_FRESH) {
+            @set_time_limit(0);
+            scrape_refresh($cache['data'] ?? [], [$id => $conn[$id]], 1, $cc, CLUB_SECS, true);
+            $cache = cache_read($cc);
+        }
+        $lp = live_payload([$id => ($cache['data'][$id] ?? [])]);
+        $out = $lp[$id] ?? null;
+    }
+    echo json_encode(['id' => $id, 'live' => $out],
+        JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG);
+    exit;
+}if (isset($_GET['check'])) {
     // Prüft jede Connector-Seite live: erreichbar? Liefert die Extraktion Events/Bilder/Text?
     header('Content-Type: text/plain; charset=utf-8');
     $cc = region();
@@ -2851,7 +2840,28 @@ function cache_write(string $file, array $data): void
  * (kleine, schnelle Läufe – über mehrere Läufe wird alles abgedeckt).
  * $limit 0 = alle (für ?refresh und ?check).
  */
-function scrape_refresh(array $old, array $connectors, int $limit = 24, string $cc = '', int $secs = 0): void
+/*
+ * Fortschritt der Erstbefüllung: [wieviele versucht, wieviele mit Inhalt].
+ * "versucht" (ft gesetzt) treibt den Ladebalken – auch ein nicht erreichbarer
+ * Club zählt als erledigt, sonst bliebe der Balken für immer stehen.
+ */
+function scrape_done(string $cc, array $conn): array
+{
+    $data = cache_read($cc)['data'] ?? [];
+    $done = $withData = 0;
+    foreach ($conn as $id => $c) {
+        $e = $data[$id] ?? [];
+        if (!empty($e['ft'])) {
+            $done++;
+        }
+        if (!empty($e['events']) || !empty($e['images']) || !empty($e['info'])) {
+            $withData++;
+        }
+    }
+    return [$done, $withData];
+}
+
+function scrape_refresh(array $old, array $connectors, int $limit = 24, string $cc = '', int $secs = 0, bool $force = false): void
 {
     if (!$connectors) {
         return; // nie mit leerer Liste den Datenbestand wegräumen
@@ -2888,7 +2898,7 @@ function scrape_refresh(array $old, array $connectors, int $limit = 24, string $
     // das nach; unter ~10 Minuten wird es unhöflich.
     // Während der Erstbefüllung greift die Sperre nicht ($unseen > 0) –
     // die Startgeschwindigkeit hängt am Batch und am Zeitbudget, nicht hier.
-    if ($limit > 0 && $unseen === 0 && time() - ($cache['ts'] ?? 0) < 180) {
+    if (!$force && $limit > 0 && $unseen === 0 && time() - ($cache['ts'] ?? 0) < 180) {
         flock($lock, LOCK_UN);
         fclose($lock);
         return;
@@ -3034,9 +3044,10 @@ function scrape_refresh(array $old, array $connectors, int $limit = 24, string $
 }
 
 /*
- * Die Seite liest nur den Cache und ist damit immer sofort da.
- * Aktualisiert wird über einen unsichtbaren Hintergrund-Ping (?cron=1),
- * den der Browser nach dem Laden abschickt.
+ * Die Seite liest den Cache und ist damit sofort da. Ist der Cache noch leer
+ * (erster Aufruf), zeigt der Browser einen Ladebalken und holt über ?setup=1
+ * alle Clubs in Häppchen. Danach wird ein Club beim Öffnen über ?club= frisch
+ * nachgeholt. Kein Hintergrundlauf, kein Polling.
  */
 // Selbst-Start: leere Seite füllt sich beim ersten Aufruf aus dem Repo
 $bootState = 'cannot';
@@ -3119,6 +3130,26 @@ h1 { margin: 0; font-size: 26px; letter-spacing: -0.02em; }
 .flag span { flex: 1; }
 .flag small { color: var(--muted); font-weight: 400; font-size: 14px; }
 .none { color: var(--muted); }
+
+/* Ladebalken der Erstbefüllung – füllt sich einmal, dann ist Ruhe */
+#setup { position: fixed; inset: 0; z-index: 4000; display: flex;
+    align-items: center; justify-content: center; background: var(--bg);
+    padding: 24px; }
+#setup[hidden] { display: none; }
+#setup .box { width: 100%; max-width: 360px; text-align: center; }
+#setup .ttl { font-size: 17px; font-weight: 600; color: var(--fg); margin-bottom: 16px; }
+#setup .pbar { height: 8px; border-radius: 999px; background: var(--line);
+    overflow: hidden; }
+#setup .pbar > i { display: block; height: 100%; width: 0;
+    background: var(--fg); border-radius: 999px; transition: width .35s ease; }
+#setup .txt { margin-top: 10px; font-variant-numeric: tabular-nums;
+    font-size: 14px; color: var(--fg); }
+#setup .sub { margin-top: 6px; font-size: 13px; color: var(--muted);
+    line-height: 1.4; }
+#setup .setupgo { margin-top: 16px; padding: 10px 18px; border: 0;
+    border-radius: 999px; background: var(--inv-bg); color: var(--inv-fg);
+    font-size: 14px; font-weight: 600; cursor: pointer; }
+
 </style>
 </head>
 <body>
@@ -3185,15 +3216,17 @@ if (isset($_GET['refresh'])) {
 $cache = cache_read($cc);
 // interne Felder (ft/etag/lm/h/ck) nicht an den Browser ausliefern
 $live = live_payload((array)($cache['data'] ?? []));
-$oldestFt = PHP_INT_MAX;
+$pending = 0;
 foreach ($connectors as $cid => $c) {
-    $oldestFt = min($oldestFt, (int)($cache['data'][$cid]['ft'] ?? 0));
+    if (empty($cache['data'][$cid]['ft'])) {
+        $pending++; // noch nie geholt -> Ladebalken beim ersten Aufruf
+    }
 }
-$needsCron = $connectors && $oldestFt < time() - CACHE_TTL;
 $cities = array_values(array_unique(array_map(fn($c) => $c['city'], $clubs)));
 $pageTitle = count($cities) === 1 ? 'Clubs ' . $cities[0] : 'Clubs';
 $payload = json_encode(
-    ['clubs' => $clubs, 'live' => $live, 'cron' => $needsCron, 'cc' => $cc, 'limited' => host_limited()],
+    ['clubs' => $clubs, 'live' => $live, 'cc' => $cc,
+        'pending' => $pending, 'total' => count($connectors)],
     JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG
 );
 ?>
@@ -3852,6 +3885,14 @@ body {
 <div id="veil"></div>
 <div id="sheet" role="dialog" aria-modal="true" tabindex="-1" inert></div>
 <div id="lb" hidden></div>
+<div id="setup" hidden>
+    <div class="box">
+        <div class="ttl">Clubs werden geladen …</div>
+        <div class="pbar"><i></i></div>
+        <div class="txt">0 / 0</div>
+        <div class="sub">Das passiert nur beim ersten Aufruf. Einen Moment.</div>
+    </div>
+</div>
 <script>
 const DATA = <?= $payload ?>;
 const DAYS = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'];
@@ -4392,7 +4433,7 @@ function el(tag, cls, text) {
     if (text != null) e.textContent = text;
     return e;
 }
-let lastFp = '', liveBusy = false, liveSig = '';
+let lastFp = '', liveBusy = false;
 function render() {
     freshStatus();
     const list = filtered();
@@ -5065,6 +5106,15 @@ function openSheet(c, pan) {
     }
     activeId = c.id;
     syncUrl();
+    // Diesen Club frisch nachladen und ins offene Sheet einspielen. Kein
+    // Ratelimit – ein Abruf je Öffnen ist unkritisch. render() reicht die
+    // frischen Bilder/Infos/Programme in die schon offene Kachel nach.
+    fetch(EP('fresh=' + encodeURIComponent(c.id))).then(r => r.json()).then(j => {
+        if (j && j.live && activeId === c.id) {
+            DATA.live[c.id] = j.live;
+            render();
+        }
+    }).catch(() => {});
     const s = refStatus(c);
     const live = DATA.live[c.id] || {};
     const { head, body } = sheetBase(c.name);
@@ -5234,70 +5284,51 @@ setInterval(() => {
 /* Hintergrund-Aktualisierung anstoßen und frische Daten (Bilder, Programm)
    ohne Neuladen einsammeln, bis die Erstbefüllung durch ist */
 const EP = q => (DATA.cc ? '?c=' + DATA.cc + '&' : '?') + q;
-if (DATA.cron) {
-    let liveTries = 0;
-    liveBusy = true; // dezenter „lädt“-Hinweis in der Legende
-    render();
-    let lastPending = -1, stuck = 0, netNote = false;
-    // Der Abstand wächst weiterhin – aber langsamer als früher, als jede
-    // Anfrage gegen ein Tageslimit zählte. Der harte Abbruch bleibt: sonst
-    // wird aus einem vergessenen Tab eine Dauerschleife.
-    let wait = 4000;
-    const again = ms => {
-        if (++liveTries >= 25) { liveBusy = false; render(); return; }
-        wait = Math.min(Math.round((ms || wait) * 1.25), 30000);
-        setTimeout(liveTick, wait);
-    };
-    const liveTick = () => {
-        // Bringt der Hintergrund-Ping nichts, den Poll selbst arbeiten lassen.
-        // Auf eingeschränkten Hostern holt die Poll-Abfrage ohnehin selbst –
-        // dort braucht sie kein &work und trotzdem den großzügigen Timeout.
-        const work = (!DATA.limited && stuck >= 2) ? '&work=1' : '';
-        const slow = work || DATA.limited;
-        const opt = slow && window.AbortSignal && AbortSignal.timeout ? { signal: AbortSignal.timeout(25000) } : {};
-        fetch(EP('live=1') + work, opt).then(r => r.json()).then(j => {
-            if (j.pending === lastPending) { stuck++; } else { stuck = 0; }
-            lastPending = j.pending;
-            let changed = false;
-            if (j.live) {
-                const sig = Object.keys(j.live).length + ':' + JSON.stringify(j.live).length;
-                changed = sig !== liveSig;
-                liveSig = sig;
-                DATA.live = j.live;
-            }
-            if (j.neterr) {
-                // Hoster lässt den Server nicht ins Netz – ohne das gibt es
-                // weder Bilder noch Programm. Klartext statt endlosem Laden.
-                // Trotzdem weiter nachsehen, falls es sich wieder einrenkt.
-                liveBusy = false;
-                netNote = true;
-                locNote('Programm und Bilder können nicht geladen werden: Der Webhoster blockiert ausgehende Verbindungen (' + j.neterr + ').');
-                render();
-                again(j.pending > 0 ? 20000 : 30000); // auf Erholung warten
-                return;
-            }
-            if (netNote) { netNote = false; locNote(''); } // geht wieder
-            if (j.pending > 0) {
-                fetch(EP('cron=1'), { keepalive: true }).catch(() => {});
-                again(0); // 0 = mit dem gewachsenen Abstand weiter
-            } else {
-                liveBusy = false;
-                changed = true;
-            }
-            // nur zeichnen, wenn es etwas Neues gibt – sonst ruckelt die Karte grundlos
-            if (changed) render();
-        }).catch(() => {
-            // Wackler im Netz oder abgebrochener Arbeitslauf: nicht aufgeben,
-            // nur langsamer weitermachen und den Notbetrieb zurücksetzen
-            stuck = 0;
-            again(8000);
-        });
-    };
-    setTimeout(() => {
-        fetch(EP('cron=1'), { keepalive: true }).catch(() => {});
-        setTimeout(liveTick, 4000);
-    }, 1500);
+// Erstbefüllung: leerer Cache -> Ladebalken, der alles einmal holt. Danach
+// wird jeder Club beim Öffnen frisch nachgeholt (siehe openSheet). Kein
+// Hintergrundlauf, kein Polling – läuft überall, auch auf Gratis-Hostern.
+function setupSleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+async function runSetup() {
+    const ov = $('setup');
+    if (!ov) { return; }
+    ov.hidden = false;
+    const bar = ov.querySelector('.pbar > i');
+    const txt = ov.querySelector('.txt');
+    const sub = ov.querySelector('.sub');
+    const total0 = DATA.total || 1;
+    let stall = 0, last = null;
+    while (true) {
+        let j;
+        try {
+            j = await fetch(EP('setup=1')).then(r => r.json());
+        } catch (e) {
+            if (++stall >= 4) { break; }
+            await setupSleep(1500);
+            continue;
+        }
+        const total = j.total || total0;
+        const done = j.done || 0;
+        bar.style.width = Math.min(100, Math.round(done / total * 100)) + '%';
+        txt.textContent = done + ' / ' + total + ' Clubs';
+        last = j;
+        if (done >= total) { break; }
+        // kein Fortschritt mehr (Hoster kappt jeden Aufruf) -> nicht ewig drehen
+        if (!j.moved) { if (++stall >= 3) { break; } } else { stall = 0; }
+    }
+    if (last && last.done >= (last.total || total0) && (last.withData || 0) === 0) {
+        // alle abgeklappert, aber nichts kam an -> Server kommt nicht ins Netz
+        bar.style.width = '100%';
+        sub.textContent = 'Programm und Bilder ließen sich nicht laden – der Server '
+            + 'kommt nicht ins Netz. Die Karte funktioniert trotzdem.';
+        const b = el('button', 'setupgo', 'Weiter zur Karte');
+        b.onclick = () => { ov.hidden = true; };
+        ov.querySelector('.box').appendChild(b);
+        return;
+    }
+    // fertig -> mit vollem Datenstand frisch laden
+    location.reload();
 }
+if (DATA.pending > 0) { runSetup(); }
 </script>
 <?php if (have_vendor()): ?>
 <script async src="<?= htmlspecialchars(asset_url('leaflet.js')) ?>" onload="initMap()" onerror="mapFailed()"></script>
