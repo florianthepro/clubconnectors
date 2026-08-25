@@ -930,6 +930,8 @@ if (isset($_GET['diag'])) {
         ? 'eingeschränkter Gratis-Hoster – Kachel-Proxy automatisch aus (Konto-Schutz)'
         : 'voll (Kachel-Proxy erlaubt)') . "\n";
     echo 'skriptordner: ' . (@is_writable(__DIR__) ? 'beschreibbar' : 'NICHT beschreibbar – kein Event-Cache') . "\n";
+    $disabled = array_map('trim', explode(',', strtolower((string)ini_get('disable_functions'))));
+    $stl = in_array('set_time_limit', $disabled, true) ? 'gesperrt' : 'nutzbar';
     if (function_exists('curl_init')) {
         // gleicher Modus wie der Scraper (SSL-tolerant, Browser-UA)
         $ch = curl_init('https://www.muffatwerk.de/de/veranstaltungen');
@@ -939,21 +941,69 @@ if (isset($_GET['diag'])) {
         $b = curl_exec($ch);
         echo 'outbound-test (einfach): ' . ($b !== false && $b !== '' ? strlen($b) . ' Bytes ok' : 'FEHLER: ' . curl_error($ch)) . "\n";
         echo 'curl_multi: ' . (function_exists('curl_multi_init') ? 'vorhanden' : 'FEHLT (nutze Einzelabruf)') . "\n";
-        // gleicher Weg wie der Scraper: zeigt sofort, woran es wirklich liegt
-        $dt = array_slice($t[1], 0, 3, true);
-        if ($dt) {
-            $dr = fetch_all(array_map(fn($c) => $c['url'], $dt), [], 20);
-            foreach ($dt as $did => $dcfg) {
-                $x = $dr[$did] ?? null;
-                $len = $x && $x['body'] !== '' ? strlen($x['body']) : 0;
-                echo '  scraper-test ' . str_pad(substr($did, 0, 14), 15)
-                    . ($len ? $len . ' Bytes ok, ' . count(extract_images($x['body'], $x['url'] ?: $dcfg['url'], 'auto')) . ' Bilder, '
-                        . (extract_info($x['body']) !== '' ? 'Infotext ja' : 'Infotext nein')
-                      : 'FEHLER: ' . ($x['err'] ?? 'keine Antwort'))
-                    . "\n";
+        // Hintergrundlauf möglich? Ohne das läuft ?cron nur, solange der
+        // Browser die Verbindung offen hält – auf vielen Gratis-Hostern nicht.
+        echo 'hintergrundlauf: ' . (function_exists('fastcgi_finish_request') ? 'fastcgi'
+            : (function_exists('litespeed_finish_request') ? 'litespeed'
+                : 'NEIN – Scrapen läuft nur inline über die Poll-Abfrage')) . "\n";
+        echo 'max_execution_time: ' . ((int)ini_get('max_execution_time') ?: 'unbegrenzt')
+            . ', set_time_limit ' . ($stl ?? '?') . "\n";
+        // Wie weit ist der Scraper? getrennt zeigen: versucht vs. mit Inhalt
+        $nTried = $nBody = 0;
+        foreach ((array)($dc['data'] ?? []) as $e) {
+            if (!empty($e['ft'])) { $nTried++; }
+            if (!empty($e['events']) || !empty($e['images']) || !empty($e['info'])) { $nBody++; }
+        }
+        echo 'scrape-fortschritt: ' . $nTried . ' von ' . count($t[1]) . ' versucht, '
+            . $nBody . " mit Inhalt\n";
+        // Zwei getrennte Live-Tests, jeder für sich abgesichert, damit ?diag
+        // NIE mittendrin abbricht: erst Einzel-curl, dann curl_multi.
+        $dt = array_slice($t[1], 0, 2, true);
+        $one = $dt ? array_slice($dt, 0, 1, true) : [];
+        try {
+            if ($one) {
+                $r1 = fetch_seq(array_map(fn($c) => $c['url'], $one), [], time() + 8);
+                foreach ($one as $id => $cfg) {
+                    $x = $r1[$id] ?? null;
+                    $len = $x && $x['body'] !== '' ? strlen($x['body']) : 0;
+                    echo '  einzel-curl ' . str_pad(substr($id, 0, 14), 15)
+                        . ($len ? $len . ' Bytes ok' : 'FEHLER: ' . ($x['err'] ?? 'keine Antwort')) . "\n";
+                }
+            }
+        } catch (Throwable $e) {
+            echo '  einzel-curl: Ausnahme ' . $e->getMessage() . "\n";
+        }
+        if (function_exists('curl_multi_init') && $dt) {
+            try {
+                // direkt curl_multi testen, ohne den seq-Notnagel von fetch_all
+                $mh = curl_multi_init();
+                $hs = [];
+                $bd = $ov = $mt = [];
+                foreach ($dt as $id => $cfg) {
+                    $ch = curl_init($cfg['url']);
+                    curl_setopt_array($ch, curl_opts($id, [], $bd, $ov, $mt, 8));
+                    curl_multi_add_handle($mh, $ch);
+                    $hs[$id] = $ch;
+                }
+                $t0 = time();
+                do {
+                    curl_multi_exec($mh, $run);
+                    if ($run > 0 && curl_multi_select($mh, 0.2) === -1) { usleep(50000); }
+                } while ($run > 0 && time() - $t0 < 10);
+                $got = 0;
+                foreach ($hs as $id => $ch) {
+                    if (($bd[$id] ?? '') !== '') { $got++; }
+                    curl_multi_remove_handle($mh, $ch);
+                    curl_close($ch);
+                }
+                curl_multi_close($mh);
+                echo '  curl_multi-test: ' . $got . ' von ' . count($dt) . ' geliefert'
+                    . ($got === 0 ? ' – curl_multi bringt hier nichts, Scraper nutzt Einzelabruf' : '') . "\n";
+            } catch (Throwable $e) {
+                echo '  curl_multi-test: Ausnahme ' . $e->getMessage() . "\n";
             }
         }
-        echo "  (steht bei scraper-test FEHLER, kommt der Scraper nicht durch –\n   dann gibt es weder Programm noch Bilder)\n";
+        echo "  (einzel-curl ok + curl_multi 0 -> der Scraper stellt automatisch\n   auf Einzelabruf um; einzel-curl FEHLER -> Hoster blockt Club-Seiten)\n";
     }
 
 
@@ -1009,12 +1059,16 @@ if (isset($_GET['live'])) {
     // gescrapte Bilder/Programme nach, ohne die Seite neu zu laden
     header('Content-Type: application/json; charset=utf-8');
     [, $conn] = load_connectors(region());
-    if (isset($_GET['work'])) {
-        // Notbetrieb: Der Hoster beendet den ?cron-Prozess offenbar sofort.
-        // Dann wird hier gearbeitet – die Antwort geht erst danach raus.
+    // Auf eingeschränkten Hostern läuft der ?cron-Hintergrundlauf oft gar
+    // nicht (kein fastcgi_finish_request, Prozess wird nach der Antwort
+    // beendet). Dann wird bei JEDER Poll-Abfrage ein kleines Häppchen direkt
+    // hier geholt – langsamer, aber es kommt überhaupt etwas an. Sonst nur
+    // auf ausdrückliches ?work=1, wenn der Hintergrundlauf nichts bringt.
+    if (isset($_GET['work']) || host_limited()) {
         @set_time_limit(60);
-        // knapp halten: viele Hoster kappen bei 30 s max_execution_time
-        scrape_refresh(cache_read(region())['data'] ?? [], $conn, 6, region(), 10);
+        // klein halten: viele Hoster kappen bei ~30 s max_execution_time
+        $n = host_limited() ? 4 : 6;
+        scrape_refresh(cache_read(region())['data'] ?? [], $conn, $n, region(), 12);
     }
     $cache = cache_read(region());
     $pending = 0;
@@ -2374,7 +2428,14 @@ function fetch_all(array $urls, array $cond = [], int $budget = 40): array
         return [];
     }
     $deadline = time() + $budget;
-    if (!function_exists('curl_multi_init')) {
+    // Eingeschränkte Gratis-Hoster haben curl_multi zwar vorhanden, liefern
+    // damit aber oft nichts (Einzel-curl geht dagegen). Dort von vornherein
+    // sequenziell – zuverlässiger als der Umweg über den Rettungspfad.
+    static $seqOnly = null;
+    if ($seqOnly === null) {
+        $seqOnly = host_limited() || !function_exists('curl_multi_init');
+    }
+    if ($seqOnly) {
         return fetch_seq($urls, $cond, $deadline);
     }
     $out = [];
@@ -2426,15 +2487,16 @@ function fetch_all(array $urls, array $cond = [], int $budget = 40): array
     // curl_multi – der Reihe nach klappt es auf solchen Hostern doch.
     // Nur einmal je Request und nur für die tatsächlich gescheiterten
     // Adressen, sonst frisst der Rettungsversuch das ganze Zeitbudget.
-    static $rescued = false;
     $hit = 0;
     foreach ($out as $r) {
         if ($r['code'] !== 0) {
             $hit++;
         }
     }
-    if ($hit === 0 && !$rescued && $deadline - time() > 2) {
-        $rescued = true;
+    if ($hit === 0 && $out && $deadline - time() > 2) {
+        // curl_multi hat für diesen Prozess nichts gebracht – ab jetzt
+        // sequenziell, und zwar auch für alle folgenden Pakete.
+        $seqOnly = true;
         $seq = fetch_seq(array_intersect_key($urls, $out), $cond, $deadline);
         foreach ($seq as $id => $r) {
             if ($r['code'] !== 0 || !isset($out[$id])) {
@@ -3131,7 +3193,7 @@ $needsCron = $connectors && $oldestFt < time() - CACHE_TTL;
 $cities = array_values(array_unique(array_map(fn($c) => $c['city'], $clubs)));
 $pageTitle = count($cities) === 1 ? 'Clubs ' . $cities[0] : 'Clubs';
 $payload = json_encode(
-    ['clubs' => $clubs, 'live' => $live, 'cron' => $needsCron, 'cc' => $cc],
+    ['clubs' => $clubs, 'live' => $live, 'cron' => $needsCron, 'cc' => $cc, 'limited' => host_limited()],
     JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG
 );
 ?>
@@ -5187,10 +5249,12 @@ if (DATA.cron) {
         setTimeout(liveTick, wait);
     };
     const liveTick = () => {
-        // Bringt der Hintergrund-Ping nichts, den Poll selbst arbeiten lassen
-        const work = stuck >= 2 ? '&work=1' : '';
-        // Arbeitet der Server mit, kann das dauern – aber nicht ewig
-        const opt = work && window.AbortSignal && AbortSignal.timeout ? { signal: AbortSignal.timeout(25000) } : {};
+        // Bringt der Hintergrund-Ping nichts, den Poll selbst arbeiten lassen.
+        // Auf eingeschränkten Hostern holt die Poll-Abfrage ohnehin selbst –
+        // dort braucht sie kein &work und trotzdem den großzügigen Timeout.
+        const work = (!DATA.limited && stuck >= 2) ? '&work=1' : '';
+        const slow = work || DATA.limited;
+        const opt = slow && window.AbortSignal && AbortSignal.timeout ? { signal: AbortSignal.timeout(25000) } : {};
         fetch(EP('live=1') + work, opt).then(r => r.json()).then(j => {
             if (j.pending === lastPending) { stuck++; } else { stuck = 0; }
             lastPending = j.pending;
