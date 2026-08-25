@@ -1,0 +1,19 @@
+# Kaiserkeller – Hamburg
+id: kaiserkeller
+name: Kaiserkeller
+city: Hamburg
+address: Große Freiheit 36
+lat: 53.5512
+lng: 9.9581
+website: "https://grossefreiheit36.de"
+genres: Rock, Live, Black Music
+about: "Clubkeller unter der Großen Freiheit 36 auf St. Pauli, 1959 eröffnet und 1960 Spielort der Beatles. Heute rocklastiges Konzertprogramm von Metal bis Indie sowie regelmäßige Partys, u.a. XXL-Partys mit Black/Deutschrap."
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://en.wikipedia.org/wiki/Kaiserkeller, https://www.setlist.fm/venue/kaiserkeller-hamburg-germany-3bd63498.html; Koordinate aus https://en.wikipedia.org/wiki/Gro%C3%9Fe_Freiheit_36 und https://www.wikidata.org/wiki/Q15137841 – bitte nachmessen; danach nach de/hamburg/hamburg/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://grossefreiheit36.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

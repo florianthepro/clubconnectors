@@ -1,0 +1,19 @@
+# Baalsaal – Hamburg
+id: baalsaal
+name: Baalsaal
+city: Hamburg
+address: Reeperbahn 25
+lat: NACHMESSEN
+lng: NACHMESSEN
+website: "https://www.baalsaal.info"
+genres: House, Techno
+about: "Club an der Reeperbahn 25 in St. Pauli, in dem House und Techno das Programm dominieren, ergänzt um weitere Spielarten elektronischer Musik."
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://ra.co/clubs/7522, https://www.regioactive.de/location/hamburg/baalsaal-club-Sq2PZW9pcF; Koordinate fehlt – nachmessen; danach nach de/hamburg/hamburg/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.baalsaal.info"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

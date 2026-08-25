@@ -1,0 +1,19 @@
+# Golden Pudel Club – Hamburg
+id: goldenpudelclub
+name: Golden Pudel Club
+city: Hamburg
+address: St. Pauli Fischmarkt 27
+lat: NACHMESSEN
+lng: NACHMESSEN
+website: "https://pudel.com"
+genres: Electro, Techno, Live
+about: "Winziger Underground-Club am St. Pauli Fischmarkt nahe der Reeperbahn, seit Mitte der 1990er aktiv und nach dem Brand 2016 wiedereröffnet. Programm mit Electro, Techno und experimentellen DJ-Sets abseits des Mainstreams."
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.yelp.com/biz/golden-pudel-club-hamburg-2, https://pudel.com/programm; Koordinate fehlt – nachmessen; danach nach de/hamburg/hamburg/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://pudel.com"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

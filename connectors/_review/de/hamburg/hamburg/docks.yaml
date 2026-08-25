@@ -1,0 +1,19 @@
+# Docks – Hamburg
+id: docks
+name: Docks
+city: Hamburg
+address: Spielbudenplatz 19
+lat: 53.5491
+lng: 9.9646
+website: "https://www.docks.de"
+genres: Live, Mixed
+about: "Größter Musikclub Hamburgs am Spielbudenplatz auf St. Pauli mit Platz für bis zu 1.500 Gäste; seit 1988 Konzerte nationaler und internationaler Acts, am Wochenende Partys mit wechselnden DJs."
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.hamburg.de/kultur/musik/clubs/docks-313018, https://docksfreiheit36.de/impressum-docks/; Koordinate aus https://www.wikidata.org/wiki/Q1233759 und https://aroundus.com/p/6595133-docks – bitte nachmessen; danach nach de/hamburg/hamburg/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.docks.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

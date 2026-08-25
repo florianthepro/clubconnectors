@@ -1,0 +1,19 @@
+# Hafenklang – Hamburg
+id: hafenklang
+name: Hafenklang
+city: Hamburg
+address: Große Elbstraße 84
+lat: NACHMESSEN
+lng: NACHMESSEN
+website: "https://www.hafenklang.com"
+genres: Live, Techno, Electro
+about: "Liveclub mit zwei Konzerträumen und Bar an der Großen Elbstraße in Altona, direkt an der Elbe."
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.hafenklang.com/impressum/, https://www.hamburg.de/kultur/musik/clubs/hafenklang-401780; Koordinate fehlt – nachmessen; danach nach de/hamburg/hamburg/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.hafenklang.com"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

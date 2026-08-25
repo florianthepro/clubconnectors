@@ -1,0 +1,19 @@
+# Uebel & Gefährlich – Hamburg
+id: uebelgefahrlich
+name: Uebel & Gefährlich
+city: Hamburg
+address: Feldstraße 66
+lat: NACHMESSEN
+lng: NACHMESSEN
+website: "https://www.uebelundgefaehrlich.com"
+genres: Live, Techno
+about: "Konzert- und Clublocation im 4. Stock des Feldstraßenbunkers (Flakturm IV) am Heiligengeistfeld, aufgeteilt in Ballsaal und Turmzimmer für rund 1.000 Gäste."
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.hamburg.de/kultur/musik/clubs/uebel-und-gefaehrlich-314174, https://www.yelp.com/biz/uebel-und-gef%C3%A4hrlich-hamburg; Koordinate fehlt – nachmessen; danach nach de/hamburg/hamburg/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.uebelundgefaehrlich.com"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

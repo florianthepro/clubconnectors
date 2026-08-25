@@ -35,13 +35,21 @@ flag/  data/  tools/  SPEC.md                 <- Icons, Cache-Sperre, Prüfer, S
 | Berlin | 55 | Berlin |
 
 Noch leer: Nordrhein-Westfalen, Niedersachsen, Hessen, Sachsen, Rheinland-Pfalz,
-Schleswig-Holstein, Hamburg, Bremen, Brandenburg, Sachsen-Anhalt, Thüringen,
+Schleswig-Holstein, Bremen, Brandenburg, Sachsen-Anhalt, Thüringen,
 Mecklenburg-Vorpommern, Saarland. Die Ordner entstehen mit dem ersten Connector.
 
-In `connectors/_review/` liegen **4 Einträge, deren Koordinate zu ungenau ist**
-(1–2 Nachkommastellen, also bis zu einem Kilometer daneben). Ordner mit `_`
-werden von Validator und Karte übergangen – wer die Koordinate nachmisst,
-verschiebt die Datei zurück und der Club ist wieder auf der Karte.
+In `connectors/_review/` liegen Einträge, die noch nicht auf die Karte dürfen –
+Ordner mit `_` werden von Validator und Karte übergangen:
+
+- **4 Bestandseinträge mit zu ungenauer Koordinate** (1–2 Nachkommastellen,
+  also bis zu einem Kilometer daneben).
+- **10 Hamburg-Entwürfe** aus Web-Recherche (Quellen jeweils im `source`-Feld).
+  Adresse, Website, Genres und `about` sind belegt; die Koordinate steht auf
+  `NACHMESSEN`, weil sie sich aus Suchtreffern nicht sauber verifizieren ließ.
+
+Wer die Koordinate nachmisst, trägt sie ein und verschiebt die Datei in den
+Länderordner – der Club erscheint dann von selbst auf der Karte (der
+Update-Abgleich der Seite holt neue Connectoren automatisch nach).
 
 ## Aufspielen
 

@@ -1,0 +1,19 @@
+# Fundbureau – Hamburg
+id: fundbureau
+name: Fundbureau
+city: Hamburg
+address: Altländer Straße 11
+lat: NACHMESSEN
+lng: NACHMESSEN
+website: "https://fundbureau.de"
+genres: Techno, Goa, House
+about: "Techno-Keller, seit 1998 zunächst unter der Sternbrücke aktiv, seit August 2024 in den Deichtor-Kasematten am Oberhafen hinter den Deichtorhallen."
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.hamburg.de/branchenbuch/hamburg/eintrag/10236094/, https://de.ra.co/clubs/7627; Koordinate fehlt – nachmessen; danach nach de/hamburg/hamburg/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://fundbureau.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

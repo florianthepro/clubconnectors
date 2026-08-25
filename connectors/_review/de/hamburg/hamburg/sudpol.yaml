@@ -1,0 +1,19 @@
+# Südpol – Hamburg
+id: sudpol
+name: Südpol
+city: Hamburg
+address: Süderstraße 112
+lat: NACHMESSEN
+lng: NACHMESSEN
+website: "https://www.suedpol.org"
+genres: Techno, House
+about: "Kollektiv organisierter Club in einem Altbau am Billekanal in Hammerbrook. Auf zwei Floors laufen Techno- und House-Partys, teils übers ganze Wochenende, dazu queere Events, Punk-Konzerte und Kino."
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.suedpol.org/, https://www.suedpol.org/about/; Koordinate fehlt – nachmessen; danach nach de/hamburg/hamburg/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.suedpol.org"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto
