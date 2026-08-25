@@ -4,7 +4,15 @@ name: Zoom
 city: Frankfurt am Main
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://zoomfrankfurt.com/"
 genres: Mixed
 about: Das Zoom ist ein Club in Frankfurt am Main mit breitem Musikprogramm.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://frankfurtrestaurants.de/en/behind-these-doors-the-party-continues-frankfurts-8-best-clubs/; auch gelistet als: ehem. Cocoon; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/hessen/frankfurtammain/ verschieben"
+source: "Web-Recherche 08/2026: frankfurtrestaurants.de; auch gelistet als: ehem. Cocoon; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut zoomfrankfurt.com; fehlt: address; Zweifel: Treffer nennen uneinheitlich Carl-Benz-Straße 21 bzw. 21a, beide nur aus Journal-Frankfurt-Quellen (nicht unabhängig), daher Adresse nicht übernommen; danach nach de/hessen/frankfurtammain/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://zoomfrankfurt.com/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

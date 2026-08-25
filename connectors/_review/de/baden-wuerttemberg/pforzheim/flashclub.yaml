@@ -2,8 +2,17 @@
 id: flashclub
 name: Flash Club
 city: Pforzheim
+address: Mannheimerstr. 17
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.instagram.com/flashclubpforzheim/"
 about: Der Flash Club ist eine Diskothek in Pforzheim.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.dasoertliche.de/Themen/Diskotheken-und-Clubs/Pforzheim.html; auch gelistet als: Disko Flash; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/baden-wuerttemberg/pforzheim/ verschieben"
+source: "Web-Recherche 08/2026: www.dasoertliche.de; auch gelistet als: Disko Flash; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut www.instagram.com; Adresse laut www.easyticket.de, artist-production.de; fehlt: genres; Zweifel: Keine eigene Website in den Treffern (nur Instagram/Facebook/Ticketportale); Kontakt laut Snippet eine private E-Mail (beli@online.de). Tre…; danach nach de/baden-wuerttemberg/pforzheim/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.instagram.com/flashclubpforzheim/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

@@ -2,8 +2,18 @@
 id: artheater
 name: Artheater
 city: Köln
+address: Ehrenfeldgürtel 127
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://artheater.de"
+genres: Live
 about: Das Artheater in Köln-Ehrenfeld vereint Café, Theater und Underground-Club unter einem Dach.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://theculturetrip.com/europe/germany/articles/the-best-techno-clubs-in-cologne; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; Zweifel: Mischbetrieb aus Café, Theater und Club, kein reiner Nachtclub.; danach nach de/nordrhein-westfalen/koeln/ verschieben"
+source: "Web-Recherche 08/2026: https://theculturetrip.com/europe/germany/articles/the-best-techno-clubs-in-cologne; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Zweifel: Mischbetrieb aus Café, Theater und Club, kein reiner Nachtclub.; Pruefung 08/2026 (1 Websuche je Club); Website laut https://artheater.de/; Adresse laut https://artheater.de/kontakt; Genres laut https://artheater.de/; danach nach de/nordrhein-westfalen/koeln/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://artheater.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

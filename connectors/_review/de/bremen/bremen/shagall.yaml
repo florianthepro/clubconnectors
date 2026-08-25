@@ -2,9 +2,18 @@
 id: shagall
 name: Shagall
 city: Bremen
+address: Rembertiring 4
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.shagall-klub.com/"
 genres: Rock
 about: Das Shagall ist ein Rock- und Pop-Club am Rembertiring in Bremen.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.bremen.de/tanzen-und-feiern; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/bremen/bremen/ verschieben"
+source: "Web-Recherche 08/2026: https://www.bremen.de/tanzen-und-feiern; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut https://www.shagall-klub.com/; Adresse laut https://www.gastroguide.de/restaurant/192380/shagall-klub/bremen/, https://bremen-city.de/en/cityguide/shagall-klub/; danach nach de/bremen/bremen/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.shagall-klub.com/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

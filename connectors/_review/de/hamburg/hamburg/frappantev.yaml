@@ -4,6 +4,14 @@ name: Frappant e.V.
 city: Hamburg
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://frappant.org/"
 about: Frappant e.V. ist ein Kulturzentrum in Hamburg-Altona, in dem auch Clubnächte stattfinden.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.hamburg.de/branchenbuch/hamburg/bezirk-altona/10233673/n0/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; Zweifel: Kulturzentrum, kein regulärer Nachtclub.; danach nach de/hamburg/hamburg/ verschieben"
+source: "Web-Recherche 08/2026: www.hamburg.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut frappant.org; fehlt: address, genres; Zweifel: Treffer beschreiben Frappant e.V. als Kulturverein/Galerie in der Viktoria-Kaserne (Altona), keinen klassischen Club. Adressangaben widersprüchlich: Zeiseweg 9 (hamburg-tourism.de) vs. Bodenstedtstraße 16 (…; danach nach de/hamburg/hamburg/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://frappant.org/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

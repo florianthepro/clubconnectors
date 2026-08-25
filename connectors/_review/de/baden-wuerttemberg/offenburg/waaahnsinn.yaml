@@ -4,6 +4,14 @@ name: Waaahnsinn
 city: Offenburg
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://waaahnsinn.de/"
 about: Das Waaahnsinn ist eine Disco für die Altersgruppe 25 bis 40 im Raum Offenburg/Ortenau.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://discotheken-clubs-offenburg.de/partys/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; Zweifel: Ortsangabe nur 'Raum Offenburg/Ortenau'; evtl. Partyreihe ohne festen Standort.; danach nach de/baden-wuerttemberg/offenburg/ verschieben"
+source: "Web-Recherche 08/2026: https://discotheken-clubs-offenburg.de/partys/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; evtl. Partyreihe ohne festen Standort.; Pruefung 08/2026 (1 Websuche je Club); Website laut https://waaahnsinn.de/location/derclub/; fehlt: address, genres; Zweifel: Adresse 'Im Drachenacker 6' erschien nur in einem Portal-Snippet (finde-offen.de), daher nicht übernommen; danach nach de/baden-wuerttemberg/offenburg/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://waaahnsinn.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

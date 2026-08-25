@@ -2,8 +2,17 @@
 id: stclub
 name: ST-Club
 city: Rostock
+address: Albert-Einstein-Straße 2
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://stclub.de/"
 about: Der ST-Club ist ein Studentenclub in Rostock.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://rostock.studentsstudents.de/2019/09/30/studentenclubs-in-rostock/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; Zweifel: Studentenclub, kein klassischer kommerzieller Nachtclub.; danach nach de/mecklenburg-vorpommern/rostock/ verschieben"
+source: "Web-Recherche 08/2026: rostock.studentsstudents.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Zweifel: Studentenclub, kein klassischer kommerzieller Nachtclub.; Pruefung 08/2026 (1 Websuche je Club); Website laut stclub.de; Adresse laut stclub.de, www.dasoertliche.de; fehlt: genres; danach nach de/mecklenburg-vorpommern/rostock/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://stclub.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

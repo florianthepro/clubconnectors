@@ -2,8 +2,17 @@
 id: discoplexa8
 name: Discoplex A8
 city: Saarbrücken
+address: An der Saarlandhalle 3
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.a8-sb.de"
 about: Das Discoplex A8 ist eine Großraumdiskothek an der Saarlandhalle in Saarbrücken.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.urlaub.saarland/gastronomie/discoplex-a8-abceceec9f; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/saarland/saarbruecken/ verschieben"
+source: "Web-Recherche 08/2026: https://www.urlaub.saarland/gastronomie/discoplex-a8-abceceec9f; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut https://www.a8-sb.de/imprint/; Adresse laut https://www.nochoffen.de/saarbruecken-discoplex-a8-saarbruecken, https://saarbrucken.deutschbranchenbuch.com/night-club/sb-gastro-gmbh-discoplex-a8/; fehlt: genres; danach nach de/saarland/saarbruecken/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.a8-sb.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

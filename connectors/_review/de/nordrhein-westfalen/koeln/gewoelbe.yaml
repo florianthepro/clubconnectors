@@ -2,9 +2,18 @@
 id: gewoelbe
 name: Gewölbe
 city: Köln
+address: Hans-Böckler-Platz 2
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://gewoelbe.club"
 genres: Electro
 about: Das Gewölbe ist ein Club für elektronische Musik in Gewölben am Bahnhof Köln West.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://theculturetrip.com/europe/germany/articles/the-best-techno-clubs-in-cologne; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/nordrhein-westfalen/koeln/ verschieben"
+source: "Web-Recherche 08/2026: https://theculturetrip.com/europe/germany/articles/the-best-techno-clubs-in-cologne; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut https://miz.org/de/institutionen/gewoelbe-i35717; Adresse laut https://de.ra.co/clubs/6765, https://www.regioactive.de/location/koeln/gewoelbe-tMB7NKVx2n; danach nach de/nordrhein-westfalen/koeln/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://gewoelbe.club"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

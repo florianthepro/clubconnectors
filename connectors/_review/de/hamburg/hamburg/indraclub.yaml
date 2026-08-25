@@ -2,8 +2,18 @@
 id: indraclub
 name: Indra Club
 city: Hamburg
+address: Große Freiheit 64
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "http://www.indramusikclub.com"
+genres: Live
 about: Der Indra Club ist ein Traditionsclub mit Beatles-Bezug an der Großen Freiheit in Hamburg.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.hamburg.de/politik-und-verwaltung/behoerden/finanzbehoerde/aktuelles/finanzierungs-schub-macht-sanierung-der-st-pauli-traditionsclubs-gruenspan-und-indra-moeglich-998356; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; Zweifel: Traditionsclub mit Beatles-Bezug, evtl. eher Live-Spielstätte als Nachtclub.; danach nach de/hamburg/hamburg/ verschieben"
+source: "Web-Recherche 08/2026: www.hamburg.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Zweifel: Traditionsclub mit Beatles-Bezug, evtl. eher Live-Spielstätte als Nachtclub.; Pruefung 08/2026 (1 Websuche je Club); Website laut www.indramusikclub.com; Adresse laut www.yelp.com, www.hamburg.de; Genres laut www.hamburg.de; danach nach de/hamburg/hamburg/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "http://www.indramusikclub.com"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

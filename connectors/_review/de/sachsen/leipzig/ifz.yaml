@@ -2,9 +2,18 @@
 id: ifz
 name: IfZ
 city: Leipzig
+address: An den Tierkliniken 38
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://ifz.me/"
 genres: Techno
 about: Das IfZ ist ein Underground-Technoclub im Süden von Leipzig.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://technoedm.com/techno-club-rave-reviews/rave-on-leipzigs-techno-clubs-that-set-the-beat/; auch gelistet als: Institut fuer Zukunft; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/sachsen/leipzig/ verschieben"
+source: "Web-Recherche 08/2026: technoedm.com; auch gelistet als: Institut fuer Zukunft; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut ifz.me; Adresse laut ra.co, rausgegangen.de; Zweifel: Laut Treffern Ende 2024 geschlossen (Foursquare: 'Jetzt geschlossen'); Groove-Artikel 01/2025: Unternehmer wollte den Club im April 2025 neu eröffnen – aktueller Status unklar; danach nach de/sachsen/leipzig/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://ifz.me/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

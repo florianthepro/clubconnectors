@@ -2,9 +2,18 @@
 id: peterweisshaus
 name: Peter Weiss Haus
 city: Rostock
+address: Doberaner Straße 21
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://peterweisshaus.de/"
 genres: Live
 about: Das Peter Weiss Haus ist ein Kulturhaus in Rostock mit Livemusik und Clubbetrieb.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.rostock.m-vp.de/tanzevents-partys-discotheken/; auch gelistet als: PWH; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; Zweifel: Kulturhaus mit Clubbetrieb, kein reiner Nachtclub.; danach nach de/mecklenburg-vorpommern/rostock/ verschieben"
+source: "Web-Recherche 08/2026: www.rostock.m-vp.de; auch gelistet als: PWH; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut peterweisshaus.de; Adresse laut www.0381-magazin.de, peterweisshaus.de; Zweifel: Treffer beschreiben es als soziokulturelles Zentrum/Literaturhaus (Peter-Weiss-Haus e.V., Literaturhaus Rostock) mit Konzerten und Partys, kein klassischer Nachtclub; danach nach de/mecklenburg-vorpommern/rostock/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://peterweisshaus.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

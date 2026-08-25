@@ -4,7 +4,15 @@ name: Tunnel Club
 city: Hamburg
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.tunnel.de/"
 genres: Techno
 about: Der Tunnel Club auf St. Pauli in Hamburg ist ein Hardtrance- und Techno-Club, der seit den 90er-Jahren besteht.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://techno-essentials.de/blogs/techno-essentials/techno-clubs-hamburg; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/hamburg/hamburg/ verschieben"
+source: "Web-Recherche 08/2026: techno-essentials.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut www.tunnel.de; fehlt: address; Zweifel: Treffer deuten auf Eventreihe an wechselnden Locations statt festem Club: Events im DOCKS St. Pauli (Spielbudenplatz 19) und Bunker Große Freiheit 36; Zuordnung von tunnel.de ('TUNNEL - Underground Rules') zum H…; danach nach de/hamburg/hamburg/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.tunnel.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

@@ -2,8 +2,17 @@
 id: mandalabeachclub
 name: Mandala Beachclub
 city: Erfurt
+address: Motzstraße 8
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://mandala-beachclub.de/"
 about: Der Mandala Beachclub ist eine Beachclub-Partylocation in Erfurt.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://partyzettel.de/diskotheken/stadt/erfurt/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; Zweifel: Beachclub-Partylocation; evtl. Open-Air-Areal statt regulärem Nachtclub.; danach nach de/thueringen/erfurt/ verschieben"
+source: "Web-Recherche 08/2026: partyzettel.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; evtl. Open-Air-Areal statt regulärem Nachtclub.; Pruefung 08/2026 (1 Websuche je Club); Website laut mandala-beachclub.de; Adresse laut www.yelp.com, branchenbuch.meinestadt.de; fehlt: genres; Zweifel: Treffer beschreiben eher Beachbar/Eventlocation im Kressepark (Beachpartys, Hochzeiten, Pool, Restaurant/Bar; Yelp…; danach nach de/thueringen/erfurt/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://mandala-beachclub.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

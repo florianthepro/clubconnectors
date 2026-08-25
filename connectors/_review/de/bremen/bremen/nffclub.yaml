@@ -2,8 +2,17 @@
 id: nffclub
 name: nff club
 city: Bremen
+address: Katharinenstraße 12-14
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://nff-bremen.de/"
 about: Der nff club ist ein Club in der Katharinenstraße in Bremen.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.jevena.com/nightclub/in/bremen; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/bremen/bremen/ verschieben"
+source: "Web-Recherche 08/2026: www.jevena.com; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut nff-bremen.de; Adresse laut www.oeffnungszeitenbuch.de, m.virtualnights.com; fehlt: genres; Zweifel: Eigene Website firmiert als 'NFF Club Bremen – exklusive Eventlocation'; laut Snippet wird die Location heute für Firmenevents, Networking-Events und private Feiern gebuch…; danach nach de/bremen/bremen/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://nff-bremen.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

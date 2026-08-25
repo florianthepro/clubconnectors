@@ -4,7 +4,15 @@ name: The Factory
 city: Magdeburg
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.factory-magdeburg.de"
 genres: 80er/90er
 about: The Factory ist eine Diskothek in Magdeburg mit Charts sowie Musik der 80er und 90er.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.diestadtfelder.de/wohnratgeber/clubs-magdeburg/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/sachsen-anhalt/magdeburg/ verschieben"
+source: "Web-Recherche 08/2026: https://www.diestadtfelder.de/wohnratgeber/clubs-magdeburg/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut https://www.factory-magdeburg.de; fehlt: address; Zweifel: Treffer nennen zwei unterschiedliche Adressen (Sandbreite 2 bzw. Karl-Schmidt-Straße 26-29), daher keine übernommen; überwiegend als Konzertvenue gelistet; danach nach de/sachsen-anhalt/magdeburg/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.factory-magdeburg.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

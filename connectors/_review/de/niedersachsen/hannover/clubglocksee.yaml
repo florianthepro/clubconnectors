@@ -2,9 +2,18 @@
 id: clubglocksee
 name: Club Glocksee
 city: Hannover
+address: Glockseestraße 35
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.cafe-glocksee.de/"
 genres: Techno
 about: Der Club Glocksee ist ein Club in Hannover mit Schwerpunkt auf Techno.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.tiktok.com/discover/techno-club-hannover; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/niedersachsen/hannover/ verschieben"
+source: "Web-Recherche 08/2026: https://www.tiktok.com/discover/techno-club-hannover; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut https://www.cafe-glocksee.de/; Adresse laut https://hannover-living.de/en/location/cafe-indiego-glocksee/; Zweifel: Firmiert in allen Treffern als 'Café Glocksee' bzw. 'Café & Indiego Glocksee', nicht als 'Club Glocksee'; danach nach de/niedersachsen/hannover/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.cafe-glocksee.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

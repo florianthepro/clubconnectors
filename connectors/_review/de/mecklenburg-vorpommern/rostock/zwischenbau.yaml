@@ -2,8 +2,18 @@
 id: zwischenbau
 name: Zwischenbau
 city: Rostock
+address: Erich-Schlesinger-Straße 19a
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://zwischenbau.com/"
+genres: Live
 about: Der Zwischenbau ist ein Club mit zwei Floors zwischen Studentenwohnheimen in Rostock.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://rostock.studentsstudents.de/2019/09/30/studentenclubs-in-rostock/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/mecklenburg-vorpommern/rostock/ verschieben"
+source: "Web-Recherche 08/2026: rostock.studentsstudents.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut zwischenbau.com; Adresse laut www.0381-magazin.de, www.yelp.com; Genres laut www.backstagepro.de; danach nach de/mecklenburg-vorpommern/rostock/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://zwischenbau.com/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

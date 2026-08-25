@@ -2,8 +2,9 @@
 id: edelfettwerk
 name: Edelfettwerk
 city: Hamburg
+address: Schnackenburgsallee 202
 lat: NACHMESSEN
 lng: NACHMESSEN
 about: Das Edelfettwerk ist ein großer Party- und Eventclub in Hamburg.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://de.ra.co/clubs/de/hamburg; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; Zweifel: Als Party- und Eventclub geführt; evtl. Eventlocation ohne regulären Clubbetrieb.; danach nach de/hamburg/hamburg/ verschieben"
+source: "Web-Recherche 08/2026: de.ra.co; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; evtl. Eventlocation ohne regulären Clubbetrieb.; Pruefung 08/2026 (1 Websuche je Club); Adresse laut www.hamburg.de, www.ortsdienst.de; fehlt: website, genres; Zweifel: Treffer beschreiben eine Eventlocation mit wechselnden Veranstaltern (u.a. Fetisch-Partys, Trance-Nächte, Beach-Club, Mietlocation) statt eines klassischen Clubs; danach nach de/hamburg/hamburg/ verschieben"

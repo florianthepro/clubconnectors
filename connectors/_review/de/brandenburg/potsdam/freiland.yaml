@@ -5,6 +5,14 @@ city: Potsdam
 address: Friedrich-Engels-Straße 22
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.freiland-potsdam.de/"
 about: Das freiLand in der Friedrich-Engels-Straße 22 in Potsdam ist ein Zentrum für Jugendkultur, Politik und Partys.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.potsdam-wiki.de/Freiland_Potsdam; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: website, genres; Zweifel: Kulturzentrum mit Partys, kein regulärer Nachtclub.; danach nach de/brandenburg/potsdam/ verschieben"
+source: "Web-Recherche 08/2026: https://www.potsdam-wiki.de/Freiland_Potsdam; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut https://www.freiland-potsdam.de/; fehlt: genres; Zweifel: Treffer beschreiben freiLand als Jugend- und Soziokulturzentrum (z.B. watundwo.de: 'freiLand Potsdam - und Soziokulturzentrum'), nicht als klassischen Club; danach nach de/brandenburg/potsdam/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.freiland-potsdam.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

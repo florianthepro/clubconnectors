@@ -7,7 +7,7 @@ lng: NACHMESSEN
 website: "https://www.waschhaus.de/veranstaltungen"
 about: Das Waschhaus ist ein Kulturzentrum und der größte Club Potsdams mit einer Arena für bis zu 1200 Gäste.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://en.wikipedia.org/wiki/Waschhaus; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, genres; Zweifel: Kulturzentrum mit Clubbetrieb, kein reiner Nachtclub.; danach nach de/brandenburg/potsdam/ verschieben"
+source: "Web-Recherche 08/2026: https://en.wikipedia.org/wiki/Waschhaus; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); fehlt: address, genres; Zweifel: Kulturzentrum mit Konzerten, Literatur und Clubkultur (laut Treffern), kein reiner Club; Adresse 'Schiffbauergasse 1' nur in einem Portal-Snippet (kauperts.de) sichtbar, daher nicht übernommen; danach nach de/brandenburg/potsdam/ verschieben"
 
 # Wie die Website ausgelesen wird
 scrape_url: "https://www.waschhaus.de/veranstaltungen"

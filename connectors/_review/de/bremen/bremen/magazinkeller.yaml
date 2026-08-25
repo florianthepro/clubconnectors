@@ -2,8 +2,18 @@
 id: magazinkeller
 name: Magazinkeller
 city: Bremen
+address: Findorffstraße 51
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.schlachthof-bremen.de"
+genres: Live
 about: Der Magazinkeller ist ein Club in der Findorffstraße in Bremen.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.jevena.com/nightclub/in/bremen; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/bremen/bremen/ verschieben"
+source: "Web-Recherche 08/2026: www.jevena.com; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut prinz.de; Adresse laut prinz.de, m.virtualnights.com; Genres laut maenner.media; Zweifel: Teil des Kulturzentrums Schlachthof Bremen (Konzert-/Veranstaltungskeller, keine eigene Domain) – eher Veranstaltungsort als eigenstaendiger Club; danach nach de/bremen/bremen/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.schlachthof-bremen.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

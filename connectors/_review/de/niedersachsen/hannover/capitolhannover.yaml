@@ -2,9 +2,18 @@
 id: capitolhannover
 name: Capitol Hannover
 city: Hannover
+address: Schwarzer Bär 2
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.capitol-hannover.de/"
 genres: Live
 about: Das Capitol Hannover im Stadtteil Linden-Mitte bietet Live-Musik, Disco und Konzerte.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://socialmatch.de/blog/diskotheken-in-hannover/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/niedersachsen/hannover/ verschieben"
+source: "Web-Recherche 08/2026: https://socialmatch.de/blog/diskotheken-in-hannover/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut https://www.capitol-hannover.de/; Adresse laut https://onlinestreet.de/283039-capitol-hannover; danach nach de/niedersachsen/hannover/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.capitol-hannover.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

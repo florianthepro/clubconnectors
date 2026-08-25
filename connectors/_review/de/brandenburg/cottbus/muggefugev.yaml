@@ -4,7 +4,15 @@ name: Muggefug e.V.
 city: Cottbus
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.muggefug.de"
 genres: Live
 about: Der Muggefug e.V. ist ein studentischer Kulturclub am BTU-Campus in Cottbus mit Konzerten und Partys.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.b-tu.de/unileben/kultur-freizeit; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; Zweifel: Studentischer Kulturclub mit Konzerten, kein klassischer Nachtclub.; danach nach de/brandenburg/cottbus/ verschieben"
+source: "Web-Recherche 08/2026: https://www.b-tu.de/unileben/kultur-freizeit; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut https://www.muggefug.de/; fehlt: address; Zweifel: Gemeinnütziger Studentenverein/Kulturclub (Konzerte, Lesungen, Kino), kein klassischer Nachtclub; Adresse Papitzer Str. 4 nur in einem Portal (Yelp) belegt, daher nicht übernommen; danach nach de/brandenburg/cottbus/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.muggefug.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

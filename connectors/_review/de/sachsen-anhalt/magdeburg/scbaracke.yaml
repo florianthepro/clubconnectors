@@ -5,7 +5,15 @@ city: Magdeburg
 address: Universitätsplatz
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "http://www.sc-baracke.de"
 genres: Mixed
 about: Die SC Baracke ist ein Studentenclub am Universitätsplatz in Magdeburg mit Chartmusik.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://partyzettel.de/diskotheken/stadt/magdeburg/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: website; danach nach de/sachsen-anhalt/magdeburg/ verschieben"
+source: "Web-Recherche 08/2026: https://partyzettel.de/diskotheken/stadt/magdeburg/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut http://www.sc-baracke.de/kontaktformular; Zweifel: Vorhandene Adresse 'Universitätsplatz' (ohne Hausnummer) wird bestaetigt und um Hausnummer 1 praezisiert; Treffer fuehren die Location als Studentenclub; danach nach de/sachsen-anhalt/magdeburg/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "http://www.sc-baracke.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

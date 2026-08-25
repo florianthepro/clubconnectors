@@ -4,7 +4,15 @@ name: MAX Nachttheater
 city: Kiel
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.max-nachttheater.de/"
 genres: Live
 about: Das MAX Nachttheater in Kiel ist eine Diskothek, in der auch Konzerte, Comedy und Theater stattfinden.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.kiel-magazin.de/artikel/nachtleben-angesagte-clubs-und-bars-in-kiel; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/schleswig-holstein/kiel/ verschieben"
+source: "Web-Recherche 08/2026: https://www.kiel-magazin.de/artikel/nachtleben-angesagte-clubs-und-bars-in-kiel; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut https://www.max-nachttheater.de/; fehlt: address; danach nach de/schleswig-holstein/kiel/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.max-nachttheater.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

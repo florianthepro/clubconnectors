@@ -2,9 +2,18 @@
 id: moya
 name: Moya
 city: Rostock
+address: An der Jägerbäk 1
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.moya.ro"
 genres: Live
 about: Das Moya in Rostock ist eine Kulturbühne und ein Club mit Partys und Konzerten.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://rostock.studentsstudents.de/2019/09/30/studentenclubs-in-rostock/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; Zweifel: Auch Kulturbühne mit Konzerten, nicht nur Clubbetrieb.; danach nach de/mecklenburg-vorpommern/rostock/ verschieben"
+source: "Web-Recherche 08/2026: rostock.studentsstudents.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut www.moya.ro; Adresse laut prinz.de, www.piste.de; Zweifel: Firmiert in Treffern als 'Moya Kulturbühne Rostock' - eher Konzert-/Kulturbühne und Mietlocation als reiner Club; danach nach de/mecklenburg-vorpommern/rostock/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.moya.ro"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

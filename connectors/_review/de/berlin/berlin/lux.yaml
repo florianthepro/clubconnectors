@@ -2,8 +2,10 @@
 id: lux
 name: L.U.X.
 city: Berlin
+address: Schlesische Str. 41
 lat: NACHMESSEN
 lng: NACHMESSEN
+genres: Electro, Techno, House
 about: Das L.U.X. ist ein Club in Berlin, gelistet im Berlin.de-Verzeichnis.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.berlin.de/en/clubs/a-z/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/berlin/berlin/ verschieben"
+source: "Web-Recherche 08/2026: www.berlin.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Adresse laut www.berlin.de, www.golocal.de; Genres laut www.theclubmap.com; fehlt: website; Zweifel: Keine eigene Website in den Treffern, nur Verzeichnisse/Blogs; danach nach de/berlin/berlin/ verschieben"

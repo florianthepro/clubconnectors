@@ -2,9 +2,10 @@
 id: prinzzclub
 name: Prinzzclub
 city: Magdeburg
+address: Halberstädter Straße 113a
 lat: NACHMESSEN
 lng: NACHMESSEN
 genres: House, Electro, Hip-Hop
 about: Der Prinzzclub ist ein Club in Magdeburg, gespielt werden House, Electro und Hip-Hop.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.diestadtfelder.de/wohnratgeber/clubs-magdeburg/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/sachsen-anhalt/magdeburg/ verschieben"
+source: "Web-Recherche 08/2026: https://www.diestadtfelder.de/wohnratgeber/clubs-magdeburg/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Adresse laut https://www.oeffnungszeitenbuch.de/filiale/Magdeburg-Prinzz%2520club%2520Magdeburg-869357J.html, https://www.ortsdienst.de/sachsen-anhalt/magdeburg/clubs/prinzzclub-inst365083/; fehlt: website; danach nach de/sachsen-anhalt/magdeburg/ verschieben"

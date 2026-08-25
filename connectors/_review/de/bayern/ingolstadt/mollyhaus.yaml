@@ -5,6 +5,14 @@ city: Ingolstadt
 address: Bunsenstraße 23
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://mollyhaus.de"
 about: Das Mollyhaus ist ein von Frauen geführter Nachtclub in der Bunsenstraße 23 in Ingolstadt.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.yelp.com/search?find_desc=Disco+Und+Club&find_loc=Ingolstadt%2C+Bayern; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: website, genres; danach nach de/bayern/ingolstadt/ verschieben"
+source: "Web-Recherche 08/2026: www.yelp.com; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut mollyhaus.de.siteindices.com; fehlt: genres; Zweifel: Treffer führen Mollyhaus primär als Restaurant (Speisekarte bei restaurantguru, tägl. 10:00-00:00 geöffnet) – Club-Charakter unklar. Bunsenstraße 23 wird nur über ein einzelnes Portal (restaurantguru-Zusammenfassung) bestätigt, deckt sich…; danach nach de/bayern/ingolstadt/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://mollyhaus.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

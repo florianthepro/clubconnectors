@@ -4,7 +4,15 @@ name: UKW - Kraftwerk
 city: Rostock
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://ukw-rostock.de/"
 genres: Electro
 about: Das UKW - Kraftwerk ist ein Club in Rostock mit elektronischer Musik und DJ-Gigs.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.theclubmap.com/cities/rostock/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/mecklenburg-vorpommern/rostock/ verschieben"
+source: "Web-Recherche 08/2026: https://www.theclubmap.com/cities/rostock/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut https://ukw-rostock.de/; fehlt: address; danach nach de/mecklenburg-vorpommern/rostock/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://ukw-rostock.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

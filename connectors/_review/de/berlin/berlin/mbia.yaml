@@ -2,8 +2,18 @@
 id: mbia
 name: M-bia
 city: Berlin
+address: Dircksenstraße 123
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.m-bia.de/"
+genres: Electro, Techno, House
 about: Das M-bia ist ein Club in Berlin, der im Berlin.de-Verzeichnis geführt wird.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.berlin.de/en/clubs/a-z/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; Zweifel: Nur über einen Verzeichniseintrag belegt, aktueller Status unklar.; danach nach de/berlin/berlin/ verschieben"
+source: "Web-Recherche 08/2026: https://www.berlin.de/en/clubs/a-z/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Zweifel: Nur über einen Verzeichniseintrag belegt, aktueller Status unklar.; Pruefung 08/2026 (1 Websuche je Club); Website laut https://www.m-bia.de/; Adresse laut https://www.corner.inc/place/9431, https://www.m-bia.de/find-us/; Genres laut https://www.theclubmap.com/electro-clubs-i-m/m-bia/; danach nach de/berlin/berlin/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.m-bia.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

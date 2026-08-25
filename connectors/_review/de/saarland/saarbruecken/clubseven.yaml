@@ -5,6 +5,14 @@ city: Saarbrücken
 address: Futterstraße 5-7
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.clubseven.de/"
 about: Der Club Seven ist ein Nachtclub im Stadtzentrum von Saarbrücken, in der Futterstraße 5-7.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.urlaub.saarland/gastronomie/club-seven-e577352990; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: website, genres; danach nach de/saarland/saarbruecken/ verschieben"
+source: "Web-Recherche 08/2026: https://www.urlaub.saarland/gastronomie/club-seven-e577352990; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut https://www.clubseven.de/; fehlt: genres; danach nach de/saarland/saarbruecken/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.clubseven.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

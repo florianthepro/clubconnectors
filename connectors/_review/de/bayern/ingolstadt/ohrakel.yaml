@@ -5,6 +5,7 @@ city: Ingolstadt
 address: Elisabethstraße 9a/b
 lat: NACHMESSEN
 lng: NACHMESSEN
+genres: Electro, Techno, House
 about: Das Ohrakel ist ein Musikclub mit Partys in der Elisabethstraße 9a/b in Ingolstadt.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://partyzettel.de/diskotheken/stadt/ingolstadt/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: website, genres; danach nach de/bayern/ingolstadt/ verschieben"
+source: "Web-Recherche 08/2026: partyzettel.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Genres laut clubstats.de; fehlt: website; Zweifel: Widerspruechliche Adressangaben in den Treffern: Elisabethstr. 5 (facebook.com/Ohrakel, de.kompass.com) vs. Elisabethstr. 9; die vorhandene Angabe 'Elisabethstraße 9a/b' wird nicht eindeutig bestaetigt; danach nach de/bayern/ingolstadt/ verschieben"

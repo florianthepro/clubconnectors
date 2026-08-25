@@ -2,8 +2,17 @@
 id: schuppen2eventloft
 name: Schuppen 2 Eventloft
 city: Bremen
+address: Hoerneckestraße 23
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "http://www.schuppen2.de/"
 about: Das Schuppen 2 Eventloft ist eine Eventlocation in Bremen, in der Partys stattfinden.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.jevena.com/nightclub/in/bremen; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; Zweifel: Eventlocation mit Partys, evtl. kein regulärer Nachtclub.; danach nach de/bremen/bremen/ verschieben"
+source: "Web-Recherche 08/2026: www.jevena.com; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut www.schuppen2.de; Adresse laut www.vebidoobiz.de, 2-pos.de; fehlt: genres; Zweifel: Treffer kategorisieren als 'Veranstaltungsstätte'/Eventloft (cylex, eventim) – eher Eventlocation als klassischer Club; danach nach de/bremen/bremen/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "http://www.schuppen2.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

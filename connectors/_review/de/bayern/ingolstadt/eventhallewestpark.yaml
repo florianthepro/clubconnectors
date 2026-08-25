@@ -2,8 +2,18 @@
 id: eventhallewestpark
 name: Eventhalle Westpark
 city: Ingolstadt
+address: Am Westpark 2
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.eventhalle-westpark.de"
+genres: Live
 about: Die Eventhalle Westpark in Ingolstadt ist eine Eventhalle, in der Partynächte stattfinden.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://allevents.in/ingolstadt/parties; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; Zweifel: Eventhalle mit Partynächten – kein regulärer Nachtclub.; danach nach de/bayern/ingolstadt/ verschieben"
+source: "Web-Recherche 08/2026: allevents.in; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut www.eventhalle-westpark.de; Adresse laut www.eventhalle-westpark.de, www.virtualnights.com; Genres laut mindtrip.ai; Zweifel: Eher Veranstaltungshalle (Konzerte, Kabarett, Clubnächte, Raumvermietung) als reiner Club; danach nach de/bayern/ingolstadt/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.eventhalle-westpark.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

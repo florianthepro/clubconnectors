@@ -2,8 +2,9 @@
 id: princecharles
 name: Prince Charles
 city: Berlin
+address: Prinzenstraße 85 B
 lat: NACHMESSEN
 lng: NACHMESSEN
 about: Das Prince Charles ist ein Club in Berlin.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.berlin.de/en/clubs/a-z/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/berlin/berlin/ verschieben"
+source: "Web-Recherche 08/2026: https://www.berlin.de/en/clubs/a-z/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Adresse laut https://www.berlin.de/en/clubs/8871858-4469452-prince-charles.en.html, https://thevendry.com/venue/224929/prince-charles-berlin-germany/space/111731; fehlt: website, genres; danach nach de/berlin/berlin/ verschieben"

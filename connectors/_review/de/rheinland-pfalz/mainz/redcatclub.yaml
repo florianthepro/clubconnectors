@@ -2,8 +2,17 @@
 id: redcatclub
 name: Red Cat Club
 city: Mainz
+address: Emmerich-Josef-Straße 13
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.redcat-club.de/"
 about: Der Red Cat Club ist eine Eventlocation in Mainz, in der Partys stattfinden.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://prinz.de/mainz/locations/kategorie/clubs-bars/party/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; Zweifel: Als Eventlocation mit Partys geführt, evtl. kein regulärer Nachtclub.; danach nach de/rheinland-pfalz/mainz/ verschieben"
+source: "Web-Recherche 08/2026: prinz.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Zweifel: Als Eventlocation mit Partys geführt, evtl. kein regulärer Nachtclub.; Pruefung 08/2026 (1 Websuche je Club); Website laut www.redcat-club.de; Adresse laut www.yelp.de, bogenschritt-verein.com; fehlt: genres; danach nach de/rheinland-pfalz/mainz/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.redcat-club.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

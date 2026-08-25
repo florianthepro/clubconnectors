@@ -4,6 +4,14 @@ name: Kieler Schaubude
 city: Kiel
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://kieler-schaubude.de"
 about: Die Kieler Schaubude ist ein Szeneclub in der Bergstraße in Kiel, in dem Partys und Poetry-Slams stattfinden.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.kiel-magazin.de/artikel/nachtleben-angesagte-clubs-und-bars-in-kiel; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/schleswig-holstein/kiel/ verschieben"
+source: "Web-Recherche 08/2026: www.kiel-magazin.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut kieler-schaubude.de; fehlt: address, genres; Zweifel: Laut Treffern nach Pause seit Oktober 2024 an neuem Standort (Bergstraße, vgl. Instagram 'schaubude_im_hinterhof'); Yelp nennt noch die alte Adresse Legienstr. 40 - Adresse daher unklar; danach nach de/schleswig-holstein/kiel/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://kieler-schaubude.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

@@ -2,9 +2,18 @@
 id: neuewelle
 name: Neue Welle
 city: Leipzig
+address: Rolf-Axen-Straße 35
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://neuewelle.club"
 genres: Techno
 about: Die Neue Welle ist ein Technoclub in Leipzig mit minimalistischer Ausrichtung.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://technoedm.com/techno-club-rave-reviews/rave-on-leipzigs-techno-clubs-that-set-the-beat/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/sachsen/leipzig/ verschieben"
+source: "Web-Recherche 08/2026: technoedm.com; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut neuewelle.club; Adresse laut neuewelle.club; Zweifel: kreuzer-leipzig.de führt die Location als 'Neue Welle (ehem. Künstlerhaus), Antonienstraße' – früherer Name bzw. abweichende Straßenangabe; danach nach de/sachsen/leipzig/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://neuewelle.club"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

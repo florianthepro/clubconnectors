@@ -5,7 +5,15 @@ city: Lübeck
 address: Clemensstrasse 8
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.blauerengel-luebeck.de/"
 genres: Live, Electro
 about: Der Blaue Engel in der Clemensstraße 8 in Lübeck bietet Konzerte und Partys mit Musik von Reggae bis Electro.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.wasgehtinluebeck.de/location.php?id=537; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: website; danach nach de/schleswig-holstein/luebeck/ verschieben"
+source: "Web-Recherche 08/2026: https://www.wasgehtinluebeck.de/location.php?id=537; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut https://www.blauerengel-luebeck.de/; Zweifel: Treffer beschreiben eher Kneipe/Pub als Club: eigene Seite tituliert 'Kneipe Lübeck', Yelp kategorisiert 'Pub', ranzkneipe.de listet unter 'Kneipen in Lübeck'; danach nach de/schleswig-holstein/luebeck/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.blauerengel-luebeck.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

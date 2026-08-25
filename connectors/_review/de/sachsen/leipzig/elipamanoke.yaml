@@ -4,7 +4,15 @@ name: Elipamanoke
 city: Leipzig
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://elipamanoke.de/"
 genres: Techno, Electro
 about: Das Elipamanoke ist ein vereinsgeführter Elektronik- und Technoclub an der Markranstädter Straße im Leipziger Stadtteil Plagwitz.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://technoedm.com/techno-club-rave-reviews/rave-on-leipzigs-techno-clubs-that-set-the-beat/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/sachsen/leipzig/ verschieben"
+source: "Web-Recherche 08/2026: https://technoedm.com/techno-club-rave-reviews/rave-on-leipzigs-techno-clubs-that-set-the-beat/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut https://elipamanoke.de/en/home/; fehlt: address; danach nach de/sachsen/leipzig/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://elipamanoke.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

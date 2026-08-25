@@ -2,8 +2,17 @@
 id: suedblock
 name: Südblock
 city: Berlin
+address: Admiralstraße 1-2
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.suedblock.org"
 about: Der Südblock am Kottbusser Tor in Berlin ist ein queerer Party- und Eventort.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.berlin.de/en/clubs/friedrichshain-kreuzberg/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; Zweifel: Party- und Eventort, evtl. kein regulärer Nachtclub.; danach nach de/berlin/berlin/ verschieben"
+source: "Web-Recherche 08/2026: www.berlin.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut www.visitberlin.de; Adresse laut www.dasoertliche.de; fehlt: genres; Zweifel: Laut Treffern eher Café/Bar und queere Event-Location als klassischer Club ('Südblock Café/ Bar und Club' – dasoertliche.de; 'queer party and event space'); danach nach de/berlin/berlin/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.suedblock.org"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

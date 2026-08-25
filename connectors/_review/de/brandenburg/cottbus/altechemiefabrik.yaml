@@ -2,9 +2,18 @@
 id: altechemiefabrik
 name: Alte Chemiefabrik
 city: Cottbus
+address: Parzellenstraße 21
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.alte-chemiefabrik.de/"
 genres: Live
 about: Die Alte Chemiefabrik ist ein Club in einer alten Fabrikhalle in Cottbus, in dem Partys und Konzerte stattfinden.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://partyzettel.de/diskotheken/stadt/cottbus/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/brandenburg/cottbus/ verschieben"
+source: "Web-Recherche 08/2026: partyzettel.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut www.alte-chemiefabrik.de; Adresse laut www.alte-chemiefabrik.de, www.eventlocations.com; Zweifel: Treffer beschreiben einen Veranstaltungsort fuer Konzerte, Hochzeiten und Konferenzen – eher Eventlocation/Konzerthaus als reiner Club; danach nach de/brandenburg/cottbus/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.alte-chemiefabrik.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

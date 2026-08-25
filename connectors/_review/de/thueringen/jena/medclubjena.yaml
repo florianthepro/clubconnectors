@@ -5,6 +5,14 @@ city: Jena
 address: Spitzweidenweg 28
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.med-club.de"
 about: Der Med-Club Jena ist ein Club am Alten Saalbahnhof im Spitzweidenweg 28 in Jena.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://partyzettel.de/diskotheken/stadt/jena/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: website, genres; danach nach de/thueringen/jena/ verschieben"
+source: "Web-Recherche 08/2026: https://partyzettel.de/diskotheken/stadt/jena/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut https://www.med-club.de/; fehlt: genres; Zweifel: Widerspruch zur vorhandenen Adresse Spitzweidenweg 28: Treffer nennen Schillerstraße 5 (Nebengebäude) bzw. Johannisplatz 20; zudem studentischer Verein, tritt teils als 'Medclub Loungebar' auf; danach nach de/thueringen/jena/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.med-club.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

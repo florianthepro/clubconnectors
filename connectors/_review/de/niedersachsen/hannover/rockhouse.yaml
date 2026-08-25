@@ -5,7 +5,15 @@ city: Hannover
 address: Ecke Kurt-Schumacher-Straße/Kanalstraße
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://rockhouse.de/"
 genres: Rock, Electro
 about: Das Rockhouse in Hannover liegt an der Ecke Kurt-Schumacher-Straße/Kanalstraße und bietet auf zwei Dancefloors Rock, Metal, Charts und Electro.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://socialmatch.de/blog/diskotheken-in-hannover/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: website; danach nach de/niedersachsen/hannover/ verschieben"
+source: "Web-Recherche 08/2026: socialmatch.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut rockhouse.de; Zweifel: Laut Treffern kein Disco-Betrieb mehr, bietet heute Escape Rooms an. Adresse Kurt-Schumacher-Str. 23 nur in einem Portal-Snippet (happyhourplaner.com) belegt - deckt sich aber mit der vorhandenen Angabe Ecke Kurt-Schumacher-Straße/Kanalstraße. In Treffern taucht…; danach nach de/niedersachsen/hannover/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://rockhouse.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

@@ -4,7 +4,15 @@ name: MusikPark Heilbronn
 city: Heilbronn
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://musikparkheilbronn.de/"
 genres: Mixed
 about: Der MusikPark ist ein Club in Heilbronn mit vier Floors und Musik aus vielen Genres.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.echo24.de/heilbronn/heilbronn-party-feiern-gehen-clubs-discos-tanzen-ausgehen-12278099.html; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/baden-wuerttemberg/heilbronn/ verschieben"
+source: "Web-Recherche 08/2026: https://www.echo24.de/heilbronn/heilbronn-party-feiern-gehen-clubs-discos-tanzen-ausgehen-12278099.html; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut https://musikparkheilbronn.de/; fehlt: address; danach nach de/baden-wuerttemberg/heilbronn/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://musikparkheilbronn.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

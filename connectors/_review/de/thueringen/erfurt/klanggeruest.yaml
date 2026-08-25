@@ -2,9 +2,18 @@
 id: klanggeruest
 name: Klanggerüst
 city: Erfurt
+address: Magdeburger Allee 175
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.klanggeruest.de"
 genres: Live, House
 about: Das Klanggerüst in Erfurt bietet Livekultur und House-Partys.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://feels-like-erfurt.de/die-besten-clubs-erfurt-wo-die-stadt-nachts-erwacht/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/thueringen/erfurt/ verschieben"
+source: "Web-Recherche 08/2026: feels-like-erfurt.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut www.klanggeruest.de; Adresse laut www.oeffnungszeitenbuch.de, adresse.dastelefonbuch.de; Zweifel: Traeger ist 'Klanggerüst Verein zur Förderung junger Künstler e.V.' – Kulturzentrum/Livelocation, eher Kulturzentrum als klassischer Club; danach nach de/thueringen/erfurt/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.klanggeruest.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

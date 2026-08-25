@@ -2,9 +2,18 @@
 id: agosteanachtarena
 name: Agostea Nachtarena
 city: Koblenz
+address: Clemensstraße 26-30
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.agostea-koblenz.de"
 genres: Techno
 about: Die Agostea Nachtarena ist eine Großraumdisko in Koblenz, musikalisch unter anderem mit Hardstyle.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://freakmuzik.net/electric-city-koblenz-bekannteste-clubnight-ist-zurueck/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/rheinland-pfalz/koblenz/ verschieben"
+source: "Web-Recherche 08/2026: https://freakmuzik.net/electric-city-koblenz-bekannteste-clubnight-ist-zurueck/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut https://www.agostea-koblenz.de/events; Adresse laut https://www.yelp.com/biz/agostea-nachtarena-koblenz-koblenz, https://www.golocal.de/koblenz/diskotheken/agostea-nachtarena-koblenz-YUj8i/; danach nach de/rheinland-pfalz/koblenz/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.agostea-koblenz.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

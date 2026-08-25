@@ -2,9 +2,18 @@
 id: caveau
 name: Caveau
 city: Mainz
+address: Schillerstraße 11
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://caveau.de"
 genres: Live
 about: Das Caveau ist ein Kellerclub mit Livemusik in Mainz.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://web2.cylex.de/branchen/diskotheken/Mainz/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/rheinland-pfalz/mainz/ verschieben"
+source: "Web-Recherche 08/2026: https://web2.cylex.de/branchen/diskotheken/Mainz/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut https://www.regioactive.de/location/mainz/caveau-0MhNsLG4j.html; Adresse laut https://www.yelp.com/biz/caveau-mainz, https://www.golocal.de/mainz/diskotheken/caveau-16uiDB/; danach nach de/rheinland-pfalz/mainz/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://caveau.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

@@ -4,7 +4,15 @@ name: Apfelbaum
 city: Offenburg
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.instagram.com/apfelbaumog/"
 genres: Schlager
 about: Der Apfelbaum ist eine Schlager- und Party-Disco in Offenburg im Raum Ortenau.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://discotheken-clubs-offenburg.de/partys/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/baden-wuerttemberg/offenburg/ verschieben"
+source: "Web-Recherche 08/2026: discotheken-clubs-offenburg.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut www.instagram.com; fehlt: address; Zweifel: Laut Presse war die Diskothek zwischenzeitlich zu und startete ein Comeback unter neuer Betreiberin; ehemalige Domain apfelbaum-og.de steht zur Auktion (daher Instagram als Websit…; danach nach de/baden-wuerttemberg/offenburg/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.instagram.com/apfelbaumog/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

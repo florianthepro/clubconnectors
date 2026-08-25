@@ -2,9 +2,18 @@
 id: clubpalais13
 name: Club Palais 13
 city: Erfurt
+address: Futterstraße 13
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.clubpalais.de/"
 genres: Black Music, House
 about: Der Club Palais 13 ist ein Club in Erfurt mit Black Music, House und Charts.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://erfurt.rocks/veranstaltung/diskothek-club/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/thueringen/erfurt/ verschieben"
+source: "Web-Recherche 08/2026: https://erfurt.rocks/veranstaltung/diskothek-club/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut https://www.clubpalais.de/kontakt/; Adresse laut https://m.yelp.com/biz/club-palais-13-erfurt; danach nach de/thueringen/erfurt/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.clubpalais.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

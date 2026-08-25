@@ -2,8 +2,9 @@
 id: monarch
 name: Monarch
 city: Berlin
+address: Skalitzer Straße 134
 lat: NACHMESSEN
 lng: NACHMESSEN
 about: Das Monarch ist eine Bar und ein Club am Kottbusser Tor in Berlin.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.berlin.de/en/clubs/a-z/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; Zweifel: Als Bar/Club geführt; möglicherweise eher Bar als regulärer Nachtclub.; danach nach de/berlin/berlin/ verschieben"
+source: "Web-Recherche 08/2026: www.berlin.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; möglicherweise eher Bar als regulärer Nachtclub.; Pruefung 08/2026 (1 Websuche je Club); Adresse laut berlin.kauperts.de, www.yelp.com; fehlt: website, genres; Zweifel: Wird in Treffern teils als Bar/Lounge geführt (Yelp-Kategorie 'Lounges', Gästeliste030 'monarch-bar'); keine eigene Website in den Treffern erkennbar; danach nach de/berlin/berlin/ verschieben"

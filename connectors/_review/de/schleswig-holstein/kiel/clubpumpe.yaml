@@ -2,9 +2,18 @@
 id: clubpumpe
 name: Club Pumpe
 city: Kiel
+address: Haßstraße 22
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.diepumpe.de"
 genres: Electro
 about: Club Pumpe ist ein Kulturzentrum in Kiel, in dem Clubnächte mit elektronischer Musik stattfinden.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.eventbrite.de/d/germany--kiel/techno-party/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; Zweifel: Kulturzentrum mit Clubnächten, kein reiner Nachtclub.; danach nach de/schleswig-holstein/kiel/ verschieben"
+source: "Web-Recherche 08/2026: www.eventbrite.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut www.diepumpe.de; Adresse laut www.virtualnights.com, prinz.de; Zweifel: Firmiert in den Treffern als 'Die Pumpe e.V.' – Kulturzentrum mit Bar, Disco und Konzertsaal, kein reiner Club; danach nach de/schleswig-holstein/kiel/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.diepumpe.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

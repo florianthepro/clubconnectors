@@ -4,7 +4,15 @@ name: Bunker Rostock
 city: Rostock
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.bunker-rostock.de"
 genres: Techno
 about: Der Bunker Rostock ist ein Ort des Kulturkombinats Bunker e.V. in Rostock mit Ausrichtung auf Hard-Techno.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.facebook.com/harte.zeiten/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; Zweifel: Kulturverein mit Techno-Veranstaltungen, evtl. kein regulärer Clubbetrieb.; danach nach de/mecklenburg-vorpommern/rostock/ verschieben"
+source: "Web-Recherche 08/2026: www.facebook.com; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut miz.org; fehlt: address; Zweifel: Hausnummer widersprüchlich in den Treffern: 'Neptunallee 8' (https://www.0381-magazin.de/...bunker-rostock-neptunallee-8.html) vs. 'Neptunallee 9 A' (miz.org laut Suchzusammenfassung) – Adresse daher nicht übernommen; danach nach de/mecklenburg-vorpommern/rostock/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.bunker-rostock.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto
