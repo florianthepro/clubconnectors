@@ -158,6 +158,15 @@ erlaubt, ist nicht nachgeprüft – `docs.carto.com/faqs/carto-basemaps` und
 haben will, liest dort nach; `PROXY_TILES = false` schaltet den Kachel-Proxy
 wieder ab, dann holt der Browser die Kacheln wie vorher direkt beim Anbieter.
 
+**Gratis-Hoster:** `PROXY_TILES = true` heißt „wenn der Server es verträgt".
+Auf einem stark eingeschränkten Gratis-Hoster (InfinityFree & Co. – kein
+`posix`, `/tmp` gesperrt) würden 50–150 Kacheln je Kartenansicht das
+Tageslimit sprengen und den Account sperren. Dort erkennt `host_limited()`
+den Hoster und schaltet den Kachel-Proxy von selbst ab – der Browser holt die
+Kacheln direkt vom CDN, ganz ohne PHP. `?diag` zeigt es unter **host-typ**
+und **kachel-proxy**. Auf einem echten Server läuft der Proxy voll; Handanlegen
+ist nirgends nötig.
+
 ## Datenstand
 
 **244 Connectoren** in 26 Städten (Bayern 109, Baden-Württemberg 80,

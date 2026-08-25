@@ -34,8 +34,14 @@ const PROXY_IMAGES = true;   // Clubfotos über ?img= statt direkt vom Club-Serv
  * Kartenkacheln über den eigenen Server. Eine Kartenansicht lädt 50–150
  * Kacheln; damit daraus nicht 50–150 PHP-Aufrufe werden, landen sie in
  * cache/tile/ und Apache liefert jede weitere Anfrage selbst aus – PHP läuft
- * nur noch beim allerersten Mal. Auf einem Gratis-Hoster mit Zugriffszählung
- * gehört das auf false, dort kostet jede Kachel gegen das Tageslimit.
+ * nur noch beim allerersten Mal.
+ *
+ * true heißt hier "wenn der Server es verträgt": auf einem stark
+ * eingeschränkten Gratis-Hoster (InfinityFree & Co. – kein posix, /tmp
+ * gesperrt) würde jede Kachel gegen das Tageslimit zählen und den Account
+ * sperren. Dort schaltet host_limited() den Kachel-Proxy von selbst ab und
+ * der Browser holt die Kacheln direkt vom Karten-CDN. false erzwingt das
+ * überall, unabhängig vom Host.
  *
  * Ungeklärt: ob CARTO das serverseitige Zwischenspeichern seiner Kacheln
  * erlaubt, ist NICHT nachgeprüft – die Bedingungen unter
@@ -512,10 +518,50 @@ function tile_allowed(): bool
     return $herkunft;
 }
 
+/*
+ * Läuft die Seite auf einem stark eingeschränkten Gratis-Hoster? Solche
+ * Hoster (InfinityFree, iFastNet & Co.) sperren posix, machen /tmp dicht und
+ * schalten allow_url_fopen ab – und zählen JEDEN Treffer gegen ein
+ * Tageslimit. Genau das verträgt sich nicht mit einem Kachel-Proxy, der pro
+ * Kachel einen PHP-Prozess kostet. Zwei dieser Merkmale genügen als Beweis;
+ * ein echter Server hat sie praktisch nie zusammen. Falsch positiv ist
+ * harmlos (Kacheln kommen dann direkt vom CDN), falsch negativ wäre die
+ * Kontosperre – deshalb im Zweifel eher als eingeschränkt einstufen.
+ */
+function host_limited(): bool
+{
+    static $r = null;
+    if ($r !== null) {
+        return $r;
+    }
+    $marks = 0;
+    if (!function_exists('posix_getpid')) {
+        $marks++;
+    }
+    if (!@is_writable(sys_get_temp_dir())) {
+        $marks++;
+    }
+    if (!ini_get('allow_url_fopen')) {
+        $marks++;
+    }
+    return $r = $marks >= 2;
+}
+
+/*
+ * Kacheln überhaupt über den eigenen Server holen? Der Wunsch steht in
+ * PROXY_TILES, aber auf einem eingeschränkten Hoster wird er ausgesetzt –
+ * sonst sperrt das Tageslimit den Account. Kein Handanlegen nötig: auf einem
+ * echten Server ist host_limited() false und der Proxy läuft voll.
+ */
+function tile_proxy_on(): bool
+{
+    return PROXY_TILES && !host_limited();
+}
+
 /* Kacheln als Dateipfad ausliefern (Apache) statt über ?tile= (PHP)? */
 function tile_static(): bool
 {
-    return PROXY_TILES && can_rewrite() && pub_cache_dir('tile') !== null;
+    return tile_proxy_on() && can_rewrite() && pub_cache_dir('tile') !== null;
 }
 
 /*
@@ -696,7 +742,7 @@ if (isset($_GET['img'])) {
 
 if (isset($_GET['tile'])) {
     // Kartenkacheln über die eigene Domain, mit Plattencache
-    if (!PROXY_TILES || !preg_match('#^(\d{1,2})/(\d{1,7})/(\d{1,7})$#', (string)$_GET['tile'], $m)) {
+    if (!tile_proxy_on() || !preg_match('#^(\d{1,2})/(\d{1,7})/(\d{1,7})$#', (string)$_GET['tile'], $m)) {
         http_response_code(404);
         exit;
     }
@@ -831,7 +877,9 @@ if (isset($_GET['diag'])) {
         return $n . ' Dateien, ' . round($b / 1048576, 1) . ' MB';
     };
     echo 'bild-proxy: ' . (PROXY_IMAGES ? 'an' : 'aus') . ', Cache ' . $du('img') . "\n";
-    echo 'kachel-proxy: ' . (PROXY_TILES ? 'an' : 'aus') . ', Cache ' . $du('tile') . "\n";
+    echo 'kachel-proxy: ' . (!PROXY_TILES ? 'aus (fest)'
+        : (host_limited() ? 'AUS – Gratis-Hoster erkannt, Kacheln kommen direkt vom CDN (Konto-Schutz)'
+            : 'an')) . ', Cache ' . $du('tile') . "\n";
     // Der gefährliche Zustand ist "läuft halb": nichts sieht kaputt aus,
     // aber jede Kachel kostet weiterhin einen PHP-Prozess.
     $warum = [];
@@ -861,6 +909,9 @@ if (isset($_GET['diag'])) {
         . (isset($dc['ts']) ? ', Stand ' . date('d.m. H:i', (int)$dc['ts']) : ' (noch leer – Seite einmal aufrufen und ~2 min warten)') . "\n";
     $tmp = sys_get_temp_dir();
     echo 'temp ' . $tmp . ': ' . (@is_writable($tmp) ? 'beschreibbar' : 'gesperrt (nutze Skriptordner)') . "\n";
+    echo 'host-typ: ' . (host_limited()
+        ? 'eingeschränkter Gratis-Hoster (posix/tmp/fopen) – Kachel-Proxy automatisch aus'
+        : 'voll (Kachel-Proxy erlaubt)') . "\n";
     echo 'skriptordner: ' . (@is_writable(__DIR__) ? 'beschreibbar' : 'NICHT beschreibbar – kein Event-Cache') . "\n";
     if (function_exists('curl_init')) {
         // gleicher Modus wie der Scraper (SSL-tolerant, Browser-UA)
@@ -894,7 +945,7 @@ if (isset($_GET['diag'])) {
     $perVisit = 1;                       // die Seite selbst
     $perVisit += have_vendor() ? 2 : 0;  // leaflet.js + .css (einmal, dann 1 Jahr im Browser-Cache)
     $phpPerVisit = 1;
-    if (PROXY_TILES) {
+    if (tile_proxy_on()) {
         $perVisit += 100;                // rund 100 Kacheln je Kartenansicht
         // Liefert Apache die Kacheln direkt aus, kostet nur der allererste
         // Abruf je Kachel einen PHP-Prozess – danach keinen mehr.
@@ -927,8 +978,9 @@ if (isset($_GET['diag'])) {
     }
     echo 'dateien im cache: ' . $inodes . ' (Bilder ab ' . IMG_KEEP . ', Kacheln ab '
         . TILE_KEEP . ' je Spalte; älter als die Frist räumt der Hintergrund-Ping weg)' . "\n";
-    echo 'kacheln: ' . (!PROXY_TILES
+    echo 'kacheln: ' . (!tile_proxy_on()
         ? 'direkt vom Karten-CDN – kostet den eigenen Server nichts'
+          . (PROXY_TILES && host_limited() ? ' (Proxy wegen Gratis-Hoster automatisch aus)' : '')
         : (tile_static()
             ? 'über den eigenen Server, gecachte liefert Apache ohne PHP aus'
             : 'ACHTUNG über den eigenen Server UND jede einzelne durch PHP – '
@@ -3955,7 +4007,7 @@ const POS = (() => {
     }
     return pos;
 })();
-const TILEPROXY = <?= PROXY_TILES ? 'true' : 'false' ?>;
+const TILEPROXY = <?= tile_proxy_on() ? 'true' : 'false' ?>;
 /* Dateipfad statt Abfrage: liegt die Kachel schon im Cache, liefert Apache
    sie selbst aus und PHP läuft dafür gar nicht erst an. Nur ein Fehltreffer
    wird per .htaccess auf die index.php umgeschrieben. Ist das nicht
