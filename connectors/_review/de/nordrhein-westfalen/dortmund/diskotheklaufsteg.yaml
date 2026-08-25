@@ -2,8 +2,17 @@
 id: diskotheklaufsteg
 name: Diskothek Laufsteg
 city: Dortmund
+address: Königswall 26
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://laufstegdortmund.com/"
 about: Der Laufsteg ist eine Diskothek in Dortmund.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.discos.de/dortmund; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/nordrhein-westfalen/dortmund/ verschieben"
+source: "Web-Recherche 08/2026: https://www.discos.de/dortmund; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut https://laufstegdortmund.com/; Adresse laut https://finde-offen.de/dortmund/diskothek-laufsteg-4463896, https://firmania.de/dortmund/diskothek-laufsteg-4436788; fehlt: genres; danach nach de/nordrhein-westfalen/dortmund/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://laufstegdortmund.com/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

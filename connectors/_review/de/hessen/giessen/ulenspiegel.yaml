@@ -2,8 +2,18 @@
 id: ulenspiegel
 name: Ulenspiegel
 city: Gießen
+address: Seltersweg 55
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.ulenspiegel-giessen.de/"
+genres: Live
 about: Das Ulenspiegel in Gießen ist ein Club und eine Musikkneipe.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.yelp.com/search?find_desc=Club+&+Disco=&find_loc=Gie%C3%9Fen%2C+Hessen%2C+Germany; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; Zweifel: Auch als Musikkneipe beschrieben, möglicherweise eher Kneipe als klassischer Nachtclub.; danach nach de/hessen/giessen/ verschieben"
+source: "Web-Recherche 08/2026: www.yelp.com; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Zweifel: Auch als Musikkneipe beschrieben, möglicherweise eher Kneipe als klassischer Nachtclub.; Pruefung 08/2026 (1 Websuche je Club); Website laut www.ulenspiegel-giessen.de; Adresse laut www.yelp.de, www.virtualnights.com; Genres laut www.europejazz.net; danach nach de/hessen/giessen/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.ulenspiegel-giessen.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

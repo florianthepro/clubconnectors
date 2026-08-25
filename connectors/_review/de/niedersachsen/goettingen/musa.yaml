@@ -2,13 +2,14 @@
 id: musa
 name: Musa
 city: Göttingen
+address: Hagenweg 2a
 lat: NACHMESSEN
 lng: NACHMESSEN
 website: "https://www.musa.de"
 genres: Live
 about: Die Musa ist ein soziokulturelles Zentrum in Göttingen, in dem Partys und Konzerte stattfinden.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.musa.de/infos/%C3%BCber-uns/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address; Zweifel: Soziokulturelles Zentrum, kein regulärer Nachtclub.; danach nach de/niedersachsen/goettingen/ verschieben"
+source: "Web-Recherche 08/2026: www.musa.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Adresse laut www.regioactive.de, www.musa.de; Zweifel: Laut Treffern groesstes soziokulturelles Zentrum Suedniedersachsens (Kulturzentrum/Konzerthaus), eher Veranstaltungszentrum als klassischer Club; danach nach de/niedersachsen/goettingen/ verschieben"
 
 # Wie die Website ausgelesen wird
 scrape_url: "https://www.musa.de"

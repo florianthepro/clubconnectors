@@ -2,9 +2,18 @@
 id: clubbodenlos
 name: Club Bodenlos
 city: Dresden
+address: Münzgasse 5
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://club-bodenlos.de/"
 genres: 80er/90er
 about: Der Club Bodenlos liegt in einem Sandsteingewölbe unter dem Hilton am Neumarkt in Dresden und spielt Musik der 80er, 90er und 2000er sowie Charts.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://dresden-magazin.com/dresden-mittendrin/clubs-in-dresden/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/sachsen/dresden/ verschieben"
+source: "Web-Recherche 08/2026: dresden-magazin.com; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut club-bodenlos.de; Adresse laut www.lust-auf-dresden.com, qrushapp.de; Zweifel: Treffer melden (Wieder-)Eröffnung in der Münzgasse ('Dresdens Kult-Keller kehrt zurück') – vermutlich Neustart/Umzug an neue Location; danach nach de/sachsen/dresden/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://club-bodenlos.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

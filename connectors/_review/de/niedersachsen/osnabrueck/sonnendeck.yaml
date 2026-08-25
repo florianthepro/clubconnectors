@@ -2,8 +2,17 @@
 id: sonnendeck
 name: Sonnendeck
 city: Osnabrück
+address: Lohstraße 22
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://sonnendeck-os.com"
 about: Das Sonnendeck ist ein Club in der Altstadt von Osnabrück.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://osnabruecker-anzeiger.de/osnabrueck-clubs/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; Zweifel: Im Hinweis nur als Location beschrieben, Betrieb als Nachtclub unklar.; danach nach de/niedersachsen/osnabrueck/ verschieben"
+source: "Web-Recherche 08/2026: https://osnabruecker-anzeiger.de/osnabrueck-clubs/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Zweifel: Im Hinweis nur als Location beschrieben, Betrieb als Nachtclub unklar.; Pruefung 08/2026 (1 Websuche je Club); Website laut https://sonnendeck-os.com; Adresse laut https://www.yelp.de/biz/sonnendeck-osnabr%C3%BCck, https://www.nochoffen.de/sonnendeck-osnabrueck-sonnenhuegel; fehlt: genres; danach nach de/niedersachsen/osnabrueck/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://sonnendeck-os.com"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

@@ -4,6 +4,14 @@ name: Moog
 city: Dortmund
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://moog-dortmund.de"
 about: Das Moog ist ein Club und eine Diskothek in Dortmund.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.werkenntdenbesten.de/disco/dortmund; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/nordrhein-westfalen/dortmund/ verschieben"
+source: "Web-Recherche 08/2026: www.werkenntdenbesten.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut moog-dortmund.de; fehlt: address, genres; Zweifel: Widersprüchliche Adressangaben: mehrere Treffer verorten das MOOG im Dortmunder U (Emil-Moog-Platz, ohne Hausnummer), Yelp nennt 'Ritterstr. 18' - daher keine Adresse übernommen. Treffer beschreiben es als…; danach nach de/nordrhein-westfalen/dortmund/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://moog-dortmund.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

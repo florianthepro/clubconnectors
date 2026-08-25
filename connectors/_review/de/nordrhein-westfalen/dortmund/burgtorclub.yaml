@@ -4,6 +4,14 @@ name: Burgtorclub
 city: Dortmund
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "http://www.burgtorclub.com"
 about: Der Burgtorclub ist ein Club und eine Diskothek in Dortmund.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.discos.de/dortmund; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/nordrhein-westfalen/dortmund/ verschieben"
+source: "Web-Recherche 08/2026: www.discos.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut www.burgtorclub.com; fehlt: address, genres; Zweifel: Suchzusammenfassung nennt Burgwall 17, die Adresse war aber keinem einzelnen Treffer-Snippet zuordenbar (kein Beleg aus 2 unabhängigen Treffern). Treffer (inqueery: 'Bars in Dortmund', gay-location, Schwulissimo) führen…; danach nach de/nordrhein-westfalen/dortmund/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "http://www.burgtorclub.com"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

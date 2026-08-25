@@ -5,9 +5,10 @@ city: Baden-Baden
 lat: NACHMESSEN
 lng: NACHMESSEN
 website: "https://equipage.de/"
+genres: Live
 about: Die Equipage ist eine Tanz- und Musikbar im Kurhaus in Baden-Baden.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://equipage.de/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, genres; Zweifel: Als Tanz- und Musikbar im Kurhaus geführt, evtl. kein klassischer Nachtclub.; danach nach de/baden-wuerttemberg/badenbaden/ verschieben"
+source: "Web-Recherche 08/2026: equipage.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Genres laut www.tripadvisor.com; fehlt: address; Zweifel: Treffer fuehren es als Tanz- und Cocktailbar im Kurhaus ('Equipage Tanzbar im Kurhaus', 'dance, music and cocktail bar'), eher Bar als klassischer Club. Adresse Kaiserallee 1 nur in einem Por…; danach nach de/baden-wuerttemberg/badenbaden/ verschieben"
 
 # Wie die Website ausgelesen wird
 scrape_url: "https://equipage.de/"

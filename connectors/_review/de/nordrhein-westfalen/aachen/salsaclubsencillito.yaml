@@ -5,7 +5,15 @@ city: Aachen
 address: Alexander Straße 109
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "http://www.salsa-club-sencillito.de"
 genres: Latin
 about: Der Salsa Club Sencillito ist ein Salsa-Tanzclub in der Alexander Straße 109 in Aachen.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://partyzettel.de/diskotheken/stadt/aachen/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: website; danach nach de/nordrhein-westfalen/aachen/ verschieben"
+source: "Web-Recherche 08/2026: https://partyzettel.de/diskotheken/stadt/aachen/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut http://www.salsa-club-sencillito.de/index1.html; Zweifel: Ältere Treffer (nochoffen.de) nennen noch Mostardstraße 15; laut Trefferlage ist der Club dorthin umgezogen, aktuelle Adresse Alexanderstraße 109 bestätigt die vorhandene Angabe; danach nach de/nordrhein-westfalen/aachen/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "http://www.salsa-club-sencillito.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

@@ -7,7 +7,7 @@ lng: NACHMESSEN
 website: "https://trinityclub.de/"
 about: Der Trinity Club ist ein Nachtclub in Gießen.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://trinityclub.de/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, genres; danach nach de/hessen/giessen/ verschieben"
+source: "Web-Recherche 08/2026: https://trinityclub.de/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); fehlt: address, genres; Zweifel: Adresse Schiffenberger Weg 115 nur im Ergebnistext ohne zuordenbaren Zweitbeleg (Treffer bestätigen nur Lage 'Schiffenberger Tal'), daher nicht übernommen; danach nach de/hessen/giessen/ verschieben"
 
 # Wie die Website ausgelesen wird
 scrape_url: "https://trinityclub.de/"

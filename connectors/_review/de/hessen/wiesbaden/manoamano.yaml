@@ -2,9 +2,18 @@
 id: manoamano
 name: Manoamano
 city: Wiesbaden
+address: Taunusstraße 31
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://manoamano-bar.de"
 genres: House
 about: Das Manoamano ist eine Bar und ein Club in Wiesbaden, musikalisch geprägt von House und Charts.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://singalong.de/clubs-wiesbaden/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; Zweifel: Laut Hinweis Bar und Club, möglicherweise kein reiner Nachtclub.; danach nach de/hessen/wiesbaden/ verschieben"
+source: "Web-Recherche 08/2026: singalong.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut manoamano-bar.de; Adresse laut manoamano-bar.de, www.yelp.com; Zweifel: Treffer zeigen eine Cocktailbar ('Manoamano Bar & Pizza', Yelp-Kategorie 'Cocktail Bars', Facebook: '15 Jahre Manoamano bar') mit DJ-Sets, keinen klassischen Club; danach nach de/hessen/wiesbaden/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://manoamano-bar.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

@@ -4,6 +4,14 @@ name: Weltecho
 city: Chemnitz
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://weltecho.eu"
 about: Das Weltecho ist ein Kulturzentrum an der Annaberger Straße in Chemnitz, in dem Clubnächte stattfinden.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.chemnitz-online.de/news-lesen/clubs-bars-discos.html; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; Zweifel: Kulturzentrum mit Clubnächten, kein klassischer Nachtclub.; danach nach de/sachsen/chemnitz/ verschieben"
+source: "Web-Recherche 08/2026: www.chemnitz-online.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut weltecho.eu; fehlt: address, genres; Zweifel: Laut Treffern Kulturzentrum mit Galerie, Kino, Cafe und Club (chemnitz.travel: 'Galerie Weltecho'), kein reiner Club. Adresse Annaberger Str. 24 nur in aggregierter Zusammenfassung, kein sichtbarer Snippet-Beleg; danach nach de/sachsen/chemnitz/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://weltecho.eu"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

@@ -2,9 +2,18 @@
 id: forumbielefeld
 name: Forum
 city: Bielefeld
+address: Meller Straße 2
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://forum-bielefeld.com"
 genres: Techno, Electro
 about: Das Forum ist ein Club in Bielefeld mit Techno und elektronischer Musik.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.bielefeld-guide.de/lifestyle/clubs-feiern-in-bielefeld/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/nordrhein-westfalen/bielefeld/ verschieben"
+source: "Web-Recherche 08/2026: https://www.bielefeld-guide.de/lifestyle/clubs-feiern-in-bielefeld/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut https://forum-bielefeld.com; Adresse laut https://www.yelp.com/biz/forum-bielefeld-e-v-bielefeld; danach nach de/nordrhein-westfalen/bielefeld/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://forum-bielefeld.com"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

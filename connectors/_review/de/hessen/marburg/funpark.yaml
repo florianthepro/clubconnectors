@@ -2,8 +2,17 @@
 id: funpark
 name: Funpark
 city: Marburg
+address: Siemensstraße 1
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "http://www.funpark-marburg.de"
 about: Der Funpark in Marburg ist eine Kettendiskothek mit zwei Dancefloors und Mottopartys.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.op-marburg.de/lokales/marburg-biedenkopf/marburg/marburg-die-besten-kneipen-partys-und-nachtclubs-CP5KZZJZNVFDFAADOL6XGOGMT4.html; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/hessen/marburg/ verschieben"
+source: "Web-Recherche 08/2026: www.op-marburg.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut www.funpark-marburg.de; Adresse laut marburg.stadtbranchenbuch.com, branchenbuch.meinestadt.de; fehlt: genres; Zweifel: Treffer zeigen an derselben Adresse (Siemensstr. 1, Marburg-Wehrda) inzwischen einen 'Kids Funpark' Indoorspielplatz - die Diskothek ist möglicherweise nicht mehr aktiv; danach nach de/hessen/marburg/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "http://www.funpark-marburg.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

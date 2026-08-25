@@ -4,7 +4,15 @@ name: Darknet Club
 city: Osnabrück
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://darknet-club.de/"
 genres: Techno, House
 about: Der Darknet Club ist ein Techno- und House-Club am Hauptbahnhof in Osnabrück.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.osnabruecker-land.de/erlebnisse/darknet-club; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/niedersachsen/osnabrueck/ verschieben"
+source: "Web-Recherche 08/2026: https://www.osnabruecker-land.de/erlebnisse/darknet-club; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut https://darknet-club.de/; fehlt: address; Zweifel: Adresse Theodor-Heuss-Platz 3 (am Hauptbahnhof) nur in aggregierter Zusammenfassung, kein sichtbarer Snippet-Zweitbeleg; Club laut groove.de erst 2023 eroeffnet; danach nach de/niedersachsen/osnabrueck/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://darknet-club.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

@@ -4,7 +4,15 @@ name: Steinbruch-Theater
 city: Darmstadt
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.steinbruch-theater.club/"
 genres: Rock
 about: Das Steinbruch-Theater ist eine Diskothek in Darmstadt mit Ausrichtung auf Rock und Metal.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.darmstadtnacht.de/disco-darmstadt.htm; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/hessen/darmstadt/ verschieben"
+source: "Web-Recherche 08/2026: www.darmstadtnacht.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut www.steinbruch-theater.club; fehlt: address; Zweifel: Liegt laut mehreren Treffern in Muehltal bei Darmstadt, nicht in Darmstadt selbst (Widerspruch zum Feld city). Adresse Odenwaldstraße 26 nur in aggregierter Zusammenfassung, kein sichtbarer Zweitbeleg; danach nach de/hessen/darmstadt/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.steinbruch-theater.club/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

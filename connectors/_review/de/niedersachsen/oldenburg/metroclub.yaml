@@ -2,13 +2,14 @@
 id: metroclub
 name: Metro Club
 city: Oldenburg
+address: Achternstraße 18
 lat: NACHMESSEN
 lng: NACHMESSEN
 website: "https://metro-oldenburg.de"
 genres: Electro, Drum and Bass, Techno
 about: Der Metro Club ist ein Underground-Club in Oldenburg, der seit 1983 besteht; gespielt werden Elektro, Drum and Bass, Dub-Techno und House.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.kulturschnack.de/post/vierzig-jahre-metro-club-oldenburg-discothek-techno-festival-kultur-geburtstag-clubkultur; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address; danach nach de/niedersachsen/oldenburg/ verschieben"
+source: "Web-Recherche 08/2026: www.kulturschnack.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Adresse laut oldenburg.deutschbranchenbuch.com, www.virtualnights.com; Zweifel: Laut Treffern dauerhaft geschlossen: 'Metro Club in Oldenburg schliesst ... nach Rohrbruch und Insolvenz' (nwzonline.de), 'Club schliesst nach 40 Jahren' (groove.de, 12/2025); danach nach de/niedersachsen/oldenburg/ verschieben"
 
 # Wie die Website ausgelesen wird
 scrape_url: "https://metro-oldenburg.de"

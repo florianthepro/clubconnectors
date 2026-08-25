@@ -4,6 +4,7 @@ name: Silverwings Club
 city: Berlin
 lat: NACHMESSEN
 lng: NACHMESSEN
+genres: Rock
 about: Der Silverwings Club ist ein Club in Berlin.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.berlin.de/en/clubs/a-z/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; Zweifel: Nur über das Berlin.de-Verzeichnis belegt; aktueller Status unklar.; danach nach de/berlin/berlin/ verschieben"
+source: "Web-Recherche 08/2026: www.berlin.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; aktueller Status unklar.; Pruefung 08/2026 (1 Websuche je Club); Genres laut www.top10berlin.de; fehlt: address, website; Zweifel: Adresse 'Columbiadamm 10' nur ueber Portal berlin.de belegt, daher nicht uebernommen; Kontakt-E-Mail deutet auf Domain silverwings.de hin, aber kein eigener Website-Treffer in den Ergebnissen; danach nach de/berlin/berlin/ verschieben"

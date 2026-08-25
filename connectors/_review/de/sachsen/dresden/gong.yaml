@@ -2,8 +2,9 @@
 id: gong
 name: Gong
 city: Dresden
+address: Wilhelm-Franke-Straße 8
 lat: NACHMESSEN
 lng: NACHMESSEN
 about: Das Gong ist eine Tanzbar und Diskothek an der Wilhelm-Franke-Straße in Dresden.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://dresdennightlife.de/diskotheken/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/sachsen/dresden/ verschieben"
+source: "Web-Recherche 08/2026: dresdennightlife.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Adresse laut www.nochoffen.de, www.oeffnungszeitenbuch.de; fehlt: website, genres; Zweifel: Treffer bezeichnen die Location ueberwiegend als Kellerbar / Tanz- und Nachtbar bzw. 'Restaurant & Tanzbar', also eher Tanzbar als klassischer Club; danach nach de/sachsen/dresden/ verschieben"

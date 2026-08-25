@@ -2,8 +2,17 @@
 id: nummerzuplatz
 name: Nummer zu Platz
 city: Bielefeld
+address: Große-Kurfürsten-Straße 81
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "http://www.nrzp.de/"
 about: Das Nummer zu Platz ist ein Underground-Club in Bielefeld.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.bielefeld-guide.de/lifestyle/clubs-feiern-in-bielefeld/; auch gelistet als: NR.z.P; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/nordrhein-westfalen/bielefeld/ verschieben"
+source: "Web-Recherche 08/2026: https://www.bielefeld-guide.de/lifestyle/clubs-feiern-in-bielefeld/; auch gelistet als: NR.z.P; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut https://de.ra.co/clubs/76862; Adresse laut https://de.ra.co/clubs/76862, https://www.bandsintown.com/de/v/10094792-nummer-zu-platz; fehlt: genres; danach nach de/nordrhein-westfalen/bielefeld/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "http://www.nrzp.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

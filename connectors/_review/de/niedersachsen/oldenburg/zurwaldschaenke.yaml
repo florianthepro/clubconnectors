@@ -2,12 +2,13 @@
 id: zurwaldschaenke
 name: Zur Waldschänke
 city: Oldenburg
+address: An der Waldschänke 1
 lat: NACHMESSEN
 lng: NACHMESSEN
 website: "https://zurwaldschaenke-ol.de/"
 about: Zur Waldschänke ist ein Nachtclub in Oldenburg.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://zurwaldschaenke-ol.de/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, genres; danach nach de/niedersachsen/oldenburg/ verschieben"
+source: "Web-Recherche 08/2026: zurwaldschaenke-ol.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Adresse laut www.gelbeseiten.de, www.11880.com; fehlt: genres; Zweifel: Adresse liegt laut Treffern in 26203 Wardenburg (Klein Buemmerstede) bei Oldenburg, nicht im Stadtgebiet Oldenburg - Widerspruch zur Ortsangabe 'Oldenburg'; danach nach de/niedersachsen/oldenburg/ verschieben"
 
 # Wie die Website ausgelesen wird
 scrape_url: "https://zurwaldschaenke-ol.de/"

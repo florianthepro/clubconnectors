@@ -5,7 +5,15 @@ city: Aachen
 address: Goffartstraße 39
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://mubu.ac/"
 genres: Rock, Live
 about: Der Musikbunker in der Goffartstraße 39 in Aachen bietet Konzerte und Partys mit Metal-Schwerpunkt.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://aachen.fandom.com/de/wiki/Clubs_und_Diskotheken; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: website; Zweifel: Eher Konzert- und Veranstaltungsort mit Partys als reiner Nachtclub.; danach nach de/nordrhein-westfalen/aachen/ verschieben"
+source: "Web-Recherche 08/2026: aachen.fandom.com; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut mubu.ac; Zweifel: Hausnummer in den Treffern uneinheitlich (Goffartstrasse 39 als Hauptadresse, aber auch Goffartstrasse 26 und Rehmannstrasse genannt). Eher Konzert-/Veranstaltungsort (e.V., Eventim/Bandsintown-Termine) als Disco-Club; Facebook-Seite 'Musik…; danach nach de/nordrhein-westfalen/aachen/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://mubu.ac/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

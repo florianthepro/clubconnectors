@@ -2,8 +2,18 @@
 id: traumaimgwerkev
 name: Trauma im G-Werk e.V.
 city: Gießen
+address: Afföllerwiesen 3a
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.cafetrauma.de"
+genres: Live
 about: Das Trauma im G-Werk e.V. ist ein alternatives Kulturzentrum in Gießen, in dem Clubnächte stattfinden.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.yelp.com/search?find_desc=Club+&+Disco=&find_loc=Gie%C3%9Fen%2C+Hessen%2C+Germany; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; Zweifel: Alternatives Kulturzentrum mit Clubnächten, kein reiner Nachtclub.; danach nach de/hessen/giessen/ verschieben"
+source: "Web-Recherche 08/2026: www.yelp.com; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut www.cafetrauma.de; Adresse laut www.yelp.de, iclaire.de; Genres laut www.backstagepro.de; Zweifel: Liegt laut allen Treffern in Marburg (Afföllerwiesen 3a), nicht in Gießen wie im Eintrag; wird als soziokulturelles Zentrum / 'Mitmachkulturladen' beschrieben, nicht als reiner Club; danach nach de/hessen/giessen/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.cafetrauma.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

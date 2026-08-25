@@ -2,8 +2,9 @@
 id: countryheaven
 name: Country Heaven
 city: Kaiserslautern
+address: Rudolf-Breitscheid-Str. 58
 lat: NACHMESSEN
 lng: NACHMESSEN
 about: Das Country Heaven ist ein Country-Tanzclub in Kaiserslautern.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.inyourpocket.com/kaiserslautern/nightlife/clubs; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; Zweifel: Country-Tanzclub laut Listing, evtl. kein regulärer Nachtclub.; danach nach de/rheinland-pfalz/kaiserslautern/ verschieben"
+source: "Web-Recherche 08/2026: www.inyourpocket.com; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Adresse laut www.yelp.de, www.germanlisting.com; fehlt: website, genres; Zweifel: Treffer fuehren es durchgehend als Country-Bar/Pub (Yelp-Kategorie Bar, restaurantguru 'pub & bar'), nicht als Club. Musikrichtung Country ist nicht in der Genre-Liste enthalten; danach nach de/rheinland-pfalz/kaiserslautern/ verschieben"

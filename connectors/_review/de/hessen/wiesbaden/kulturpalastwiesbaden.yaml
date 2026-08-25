@@ -4,7 +4,15 @@ name: Kulturpalast Wiesbaden
 city: Wiesbaden
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://kulturpalast-wiesbaden.de/"
 genres: Indie, Electro
 about: Der Kulturpalast Wiesbaden ist ein Kulturzentrum in Wiesbaden, in dem Partys und DJ-Abende mit Indie und Elektro stattfinden.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://singalong.de/clubs-wiesbaden/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; Zweifel: Kulturzentrum mit Partys, kein regulärer Nachtclub.; danach nach de/hessen/wiesbaden/ verschieben"
+source: "Web-Recherche 08/2026: https://singalong.de/clubs-wiesbaden/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut https://kulturpalast-wiesbaden.de/; fehlt: address; Zweifel: Eher Kulturzentrum/Veranstaltungsort (Konzerte, Theater, Lesungen, Comedy) als reiner Club. Adresse Saalgasse 36 nur über Yelp belegt, daher nicht übernommen; danach nach de/hessen/wiesbaden/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://kulturpalast-wiesbaden.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

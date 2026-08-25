@@ -4,6 +4,7 @@ name: Soulcat
 city: Berlin
 lat: NACHMESSEN
 lng: NACHMESSEN
+genres: Live
 about: Das Soulcat ist ein Club in Berlin und im Verzeichnis von Berlin.de gelistet.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.berlin.de/en/clubs/a-z/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/berlin/berlin/ verschieben"
+source: "Web-Recherche 08/2026: www.berlin.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Genres laut www.yelp.com; fehlt: address, website; Zweifel: Widersprüchliche Adressen: Yelp führt Standort Reichenberger Str. 73 als CLOSED, neuerer Yelp-Eintrag nennt Pannierstr. 53 (nur ein Beleg, daher nicht übernommen); Treffer beschreiben eher eine Music Bar als einen Club; danach nach de/berlin/berlin/ verschieben"

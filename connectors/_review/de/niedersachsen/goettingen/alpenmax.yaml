@@ -2,9 +2,18 @@
 id: alpenmax
 name: Alpenmax
 city: Göttingen
+address: Weender Landstraße 3-7
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "http://www.discofun.de/goettingen"
 genres: 80er/90er, Schlager
 about: Das Alpenmax ist ein Club in Göttingen mit Après-Ski-Partys, Musik der 80er und 90er, Mallorca-Hits und Charts.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.goettingen-tourismus.de/erleben/gastronomie/clubs-nightlife/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/niedersachsen/goettingen/ verschieben"
+source: "Web-Recherche 08/2026: https://www.goettingen-tourismus.de/erleben/gastronomie/clubs-nightlife/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut http://www.discofun.de/goettingen; Adresse laut https://www.ortsdienst.de/niedersachsen/goettingen/goettingen/clubs/alpenmax-goettingen-inst364995/, https://www.nochoffen.de/alpenmax-goettingen-nordstadt; danach nach de/niedersachsen/goettingen/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "http://www.discofun.de/goettingen"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

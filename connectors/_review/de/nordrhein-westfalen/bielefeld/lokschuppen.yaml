@@ -2,9 +2,10 @@
 id: lokschuppen
 name: Lokschuppen
 city: Bielefeld
+address: Stadtheider Str. 11
 lat: NACHMESSEN
 lng: NACHMESSEN
 genres: Indie, House, 80er/90er
 about: Der Lokschuppen ist ein alternativer Club in Bielefeld mit Indie, House und 90er-Partys.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.bielefeld-guide.de/lifestyle/clubs-feiern-in-bielefeld/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/nordrhein-westfalen/bielefeld/ verschieben"
+source: "Web-Recherche 08/2026: www.bielefeld-guide.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Adresse laut www.yelp.com, www.festivalsunited.com; fehlt: website; Zweifel: Treffer beschreiben vor allem eine Event-/Konzertlocation (Eventim, Ticketpiloten, Konzerte); keine eigene Website in den Treffern, nur E-Mail-Domain lokschuppen-bielefeld.de erwaehnt; danach nach de/nordrhein-westfalen/bielefeld/ verschieben"

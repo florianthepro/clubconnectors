@@ -2,8 +2,9 @@
 id: frautrude
 name: Frau Trude
 city: Gießen
+address: Schiffenberger Weg 115
 lat: NACHMESSEN
 lng: NACHMESSEN
 about: Frau Trude ist ein Club und eine Bar mit Tanz in Gießen.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.yelp.com/search?find_desc=Club+&+Disco=&find_loc=Gie%C3%9Fen%2C+Hessen%2C+Germany; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; Zweifel: Wird auch als Bar geführt; evtl. kein regulärer Nachtclub.; danach nach de/hessen/giessen/ verschieben"
+source: "Web-Recherche 08/2026: www.yelp.com; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; evtl. kein regulärer Nachtclub.; Pruefung 08/2026 (1 Websuche je Club); Adresse laut www.yelp.com, finde-offen.de; fehlt: website, genres; Zweifel: Keine eigene Website in den Treffern gefunden, nur Verzeichnisse (Yelp, Cylex, 11880, Partyzettel u.a.); danach nach de/hessen/giessen/ verschieben"

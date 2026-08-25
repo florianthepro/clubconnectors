@@ -2,8 +2,17 @@
 id: diskothekeinhaus
 name: Diskothek Einhaus
 city: Gießen
+address: Einhaus 1
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.diskothek-einhaus.de/"
 about: Die Diskothek Einhaus ist eine Diskothek im Raum Gießen.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.yelp.com/search?find_desc=Club+&+Disco=&find_loc=Gie%C3%9Fen%2C+Hessen%2C+Germany; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; Zweifel: Nur Yelp-Verzeichnistreffer im Raum Gießen, Standort liegt evtl. im Umland.; danach nach de/hessen/giessen/ verschieben"
+source: "Web-Recherche 08/2026: www.yelp.com; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut www.diskothek-einhaus.de; Adresse laut www.yelp.com, finde-offen.de; fehlt: genres; Zweifel: Alle Treffer verorten die Diskothek in Aßlar (Einhaus 1, 35614 Aßlar), nicht in Gießen; danach nach de/hessen/giessen/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.diskothek-einhaus.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

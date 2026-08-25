@@ -8,7 +8,7 @@ website: "https://docksfreiheit36.de/prinzenbar/"
 genres: Live, Electro, Indie
 about: Die Prinzenbar im Docks-Komplex in Hamburg bietet Konzerte sowie Elektro- und Indie-Partys.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://docksfreiheit36.de/prinzenbar/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address; Zweifel: Konzert- und Partylocation im Docks-Komplex, evtl. kein klassischer Nachtclub.; danach nach de/hamburg/hamburg/ verschieben"
+source: "Web-Recherche 08/2026: https://docksfreiheit36.de/prinzenbar/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); fehlt: address; Zweifel: Adresse Kastanienallee 20 nur in einem Portal-Snippet (Yelp) belegt, daher nicht übernommen; Treffer nennen zusätzlich www.prinzenbar.net als Website; danach nach de/hamburg/hamburg/ verschieben"
 
 # Wie die Website ausgelesen wird
 scrape_url: "https://docksfreiheit36.de/prinzenbar/"

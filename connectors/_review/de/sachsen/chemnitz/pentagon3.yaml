@@ -4,6 +4,14 @@ name: Pentagon³
 city: Chemnitz
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://pentagon3.de/"
 about: Das Pentagon³ ist eine Location für Tanz- und Partyveranstaltungen an der Brückenstraße neben dem Rathaus in Chemnitz.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.chemnitz-online.de/news-lesen/clubs-bars-discos.html; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; Zweifel: Als Ort für Tanz- und Partyevents beschrieben; evtl. Eventlocation statt regulärem Club.; danach nach de/sachsen/chemnitz/ verschieben"
+source: "Web-Recherche 08/2026: www.chemnitz-online.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; evtl. Eventlocation statt regulärem Club.; Pruefung 08/2026 (1 Websuche je Club); Website laut pentagon3.de; fehlt: address, genres; Zweifel: Wird in Treffern auch als Tagungs-/Hochzeits-/Kongress-Location vermarktet ('pentagon3 - Tagung/Hochzeit/Event/Kongress', locationagent.de) – evtl. eher Eventlocation als reiner Club; danach nach de/sachsen/chemnitz/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://pentagon3.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

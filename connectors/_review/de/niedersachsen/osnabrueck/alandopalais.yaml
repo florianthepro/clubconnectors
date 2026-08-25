@@ -2,8 +2,17 @@
 id: alandopalais
 name: Alando Palais
 city: Osnabrück
+address: Pottgraben 60
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://alando-palais.de/"
 about: Das Alando Palais ist der größte Club Osnabrücks und befindet sich in einem ehemaligen Schwimmbad.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://osnabruecker-anzeiger.de/osnabrueck-clubs/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/niedersachsen/osnabrueck/ verschieben"
+source: "Web-Recherche 08/2026: https://osnabruecker-anzeiger.de/osnabrueck-clubs/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut https://alando-palais.de/; Adresse laut https://www.yelp.com/biz/alando-palais-osnabr%C3%BCck, https://www.nochoffen.de/alando-palais-osnabrueck-wueste; fehlt: genres; danach nach de/niedersachsen/osnabrueck/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://alando-palais.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

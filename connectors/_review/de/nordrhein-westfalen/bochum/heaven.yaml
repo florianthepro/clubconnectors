@@ -2,8 +2,9 @@
 id: heaven
 name: Heaven
 city: Bochum
+address: August-Bebel-Platz 6
 lat: NACHMESSEN
 lng: NACHMESSEN
 about: Das Heaven ist eine Partydiskothek im Bochumer Stadtteil Wattenscheid.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.bochum-tourismus.de/bochum-entdecken/ausgehen/clubszene.html; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/nordrhein-westfalen/bochum/ verschieben"
+source: "Web-Recherche 08/2026: www.bochum-tourismus.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Adresse laut www.nochoffen.de, www.yelp.com; fehlt: website, genres; Zweifel: Treffer nennen den Club 'Disco Club 7th Heaven' bzw. 'Heaven Wattenscheid' (Bochum-Wattenscheid); keine eigene Website in den Treffern, nur Facebook-Seite; danach nach de/nordrhein-westfalen/bochum/ verschieben"

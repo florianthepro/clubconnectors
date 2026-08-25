@@ -4,7 +4,15 @@ name: Club FX
 city: Chemnitz
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.clubfx.de"
 genres: Indie, House, Black Music
 about: Der Club FX ist ein langjähriger Club in Chemnitz mit Alternative, House und Black Music.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.chemnitz-online.de/news-lesen/clubs-bars-discos.html; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/sachsen/chemnitz/ verschieben"
+source: "Web-Recherche 08/2026: https://www.chemnitz-online.de/news-lesen/clubs-bars-discos.html; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut https://www.clubfx.de; fehlt: address; Zweifel: Treffer ueberwiegend Gay-Guides (Spartacus, inqueery, gay-location.de); diginights fuehrt die Location als 'Club FX - Fuchsbau'. Adresse Carolastr. 8 nur einmal aggregiert, kein zweiter Beleg; danach nach de/sachsen/chemnitz/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.clubfx.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

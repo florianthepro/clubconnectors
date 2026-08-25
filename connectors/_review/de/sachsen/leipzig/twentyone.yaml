@@ -2,13 +2,14 @@
 id: twentyone
 name: TWENTY ONE
 city: Leipzig
+address: Gottschedstraße 2
 lat: NACHMESSEN
 lng: NACHMESSEN
 website: "https://www.twentyone-leipzig.de/"
 genres: Electro, Black Music
 about: Das TWENTY ONE ist ein Großclub in Leipzig mit EDM und Black Music auf zwei Floors.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.twentyone-leipzig.de/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address; danach nach de/sachsen/leipzig/ verschieben"
+source: "Web-Recherche 08/2026: https://www.twentyone-leipzig.de/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Adresse laut http://m.virtualnights.com/leipzig/location/twenty-one.57644, https://www.leipziginfo.de/adressen/ort/twenty-one/; danach nach de/sachsen/leipzig/ verschieben"
 
 # Wie die Website ausgelesen wird
 scrape_url: "https://www.twentyone-leipzig.de/"

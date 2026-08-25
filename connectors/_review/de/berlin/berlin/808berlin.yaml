@@ -2,8 +2,18 @@
 id: 808berlin
 name: 808 Berlin
 city: Berlin
+address: Budapester Straße 38-40
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://808.berlin/"
+genres: Black Music
 about: Das 808 Berlin ist ein Club in Berlin, gelistet im Berlin.de-Verzeichnis.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.berlin.de/en/clubs/a-z/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/berlin/berlin/ verschieben"
+source: "Web-Recherche 08/2026: https://www.berlin.de/en/clubs/a-z/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut https://808.berlin/; Adresse laut https://www.berlin.de/en/clubs/8870916-4469452-808-berlin.en.html, https://events.musicofourdesire.com/venue/808-nachtklub; Genres laut https://www.top10berlin.de/en/cat/night-life-259/black-music-parties-2803/808; danach nach de/berlin/berlin/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://808.berlin/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

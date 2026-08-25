@@ -4,6 +4,7 @@ name: Maquina
 city: Dortmund
 lat: NACHMESSEN
 lng: NACHMESSEN
+genres: Black Music, Hip-Hop
 about: Das Maquina ist ein Club und eine Diskothek in Dortmund.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.discos.de/dortmund; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/nordrhein-westfalen/dortmund/ verschieben"
+source: "Web-Recherche 08/2026: www.discos.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Genres laut entdecke.dein-nrw.de; fehlt: address, website; Zweifel: Keine eigene Website in den Treffern (nur Facebook-Seite, Kontakt per Gmail). Adresse Ostwall 2 nur im Ergebnistext ohne zuordenbaren Zweitbeleg, daher nicht übernommen; danach nach de/nordrhein-westfalen/dortmund/ verschieben"

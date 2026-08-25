@@ -2,9 +2,18 @@
 id: hydepark
 name: Hyde Park
 city: Osnabrück
+address: Fürstenauer Weg 128
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.hyde-park.de"
 genres: Rock
 about: Der Hyde Park ist ein Club in Osnabrück mit Rock und Pop, der die alternative Szene anspricht.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://osnabruecker-anzeiger.de/osnabrueck-clubs/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/niedersachsen/osnabrueck/ verschieben"
+source: "Web-Recherche 08/2026: https://osnabruecker-anzeiger.de/osnabrueck-clubs/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut https://www.hyde-park.de/events; Adresse laut https://erleben.osnabrueck.de/en/experience-city/worth-seeing/hyde-park/, https://www.golocal.de/osnabrueck/diskotheken/hyde-park-fE1u/; danach nach de/niedersachsen/osnabrueck/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.hyde-park.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

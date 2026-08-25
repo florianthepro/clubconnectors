@@ -4,6 +4,14 @@ name: Apollo
 city: Aachen
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://apollo-aachen.de/"
 about: Das Apollo an der Pontstraße in Aachen verbindet Kino, Bar und Partys unter einem Dach.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://nightlyfe.de/cities/aachen; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; Zweifel: Kino und Bar mit Partys, evtl. kein regulärer Nachtclub.; danach nach de/nordrhein-westfalen/aachen/ verschieben"
+source: "Web-Recherche 08/2026: https://nightlyfe.de/cities/aachen; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut https://apollo-aachen.de/club/; fehlt: address, genres; Zweifel: Treffer bezeichnen die Location als 'Apollo Kino & Bar' (Kino, Bar und Club in einem, Pontstraße laut Portal aachen-tourismus.de); Adresse nur in einem Portal-Treffer, daher nicht uebernommen; danach nach de/nordrhein-westfalen/aachen/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://apollo-aachen.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

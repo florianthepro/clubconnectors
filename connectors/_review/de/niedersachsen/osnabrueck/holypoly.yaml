@@ -2,9 +2,18 @@
 id: holypoly
 name: Holy Poly
 city: Osnabrück
+address: Dammstraße 2
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://holy-poly.de"
 genres: Techno, Electro
 about: Das Holy Poly ist ein Techno- und Elektro-Club in einem ehemaligen Stellwerk in Osnabrück.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://groove.de/2025/10/17/holy-poly-osnabruecker-techno-club-eroeffnet-nach-umbau/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/niedersachsen/osnabrueck/ verschieben"
+source: "Web-Recherche 08/2026: https://groove.de/2025/10/17/holy-poly-osnabruecker-techno-club-eroeffnet-nach-umbau/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut https://holy-poly.de; Adresse laut https://m.unser-stadtplan.de/Stadtplan/Osnabrueck/Partner/Dammstr-2/Holy-Poly-Club-Bar.map, https://osnabruck.deutschbranchenbuch.com/night-club/holy-poly/; danach nach de/niedersachsen/osnabrueck/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://holy-poly.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

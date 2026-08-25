@@ -4,6 +4,14 @@ name: Hirsch-Q
 city: Dortmund
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://hirsch-q.de/"
 about: Das Hirsch-Q ist eine Diskothek in Dortmund.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.werkenntdenbesten.de/disco/dortmund; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/nordrhein-westfalen/dortmund/ verschieben"
+source: "Web-Recherche 08/2026: www.werkenntdenbesten.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut hirsch-q.de; fehlt: address, genres; Zweifel: Laut Ergebnistext 2024 umgezogen (neu: Helle 9; alt: Brückstr. 60-62) – Portaltreffer (Yelp, golocal, offen.net) zeigen noch die alte Brückstraßen-Adresse, neue Adresse ohne ausreichenden Beleg, daher keine übernommen; danach nach de/nordrhein-westfalen/dortmund/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://hirsch-q.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

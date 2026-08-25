@@ -2,8 +2,10 @@
 id: weisserhase
 name: Weißer Hase
 city: Berlin
+address: Revaler Str. 99
 lat: NACHMESSEN
 lng: NACHMESSEN
+genres: Electro, House, Techno
 about: Der Weiße Hase ist ein Club auf dem RAW-Gelände in Berlin.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://de.wikipedia.org/wiki/RAW-Friedrichshain; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/berlin/berlin/ verschieben"
+source: "Web-Recherche 08/2026: https://de.wikipedia.org/wiki/RAW-Friedrichshain; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Adresse laut https://www.berlin.de/en/clubs/8871318-4469452-der-weisse-hase.en.html, https://de.ra.co/clubs/107593; Genres laut https://www.theclubmap.com/house-electro-techno-clubs/der-weisse-hase/; fehlt: website; danach nach de/berlin/berlin/ verschieben"

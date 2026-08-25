@@ -2,8 +2,17 @@
 id: lofthouse
 name: Lofthouse
 city: Dresden
+address: Katharinenstraße 11-13
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "http://www.lofthouse-dresden.de"
 about: Das Lofthouse ist ein Club und eine Diskothek in Dresden.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://dresdennightlife.de/diskotheken/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; Zweifel: Nur über einen Verzeichniseintrag belegt; aktueller Status unklar.; danach nach de/sachsen/dresden/ verschieben"
+source: "Web-Recherche 08/2026: https://dresdennightlife.de/diskotheken/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Zweifel: Nur über einen Verzeichniseintrag belegt; aktueller Status unklar.; Pruefung 08/2026 (1 Websuche je Club); Website laut http://www.lofthouse-dresden.de; Adresse laut https://www.yelp.com/biz/lofthouse-dresden, https://www.gastroguide.de/restaurant/195528/downtown-lofthouse/dresden/; fehlt: genres; danach nach de/sachsen/dresden/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "http://www.lofthouse-dresden.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

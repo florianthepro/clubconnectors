@@ -2,13 +2,14 @@
 id: metropolis
 name: Metropolis
 city: Trier
+address: Gerty-Spies-Straße 4
 lat: NACHMESSEN
 lng: NACHMESSEN
 website: "https://metropolis-club.de/"
 genres: Hip-Hop
 about: Das Metropolis ist eine Diskothek in Trier mit Hip-Hop und Studentenpartys.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://metropolis-club.de/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address; danach nach de/rheinland-pfalz/trier/ verschieben"
+source: "Web-Recherche 08/2026: https://metropolis-club.de/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Adresse laut https://www.lifestyle-tr.de/locations/metropolis-nightlife-35.html, https://www.lifestyle-tr.de/locations/metropolis-35.html; danach nach de/rheinland-pfalz/trier/ verschieben"
 
 # Wie die Website ausgelesen wird
 scrape_url: "https://metropolis-club.de/"

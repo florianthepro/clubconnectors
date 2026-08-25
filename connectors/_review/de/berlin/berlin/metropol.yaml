@@ -2,9 +2,18 @@
 id: metropol
 name: Metropol
 city: Berlin
+address: Nollendorfplatz 5
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://metropol-berlin.de/"
 genres: Live
 about: Das Metropol ist ein Club und Konzerthaus in Berlin.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.berlin.de/en/clubs/a-z/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; Zweifel: Auch als Konzerthaus geführt; nur aus Verzeichnis bekannt.; danach nach de/berlin/berlin/ verschieben"
+source: "Web-Recherche 08/2026: https://www.berlin.de/en/clubs/a-z/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Zweifel: Auch als Konzerthaus geführt; nur aus Verzeichnis bekannt.; Pruefung 08/2026 (1 Websuche je Club); Website laut https://metropol-berlin.de/; Adresse laut https://metropol-berlin.de/, https://www.yelp.com/biz/metropol-berlin-berlin; danach nach de/berlin/berlin/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://metropol-berlin.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

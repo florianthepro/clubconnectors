@@ -2,12 +2,13 @@
 id: imperialtheclub
 name: Imperial - The Club
 city: Mainz
+address: Mombacher Straße 78-80
 lat: NACHMESSEN
 lng: NACHMESSEN
 website: "https://imperialmainz.de/"
 about: Das Imperial - The Club ist ein Nachtclub in Mainz.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://imperialmainz.de/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, genres; danach nach de/rheinland-pfalz/mainz/ verschieben"
+source: "Web-Recherche 08/2026: https://imperialmainz.de/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Adresse laut https://www.waze.com/de/live-map/directions/de/rp/mz/imperial-the-club-mainz?to=place.ChIJ84AKH2CWvUcRBw0YzUD3PpU, https://mainz.deutschbranchenbuch.com/night-club/imperial-the-club-mainz/; fehlt: genres; danach nach de/rheinland-pfalz/mainz/ verschieben"
 
 # Wie die Website ausgelesen wird
 scrape_url: "https://imperialmainz.de/"

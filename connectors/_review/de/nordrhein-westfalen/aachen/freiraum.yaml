@@ -2,8 +2,9 @@
 id: freiraum
 name: Freiraum
 city: Aachen
+address: Pontstraße 141-149
 lat: NACHMESSEN
 lng: NACHMESSEN
 about: Das Freiraum ist ein Nachtclub im Pontstraßen-Viertel in Aachen.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://nightlyfe.de/cities/aachen; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/nordrhein-westfalen/aachen/ verschieben"
+source: "Web-Recherche 08/2026: nightlyfe.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Adresse laut www.klenkes.de, foursquare.com; fehlt: website, genres; Zweifel: Keine eigene Website in den Treffern (nur E-Mail info@freiraum-aachen.com und Facebook); Presse beschreibt es als 'Club, Lounge, Café'; danach nach de/nordrhein-westfalen/aachen/ verschieben"

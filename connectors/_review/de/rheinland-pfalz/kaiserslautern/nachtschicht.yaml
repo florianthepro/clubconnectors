@@ -2,12 +2,13 @@
 id: nachtschicht
 name: Nachtschicht
 city: Kaiserslautern
+address: Zollamtstr. 28
 lat: NACHMESSEN
 lng: NACHMESSEN
 website: "https://nachtschicht-kaiserslautern.app/"
 about: Die Nachtschicht ist eine Großraumdiskothek mit VIP-Lounges in Kaiserslautern.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://nachtschicht-kaiserslautern.app/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, genres; danach nach de/rheinland-pfalz/kaiserslautern/ verschieben"
+source: "Web-Recherche 08/2026: nachtschicht-kaiserslautern.app; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Adresse laut www.ortsdienst.de, www.yelp.com; fehlt: genres; Zweifel: Treffer nennen als Website nachtschicht-kaiserslautern.de, im Eintrag steht die Domain nachtschicht-kaiserslautern.app – kein eigener Domain-Treffer in den Ergebnissen, daher website nicht bestätigt; danach nach de/rheinland-pfalz/kaiserslautern/ verschieben"
 
 # Wie die Website ausgelesen wird
 scrape_url: "https://nachtschicht-kaiserslautern.app/"

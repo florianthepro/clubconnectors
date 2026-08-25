@@ -2,9 +2,18 @@
 id: zechebochum
 name: Zeche Bochum
 city: Bochum
+address: Prinz-Regent-Str. 50-60
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://zeche.net/"
 genres: Live
 about: Die Zeche Bochum ist eine Konzerthalle und Diskothek in Bochum.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.bochum-tourismus.de/bochum-entdecken/ausgehen/clubszene.html; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/nordrhein-westfalen/bochum/ verschieben"
+source: "Web-Recherche 08/2026: https://www.bochum-tourismus.de/bochum-entdecken/ausgehen/clubszene.html; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut https://zeche.net/; Adresse laut https://www.bochum-tourismus.de/bochum-entdecken/theater-und-buehnen/zeche-bochum.html, https://www.gelbeseiten.de/gsbiz/66eca2fa-15b1-49b1-9d19-db812a8504aa; danach nach de/nordrhein-westfalen/bochum/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://zeche.net/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

@@ -2,8 +2,17 @@
 id: tollhaus
 name: Tollhaus
 city: Berlin
+address: Siegfriedstraße 136
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://tollhaus-berlin.de"
 about: Das Tollhaus ist ein Club im Berliner Ortsteil Lichtenberg.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.berlin.de/en/clubs/lichtenberg/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/berlin/berlin/ verschieben"
+source: "Web-Recherche 08/2026: https://www.berlin.de/en/clubs/lichtenberg/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut https://tollhaus-berlin.de; Adresse laut https://berlin.kauperts.de/eintrag/Tollhaus-Siegfriedstrasse-136-10365-Berlin, https://www.yelp.com/biz/tollhaus-berlin-2; fehlt: genres; Zweifel: Yelp-Titel: 'TOLLHAUS - CLOSED' - moeglicherweise dauerhaft geschlossen; danach nach de/berlin/berlin/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://tollhaus-berlin.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

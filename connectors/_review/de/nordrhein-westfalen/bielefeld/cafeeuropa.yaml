@@ -2,8 +2,17 @@
 id: cafeeuropa
 name: Café Europa
 city: Bielefeld
+address: Jahnplatz 4
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://cafeeuropa.de"
 about: Das Café Europa ist ein Club am Jahnplatz in Bielefeld und gilt als ältester Club der Stadt.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.bielefeld-guide.de/lifestyle/clubs-feiern-in-bielefeld/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/nordrhein-westfalen/bielefeld/ verschieben"
+source: "Web-Recherche 08/2026: https://www.bielefeld-guide.de/lifestyle/clubs-feiern-in-bielefeld/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut https://cafeeuropa.de; Adresse laut https://www.yelp.com/biz/cafe-europa-bielefeld, https://www.11880.com/branchenbuch/bielefeld/070940975B107804407/cafe-europa.html; fehlt: genres; danach nach de/nordrhein-westfalen/bielefeld/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://cafeeuropa.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

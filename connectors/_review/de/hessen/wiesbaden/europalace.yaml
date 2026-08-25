@@ -4,7 +4,15 @@ name: Euro Palace
 city: Wiesbaden
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.europalace.de/"
 genres: Mixed
 about: Das Euro Palace ist eine Großraumdiskothek mit 4 Floors in Wiesbaden, gespielt werden Charts und House.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://singalong.de/clubs-wiesbaden/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/hessen/wiesbaden/ verschieben"
+source: "Web-Recherche 08/2026: https://singalong.de/clubs-wiesbaden/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut https://www.europalace.de/; fehlt: address; Zweifel: Adresse Peter-Sander-Str. (39) nur über golocal-Portal belegt, daher nicht übernommen. Club firmiert teils als 'Euro Palace Mainz' (Standort Mainz-Kastel, verwaltungsmäßig Wiesbaden); danach nach de/hessen/wiesbaden/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.europalace.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

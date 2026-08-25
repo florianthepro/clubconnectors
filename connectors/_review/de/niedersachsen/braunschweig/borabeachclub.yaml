@@ -2,8 +2,9 @@
 id: borabeachclub
 name: Bora Beach Club
 city: Braunschweig
+address: Kennelweg 4
 lat: NACHMESSEN
 lng: NACHMESSEN
 about: Der Bora Beach Club ist eine Open-Air-Partylocation am Kennelbad in Braunschweig.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://braunschweig-kompakt.de/bars-und-clubs-in-braunschweig/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; Zweifel: Open-Air-Areal statt festem Club, Betrieb saisonabhängig.; danach nach de/niedersachsen/braunschweig/ verschieben"
+source: "Web-Recherche 08/2026: braunschweig-kompakt.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Adresse laut m.yelp.com, unilocal.de; fehlt: website, genres; Zweifel: Laut Yelp-Treffer dauerhaft geschlossen ('BORA BEACH CLUB - CLOSED'); Treffer führen ihn zudem als Bar/Event-Location (Beachbar im Kennelbad), nicht als klassischen Club; danach nach de/niedersachsen/braunschweig/ verschieben"

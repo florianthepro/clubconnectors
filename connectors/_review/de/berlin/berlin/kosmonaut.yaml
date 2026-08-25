@@ -4,6 +4,7 @@ name: Kosmonaut
 city: Berlin
 lat: NACHMESSEN
 lng: NACHMESSEN
+genres: Electro, House, Techno
 about: Das Kosmonaut ist ein Club im Berliner Stadtteil Lichtenberg.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.berlin.de/en/clubs/lichtenberg/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/berlin/berlin/ verschieben"
+source: "Web-Recherche 08/2026: https://www.berlin.de/en/clubs/lichtenberg/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Genres laut https://www.theclubmap.com/kos%C2%ADmo%C2%ADnaut-club-en/; fehlt: address, website; Zweifel: Yelp-Treffer: 'KOSMONAUT - CLOSED' — Club laut Yelp (Stand Juni 2026) geschlossen. Adresse Wiesenweg 1-4 nur im Yelp-Snippet belegt, daher nicht uebernommen; danach nach de/berlin/berlin/ verschieben"

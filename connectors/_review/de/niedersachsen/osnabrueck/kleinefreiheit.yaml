@@ -2,8 +2,10 @@
 id: kleinefreiheit
 name: Kleine Freiheit
 city: Osnabrück
+address: Hamburger Straße 22
 lat: NACHMESSEN
 lng: NACHMESSEN
+genres: Live
 about: Die Kleine Freiheit ist ein Club in Osnabrück.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://osnabruecker-anzeiger.de/osnabrueck-clubs/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/niedersachsen/osnabrueck/ verschieben"
+source: "Web-Recherche 08/2026: osnabruecker-anzeiger.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Adresse laut www.oeffnungszeitenbuch.de, www.ortsdienst.de; Genres laut www.regioactive.de; fehlt: website; danach nach de/niedersachsen/osnabrueck/ verschieben"

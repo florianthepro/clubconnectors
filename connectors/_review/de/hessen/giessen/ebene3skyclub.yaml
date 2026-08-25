@@ -2,8 +2,9 @@
 id: ebene3skyclub
 name: ebene 3 skyclub
 city: Gießen
+address: Karl-Kellner-Ring 50
 lat: NACHMESSEN
 lng: NACHMESSEN
 about: Der ebene 3 skyclub ist ein Club im Raum Gießen.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.yelp.com/search?find_desc=Club+&+Disco=&find_loc=Gie%C3%9Fen%2C+Hessen%2C+Germany; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; Zweifel: Nur Yelp-Treffer im Raum Gießen; Standort evtl. im Umland, Betrieb unklar.; danach nach de/hessen/giessen/ verschieben"
+source: "Web-Recherche 08/2026: www.yelp.com; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Standort evtl. im Umland, Betrieb unklar.; Pruefung 08/2026 (1 Websuche je Club); Adresse laut www.yelp.com, wetzlar.deutschbranchenbuch.com; fehlt: website, genres; Zweifel: Treffer verorten den Club einheitlich in Wetzlar (Karl-Kellner-Ring 50, 35576 Wetzlar), nicht in Gießen wie im Eintrag angegeben; danach nach de/hessen/giessen/ verschieben"

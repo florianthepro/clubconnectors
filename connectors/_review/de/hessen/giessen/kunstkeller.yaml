@@ -2,8 +2,17 @@
 id: kunstkeller
 name: Kunstkeller
 city: Gießen
+address: Marburger Straße 112
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "http://www.kunst-keller.com"
 about: Der Kunstkeller ist ein Kellerclub in der Stadt Gießen.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.yelp.com/search?find_desc=Club+&+Disco=&find_loc=Gie%C3%9Fen%2C+Hessen%2C+Germany; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/hessen/giessen/ verschieben"
+source: "Web-Recherche 08/2026: https://www.yelp.com/search?find_desc=Club+&+Disco=&find_loc=Gie%C3%9Fen%2C+Hessen%2C+Germany; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut http://www.kunst-keller.com; Adresse laut https://www.yelp.com/biz/kunstkeller-gießen, https://disco.trendtreff.de/kunstkeller/1.location.html; fehlt: genres; danach nach de/hessen/giessen/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "http://www.kunst-keller.com"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

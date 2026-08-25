@@ -2,9 +2,10 @@
 id: oxi
 name: OXI
 city: Berlin
+address: Wiesenweg 1-4
 lat: NACHMESSEN
 lng: NACHMESSEN
 genres: Techno, House
 about: Das OXI ist ein Club in Berlin mit Techno und House sowie Indoor- und Outdoor-Bereich.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://ra.co/guides/clubs-in-berlin; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/berlin/berlin/ verschieben"
+source: "Web-Recherche 08/2026: https://ra.co/guides/clubs-in-berlin; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Adresse laut https://www.berlin.de/en/clubs/8871834-4469452-oxi.en.html, https://ra.co/clubs/184646; fehlt: website; Zweifel: Eigene Website in den Treffern nicht erkennbar (nur eigenes Facebook-Profil https://www.facebook.com/OXIClubBln/), daher website null; danach nach de/berlin/berlin/ verschieben"

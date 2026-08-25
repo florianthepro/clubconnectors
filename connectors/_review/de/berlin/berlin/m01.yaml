@@ -4,6 +4,7 @@ name: M01
 city: Berlin
 lat: NACHMESSEN
 lng: NACHMESSEN
+genres: Electro, House, Techno
 about: Das M01 ist ein Club in Berlin und wird in einem Stadtverzeichnis geführt.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.berlin.de/en/clubs/a-z/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; Zweifel: Nur über einen Verzeichniseintrag belegt; aktueller Status unklar.; danach nach de/berlin/berlin/ verschieben"
+source: "Web-Recherche 08/2026: https://www.berlin.de/en/clubs/a-z/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; aktueller Status unklar.; Pruefung 08/2026 (1 Websuche je Club); Genres laut https://ra.co/news/78616; fehlt: address, website; Zweifel: Adresse Markgrafendamm 1 nur in der Snippet-Zusammenfassung, kein einzelner Treffer-URL eindeutig zuordenbar; keine eigene Website unter den Treffern (nur Portale wie berlin.de, ra.co, goout); danach nach de/berlin/berlin/ verschieben"

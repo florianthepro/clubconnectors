@@ -2,9 +2,10 @@
 id: cuties
 name: Cuties
 city: Bielefeld
+address: Große-Kurfürsten-Straße 81
 lat: NACHMESSEN
 lng: NACHMESSEN
 genres: Techno
 about: Das Cuties ist ein Club in Bielefeld mit Fokus auf entspannte Techno-Beats.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.bielefeld-guide.de/lifestyle/clubs-feiern-in-bielefeld/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/nordrhein-westfalen/bielefeld/ verschieben"
+source: "Web-Recherche 08/2026: https://www.bielefeld-guide.de/lifestyle/clubs-feiern-in-bielefeld/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Adresse laut https://onlinestreet.de/poi/T3VhNENJZDBDQjY0RC9pSDJITm16Zz09, https://www.bielefeld.jetzt/tipp/cutie; fehlt: website; Zweifel: Treffer nennen den Club durchgängig 'Cutie' (nicht 'Cuties'); danach nach de/nordrhein-westfalen/bielefeld/ verschieben"

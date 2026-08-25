@@ -4,6 +4,14 @@ name: Kult-Hallen
 city: Marburg
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "http://www.kult-hallen.de"
 about: Die Kult-Hallen im Marburger Stadtteil Cappel umfassen drei Diskotheken auf 5000 Quadratmetern.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.op-marburg.de/lokales/marburg-biedenkopf/marburg/marburg-die-besten-kneipen-partys-und-nachtclubs-CP5KZZJZNVFDFAADOL6XGOGMT4.html; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/hessen/marburg/ verschieben"
+source: "Web-Recherche 08/2026: www.op-marburg.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut www.kult-hallen.de; fehlt: address, genres; Zweifel: Suchzusammenfassung nennt Temmlerstraße 7, aber nur aus Portaldaten, nicht in 2 unabhängigen Treffer-Snippets sichtbar; Treffer wirken teils veraltet (Event von 2009); danach nach de/hessen/marburg/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "http://www.kult-hallen.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

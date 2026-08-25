@@ -4,7 +4,15 @@ name: Fuchsbau
 city: Chemnitz
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.fuchsbau.de/"
 genres: 80er/90er
 about: Der Fuchsbau ist ein Nachtclub nahe dem Hauptbahnhof in Chemnitz, unter anderem mit 90er-Musik und Karaoke.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.chemnitz-online.de/news-lesen/clubs-bars-discos.html; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/sachsen/chemnitz/ verschieben"
+source: "Web-Recherche 08/2026: https://www.chemnitz-online.de/news-lesen/clubs-bars-discos.html; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut https://www.fuchsbau.de/; fehlt: address; Zweifel: Adresse Carolastrasse 8 nur aus einer Portal-Quelle (gelbeseiten.de) ableitbar, daher nicht uebernommen; danach nach de/sachsen/chemnitz/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.fuchsbau.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

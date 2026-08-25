@@ -2,9 +2,18 @@
 id: polyester
 name: Polyester
 city: Oldenburg
+address: Am Stadtmuseum 15
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.polyester-klub.de/"
 genres: Electro
 about: Das Polyester ist ein Club in Oldenburg, in dem unter anderem elektronische DJ-Sets stattfinden.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.eventbrite.de/d/germany--oldenburg-oldenburg/techno-elektro-party/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; Zweifel: Nur als Auftrittsort erwähnt, Status als regulärer Club unklar.; danach nach de/niedersachsen/oldenburg/ verschieben"
+source: "Web-Recherche 08/2026: https://www.eventbrite.de/d/germany--oldenburg-oldenburg/techno-elektro-party/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Zweifel: Nur als Auftrittsort erwähnt, Status als regulärer Club unklar.; Pruefung 08/2026 (1 Websuche je Club); Website laut https://www.polyester-klub.de/; Adresse laut https://oldenburg.deutschbranchenbuch.com/night-club/polyester/, http://www.polyester-klub.de/kontakt/; danach nach de/niedersachsen/oldenburg/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.polyester-klub.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

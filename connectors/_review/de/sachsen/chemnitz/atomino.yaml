@@ -4,7 +4,15 @@ name: Atomino
 city: Chemnitz
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://atomino-chemnitz.de/"
 genres: Indie, Hip-Hop, Live
 about: Das Atomino in Chemnitz besteht als Club und Kulturverein seit über 20 Jahren und bietet Konzerte und Tanzpartys mit Indie, Hip-Hop und Reggae.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://handinhand-chemnitz.de/mitglieder/atomino; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/sachsen/chemnitz/ verschieben"
+source: "Web-Recherche 08/2026: https://handinhand-chemnitz.de/mitglieder/atomino; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut https://atomino-chemnitz.de/; fehlt: address; Zweifel: Adressangaben in den Treffern uneinheitlich: 'Annaberger Str. 73' (Snippet-Zusammenfassung) vs. 'Johannisplatz' (dastelefonbuch.de) - daher keine Adresse uebernommen; als e.V. gefuehrt, Kapazitaet 199; danach nach de/sachsen/chemnitz/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://atomino-chemnitz.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

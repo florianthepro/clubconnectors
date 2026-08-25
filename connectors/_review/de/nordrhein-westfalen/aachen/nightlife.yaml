@@ -5,7 +5,15 @@ city: Aachen
 address: Wirichsbongardstraße 10
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "http://www.nightlife-aachen.de/"
 genres: Mixed
 about: Das Nightlife ist ein Club in der Aachener Innenstadt an der Wirichsbongardstraße 10, gespielt werden Mainstream und Rock.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.regioactive.de/location/aachen/club-nightlife-aachen-3BKzy5WGNs.html; auch gelistet als: Club Nightlife; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: website; danach nach de/nordrhein-westfalen/aachen/ verschieben"
+source: "Web-Recherche 08/2026: https://www.regioactive.de/location/aachen/club-nightlife-aachen-3BKzy5WGNs.html; auch gelistet als: Club Nightlife; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut https://charlie.aachen-tourismus.de/en/poi/club-nightlife; danach nach de/nordrhein-westfalen/aachen/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "http://www.nightlife-aachen.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

@@ -4,7 +4,15 @@ name: Nikola Tesla
 city: Chemnitz
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://nikola-tesla.club/"
 genres: Rock, Black Music, Live
 about: Das Nikola Tesla ist ein Club am Sonnenberg in der Zietenstraße in Chemnitz, in dem Konzerte und Partys mit Postpunk, 60s und Soul stattfinden.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://handinhand-chemnitz.de/mitglieder/nikola-tesla; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/sachsen/chemnitz/ verschieben"
+source: "Web-Recherche 08/2026: https://handinhand-chemnitz.de/mitglieder/nikola-tesla; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut https://nikola-tesla.club/; fehlt: address; Zweifel: Adresse 'Zietenstr. 2a' nur einmal in Portal-Snippets genannt (kein Beleg von eigener Website, keine zwei unabhaengigen Treffer), daher nicht uebernommen; danach nach de/sachsen/chemnitz/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://nikola-tesla.club/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

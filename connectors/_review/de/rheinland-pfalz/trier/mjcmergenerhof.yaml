@@ -2,13 +2,14 @@
 id: mjcmergenerhof
 name: MJC Mergener Hof
 city: Trier
+address: Rindertanzstraße 4
 lat: NACHMESSEN
 lng: NACHMESSEN
 website: "https://mjctrier.de/"
 genres: Techno
 about: Der MJC Mergener Hof ist ein Kulturzentrum in Trier mit einem Gewölbekeller für Techno.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://mjctrier.de/tag/techno/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address; Zweifel: Kulturzentrum mit Clubkeller, kein reiner Nachtclub.; danach nach de/rheinland-pfalz/trier/ verschieben"
+source: "Web-Recherche 08/2026: mjctrier.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Adresse laut www.lifestyle-tr.de, www.dasoertliche.de; Zweifel: Treffer führen den Mergener Hof als Jugendzentrum/Veranstaltungshaus ('Mergener Hof e.V. (MJC) Jugendzentrum', Spielstätte bei Nordwest Ticket), nicht als klassischen Club; danach nach de/rheinland-pfalz/trier/ verschieben"
 
 # Wie die Website ausgelesen wird
 scrape_url: "https://mjctrier.de/"

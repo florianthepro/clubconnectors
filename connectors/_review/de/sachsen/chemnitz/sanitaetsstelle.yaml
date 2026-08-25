@@ -2,8 +2,18 @@
 id: sanitaetsstelle
 name: Sanitätsstelle
 city: Chemnitz
+address: Altchemnitzer Str. 27
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "http://sanitaetsstelle.de"
+genres: Rock
 about: Die Sanitätsstelle ist ein Club an der Annaberger Straße in Chemnitz.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.chemnitz-online.de/news-lesen/clubs-bars-discos.html; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/sachsen/chemnitz/ verschieben"
+source: "Web-Recherche 08/2026: www.chemnitz-online.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut sanitaetsstelle.de; Adresse laut www.freiepresse.de, ra.co; Genres laut de.foursquare.com; danach nach de/sachsen/chemnitz/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "http://sanitaetsstelle.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

@@ -4,6 +4,14 @@ name: New Basement
 city: Wiesbaden
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.basement-wiesbaden.de"
 about: Das New Basement ist ein Club und eine Diskothek in Wiesbaden.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://partyzettel.de/diskotheken/stadt/wiesbaden/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/hessen/wiesbaden/ verschieben"
+source: "Web-Recherche 08/2026: partyzettel.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut www.basement-wiesbaden.de; fehlt: address, genres; Zweifel: Treffer deuten auf zwischenzeitliche Schließung und mögliche Wiederbelebung/Umbenennung in 'Basement Wiesbaden' hin (https://sensor-wiesbaden.de/basement-neueroeffnung-anzeichen-fuer-wiederbelebung-wiesbadener-club-institu…; danach nach de/hessen/wiesbaden/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.basement-wiesbaden.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

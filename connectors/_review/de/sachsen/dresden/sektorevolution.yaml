@@ -4,7 +4,15 @@ name: Sektor Evolution
 city: Dresden
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://sektor-evolution.de"
 genres: Techno
 about: Der Sektor Evolution ist ein Technoclub auf einem Industriegelände am nördlichen Elbufer in Dresden.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://dresden-magazin.com/en/heart-of-the-city/ten-cool-clubs-in-dresden/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/sachsen/dresden/ verschieben"
+source: "Web-Recherche 08/2026: https://dresden-magazin.com/en/heart-of-the-city/ten-cool-clubs-in-dresden/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut https://sektor-evolution.de; fehlt: address; Zweifel: Adresse An der Eisenbahn 2 nur in der Snippet-Zusammenfassung, kein einzelner Treffer-URL eindeutig zuordenbar; daher nicht übernommen; danach nach de/sachsen/dresden/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://sektor-evolution.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

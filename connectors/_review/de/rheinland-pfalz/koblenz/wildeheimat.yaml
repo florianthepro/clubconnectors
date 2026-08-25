@@ -2,12 +2,13 @@
 id: wildeheimat
 name: Wilde Heimat
 city: Koblenz
+address: Firmungstraße 2
 lat: NACHMESSEN
 lng: NACHMESSEN
 website: "https://wilde-heimat-koblenz.de/"
 about: Die Wilde Heimat ist ein Club mit Bar in Koblenz.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://wilde-heimat-koblenz.de/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, genres; Zweifel: Auch als Bar geführt, Betrieb offenbar nur an einzelnen Tagen; evtl. kein regulärer Nachtclub.; danach nach de/rheinland-pfalz/koblenz/ verschieben"
+source: "Web-Recherche 08/2026: https://wilde-heimat-koblenz.de/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Zweifel: Auch als Bar geführt, Betrieb offenbar nur an einzelnen Tagen; evtl. kein regulärer Nachtclub.; Pruefung 08/2026 (1 Websuche je Club); Adresse laut https://wilde-heimat-koblenz.de/impressum/, https://web2.cylex.de/firma-home/wilde-heimat---koblenz-15947890.html; fehlt: genres; danach nach de/rheinland-pfalz/koblenz/ verschieben"
 
 # Wie die Website ausgelesen wird
 scrape_url: "https://wilde-heimat-koblenz.de/"
