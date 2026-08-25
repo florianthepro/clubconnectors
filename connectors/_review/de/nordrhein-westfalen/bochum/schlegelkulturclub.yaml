@@ -1,0 +1,18 @@
+# Schlegel Kultur Club – Bochum
+id: schlegelkulturclub
+name: Schlegel Kultur Club
+city: Bochum
+lat: NACHMESSEN
+lng: NACHMESSEN
+website: "https://schlegel-club.de/"
+genres: Electro
+about: Der Schlegel Kultur Club ist ein Club für elektronische Musik in einer ehemaligen Brauerei in Bochum.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://schlegel-club.de/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address; danach nach de/nordrhein-westfalen/bochum/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://schlegel-club.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

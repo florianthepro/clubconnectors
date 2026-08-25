@@ -1,0 +1,9 @@
+# Coyote Ugly – Koblenz
+id: coyoteugly
+name: Coyote Ugly
+city: Koblenz
+lat: NACHMESSEN
+lng: NACHMESSEN
+about: Das Coyote Ugly ist eine Partybar in Koblenz, in der auch getanzt wird.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.yelp.de/search?cflt=danceclubs&find_loc=Koblenz%2C+Rheinland-Pfalz; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; Zweifel: Laut Hinweis Partybar, kein klassischer Nachtclub.; danach nach de/rheinland-pfalz/koblenz/ verschieben"

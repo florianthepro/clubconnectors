@@ -1,0 +1,10 @@
+# Caveau – Mainz
+id: caveau
+name: Caveau
+city: Mainz
+lat: NACHMESSEN
+lng: NACHMESSEN
+genres: Live
+about: Das Caveau ist ein Kellerclub mit Livemusik in Mainz.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://web2.cylex.de/branchen/diskotheken/Mainz/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/rheinland-pfalz/mainz/ verschieben"

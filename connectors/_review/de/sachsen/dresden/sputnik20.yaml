@@ -1,0 +1,9 @@
+# Sputnik 2.0 – Dresden
+id: sputnik20
+name: Sputnik 2.0
+city: Dresden
+lat: NACHMESSEN
+lng: NACHMESSEN
+about: Das Sputnik 2.0 ist ein Club und eine Diskothek in Dresden.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://dresdennightlife.de/diskotheken/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/sachsen/dresden/ verschieben"

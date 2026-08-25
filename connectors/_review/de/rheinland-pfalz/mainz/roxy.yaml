@@ -1,0 +1,9 @@
+# Roxy – Mainz
+id: roxy
+name: Roxy
+city: Mainz
+lat: NACHMESSEN
+lng: NACHMESSEN
+about: Das Roxy ist ein Partyclub in der Südstadt von Mainz.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://prinz.de/mainz/locations/kategorie/clubs-bars/party/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/rheinland-pfalz/mainz/ verschieben"

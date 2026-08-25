@@ -1,0 +1,17 @@
+# Tucholsky – Kiel
+id: tucholsky
+name: Tucholsky
+city: Kiel
+lat: NACHMESSEN
+lng: NACHMESSEN
+website: "https://tucholskykiel.de/index.php"
+about: Das Tucholsky ist eine Diskothek in Kiel, die seit 1970 besteht und sich an studentisches Publikum richtet.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://tucholskykiel.de/index.php; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, genres; danach nach de/schleswig-holstein/kiel/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://tucholskykiel.de/index.php"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

@@ -1,0 +1,18 @@
+# Kasseturm – Weimar
+id: kasseturm
+name: Kasseturm
+city: Weimar
+address: Goetheplatz 10
+lat: NACHMESSEN
+lng: NACHMESSEN
+website: "https://kasseturm.de/"
+about: Der Kasseturm am Goetheplatz 10 in Weimar gilt als ältester Studentenclub Deutschlands und richtet Partys aus.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://kasseturm.de/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: genres; Zweifel: Studentenclub, möglicherweise kein klassischer Nachtclubbetrieb.; danach nach de/thueringen/weimar/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://kasseturm.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

@@ -1,0 +1,19 @@
+# Geographenkeller e.V. – Greifswald
+id: geographenkellerev
+name: Geographenkeller e.V.
+city: Greifswald
+address: Friedrich-Ludwig-Jahn-Straße 16
+lat: NACHMESSEN
+lng: NACHMESSEN
+website: "https://geographenkeller.de/"
+genres: Rock, 80er/90er, Electro
+about: Der Geographenkeller e.V. ist ein Studentenclub in der Friedrich-Ludwig-Jahn-Straße 16 in Greifswald und besteht seit 1975.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://studentenclubs.net/greifswald/geographenkeller.html; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; danach nach de/mecklenburg-vorpommern/greifswald/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://geographenkeller.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

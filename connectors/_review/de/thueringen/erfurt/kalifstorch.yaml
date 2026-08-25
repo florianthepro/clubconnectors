@@ -1,0 +1,19 @@
+# Kalif Storch – Erfurt
+id: kalifstorch
+name: Kalif Storch
+city: Erfurt
+address: Zum Güterbahnhof 20
+lat: NACHMESSEN
+lng: NACHMESSEN
+website: "https://www.kalifstorch.com/"
+genres: Techno
+about: Der Kalif Storch ist ein Technoclub am Güterbahnhof in Erfurt.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.erfurt-tourismus.de/en/events-markets/nightclubs/kalif-storch/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; danach nach de/thueringen/erfurt/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.kalifstorch.com/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

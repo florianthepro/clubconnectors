@@ -1,0 +1,18 @@
+# cubes – Oldenburg
+id: cubes
+name: cubes
+city: Oldenburg
+lat: NACHMESSEN
+lng: NACHMESSEN
+website: "https://cubes-ol.de/"
+genres: House, Hip-Hop
+about: Das cubes ist ein Club in Oldenburg mit House, Hip-Hop, Classics und Musik der 2000er.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://cubes-ol.de/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address; danach nach de/niedersachsen/oldenburg/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://cubes-ol.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

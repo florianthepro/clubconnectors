@@ -1,0 +1,18 @@
+# Scarabée – Gießen
+id: scarabee
+name: Scarabée
+city: Gießen
+lat: NACHMESSEN
+lng: NACHMESSEN
+website: "https://www.scarabee.de/"
+genres: Rock, Electro, 80er/90er
+about: Das Scarabée ist ein Studentenkeller in Gießen, der seit 1962 besteht; musikalisch reicht das Spektrum von Rock und Metal über Elektro und Gothic bis zu 90er-Musik.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.scarabee.de/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address; danach nach de/hessen/giessen/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.scarabee.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

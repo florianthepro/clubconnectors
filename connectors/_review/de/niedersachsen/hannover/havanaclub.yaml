@@ -1,0 +1,10 @@
+# Havana Club – Hannover
+id: havanaclub
+name: Havana Club
+city: Hannover
+lat: NACHMESSEN
+lng: NACHMESSEN
+genres: Latin
+about: Der Havana Club ist ein Latino-Club in Hannover.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.visit-hannover.com/Nightlife/Clubs; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/niedersachsen/hannover/ verschieben"

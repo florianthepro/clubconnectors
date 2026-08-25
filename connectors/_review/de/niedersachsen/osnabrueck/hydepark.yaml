@@ -1,0 +1,10 @@
+# Hyde Park – Osnabrück
+id: hydepark
+name: Hyde Park
+city: Osnabrück
+lat: NACHMESSEN
+lng: NACHMESSEN
+genres: Rock
+about: Der Hyde Park ist ein Club in Osnabrück mit Rock und Pop, der die alternative Szene anspricht.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://osnabruecker-anzeiger.de/osnabrueck-clubs/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/niedersachsen/osnabrueck/ verschieben"

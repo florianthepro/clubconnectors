@@ -1,0 +1,9 @@
+# S 38 – Koblenz
+id: s38
+name: S 38
+city: Koblenz
+lat: NACHMESSEN
+lng: NACHMESSEN
+about: Das S 38 ist ein in Koblenz ansässiger Club.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.yelp.de/search?cflt=danceclubs&find_loc=Koblenz%2C+Rheinland-Pfalz; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; Zweifel: Nur über eine Yelp-Liste belegt; aktueller Status unklar.; danach nach de/rheinland-pfalz/koblenz/ verschieben"

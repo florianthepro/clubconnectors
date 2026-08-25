@@ -1,0 +1,10 @@
+# Conexión – Frankfurt am Main
+id: conexion
+name: Conexión
+city: Frankfurt am Main
+address: Am Industriehof 7-9
+lat: NACHMESSEN
+lng: NACHMESSEN
+about: Das Conexión ist ein Club in Frankfurt am Main, Am Industriehof 7-9.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://stadtleben.de/frankfurt/branchen/clubs-und-discos/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: website, genres; Zweifel: Nur über ein Branchenlisting belegt, aktueller Status unklar.; danach nach de/hessen/frankfurtammain/ verschieben"

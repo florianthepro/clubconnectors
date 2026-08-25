@@ -1,0 +1,9 @@
+# Station Endlos – Halle (Saale)
+id: stationendlos
+name: Station Endlos
+city: Halle (Saale)
+lat: NACHMESSEN
+lng: NACHMESSEN
+about: Die Station Endlos ist ein Kulturzentrum in Halle (Saale), in dem Clubnächte stattfinden.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.theclubmap.com/cities/halle/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; Zweifel: Kulturzentrum mit Clubnächten, kein klassischer Nachtclub.; danach nach de/sachsen-anhalt/halle/ verschieben"

@@ -1,0 +1,9 @@
+# Trompete – Berlin
+id: trompete
+name: Trompete
+city: Berlin
+lat: NACHMESSEN
+lng: NACHMESSEN
+about: Die Trompete wird im Berlin.de-Verzeichnis als Club in Berlin geführt.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.berlin.de/en/clubs/a-z/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; Zweifel: Nur Verzeichniseintrag; aktueller Betrieb unklar.; danach nach de/berlin/berlin/ verschieben"

@@ -1,0 +1,10 @@
+# Sandbar – Frankfurt am Main
+id: sandbar
+name: Sandbar
+city: Frankfurt am Main
+lat: NACHMESSEN
+lng: NACHMESSEN
+genres: Techno
+about: Die Sandbar ist ein Club in Frankfurt am Main, der in einer Techno-Club-Liste geführt wird.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.yelp.com/search?find_desc=Techno+Clubs&find_loc=Frankfurt%2C+Hessen; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; Zweifel: Nur über ein Yelp-Listing belegt; laut Name möglicherweise eher Bar.; danach nach de/hessen/frankfurtammain/ verschieben"

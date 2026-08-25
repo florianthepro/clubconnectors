@@ -1,0 +1,10 @@
+# Urban Spree – Berlin
+id: urbanspree
+name: Urban Spree
+city: Berlin
+lat: NACHMESSEN
+lng: NACHMESSEN
+genres: Live
+about: Urban Spree ist eine Galerie auf dem RAW-Gelände in Berlin, in der Konzerte und Partys stattfinden.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://de.wikipedia.org/wiki/RAW-Friedrichshain; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; Zweifel: Galerie und Veranstaltungsort auf dem RAW-Gelände, kein klassischer Nachtclub.; danach nach de/berlin/berlin/ verschieben"

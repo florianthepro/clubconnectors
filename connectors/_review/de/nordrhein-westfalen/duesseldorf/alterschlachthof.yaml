@@ -1,0 +1,10 @@
+# Alter Schlachthof – Düsseldorf
+id: alterschlachthof
+name: Alter Schlachthof
+city: Düsseldorf
+lat: NACHMESSEN
+lng: NACHMESSEN
+genres: Techno
+about: Der Alte Schlachthof in Düsseldorf ist eine Techno-Location in einem ehemaligen Schlachthof.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://techno-essentials.de/blogs/techno-essentials/techno-clubs-duesseldorf; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/nordrhein-westfalen/duesseldorf/ verschieben"

@@ -1,0 +1,10 @@
+# F-Haus – Jena
+id: fhaus
+name: F-Haus
+city: Jena
+lat: NACHMESSEN
+lng: NACHMESSEN
+genres: Live
+about: Das F-Haus in Jena bietet seit 1999 Studentenpartys und Konzerte.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.visit-jena.de/kultur/clubs-szene/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/thueringen/jena/ verschieben"

@@ -1,0 +1,9 @@
+# 19down – Essen
+id: 19down
+name: 19down
+city: Essen
+lat: NACHMESSEN
+lng: NACHMESSEN
+about: Das 19down in Essen ist ein Club, der in einem Keller betrieben wird.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.essen-magazin.de/beste-clubs-in-essen; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/nordrhein-westfalen/essen/ verschieben"

@@ -1,0 +1,19 @@
+# Club Savoy – Göttingen
+id: clubsavoy
+name: Club Savoy
+city: Göttingen
+address: Berliner Straße 5
+lat: NACHMESSEN
+lng: NACHMESSEN
+website: "https://club-savoy.com/"
+genres: Live
+about: Der Club Savoy ist ein Club im ehemaligen Landesbank-Gebäude in der Berliner Straße 5 in Göttingen und bietet Liveauftritte sowie einen VIP-Bereich.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.goettingen-tourismus.de/erleben/gastronomie/clubs-nightlife/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; danach nach de/niedersachsen/goettingen/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://club-savoy.com/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

@@ -1,0 +1,17 @@
+# Creme 21 - der Club – Heilbronn
+id: creme21derclub
+name: Creme 21 - der Club
+city: Heilbronn
+lat: NACHMESSEN
+lng: NACHMESSEN
+website: "https://www.creme21derclub.de/"
+about: Das Creme 21 ist eine Partylocation in Heilbronn und besteht seit 2000.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.creme21derclub.de/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, genres; danach nach de/baden-wuerttemberg/heilbronn/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.creme21derclub.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

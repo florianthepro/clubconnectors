@@ -1,0 +1,9 @@
+# Spirit – Dortmund
+id: spirit
+name: Spirit
+city: Dortmund
+lat: NACHMESSEN
+lng: NACHMESSEN
+about: Das Spirit ist ein Club und eine Diskothek in Dortmund.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.werkenntdenbesten.de/disco/dortmund; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/nordrhein-westfalen/dortmund/ verschieben"

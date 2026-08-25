@@ -1,0 +1,17 @@
+# Imperial - The Club – Mainz
+id: imperialtheclub
+name: Imperial - The Club
+city: Mainz
+lat: NACHMESSEN
+lng: NACHMESSEN
+website: "https://imperialmainz.de/"
+about: Das Imperial - The Club ist ein Nachtclub in Mainz.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://imperialmainz.de/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, genres; danach nach de/rheinland-pfalz/mainz/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://imperialmainz.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

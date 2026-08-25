@@ -1,0 +1,9 @@
+# Meyer – Siegen
+id: meyer
+name: Meyer
+city: Siegen
+lat: NACHMESSEN
+lng: NACHMESSEN
+about: Das Meyer ist eine Nightlife-Location in Siegen.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.wkh-siegen.de/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; Zweifel: Nur als Nightlife-Location gelistet, genaue Betriebsart unklar.; danach nach de/nordrhein-westfalen/siegen/ verschieben"

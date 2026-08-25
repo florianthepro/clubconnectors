@@ -1,0 +1,9 @@
+# Wald – Paderborn
+id: wald
+name: Wald
+city: Paderborn
+lat: NACHMESSEN
+lng: NACHMESSEN
+about: Das Wald ist ein kleiner Club am Marienplatz in Paderborn und Teil des Residenz-Komplexes.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.tripadvisor.com/Attractions-g187384-Activities-c20-t99-Paderborn_North_Rhine_Westphalia.html; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/nordrhein-westfalen/paderborn/ verschieben"

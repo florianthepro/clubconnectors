@@ -1,0 +1,9 @@
+# Der Turm – Halle (Saale)
+id: derturm
+name: Der Turm
+city: Halle (Saale)
+lat: NACHMESSEN
+lng: NACHMESSEN
+about: Der Turm ist ein Club in Halle an der Saale.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://halle365.de/veranstaltungsorte-clubs-diskotheken; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/sachsen-anhalt/halle/ verschieben"

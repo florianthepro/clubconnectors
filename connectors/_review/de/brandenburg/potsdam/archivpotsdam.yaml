@@ -1,0 +1,10 @@
+# Archiv Potsdam – Potsdam
+id: archivpotsdam
+name: Archiv Potsdam
+city: Potsdam
+lat: NACHMESSEN
+lng: NACHMESSEN
+genres: Live
+about: Das Archiv Potsdam ist ein Kulturhaus in Potsdam, in dem Konzerte und Clubnächte stattfinden.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.facebook.com/archivpdm/photos/a.686474814754981/1969733063095810/?type=3&is_lookaside=1; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; Zweifel: Kulturhaus mit Clubnächten, kein regulärer Nachtclub.; danach nach de/brandenburg/potsdam/ verschieben"

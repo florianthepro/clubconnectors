@@ -1,0 +1,10 @@
+# Juice Club – Frankfurt am Main
+id: juiceclub
+name: Juice Club
+city: Frankfurt am Main
+address: Alte Gasse 5
+lat: NACHMESSEN
+lng: NACHMESSEN
+about: Der Juice Club ist ein Club in der Alte Gasse 5 in Frankfurt am Main.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://stadtleben.de/frankfurt/branchen/clubs-und-discos/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: website, genres; danach nach de/hessen/frankfurtammain/ verschieben"

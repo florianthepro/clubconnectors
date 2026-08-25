@@ -1,0 +1,9 @@
+# The Star – Bremen
+id: thestar
+name: The Star
+city: Bremen
+lat: NACHMESSEN
+lng: NACHMESSEN
+about: Das The Star ist ein Club nahe dem Hauptbahnhof in Bremen.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.bremen.de/tanzen-und-feiern; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/bremen/bremen/ verschieben"

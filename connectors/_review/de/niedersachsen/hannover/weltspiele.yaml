@@ -1,0 +1,10 @@
+# Weltspiele – Hannover
+id: weltspiele
+name: Weltspiele
+city: Hannover
+lat: NACHMESSEN
+lng: NACHMESSEN
+genres: Techno
+about: Das Weltspiele ist ein Techno-Club in Hannover mit zwei Floors und Platz für bis zu 500 Gäste.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.theclubmap.com/cities/hannover/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/niedersachsen/hannover/ verschieben"

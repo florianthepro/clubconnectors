@@ -1,0 +1,9 @@
+# Forum – Trier
+id: forumtrier
+name: Forum
+city: Trier
+lat: NACHMESSEN
+lng: NACHMESSEN
+about: Das Forum in Trier wird in einem Verzeichnis als Club geführt.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://veranstaltungen.meinestadt.de/trier/locations/clubs-diskotheken; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; Zweifel: Nur über ein Listing belegt; aktueller Status unklar.; danach nach de/rheinland-pfalz/trier/ verschieben"

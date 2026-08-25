@@ -1,0 +1,18 @@
+# Bergwerk Club – Potsdam
+id: bergwerkclub
+name: Bergwerk Club
+city: Potsdam
+address: Hegelallee 5
+lat: NACHMESSEN
+lng: NACHMESSEN
+website: "https://www.bergwerk-club.de/"
+about: Der Bergwerk Club in der Hegelallee 5 in Potsdam vereint Club, Bar und Lounge und richtet Partys aus.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.bergwerk-club.de/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: genres; danach nach de/brandenburg/potsdam/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.bergwerk-club.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

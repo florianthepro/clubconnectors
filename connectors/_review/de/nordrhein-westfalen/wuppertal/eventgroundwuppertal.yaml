@@ -1,0 +1,17 @@
+# Eventground Wuppertal – Wuppertal
+id: eventgroundwuppertal
+name: Eventground Wuppertal
+city: Wuppertal
+lat: NACHMESSEN
+lng: NACHMESSEN
+website: "https://www.eventground-wuppertal.de/"
+about: Der Eventground Wuppertal ist eine Event- und Partylocation in Wuppertal.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.eventground-wuppertal.de/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, genres; Zweifel: Als Event- und Partylocation geführt; evtl. kein regulärer Nachtclub.; danach nach de/nordrhein-westfalen/wuppertal/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.eventground-wuppertal.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

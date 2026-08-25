@@ -1,0 +1,18 @@
+# Kulttempel – Oberhausen
+id: kulttempel
+name: Kulttempel
+city: Oberhausen
+address: Muelheimer Str. 24
+lat: NACHMESSEN
+lng: NACHMESSEN
+website: "https://www.kulttempel.com/"
+about: Der Kulttempel ist eine Diskothek mit fünf Areas in der Mülheimer Straße 24 in Oberhausen.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.kulttempel.com/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: genres; danach nach de/nordrhein-westfalen/oberhausen/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.kulttempel.com/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

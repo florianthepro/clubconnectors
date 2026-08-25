@@ -1,0 +1,19 @@
+# Kulturfabrik – Krefeld
+id: kulturfabrik
+name: Kulturfabrik
+city: Krefeld
+address: Dießemer Str. 13
+lat: NACHMESSEN
+lng: NACHMESSEN
+website: "http://www.kulturfabrik-krefeld.de/"
+genres: Live
+about: Die Kulturfabrik ist ein Kulturzentrum in der Dießemer Straße 13 in Krefeld mit Partys und Konzerten.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.krefeld.de/nachtleben; auch gelistet als: KuFa; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Zweifel: Kulturzentrum mit Partys und Konzerten, kein reiner Nachtclub.; danach nach de/nordrhein-westfalen/krefeld/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "http://www.kulturfabrik-krefeld.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

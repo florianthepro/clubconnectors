@@ -1,0 +1,9 @@
+# Soulcat – Berlin
+id: soulcat
+name: Soulcat
+city: Berlin
+lat: NACHMESSEN
+lng: NACHMESSEN
+about: Das Soulcat ist ein Club in Berlin und im Verzeichnis von Berlin.de gelistet.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.berlin.de/en/clubs/a-z/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/berlin/berlin/ verschieben"

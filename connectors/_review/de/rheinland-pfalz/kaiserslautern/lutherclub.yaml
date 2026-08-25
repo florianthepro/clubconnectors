@@ -1,0 +1,18 @@
+# Luther Club – Kaiserslautern
+id: lutherclub
+name: Luther Club
+city: Kaiserslautern
+address: Martin-Luther-Straße 8
+lat: NACHMESSEN
+lng: NACHMESSEN
+website: "https://lutherclub.de/"
+about: Der Luther Club ist ein Eventclub mit Mottopartys und DJ-Nächten in der Martin-Luther-Straße 8 in Kaiserslautern.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://lutherclub.de/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: genres; danach nach de/rheinland-pfalz/kaiserslautern/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://lutherclub.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

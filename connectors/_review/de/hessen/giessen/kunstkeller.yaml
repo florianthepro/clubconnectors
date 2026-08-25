@@ -1,0 +1,9 @@
+# Kunstkeller – Gießen
+id: kunstkeller
+name: Kunstkeller
+city: Gießen
+lat: NACHMESSEN
+lng: NACHMESSEN
+about: Der Kunstkeller ist ein Kellerclub in der Stadt Gießen.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.yelp.com/search?find_desc=Club+&+Disco=&find_loc=Gie%C3%9Fen%2C+Hessen%2C+Germany; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/hessen/giessen/ verschieben"

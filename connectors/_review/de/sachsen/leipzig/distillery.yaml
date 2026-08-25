@@ -1,0 +1,10 @@
+# Distillery – Leipzig
+id: distillery
+name: Distillery
+city: Leipzig
+lat: NACHMESSEN
+lng: NACHMESSEN
+genres: Techno
+about: Die Distillery in Leipzig gilt als ältester Technoclub Ostdeutschlands.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.leipzig-leben.de/veranstaltungen/nachtleben/clubs/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/sachsen/leipzig/ verschieben"

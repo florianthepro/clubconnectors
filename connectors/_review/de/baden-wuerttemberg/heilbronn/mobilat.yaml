@@ -1,0 +1,19 @@
+# Mobilat – Heilbronn
+id: mobilat
+name: Mobilat
+city: Heilbronn
+address: Salzstraße 27
+lat: NACHMESSEN
+lng: NACHMESSEN
+website: "https://mobilat.club/"
+genres: Techno, Hip-Hop, Drum and Bass
+about: Das Mobilat ist ein Club in der Salzstraße 27 in Heilbronn mit Techno, Hip-Hop und Drum and Bass sowie Konzerten.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://diginights.com/en/location/mobilat-heilbronn; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; danach nach de/baden-wuerttemberg/heilbronn/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://mobilat.club/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

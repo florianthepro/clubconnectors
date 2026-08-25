@@ -1,0 +1,18 @@
+# Turbinenhalle – Oberhausen
+id: turbinenhalle
+name: Turbinenhalle
+city: Oberhausen
+address: Im Lipperfeld 23
+lat: NACHMESSEN
+lng: NACHMESSEN
+website: "https://turbinenhalle.de/"
+about: Die Turbinenhalle ist eine Veranstaltungshalle mit Disco-Partys im Lipperfeld 23 in Oberhausen.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.oberhausen.de/de/index/tourismus-freizeit/freizeit-und-erholung/unterhaltung-nachtleben/diskotheken.php; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: genres; Zweifel: Veranstaltungshalle mit Partys, kein klassischer Nachtclub.; danach nach de/nordrhein-westfalen/oberhausen/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://turbinenhalle.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

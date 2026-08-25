@@ -1,0 +1,10 @@
+# Metropol – Berlin
+id: metropol
+name: Metropol
+city: Berlin
+lat: NACHMESSEN
+lng: NACHMESSEN
+genres: Live
+about: Das Metropol ist ein Club und Konzerthaus in Berlin.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.berlin.de/en/clubs/a-z/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; Zweifel: Auch als Konzerthaus geführt; nur aus Verzeichnis bekannt.; danach nach de/berlin/berlin/ verschieben"

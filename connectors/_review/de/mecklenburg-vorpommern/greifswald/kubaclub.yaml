@@ -1,0 +1,10 @@
+# KuBa Club – Greifswald
+id: kubaclub
+name: KuBa Club
+city: Greifswald
+address: Osnabrücker Str. 3
+lat: NACHMESSEN
+lng: NACHMESSEN
+about: Der KuBa Club ist ein Nachtclub in der Osnabrücker Straße 3 in Greifswald.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.golocal.de/greifswald/nachtclubs/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: website, genres; danach nach de/mecklenburg-vorpommern/greifswald/ verschieben"

@@ -1,0 +1,10 @@
+# OST – Berlin
+id: ost
+name: OST
+city: Berlin
+lat: NACHMESSEN
+lng: NACHMESSEN
+genres: Techno
+about: Das OST ist ein Techno-Club im Berliner Stadtteil Friedrichshain.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.berlintourism.org/best-techno-clubs-berlin/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/berlin/berlin/ verschieben"

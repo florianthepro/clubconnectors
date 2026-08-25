@@ -1,0 +1,9 @@
+# Live Night – Koblenz
+id: livenight
+name: Live Night
+city: Koblenz
+lat: NACHMESSEN
+lng: NACHMESSEN
+about: Der Club Live Night befindet sich in Koblenz.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.yelp.de/search?cflt=danceclubs&find_loc=Koblenz%2C+Rheinland-Pfalz; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/rheinland-pfalz/koblenz/ verschieben"

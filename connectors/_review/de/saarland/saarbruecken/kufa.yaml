@@ -1,0 +1,9 @@
+# Kufa – Saarbrücken
+id: kufa
+name: Kufa
+city: Saarbrücken
+lat: NACHMESSEN
+lng: NACHMESSEN
+about: Die Kufa ist eine Diskothek in Saarbrücken.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://partyzettel.de/diskotheken/stadt/saarbruecken/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; Zweifel: Nur als Listing-Eintrag belegt; aktueller Status unklar.; danach nach de/saarland/saarbruecken/ verschieben"

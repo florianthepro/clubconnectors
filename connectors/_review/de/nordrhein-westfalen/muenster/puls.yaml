@@ -1,0 +1,9 @@
+# PULS – Münster
+id: puls
+name: PULS
+city: Münster
+lat: NACHMESSEN
+lng: NACHMESSEN
+about: Das PULS ist ein Club am alten Güterbahnhof in Münster.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.muenster-geht-aus.de/tipps/clubs-in-muenster.html; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/nordrhein-westfalen/muenster/ verschieben"

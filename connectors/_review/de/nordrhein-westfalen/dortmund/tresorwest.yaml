@@ -1,0 +1,19 @@
+# Tresor.West – Dortmund
+id: tresorwest
+name: Tresor.West
+city: Dortmund
+address: Phoenixplatz 4
+lat: NACHMESSEN
+lng: NACHMESSEN
+website: "https://tresorwest.com/"
+genres: Techno
+about: Tresor.West ist ein Techno-Club mit industriellem Ambiente am Phoenixplatz 4 in Dortmund.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://tresorwest.com/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; danach nach de/nordrhein-westfalen/dortmund/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://tresorwest.com/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

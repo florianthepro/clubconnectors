@@ -1,0 +1,10 @@
+# Yachtklub – Frankfurt am Main
+id: yachtklub
+name: Yachtklub
+city: Frankfurt am Main
+lat: NACHMESSEN
+lng: NACHMESSEN
+genres: Mixed
+about: Der Yachtklub in Frankfurt am Main veranstaltet Partys auf dem Main mit gemischter Musik.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://frankfurtrestaurants.de/en/behind-these-doors-the-party-continues-frankfurts-8-best-clubs/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; Zweifel: Partys auf dem Main – evtl. Schiffs- oder Open-Air-Location statt festem Clubgebäude.; danach nach de/hessen/frankfurtammain/ verschieben"

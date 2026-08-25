@@ -1,0 +1,9 @@
+# Tollhaus – Berlin
+id: tollhaus
+name: Tollhaus
+city: Berlin
+lat: NACHMESSEN
+lng: NACHMESSEN
+about: Das Tollhaus ist ein Club im Berliner Ortsteil Lichtenberg.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.berlin.de/en/clubs/lichtenberg/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/berlin/berlin/ verschieben"

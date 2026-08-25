@@ -1,30 +1,30 @@
 # TODO – Clubliste Deutschland
 
-Stand: 2026-08-25 · **244** auf der Karte · **14** in Prüfung (`_review`) · **456** offen
+Stand: 2026-08-25 · **244** auf der Karte · **470** in Prüfung (`_review`) · **0** offen
 
 Legende:
 
 - `[x]` auf der Karte – Connector liegt in `connectors/de/…`
-- `[~]` Entwurf in `connectors/_review/…` – Fakten und Koordinate nachprüfen, dann verschieben
-- `[ ]` offen – noch kein Connector; die angegebene Quelle ist die Fundstelle der Recherche und muss vor dem Anlegen einzeln geprüft werden
+- `[~]` Entwurf in `connectors/_review/…` – Fakten und Koordinate einzeln nachprüfen, dann verschieben; die Fundstelle der Recherche steht im `source`-Feld der Datei
+- `[ ]` offen – noch kein Connector; neue Funde bitte mit Quelle hier eintragen
 
-Zur Vollständigkeit: Die offenen Einträge stammen aus einer systematischen Websuche über alle
+Zur Vollständigkeit: Die Entwürfe stammen aus einer systematischen Websuche über alle
 16 Bundesländer (Großstädte und Mittelstädte, je Stadt mehrere unabhängige Suchanfragen).
 Eine garantierte Vollständigkeit gibt es bei Clubs nicht – Läden eröffnen und schließen laufend,
 und kleinere Orte sind nur punktuell abgedeckt. Fehlende Clubs bitte einfach hier ergänzen.
 Jeder Eintrag wird vor Aufnahme in die Karte einzeln geprüft (siehe SPEC.md) – nichts Ungeprüftes
 geht auf die Karte.
 
-## Baden-Württemberg (80 auf Karte · 2 in Prüfung · 20 offen)
+## Baden-Württemberg (80 auf Karte · 22 in Prüfung · 0 offen)
 
 ### Baden-Baden
 
-- [ ] Charlys Fun Factory – Diskothek, Raum Baden-Baden (Yelp) · Quelle: https://www.yelp.com/search?find_desc=Disco+Und+Club&find_loc=Baden-Baden%2C+Baden-W%C3%BCrttemberg
-- [ ] Club Bernstein – Club im Casino, samstags · Quelle: https://cityfan.de/baden-baden/die-besten-bars-und-clubs-in-baden-badenbars-und-clubs-fuer-lange-naechte-in-baden-baden/
-- [ ] CODEX-Club – Club (Yelp-Listing) · Quelle: https://www.yelp.com/search?find_desc=Disco+Und+Club&find_loc=Baden-Baden%2C+Baden-W%C3%BCrttemberg
-- [ ] Equipage – Tanz- und Musikbar im Kurhaus (https://equipage.de/) · Quelle: https://equipage.de/
-- [ ] Max's – legendaerer Club, Music Specials · Quelle: https://cityfan.de/baden-baden/die-besten-bars-und-clubs-in-baden-badenbars-und-clubs-fuer-lange-naechte-in-baden-baden/
-- [ ] Scavi Club Lounge – Club-Lounge (Yelp-Listing) · Quelle: https://www.yelp.com/search?find_desc=Disco+Und+Club&find_loc=Baden-Baden%2C+Baden-W%C3%BCrttemberg
+- [~] Charlys Fun Factory (`_review`: `charlysfunfactory`)
+- [~] Club Bernstein (`_review`: `clubbernstein`)
+- [~] CODEX-Club (`_review`: `codexclub`)
+- [~] Equipage (`_review`: `equipage`)
+- [~] Max's (`_review`: `maxs`)
+- [~] Scavi Club Lounge (`_review`: `scaviclublounge`)
 
 ### Esslingen am Neckar
 
@@ -60,11 +60,11 @@ geht auf die Karte.
 
 ### Heilbronn
 
-- [ ] Creme 21 - der Club – Partylocation seit 2000 (https://www.creme21derclub.de/) · Quelle: https://www.creme21derclub.de/
-- [ ] Gartenlaube – Kultlocation seit 40 Jahren (https://www.gartenlaube.com/) · Quelle: https://www.gartenlaube.com/
-- [ ] Green Door Club – Mixed Music, Ue30, Latin und Urban (https://www.greendoor-hn.de/) · Quelle: https://www.greendoor-hn.de/
-- [ ] Mobilat – Techno, HipHop, DnB, Konzerte (Salzstraße 27; https://mobilat.club/) · Quelle: https://diginights.com/en/location/mobilat-heilbronn
-- [ ] MusikPark Heilbronn – vier Floors, viele Genres · Quelle: https://www.echo24.de/heilbronn/heilbronn-party-feiern-gehen-clubs-discos-tanzen-ausgehen-12278099.html
+- [~] Creme 21 - der Club (`_review`: `creme21derclub`)
+- [~] Gartenlaube (`_review`: `gartenlaube`)
+- [~] Green Door Club (`_review`: `greendoorclub`)
+- [~] Mobilat (`_review`: `mobilat`)
+- [~] MusikPark Heilbronn (`_review`: `musikparkheilbronn`)
 
 ### Karlsruhe
 
@@ -103,18 +103,18 @@ geht auf die Karte.
 
 ### Offenburg
 
-- [ ] Apfelbaum – Schlager/Party-Disco, Raum Ortenau · Quelle: https://discotheken-clubs-offenburg.de/partys/
-- [ ] Etage Eins (E1) – Grossraumdisko, mehrere Themenbereiche · Quelle: https://www.reservix.de/offenburg/venue/diskothek-etage-eins/v1903
-- [ ] Freiraum Offenburg – Disco- und Eventlocation, Afterwork · Quelle: https://discotheken-clubs-offenburg.de/freiraum-offenburg/
-- [ ] Kessel (JUZE) – Jugendzentrum mit Partys/Events · Quelle: https://veranstaltungen.meinestadt.de/offenburg/location-detail/1198322
-- [ ] Waaahnsinn – Disco 25-40, Raum Offenburg/Ortenau · Quelle: https://discotheken-clubs-offenburg.de/partys/
+- [~] Apfelbaum (`_review`: `apfelbaum`)
+- [~] Etage Eins (`_review`: `etageeins`)
+- [~] Freiraum Offenburg (`_review`: `freiraumoffenburg`)
+- [~] Kessel (`_review`: `kessel`)
+- [~] Waaahnsinn (`_review`: `waaahnsinn`)
 
 ### Pforzheim
 
-- [ ] C-Club Diskothek – Diskothek, frueher Hypnosis (Bahnhofstraße 12) · Quelle: https://www.golocal.de/pforzheim/diskotheken/c-club-diskothek-1C2D/
-- [ ] Club 27 - Shisha Cafe – Shisha-Cafe mit Clubbetrieb (Westliche Karl-Friedrich-Straße 3) · Quelle: https://www.dasoertliche.de/Themen/Diskotheken-und-Clubs/Pforzheim.html
-- [ ] Flash Club (Disko Flash) – Diskothek · Quelle: https://www.dasoertliche.de/Themen/Diskotheken-und-Clubs/Pforzheim.html
-- [ ] Lux Life Club – Club/Eventlocation (Goethestraße 19) · Quelle: https://www.eventbrite.de/d/germany--pforzheim--185761/parties/
+- [~] C-Club Diskothek (`_review`: `cclubdiskothek`)
+- [~] Club 27 - Shisha Cafe (`_review`: `club27shishacafe`)
+- [~] Flash Club (`_review`: `flashclub`)
+- [~] Lux Life Club (`_review`: `luxlifeclub`)
 
 ### Ravensburg
 
@@ -167,7 +167,7 @@ geht auf die Karte.
 - [x] Jazzkeller Sauschdall (`jazzkellersauschdall`)
 - [~] Roxy Kulturzentrum (`_review`: `roxykulturzentrum`)
 
-## Bayern (109 auf Karte · 0 in Prüfung · 15 offen)
+## Bayern (109 auf Karte · 15 in Prüfung · 0 offen)
 
 ### Aschaffenburg
 
@@ -208,14 +208,14 @@ geht auf die Karte.
 
 ### Ingolstadt
 
-- [ ] Discothek Amadeus – klassische Diskothek (Am Stein 9) · Quelle: https://partyzettel.de/diskotheken/stadt/ingolstadt/
-- [ ] Eventhalle Westpark – Eventhalle mit Partynaechten · Quelle: https://allevents.in/ingolstadt/parties
-- [ ] MIA.zwei::club&lounge – Club und Lounge (Poppenstraße 1) · Quelle: https://partyzettel.de/diskotheken/stadt/ingolstadt/
-- [ ] Mollyhaus – Nachtclub, von Frauen gefuehrt (Bunsenstraße 23) · Quelle: https://www.yelp.com/search?find_desc=Disco+Und+Club&find_loc=Ingolstadt%2C+Bayern
-- [ ] Musikpark Ingolstadt – Grossraumdiskothek (Moosbichelstraße 6) · Quelle: https://partyzettel.de/diskotheken/stadt/ingolstadt/
-- [ ] Ohrakel – Musikclub mit Partys (Elisabethstraße 9a/b) · Quelle: https://partyzettel.de/diskotheken/stadt/ingolstadt/
-- [ ] Spacestation Ks 25 – beliebter Nachtclub (Klein-Salvator-Straße 25) · Quelle: https://www.yelp.com/search?find_desc=Disco+Und+Club&find_loc=Ingolstadt%2C+Bayern
-- [ ] Touch Club – Club (Verzeichniseintrag) (Jesuitenstraße 3) · Quelle: https://partyzettel.de/diskotheken/stadt/ingolstadt/
+- [~] Discothek Amadeus (`_review`: `discothekamadeus`)
+- [~] Eventhalle Westpark (`_review`: `eventhallewestpark`)
+- [~] MIA.zwei::club&lounge (`_review`: `miazweiclublounge`)
+- [~] Mollyhaus (`_review`: `mollyhaus`)
+- [~] Musikpark Ingolstadt (`_review`: `musikparkingolstadt`)
+- [~] Ohrakel (`_review`: `ohrakel`)
+- [~] Spacestation Ks 25 (`_review`: `spacestationks25`)
+- [~] Touch Club (`_review`: `touchclub`)
 
 ### Kempten
 
@@ -323,13 +323,13 @@ geht auf die Karte.
 
 ### Rosenheim
 
-- [ ] BavaMia Club – zentraler Club, Nachfolger des Wuid · Quelle: https://rosenheimsbeste.de/localities/die-besten-clubs/
-- [ ] Gatsby – junger Club, mehrere Floors · Quelle: https://festlguide.de/die-besten-party-locations-in-rosenheim/
-- [ ] Hole Club – kleiner intimer Techno-Club · Quelle: https://rosenheimsbeste.de/localities/die-besten-clubs/
-- [ ] Loft Club – Studenten-, Motto- und Ue30-Partys · Quelle: https://rosenheimsbeste.de/localities/die-besten-clubs/
-- [ ] Meisterei – House und Techno mit Visuals · Quelle: https://rosenheimsbeste.de/localities/die-besten-clubs/
-- [ ] P2 Club – Rockmusik-Club · Quelle: https://rosenheimsbeste.de/localities/die-besten-clubs/
-- [ ] Palais Privat Club & Bar – Privatclub und Bar (https://palaisclub.de) · Quelle: https://palaisclub.de/out-of-rosenheim-2/
+- [~] BavaMia Club (`_review`: `bavamiaclub`)
+- [~] Gatsby (`_review`: `gatsby`)
+- [~] Hole Club (`_review`: `holeclub`)
+- [~] Loft Club (`_review`: `loftclub`)
+- [~] Meisterei (`_review`: `meisterei`)
+- [~] P2 Club (`_review`: `p2club`)
+- [~] Palais Privat Club & Bar (`_review`: `palaisprivatclubbar`)
 
 ### Würzburg
 
@@ -338,7 +338,7 @@ geht auf die Karte.
 - [x] Odeon Lounge (`odeonlounge`)
 - [x] Zauberberg (`zauberbergwuerzb`)
 
-## Berlin (55 auf Karte · 2 in Prüfung · 31 offen)
+## Berlin (55 auf Karte · 33 in Prüfung · 0 offen)
 
 ### Berlin
 
@@ -397,615 +397,615 @@ geht auf die Karte.
 - [x] Zenner (`zenner`)
 - [x] Zukunft am Ostkreuz (`zukunftamostkreuz`)
 - [x] Zur Klappe (`zurklappe`)
+- [~] 808 Berlin (`_review`: `808berlin`)
+- [~] Anomalie Art Club (`_review`: `anomalieartclub`)
+- [~] Haubentaucher (`_review`: `haubentaucher`)
+- [~] Ipse (`_review`: `ipse`)
+- [~] Kosmonaut (`_review`: `kosmonaut`)
+- [~] L.U.X. (`_review`: `lux`)
+- [~] Lokschuppen Berlin (`_review`: `lokschuppenberlin`)
+- [~] Loophole (`_review`: `loophole`)
+- [~] M-bia (`_review`: `mbia`)
+- [~] M01 (`_review`: `m01`)
+- [~] MAAYA (`_review`: `maaya`)
+- [~] Matrix Club (`_review`: `matrixclub`)
+- [~] Metropol (`_review`: `metropol`)
+- [~] Monarch (`_review`: `monarch`)
+- [~] OST (`_review`: `ost`)
+- [~] OXI (`_review`: `oxi`)
+- [~] Prince Charles (`_review`: `princecharles`)
 - [~] Ritter Butzke (`_review`: `ritterbutzke`)
 - [~] RSO.Berlin (Revier Südost) (`_review`: `rsoberlinreviersuedost`)
-- [ ] 808 Berlin – Club laut Berlin.de-Verzeichnis · Quelle: https://www.berlin.de/en/clubs/a-z/
-- [ ] Anomalie Art Club – Art- und Musikclub, Prenzlauer Berg (Storkower Straße 123, 10407 Berlin) · Quelle: https://feverup.com/en/berlin/venue/anomalie-art-club
-- [ ] Haubentaucher – Pool-Club/Biergarten, RAW-Gelände · Quelle: https://de.wikipedia.org/wiki/RAW-Friedrichshain
-- [ ] Ipse – Open-Air-Club am Wasser · Quelle: https://www.iheartberlin.de/berlins-triangle-of-dancing-bar-club-guide-for-friedrichshain-treptow-kreuzberg/
-- [ ] Kosmonaut – Club in Lichtenberg · Quelle: https://www.berlin.de/en/clubs/lichtenberg/
-- [ ] L.U.X. – Club laut Berlin.de-Verzeichnis · Quelle: https://www.berlin.de/en/clubs/a-z/
-- [ ] Lokschuppen Berlin – Ehem. Suicide Circus, RAW-Gelände (Revaler Straße 99, 10245 Berlin) · Quelle: https://feverup.com/en/berlin/venue/suicide-circus
-- [ ] Loophole – Kleiner Underground-Club, Neukölln (Boddinstraße 60, 12053 Berlin) · Quelle: https://theculturetrip.com/europe/germany/articles/the-best-nightclubs-in-and-around-neukolln
-- [ ] M-bia – Club laut Berlin.de-Verzeichnis · Quelle: https://www.berlin.de/en/clubs/a-z/
-- [ ] M01 – Club laut Berlin.de-Verzeichnis · Quelle: https://www.berlin.de/en/clubs/a-z/
-- [ ] MAAYA – Neuer Techno-Club · Quelle: https://ra.co/guides/clubs-in-berlin
-- [ ] Matrix Club – Großclub unter der Warschauer Straße (Warschauer Platz 18, Berlin) · Quelle: https://en.wikipedia.org/wiki/Matrix_(club)
-- [ ] Metropol – Club/Konzerthaus laut Berlin.de-Verzeichnis · Quelle: https://www.berlin.de/en/clubs/a-z/
-- [ ] Monarch – Bar/Club am Kottbusser Tor · Quelle: https://www.berlin.de/en/clubs/a-z/
-- [ ] OST – Techno-Club in Friedrichshain · Quelle: https://www.berlintourism.org/best-techno-clubs-berlin/
-- [ ] OXI – Techno/House, indoor und outdoor · Quelle: https://ra.co/guides/clubs-in-berlin
-- [ ] Prince Charles – Club laut Berlin.de-Verzeichnis · Quelle: https://www.berlin.de/en/clubs/a-z/
-- [ ] Salon zur Wilden Renate – Bleibt 2026 geöffnet, Friedrichshain · Quelle: https://www.the-berliner.com/english-news-berlin/club-renate-open/
-- [ ] SchwuZ – Queerer Club in Neukölln · Quelle: https://www.timeout.com/berlin/nightlife/schwuz
-- [ ] Silverwings Club – Club laut Berlin.de-Verzeichnis · Quelle: https://www.berlin.de/en/clubs/a-z/
-- [ ] Soulcat – Club laut Berlin.de-Verzeichnis · Quelle: https://www.berlin.de/en/clubs/a-z/
-- [ ] Surprise Club – Club laut Berlin.de-Verzeichnis · Quelle: https://www.berlin.de/en/clubs/a-z/
-- [ ] Südblock – Queerer Party-/Eventort, Kottbusser Tor · Quelle: https://www.berlin.de/en/clubs/friedrichshain-kreuzberg/
-- [ ] The Pearl – Club laut Berlin.de-Verzeichnis · Quelle: https://www.berlin.de/en/clubs/a-z/
-- [ ] Tollhaus – Club in Lichtenberg · Quelle: https://www.berlin.de/en/clubs/lichtenberg/
-- [ ] Trompete – Club laut Berlin.de-Verzeichnis · Quelle: https://www.berlin.de/en/clubs/a-z/
-- [ ] Urban Spree – Galerie/Konzerte/Partys, RAW-Gelände · Quelle: https://de.wikipedia.org/wiki/RAW-Friedrichshain
-- [ ] Velvet – Club in Neukölln · Quelle: https://theculturetrip.com/europe/germany/articles/the-best-nightclubs-in-and-around-neukolln
-- [ ] Weißer Hase – Club auf dem RAW-Gelände · Quelle: https://de.wikipedia.org/wiki/RAW-Friedrichshain
-- [ ] Wild At Heart – Punk/Rock-Liveclub · Quelle: https://theculturetrip.com/europe/germany/articles/the-best-nightclubs-in-and-around-neukolln
-- [ ] Zita – Club laut Berlin.de-Verzeichnis · Quelle: https://www.berlin.de/en/clubs/a-z/
+- [~] Salon zur Wilden Renate (`_review`: `salonzurwildenrenate`)
+- [~] SchwuZ (`_review`: `schwuz`)
+- [~] Silverwings Club (`_review`: `silverwingsclub`)
+- [~] Soulcat (`_review`: `soulcat`)
+- [~] Surprise Club (`_review`: `surpriseclub`)
+- [~] Südblock (`_review`: `suedblock`)
+- [~] The Pearl (`_review`: `thepearl`)
+- [~] Tollhaus (`_review`: `tollhaus`)
+- [~] Trompete (`_review`: `trompete`)
+- [~] Urban Spree (`_review`: `urbanspree`)
+- [~] Velvet (`_review`: `velvet`)
+- [~] Weißer Hase (`_review`: `weisserhase`)
+- [~] Wild At Heart (`_review`: `wildatheart`)
+- [~] Zita (`_review`: `zita`)
 
-## Brandenburg (0 auf Karte · 0 in Prüfung · 10 offen)
+## Brandenburg (0 auf Karte · 10 in Prüfung · 0 offen)
 
 ### Cottbus
 
-- [ ] Alte Chemiefabrik – Club in alter Fabrikhalle, Partys und Konzerte · Quelle: https://partyzettel.de/diskotheken/stadt/cottbus/
-- [ ] Chekov – Alternativer Kultur- und Konzertclub · Quelle: https://www.theclubmap.com/cities/cottbus/
-- [ ] Fritz Disco (Spreeauenpark) – Diskothek im Spreeauenpark · Quelle: https://partyzettel.de/diskotheken/stadt/cottbus/
-- [ ] Glad-House – Jugendkulturzentrum, Konzerte und Themenpartys (Straße der Jugend 16; https://www.glad.house/) · Quelle: https://www.glad.house/
-- [ ] Muggefug e.V. – Studentischer Kulturclub am BTU-Campus, Konzerte und Partys · Quelle: https://www.b-tu.de/unileben/kultur-freizeit
+- [~] Alte Chemiefabrik (`_review`: `altechemiefabrik`)
+- [~] Chekov (`_review`: `chekov`)
+- [~] Fritz Disco (`_review`: `fritzdisco`)
+- [~] Glad-House (`_review`: `gladhouse`)
+- [~] Muggefug e.V. (`_review`: `muggefugev`)
 
 ### Potsdam
 
-- [ ] Archiv Potsdam – Kulturhaus mit Konzerten und Clubnaechten · Quelle: https://www.facebook.com/archivpdm/photos/a.686474814754981/1969733063095810/?type=3&is_lookaside=1
-- [ ] Bergwerk Club – Club, Bar und Lounge, Partys jedes Wochenende (Hegelallee 5; https://www.bergwerk-club.de/) · Quelle: https://www.bergwerk-club.de/
-- [ ] freiLand – Zentrum fuer Jugendkultur, Politik und Partys (Friedrich-Engels-Straße 22) · Quelle: https://www.potsdam-wiki.de/Freiland_Potsdam
-- [ ] Spartacus (im freiLand) – Club fuer Techno, Goa, Hip-Hop, Konzerte · Quelle: https://www.potsdam-wiki.de/Freiland_Potsdam
-- [ ] Waschhaus – Groesster Club Potsdams, Kulturzentrum, Arena bis 1200 Gaeste (https://www.waschhaus.de/veranstaltungen) · Quelle: https://en.wikipedia.org/wiki/Waschhaus
+- [~] Archiv Potsdam (`_review`: `archivpotsdam`)
+- [~] Bergwerk Club (`_review`: `bergwerkclub`)
+- [~] freiLand (`_review`: `freiland`)
+- [~] Spartacus (`_review`: `spartacus`)
+- [~] Waschhaus (`_review`: `waschhaus`)
 
-## Bremen (0 auf Karte · 0 in Prüfung · 17 offen)
+## Bremen (0 auf Karte · 17 in Prüfung · 0 offen)
 
 ### Bremen
 
-- [ ] 2RaumClub – House/Black/EDM, Fr+Sa ab 23 Uhr · Quelle: https://www.bremen.de/tanzen-und-feiern
-- [ ] Golden City – Venue fuer Techno/House-Events · Quelle: https://techno-essentials.de/pages/techno-events-bremen
-- [ ] La Viva – Schickere Diskothek · Quelle: https://www.bremen.de/tanzen-und-feiern
-- [ ] Lila Eule – Club fuer Techno/House-Events · Quelle: https://techno-essentials.de/pages/techno-events-bremen
-- [ ] Magazinkeller – Club in der Findorffstrasse · Quelle: https://www.jevena.com/nightclub/in/bremen
-- [ ] Modernes – Club und Konzertlocation · Quelle: https://www.bremen.de/tanzen-und-feiern
-- [ ] MS Treue – Clubschiff, Techno/House/Trance Fr+Sa (https://www.mstreue.de/) · Quelle: https://www.mstreue.de/
-- [ ] nff club – Club in der Katharinenstrasse · Quelle: https://www.jevena.com/nightclub/in/bremen
-- [ ] Römer – Nachtclub am Fehrfeld · Quelle: https://www.bremen.de/tanzen-und-feiern
-- [ ] Schuppen 2 Eventloft – Eventlocation mit Partys · Quelle: https://www.jevena.com/nightclub/in/bremen
-- [ ] Shagall – Rock/Pop-Institution am Rembertiring · Quelle: https://www.bremen.de/tanzen-und-feiern
-- [ ] The Star – Club nahe Hauptbahnhof, Fr+Sa · Quelle: https://www.bremen.de/tanzen-und-feiern
-- [ ] Tower Musikclub – Musikclub, Techno/House/Rock · Quelle: https://techno-essentials.de/pages/techno-events-bremen
+- [~] 2RaumClub (`_review`: `2raumclub`)
+- [~] Golden City (`_review`: `goldencity`)
+- [~] La Viva (`_review`: `laviva`)
+- [~] Lila Eule (`_review`: `lilaeule`)
+- [~] Magazinkeller (`_review`: `magazinkeller`)
+- [~] Modernes (`_review`: `modernes`)
+- [~] MS Treue (`_review`: `mstreue`)
+- [~] nff club (`_review`: `nffclub`)
+- [~] Römer (`_review`: `roemer`)
+- [~] Schuppen 2 Eventloft (`_review`: `schuppen2eventloft`)
+- [~] Shagall (`_review`: `shagall`)
+- [~] The Star (`_review`: `thestar`)
+- [~] Tower Musikclub (`_review`: `towermusikclub`)
 
 ### Bremerhaven
 
-- [ ] Infinity Club – Danceclub, Partys am Wochenende (Buergermeister-Kirschbaum-Platz 7-9, 27580 Bremerhaven; http://infinity-bhv.de/) · Quelle: http://infinity-bhv.de/
-- [ ] Lady Tee's African Club – Kleiner Club, afrikanische Musik · Quelle: https://partyzettel.de/diskotheken/stadt/bremerhaven/
-- [ ] Nachtschicht Bremerhaven – Grossraumdiskothek mit 3 Bereichen (https://www.nachtschicht-bhv.com/) · Quelle: https://www.nachtschicht-bhv.com/
-- [ ] SECRET – Cocktailbar und Danceclub, House/HipHop/Charts (https://secret-bremerhaven.de/) · Quelle: https://secret-bremerhaven.de/
+- [~] Infinity Club (`_review`: `infinityclubbremerhaven`)
+- [~] Lady Tee's African Club (`_review`: `ladyteesafricanclub`)
+- [~] Nachtschicht Bremerhaven (`_review`: `nachtschichtbremerhaven`)
+- [~] SECRET (`_review`: `secret`)
 
-## Hamburg (0 auf Karte · 10 in Prüfung · 20 offen)
+## Hamburg (0 auf Karte · 30 in Prüfung · 0 offen)
 
 ### Hamburg
 
 - [~] Baalsaal (`_review`: `baalsaal`)
+- [~] Bahnhof Pauli (`_review`: `bahnhofpauli`)
 - [~] Beat Boutique (`_review`: `beatboutique`)
+- [~] Cascadas (`_review`: `cascadas`)
 - [~] Docks (`_review`: `docks`)
+- [~] Edelfettwerk (`_review`: `edelfettwerk`)
+- [~] Frappant e.V. (`_review`: `frappantev`)
 - [~] Fundbureau (`_review`: `fundbureau`)
+- [~] GAGA (`_review`: `gaga`)
 - [~] Golden Pudel Club (`_review`: `goldenpudelclub`)
 - [~] Große Freiheit 36 (`_review`: `grossefreiheit36`)
+- [~] Gruenspan (`_review`: `gruenspan`)
 - [~] Hafenklang (`_review`: `hafenklang`)
+- [~] Halo (`_review`: `halo`)
+- [~] Indra Club (`_review`: `indraclub`)
 - [~] Kaiserkeller (`_review`: `kaiserkeller`)
+- [~] Le Fonque (`_review`: `lefonque`)
+- [~] Mojo Club (`_review`: `mojoclub`)
+- [~] Molotow (`_review`: `molotow`)
+- [~] Moondoo (`_review`: `moondoo`)
+- [~] MS Stubnitz (`_review`: `msstubnitz`)
+- [~] Nica Jazz Club (`_review`: `nicajazzclub`)
+- [~] NOHO (`_review`: `noho`)
+- [~] PAL (`_review`: `pal`)
+- [~] Prinzenbar (`_review`: `prinzenbar`)
+- [~] Rosi's Bar (`_review`: `rosisbar`)
 - [~] Südpol (`_review`: `sudpol`)
+- [~] Tunnel Club (`_review`: `tunnelclub`)
 - [~] Uebel & Gefährlich (`_review`: `uebelgefahrlich`)
-- [ ] Bahnhof Pauli (TRANZIT) – Club auf St. Pauli · Quelle: https://techno-essentials.de/blogs/techno-essentials/techno-clubs-hamburg
-- [ ] Cascadas – Jazz, Swing, Soul, Salsa-Abende · Quelle: https://www.hamburg-travel.com/blog/go-out-in-style-in-hamburg/
-- [ ] Edelfettwerk – Grosser Party-/Eventclub · Quelle: https://de.ra.co/clubs/de/hamburg
-- [ ] Frappant e.V. – Kulturzentrum mit Clubnaechten am Wochenende, Altona · Quelle: https://www.hamburg.de/branchenbuch/hamburg/bezirk-altona/10233673/n0/
-- [ ] GAGA – Schicker Club im 5. Stock mit Terrasse · Quelle: https://www.hamburg-travel.com/blog/go-out-in-style-in-hamburg/
-- [ ] Gruenspan – Traditions-Musikclub seit 1968, Grosse Freiheit · Quelle: https://en.wikipedia.org/wiki/Gruenspan
-- [ ] Halo – Elektro-Club, Party-Location · Quelle: https://de.ra.co/events/2242146
-- [ ] Indra Club – Beatles-Traditionsclub, Grosse Freiheit · Quelle: https://www.hamburg.de/politik-und-verwaltung/behoerden/finanzbehoerde/aktuelles/finanzierungs-schub-macht-sanierung-der-st-pauli-traditionsclubs-gruenspan-und-indra-moeglich-998356
-- [ ] Le Fonque – Vinyl-Club in der Sternschanze · Quelle: https://www.tripadvisor.com/Attractions-g187331-Activities-c20-zfn20484382-Hamburg.html
-- [ ] Mojo Club – Jazz/Soul/Electronic-Club unter den Tanzenden Tuermen (Reeperbahn 1) · Quelle: https://www.hamburg.de/kultur/musik/clubs/mojo-club-313024
-- [ ] Molotow – Indie/Punk-Musikclub mit Partys, St. Pauli · Quelle: https://en.wikipedia.org/wiki/Molotow_Club
-- [ ] Moondoo – Soul/HipHop/Disco/Electronica auf der Reeperbahn (Reeperbahn 136) · Quelle: https://www.yelp.com/biz/moondoo-hamburg
-- [ ] MS Stubnitz – Clubschiff mit Konzerten und Clubnaechten im Hafen · Quelle: https://de.ra.co/clubs/de/hamburg
-- [ ] Nica Jazz Club – Jazz/Blues/Funk-Club in der Innenstadt · Quelle: https://www.hamburg-travel.com/blog/go-out-in-style-in-hamburg/
-- [ ] NOHO – Szene-Club mit grosser Discokugel (Nobistor 10) · Quelle: https://www.nightflow.com/nightclubs-in-hamburg/
-- [ ] PAL – Techno-Club im Karolinenviertel (Karolinenstrasse 45) · Quelle: https://www.nightflow.com/nightclubs-in-hamburg/
-- [ ] Prinzenbar – Konzerte, Elektro- und Indie-Partys im Docks-Komplex (https://docksfreiheit36.de/prinzenbar/) · Quelle: https://docksfreiheit36.de/prinzenbar/
-- [ ] Rosi's Bar – Kult-Tanzbar mit Funk, Ska, Sixties · Quelle: https://theculturetrip.com/europe/germany/articles/10-best-nightclubs-around-reeperbahn-hamburg
-- [ ] Tunnel Club – Hardtrance/Techno-Club seit den 90ern, St. Pauli · Quelle: https://techno-essentials.de/blogs/techno-essentials/techno-clubs-hamburg
-- [ ] Waagenbau – Tunnel-Club unter den Sternbruecken, Altona (Max-Brauer-Allee 204) · Quelle: https://www.nightflow.com/nightclubs-in-hamburg/
+- [~] Waagenbau (`_review`: `waagenbau`)
 
-## Hessen (0 auf Karte · 0 in Prüfung · 48 offen)
+## Hessen (0 auf Karte · 48 in Prüfung · 0 offen)
 
 ### Darmstadt
 
-- [ ] MAST Disco – Diskothek (Branchenbucheintrag) · Quelle: https://www.goyellow.de/suche/diskothek/darmstadt
-- [ ] Mini Nest – Diskothek (Branchenbucheintrag) · Quelle: https://www.goyellow.de/suche/diskothek/darmstadt
-- [ ] Mint Club – HipHop/RnB freitags, Orient/Arabic samstags · Quelle: https://www.darmstadtnacht.de/disco-darmstadt.htm
-- [ ] Musik Park Darmstadt – HipHop/Black/House/RnB-Disko · Quelle: https://www.darmstadtnacht.de/disco-darmstadt.htm
-- [ ] Nachtcafe – Club/Disko (Branchenlisting) · Quelle: https://www.goyellow.de/suche/diskothek/darmstadt
-- [ ] Nova Disco – Innenstadt, Black/House/RnB/Electro · Quelle: https://www.darmstadtnacht.de/disco-darmstadt.htm
-- [ ] Oetinger Villa – alternatives Kulturzentrum, Konzerte/Partys HipHop bis Punk · Quelle: https://www.premierinn.com/de/de/reiseziele/darmstadt/clubs.html
-- [ ] Steinbruch-Theater – Rock-/Metal-Diskothek · Quelle: https://www.darmstadtnacht.de/disco-darmstadt.htm
+- [~] MAST Disco (`_review`: `mastdisco`)
+- [~] Mini Nest (`_review`: `mininest`)
+- [~] Mint Club (`_review`: `mintclub`)
+- [~] Musik Park Darmstadt (`_review`: `musikparkdarmstadt`)
+- [~] Nachtcafe (`_review`: `nachtcafe`)
+- [~] Nova Disco (`_review`: `novadisco`)
+- [~] Oetinger Villa (`_review`: `oetingervilla`)
+- [~] Steinbruch-Theater (`_review`: `steinbruchtheater`)
 
 ### Frankfurt am Main
 
-- [ ] Batschkapp – Livemusik-Halle mit Clubnaechten · Quelle: https://frankfurt-interaktiv.de/ausgehtipps/
-- [ ] Conexión – Club (Branchenlisting) (Am Industriehof 7-9) · Quelle: https://stadtleben.de/frankfurt/branchen/clubs-und-discos/
-- [ ] Cooky's – Club mit Livemusik/DJ-Partys · Quelle: https://frankfurt-interaktiv.de/ausgehtipps/
-- [ ] Feinstaub – Club (Branchenlisting) (Friedberger Landstraße 131) · Quelle: https://stadtleben.de/frankfurt/branchen/clubs-und-discos/
-- [ ] Fortuna Irgendwo – kreativer Club abseits des Mainstreams · Quelle: https://frankfurtrestaurants.de/en/behind-these-doors-the-party-continues-frankfurts-8-best-clubs/
-- [ ] IMA Clique – Club/Bar mit DJs (Branchenlisting) (Ludwigstraße 31) · Quelle: https://stadtleben.de/frankfurt/branchen/clubs-und-discos/
-- [ ] Juice Club – Club (Branchenlisting) (Alte Gasse 5) · Quelle: https://stadtleben.de/frankfurt/branchen/clubs-und-discos/
-- [ ] Ponyhof – Club, Alt-Sachsenhausen (Branchenlisting) (Klappergasse 16) · Quelle: https://stadtleben.de/frankfurt/branchen/clubs-und-discos/
-- [ ] Sandbar – in Yelp-Techno-Club-Liste Frankfurt gefuehrt · Quelle: https://www.yelp.com/search?find_desc=Techno+Clubs&find_loc=Frankfurt%2C+Hessen
-- [ ] Sankt Peter – Club (Branchenlisting) (Bleichstraße 33) · Quelle: https://stadtleben.de/frankfurt/branchen/clubs-und-discos/
-- [ ] Silbergold – kleiner Club, Electro/House/Indie · Quelle: https://frankfurtrestaurants.de/en/behind-these-doors-the-party-continues-frankfurts-8-best-clubs/
-- [ ] Tanzhaus West – Techno/Underground, ehem. Druckfarbenfabrik · Quelle: https://www.tripadvisor.com/ShowUserReviews-g187337-d5223400-r185345963-Tanzhaus_West-Frankfurt_Hesse.html
-- [ ] Tokonoma – Underground/Elektro, Bahnhofsviertel · Quelle: https://bestfrankfurt.com/techno-clubs/
-- [ ] Velvet Club – Szene-/Trendclub · Quelle: https://frankfurt-interaktiv.de/ausgehtipps/
-- [ ] Yachtklub – Partys auf dem Main, gemischte Musik · Quelle: https://frankfurtrestaurants.de/en/behind-these-doors-the-party-continues-frankfurts-8-best-clubs/
-- [ ] Zoom (ehem. Cocoon) – Club mit breitem Musikprogramm · Quelle: https://frankfurtrestaurants.de/en/behind-these-doors-the-party-continues-frankfurts-8-best-clubs/
+- [~] Batschkapp (`_review`: `batschkapp`)
+- [~] Conexión (`_review`: `conexion`)
+- [~] Cooky's (`_review`: `cookys`)
+- [~] Feinstaub (`_review`: `feinstaub`)
+- [~] Fortuna Irgendwo (`_review`: `fortunairgendwo`)
+- [~] IMA Clique (`_review`: `imaclique`)
+- [~] Juice Club (`_review`: `juiceclub`)
+- [~] Ponyhof (`_review`: `ponyhof`)
+- [~] Sandbar (`_review`: `sandbar`)
+- [~] Sankt Peter (`_review`: `sanktpeter`)
+- [~] Silbergold (`_review`: `silbergold`)
+- [~] Tanzhaus West (`_review`: `tanzhauswest`)
+- [~] Tokonoma (`_review`: `tokonoma`)
+- [~] Velvet Club (`_review`: `velvetclub`)
+- [~] Yachtklub (`_review`: `yachtklub`)
+- [~] Zoom (`_review`: `zoom`)
 
 ### Gießen
 
-- [ ] Central Studio – Club/Veranstaltungsort (Yelp-Clubliste) · Quelle: https://www.yelp.com/search?find_desc=Club+&+Disco=&find_loc=Gie%C3%9Fen%2C+Hessen%2C+Germany
-- [ ] Diskothek Einhaus – Diskothek (Yelp-Clubliste Raum Gießen) – Yelp-Treffer Raum Gießen, Standort evtl. Umland · Quelle: https://www.yelp.com/search?find_desc=Club+&+Disco=&find_loc=Gie%C3%9Fen%2C+Hessen%2C+Germany
-- [ ] ebene 3 skyclub – Club (Yelp-Clubliste Raum Gießen) – Yelp-Treffer Raum Gießen, Standort evtl. Umland · Quelle: https://www.yelp.com/search?find_desc=Club+&+Disco=&find_loc=Gie%C3%9Fen%2C+Hessen%2C+Germany
-- [ ] Frau Trude – Club/Bar mit Tanz (Yelp-Clubliste) · Quelle: https://www.yelp.com/search?find_desc=Club+&+Disco=&find_loc=Gie%C3%9Fen%2C+Hessen%2C+Germany
-- [ ] Kunstkeller – Kellerclub (Yelp-Clubliste) · Quelle: https://www.yelp.com/search?find_desc=Club+&+Disco=&find_loc=Gie%C3%9Fen%2C+Hessen%2C+Germany
-- [ ] Nachtsalon – Club (Yelp-Clubliste Raum Gießen) – Yelp-Treffer Raum Gießen, Standort evtl. Umland/Marburg · Quelle: https://www.yelp.com/search?find_desc=Club+&+Disco=&find_loc=Gie%C3%9Fen%2C+Hessen%2C+Germany
-- [ ] Scarabée – Studentenkeller seit 1962, Rock/Metal/Elektro/Gothic/90er (https://www.scarabee.de/) · Quelle: https://www.scarabee.de/
-- [ ] Trauma im G-Werk e.V. – alternatives Kulturzentrum mit Clubnaechten · Quelle: https://www.yelp.com/search?find_desc=Club+&+Disco=&find_loc=Gie%C3%9Fen%2C+Hessen%2C+Germany
-- [ ] Trinity Club – Nachtclub (https://trinityclub.de/) · Quelle: https://trinityclub.de/
-- [ ] Ulenspiegel – Club/Musikkneipe (Yelp-Clubliste Gießen) · Quelle: https://www.yelp.com/search?find_desc=Club+&+Disco=&find_loc=Gie%C3%9Fen%2C+Hessen%2C+Germany
+- [~] Central Studio (`_review`: `centralstudio`)
+- [~] Diskothek Einhaus (`_review`: `diskothekeinhaus`)
+- [~] ebene 3 skyclub (`_review`: `ebene3skyclub`)
+- [~] Frau Trude (`_review`: `frautrude`)
+- [~] Kunstkeller (`_review`: `kunstkeller`)
+- [~] Nachtsalon (`_review`: `nachtsalon`)
+- [~] Scarabée (`_review`: `scarabee`)
+- [~] Trauma im G-Werk e.V. (`_review`: `traumaimgwerkev`)
+- [~] Trinity Club (`_review`: `trinityclub`)
+- [~] Ulenspiegel (`_review`: `ulenspiegel`)
 
 ### Kassel
 
-- [ ] Discotheque SPOT – Diskothek (Branchenlisting) (Ölmühlenweg 10-14) · Quelle: https://stadtleben.de/kassel/branchen/clubs-und-discos/
-- [ ] Lax – Club (Branchenlisting) (Mauerstr. 11) · Quelle: https://stadtleben.de/kassel/branchen/clubs-und-discos/
-- [ ] Musik Park A7 – klassische Grossraumdiskothek · Quelle: https://m.virtualnights.com/kassel/citytipp/die-besten-clubs-und-diskotheken-in-kassel.2560
-- [ ] Nachthallen – Club (Branchenlisting) (Angersbachstr. 10) · Quelle: https://stadtleben.de/kassel/branchen/clubs-und-discos/
-- [ ] Panoptikum – elektronische Tanzmusik, seit Neuausrichtung 2019 (Leipziger Strasse 407) · Quelle: https://m.virtualnights.com/kassel/citytipp/die-besten-clubs-und-diskotheken-in-kassel.2560
+- [~] Discotheque SPOT (`_review`: `discothequespot`)
+- [~] Lax (`_review`: `lax`)
+- [~] Musik Park A7 (`_review`: `musikparka7`)
+- [~] Nachthallen (`_review`: `nachthallen`)
+- [~] Panoptikum (`_review`: `panoptikum`)
 
 ### Marburg
 
-- [ ] Funpark – Kettendiskothek, 2 Dancefloors, Mottopartys · Quelle: https://www.op-marburg.de/lokales/marburg-biedenkopf/marburg/marburg-die-besten-kneipen-partys-und-nachtclubs-CP5KZZJZNVFDFAADOL6XGOGMT4.html
-- [ ] Kult-Hallen – 3 Diskotheken auf 5000 qm, Stadtteil Cappel · Quelle: https://www.op-marburg.de/lokales/marburg-biedenkopf/marburg/marburg-die-besten-kneipen-partys-und-nachtclubs-CP5KZZJZNVFDFAADOL6XGOGMT4.html
-- [ ] Nexxus – Diskothek, 90er/House/Black/Charts (Siemensstraße 10, 35041 Marburg-Wehrda; https://www.nexxusclub.de/) · Quelle: https://www.nexxusclub.de/
+- [~] Funpark (`_review`: `funpark`)
+- [~] Kult-Hallen (`_review`: `kulthallen`)
+- [~] Nexxus (`_review`: `nexxus`)
 
 ### Schauenburg
 
-- [ ] Diskothek Savoy – Diskothek im Kasseler Umland (Korbacher Straße 76, Schauenburg) · Quelle: https://stadtleben.de/kassel/branchen/clubs-und-discos/
+- [~] Diskothek Savoy (`_review`: `diskotheksavoy`)
 
 ### Wiesbaden
 
-- [ ] Euro Palace – Grossraumdisko, 4 Floors, Charts/House · Quelle: https://singalong.de/clubs-wiesbaden/
-- [ ] Kontext Wiesbaden – Club (Partyzettel-Listing) · Quelle: https://partyzettel.de/diskotheken/stadt/wiesbaden/
-- [ ] Kulturpalast Wiesbaden – Kulturzentrum mit Partys/DJ-Abenden, Indie/Elektro · Quelle: https://singalong.de/clubs-wiesbaden/
-- [ ] Manoamano – Bar/Club, House und Charts am Wochenende · Quelle: https://singalong.de/clubs-wiesbaden/
-- [ ] New Basement – Club/Diskothek (Partyzettel-Listing) · Quelle: https://partyzettel.de/diskotheken/stadt/wiesbaden/
+- [~] Euro Palace (`_review`: `europalace`)
+- [~] Kontext Wiesbaden (`_review`: `kontextwiesbaden`)
+- [~] Kulturpalast Wiesbaden (`_review`: `kulturpalastwiesbaden`)
+- [~] Manoamano (`_review`: `manoamano`)
+- [~] New Basement (`_review`: `newbasement`)
 
-## Mecklenburg-Vorpommern (0 auf Karte · 0 in Prüfung · 22 offen)
+## Mecklenburg-Vorpommern (0 auf Karte · 22 in Prüfung · 0 offen)
 
 ### Greifswald
 
-- [ ] BT Club – Diskothek im Bunker, 2 Dancefloors, bis 500 Gaeste (Brandteichstraße 22; https://bt-club.de/) · Quelle: https://bt-club.de/
-- [ ] Club 9 – Studentenclub mit Partys · Quelle: https://stud.uni-greifswald.de/ersti-forum/allgemeine-informationen-und-veranstaltungen/beratungsangebote-1-1/
-- [ ] DomBurg – Club/Nachtclub in der Altstadt (Domstr. 21) · Quelle: https://www.golocal.de/greifswald/nachtclubs/
-- [ ] Geographenkeller e.V. – Studentenclub seit 1975, Rock/80s-2000s/Electro Swing (Friedrich-Ludwig-Jahn-Straße 16; https://geographenkeller.de/) · Quelle: https://studentenclubs.net/greifswald/geographenkeller.html
-- [ ] Geologenkeller e.V. – Studentenclub seit 1962 (https://geologenkeller.de/) · Quelle: https://geologenkeller.de/
-- [ ] InLight DanceClub – Danceclub/Diskothek (Mendelejewweg 18) · Quelle: https://www.golocal.de/greifswald/nachtclubs/
-- [ ] KuBa Club – Club/Nachtclub (Osnabrücker Str. 3) · Quelle: https://www.golocal.de/greifswald/nachtclubs/
-- [ ] Mensaclub – Studentenclub mit Partys · Quelle: https://stud.uni-greifswald.de/ersti-forum/allgemeine-informationen-und-veranstaltungen/beratungsangebote-1-1/
-- [ ] Studentenclub Kiste e.V. – Studentenclub mit Partys (Makarenkostraße 49) · Quelle: https://stud.uni-greifswald.de/ersti-forum/allgemeine-informationen-und-veranstaltungen/beratungsangebote-1-1/
+- [~] BT Club (`_review`: `btclub`)
+- [~] Club 9 (`_review`: `club9`)
+- [~] DomBurg (`_review`: `domburg`)
+- [~] Geographenkeller e.V. (`_review`: `geographenkellerev`)
+- [~] Geologenkeller e.V. (`_review`: `geologenkellerev`)
+- [~] InLight DanceClub (`_review`: `inlightdanceclub`)
+- [~] KuBa Club (`_review`: `kubaclub`)
+- [~] Mensaclub (`_review`: `mensaclub`)
+- [~] Studentenclub Kiste e.V. (`_review`: `studentenclubkisteev`)
 
 ### Rostock
 
-- [ ] Bunker Rostock – Hard-Techno-Events, Kulturkombinat Bunker e.V · Quelle: https://www.facebook.com/harte.zeiten/
-- [ ] LT-Club – Studentenclub · Quelle: https://rostock.studentsstudents.de/2019/09/30/studentenclubs-in-rostock/
-- [ ] M.A.U. Club – Liveclub, Rock/Indie plus Elektro-Partys · Quelle: https://www.cordless-delay.de/news/mau-club-rostock-diskothek-party-club/
-- [ ] Moya – Kulturbuehne/Club, Partys und Konzerte · Quelle: https://rostock.studentsstudents.de/2019/09/30/studentenclubs-in-rostock/
-- [ ] Peter Weiss Haus (PWH) – Kulturhaus mit Livemusik und Clubbetrieb · Quelle: https://www.rostock.m-vp.de/tanzevents-partys-discotheken/
-- [ ] ST-Club – Studentenclub mit Wochenprogramm · Quelle: https://rostock.studentsstudents.de/2019/09/30/studentenclubs-in-rostock/
-- [ ] Studentenkeller Rostock – Aeltester Studentenclub (1969), Gewoelbekeller · Quelle: https://rostock.studentsstudents.de/2019/09/30/studentenclubs-in-rostock/
-- [ ] UKW - Kraftwerk – Elektronische Musik, DJ-Gigs · Quelle: https://www.theclubmap.com/cities/rostock/
-- [ ] Zwischenbau – Club zwischen Studentenwohnheimen, 2 Floors · Quelle: https://rostock.studentsstudents.de/2019/09/30/studentenclubs-in-rostock/
+- [~] Bunker Rostock (`_review`: `bunkerrostock`)
+- [~] LT-Club (`_review`: `ltclub`)
+- [~] M.A.U. Club (`_review`: `mauclub`)
+- [~] Moya (`_review`: `moya`)
+- [~] Peter Weiss Haus (`_review`: `peterweisshaus`)
+- [~] ST-Club (`_review`: `stclub`)
+- [~] Studentenkeller Rostock (`_review`: `studentenkellerrostock`)
+- [~] UKW - Kraftwerk (`_review`: `ukwkraftwerk`)
+- [~] Zwischenbau (`_review`: `zwischenbau`)
 
 ### Schwerin
 
-- [ ] Club Zenit – Disco/Eventclub, Partys und Shows (Pappelgrund 15a; https://clubzenit.de/) · Quelle: https://clubzenit.de/
-- [ ] Diskothek Louis – Nachtclub/Diskothek · Quelle: https://www.gastraum.de/profil/diskothek-louis-schwerin
-- [ ] M8 – Groesste Disco im Zentrum, 2 Floors (Mecklenburgstraße 8; https://m8-schwerin.de/) · Quelle: https://m8-schwerin.de/
-- [ ] werk3 / KlangWert – Nachtclub samstags ab 22:30, sonst Kulturbuehne · Quelle: https://www.wohinheuteschwerin.de/und-sonst-weitere-orte/clubs-bars-in-schwerin/
+- [~] Club Zenit (`_review`: `clubzenit`)
+- [~] Diskothek Louis (`_review`: `diskotheklouis`)
+- [~] M8 (`_review`: `m8`)
+- [~] werk3 / KlangWert (`_review`: `werk3klangwert`)
 
-## Niedersachsen (0 auf Karte · 0 in Prüfung · 37 offen)
+## Niedersachsen (0 auf Karte · 37 in Prüfung · 0 offen)
 
 ### Braunschweig
 
-- [ ] 42 Grad Fieber – Partys Fr/Sa im Bunker · Quelle: https://braunschweig-kompakt.de/bars-und-clubs-in-braunschweig/
-- [ ] Bora Beach Club – Open-Air-Partylocation am Kennelbad (Sommer) · Quelle: https://braunschweig-kompakt.de/bars-und-clubs-in-braunschweig/
-- [ ] Der Turm am Gieseler – Partys auf mehreren Etagen, Club-Meile · Quelle: https://braunschweig-kompakt.de/bars-und-clubs-in-braunschweig/
-- [ ] Eule/XO – Pop/House-Klassiker (Eule), Hip-Hop/Trap/Afro/R&B (XO), drei Floors · Quelle: https://braunschweig-kompakt.de/bars-und-clubs-in-braunschweig/
-- [ ] Flamingo Rosso – Club mit verschiedenen Musikstilen · Quelle: https://braunschweig-kompakt.de/bars-und-clubs-in-braunschweig/
-- [ ] Privileg Club – Diskothek/Nachtclub, seit über 12 Jahren (https://www.privileg-club.com/) · Quelle: https://www.privileg-club.com/
-- [ ] Schwanensee Diskothek – Mottopartys, Außenbereich · Quelle: https://braunschweig-kompakt.de/bars-und-clubs-in-braunschweig/
-- [ ] Silberquelle – Traditionsclub im Pavillon am Bunker · Quelle: https://braunschweig-kompakt.de/bars-und-clubs-in-braunschweig/
+- [~] 42 Grad Fieber (`_review`: `42gradfieber`)
+- [~] Bora Beach Club (`_review`: `borabeachclub`)
+- [~] Der Turm am Gieseler (`_review`: `derturmamgieseler`)
+- [~] Eule/XO (`_review`: `eulexo`)
+- [~] Flamingo Rosso (`_review`: `flamingorosso`)
+- [~] Privileg Club (`_review`: `privilegclub`)
+- [~] Schwanensee Diskothek (`_review`: `schwanenseediskothek`)
+- [~] Silberquelle (`_review`: `silberquelle`)
 
 ### Göttingen
 
-- [ ] Alpenmax – Après-Ski-Partys, 80er/90er, Malle, Charts · Quelle: https://www.goettingen-tourismus.de/erleben/gastronomie/clubs-nightlife/
-- [ ] Club Savoy – Szeneclub im ehem. Landesbank-Gebäude, Live-Events, VIP-Bereich (Berliner Straße 5; https://club-savoy.com/) · Quelle: https://www.goettingen-tourismus.de/erleben/gastronomie/clubs-nightlife/
-- [ ] JT-Keller – Kellergewölbe im Jungen Theater, Indie/Soul/Electro-Partys · Quelle: https://wanderlog.com/place/details/14057432/jt-keller
-- [ ] Musa – Soziokulturelles Zentrum mit Partys und Konzerten (https://www.musa.de) · Quelle: https://www.musa.de/infos/%C3%BCber-uns/
-- [ ] Nörgelbuff – Live-Musik-Keller mit Indie-Tanzpartys (Groner Str. 23; https://noergelbuff.de) · Quelle: https://noergelbuff.de/events/ich-geh-heut-tanzen/2026-09-25/
+- [~] Alpenmax (`_review`: `alpenmax`)
+- [~] Club Savoy (`_review`: `clubsavoy`)
+- [~] JT-Keller (`_review`: `jtkeller`)
+- [~] Musa (`_review`: `musa`)
+- [~] Nörgelbuff (`_review`: `noergelbuff`)
 
 ### Hannover
 
-- [ ] Capitol Hannover – Live-Musik, Disco und Konzerte in Linden-Mitte · Quelle: https://socialmatch.de/blog/diskotheken-in-hannover/
-- [ ] Club Glocksee – Techno-Geheimtipp · Quelle: https://www.tiktok.com/discover/techno-club-hannover
-- [ ] DAX Bierbörse – Disco mit Kneipen-/Retro-Flair, Musikmix · Quelle: https://socialmatch.de/blog/diskotheken-in-hannover/
-- [ ] H.de.M (Haus der elektronischen Musik) – Techno/House/Trance nahe Opernhaus · Quelle: https://www.technofans.de/?action=club&do=show&id=2
-- [ ] Havana Club – Latino-Club · Quelle: https://www.visit-hannover.com/Nightlife/Clubs
-- [ ] Infinity Club – Partys mit wechselnden Musikstilen · Quelle: https://socialmatch.de/blog/diskotheken-in-hannover/
-- [ ] Kulturpalast Linden – Kulturzentrum mit Konzerten, in Disko-Roundup gelistet · Quelle: https://socialmatch.de/blog/diskotheken-in-hannover/
-- [ ] Osho Disco (Baggi) – Dance, House, Soul; Institution in der City · Quelle: https://www.visit-hannover.com/Nightlife/Clubs
-- [ ] Palo Palo – Club mit jahrzehntelanger Geschichte · Quelle: https://www.visit-hannover.com/Nightlife/Clubs
-- [ ] Rockhouse – Rock/Metal/Charts/Electro, zwei Dancefloors (Ecke Kurt-Schumacher-Straße/Kanalstraße) · Quelle: https://socialmatch.de/blog/diskotheken-in-hannover/
-- [ ] Tiefgang – Hardtekk, Dark Techno, Goa, DnB (Scholvinstraße 2) · Quelle: https://www.instagram.com/club_tiefgang/?hl=de
-- [ ] Weltspiele – Techno-Club (seit Okt. 2021), zwei Floors, bis 500 Gäste · Quelle: https://www.theclubmap.com/cities/hannover/
+- [~] Capitol Hannover (`_review`: `capitolhannover`)
+- [~] Club Glocksee (`_review`: `clubglocksee`)
+- [~] DAX Bierbörse (`_review`: `daxbierboerse`)
+- [~] H.de.M (`_review`: `hdem`)
+- [~] Havana Club (`_review`: `havanaclub`)
+- [~] Infinity Club (`_review`: `infinityclubhannover`)
+- [~] Kulturpalast Linden (`_review`: `kulturpalastlinden`)
+- [~] Osho Disco (`_review`: `oshodisco`)
+- [~] Palo Palo (`_review`: `palopalo`)
+- [~] Rockhouse (`_review`: `rockhouse`)
+- [~] Tiefgang (`_review`: `tiefgang`)
+- [~] Weltspiele (`_review`: `weltspiele`)
 
 ### Oldenburg
 
-- [ ] cubes – Exklusiver Club: House, Classics, Hip-Hop, 2000er (https://cubes-ol.de/) · Quelle: https://cubes-ol.de/
-- [ ] Metro Club – Underground-Club seit 1983, Elektro/DnB/Dub-Techno/House (https://metro-oldenburg.de) · Quelle: https://www.kulturschnack.de/post/vierzig-jahre-metro-club-oldenburg-discothek-techno-festival-kultur-geburtstag-clubkultur
-- [ ] Polyester – Im Treffer als Auftrittsort für Elektro-DJ-Kollektiv genannt · Quelle: https://www.eventbrite.de/d/germany--oldenburg-oldenburg/techno-elektro-party/
-- [ ] VRTL / Viertel – Klub, Bar und Kultur (https://kulturviertel.com/) · Quelle: https://kulturviertel.com/
-- [ ] Zur Waldschänke – Nachtclub (https://zurwaldschaenke-ol.de/) · Quelle: https://zurwaldschaenke-ol.de/
+- [~] cubes (`_review`: `cubes`)
+- [~] Metro Club (`_review`: `metroclub`)
+- [~] Polyester (`_review`: `polyester`)
+- [~] VRTL / Viertel (`_review`: `vrtlviertel`)
+- [~] Zur Waldschänke (`_review`: `zurwaldschaenke`)
 
 ### Osnabrück
 
-- [ ] Alando Palais – Größter Club der Stadt, ehem. Schwimmbad · Quelle: https://osnabruecker-anzeiger.de/osnabrueck-clubs/
-- [ ] Brücks – Mixed Music und Elektro auf zwei Floors (https://www.bruecks.club/) · Quelle: https://www.bruecks.club/
-- [ ] Darknet Club – Techno/House-Club am Hauptbahnhof · Quelle: https://www.osnabruecker-land.de/erlebnisse/darknet-club
-- [ ] Holy Poly – Techno/Elektro-Club im ehem. Stellwerk, nach Umbau wiedereröffnet · Quelle: https://groove.de/2025/10/17/holy-poly-osnabruecker-techno-club-eroeffnet-nach-umbau/
-- [ ] Hyde Park – Kultclub, Rock/Pop, alternative Szene · Quelle: https://osnabruecker-anzeiger.de/osnabrueck-clubs/
-- [ ] Kleine Freiheit – Kultlocation · Quelle: https://osnabruecker-anzeiger.de/osnabrueck-clubs/
-- [ ] Sonnendeck – Kultlocation in der Altstadt · Quelle: https://osnabruecker-anzeiger.de/osnabrueck-clubs/
+- [~] Alando Palais (`_review`: `alandopalais`)
+- [~] Brücks (`_review`: `bruecks`)
+- [~] Darknet Club (`_review`: `darknetclub`)
+- [~] Holy Poly (`_review`: `holypoly`)
+- [~] Hyde Park (`_review`: `hydepark`)
+- [~] Kleine Freiheit (`_review`: `kleinefreiheit`)
+- [~] Sonnendeck (`_review`: `sonnendeck`)
 
-## Nordrhein-Westfalen (0 auf Karte · 0 in Prüfung · 124 offen)
+## Nordrhein-Westfalen (0 auf Karte · 124 in Prüfung · 0 offen)
 
 ### Aachen
 
-- [ ] Apollo – Kino, Bar und Partys an der Pontstrasse · Quelle: https://nightlyfe.de/cities/aachen
-- [ ] Club Voltaire – Kleiner Club (Friedrichstraße 9) · Quelle: https://partyzettel.de/diskotheken/stadt/aachen/
-- [ ] Freiraum – Nachtclub im Pontstrassen-Viertel · Quelle: https://nightlyfe.de/cities/aachen
-- [ ] Musikbunker – Konzerte und Partys, Metal-Schwerpunkt (Goffartstraße 39) · Quelle: https://aachen.fandom.com/de/wiki/Clubs_und_Diskotheken
-- [ ] Nightlife (Club Nightlife) – Innenstadt-Club, Mainstream und Rock (Wirichsbongardstraße 10) · Quelle: https://www.regioactive.de/location/aachen/club-nightlife-aachen-3BKzy5WGNs.html
-- [ ] NOX – Moderner Hip-Hop/EDM-Nachtclub (https://www.nox.ac/) · Quelle: https://www.nox.ac/
-- [ ] Salsa Club Sencillito – Salsa-Tanzclub (Alexander Straße 109) · Quelle: https://partyzettel.de/diskotheken/stadt/aachen/
-- [ ] Stairs – Club/Diskothek (Theaterstraße 17) · Quelle: https://partyzettel.de/diskotheken/stadt/aachen/
-- [ ] Starfish – Club/Diskothek (Liebigstraße 19) · Quelle: https://partyzettel.de/diskotheken/stadt/aachen/
+- [~] Apollo (`_review`: `apollo`)
+- [~] Club Voltaire (`_review`: `clubvoltaire`)
+- [~] Freiraum (`_review`: `freiraum`)
+- [~] Musikbunker (`_review`: `musikbunker`)
+- [~] Nightlife (`_review`: `nightlife`)
+- [~] NOX (`_review`: `nox`)
+- [~] Salsa Club Sencillito (`_review`: `salsaclubsencillito`)
+- [~] Stairs (`_review`: `stairs`)
+- [~] Starfish (`_review`: `starfish`)
 
 ### Bielefeld
 
-- [ ] Café Europa – Ältester Club Bielefelds, am Jahnplatz · Quelle: https://www.bielefeld-guide.de/lifestyle/clubs-feiern-in-bielefeld/
-- [ ] Cuties – Entspannte Techno-Beats · Quelle: https://www.bielefeld-guide.de/lifestyle/clubs-feiern-in-bielefeld/
-- [ ] Forum – Techno und elektronische Musik · Quelle: https://www.bielefeld-guide.de/lifestyle/clubs-feiern-in-bielefeld/
-- [ ] Lokschuppen – Alternativ: Indie, House, 90s-Partys · Quelle: https://www.bielefeld-guide.de/lifestyle/clubs-feiern-in-bielefeld/
-- [ ] Nummer zu Platz (NR.z.P) – Underground-/Hipster-Club · Quelle: https://www.bielefeld-guide.de/lifestyle/clubs-feiern-in-bielefeld/
-- [ ] PRIME – Großraumdiskothek, 4 Areas, alle Genres (https://www.prime-night.de/) · Quelle: https://www.prime-night.de/
-- [ ] Stadtpalais – Disco/Club, Zielgruppe ca. 25-45 · Quelle: https://www.owl-go.de/locations/location-640.html
-- [ ] Stereo – Club im Bahnhofsviertel, 2 Räume · Quelle: https://www.bielefeld-guide.de/lifestyle/clubs-feiern-in-bielefeld/
+- [~] Café Europa (`_review`: `cafeeuropa`)
+- [~] Cuties (`_review`: `cuties`)
+- [~] Forum (`_review`: `forumbielefeld`)
+- [~] Lokschuppen (`_review`: `lokschuppen`)
+- [~] Nummer zu Platz (`_review`: `nummerzuplatz`)
+- [~] PRIME (`_review`: `prime`)
+- [~] Stadtpalais (`_review`: `stadtpalais`)
+- [~] Stereo (`_review`: `stereobielefeld`)
 
 ### Bochum
 
-- [ ] Die Trompete – Alternative-Club: Indie, Wave, Rock'n'Roll · Quelle: https://www.bochum-tourismus.de/bochum-entdecken/ausgehen/clubszene.html
-- [ ] Heaven – Partydisko in Wattenscheid · Quelle: https://www.bochum-tourismus.de/bochum-entdecken/ausgehen/clubszene.html
-- [ ] Klub Kurt – House/Techno, ehem. Schumacher Club · Quelle: https://groove.de/2025/08/26/klub-kurt-neuer-techno-club-eroeffnet-in-bochum/
-- [ ] Matrix – Groesste Diskothek Bochums · Quelle: https://www.bochum-tourismus.de/bochum-entdecken/ausgehen/clubszene.html
-- [ ] Schlegel Kultur Club – Elektronik-Club in ehemaliger Brauerei (https://schlegel-club.de/) · Quelle: https://schlegel-club.de/
-- [ ] Three Sixty – Club im Bermudadreieck · Quelle: https://m.virtualnights.com/bochum/citytipp/top-10-clubs-und-diskotheken-in-bochum.576
-- [ ] Zeche Bochum – Konzerthalle und Diskothek · Quelle: https://www.bochum-tourismus.de/bochum-entdecken/ausgehen/clubszene.html
+- [~] Die Trompete (`_review`: `dietrompete`)
+- [~] Heaven (`_review`: `heaven`)
+- [~] Klub Kurt (`_review`: `klubkurt`)
+- [~] Matrix (`_review`: `matrix`)
+- [~] Schlegel Kultur Club (`_review`: `schlegelkulturclub`)
+- [~] Three Sixty (`_review`: `threesixty`)
+- [~] Zeche Bochum (`_review`: `zechebochum`)
 
 ### Dortmund
 
-- [ ] Alter Weinkeller – Kellerclub/Diskothek · Quelle: https://www.discos.de/dortmund
-- [ ] Anton's Bierkoenig – Party-/Schlagerdisko · Quelle: https://www.discos.de/dortmund
-- [ ] Burgtorclub – Club/Diskothek · Quelle: https://www.discos.de/dortmund
-- [ ] Die Nightrooms – Club/Diskothek · Quelle: https://www.werkenntdenbesten.de/disco/dortmund
-- [ ] Diskothek Laufsteg – Diskothek · Quelle: https://www.discos.de/dortmund
-- [ ] FZW – Kulturzentrum mit Clubnaechten · Quelle: https://www.discos.de/dortmund
-- [ ] Hirsch-Q – Club/Diskothek · Quelle: https://www.werkenntdenbesten.de/disco/dortmund
-- [ ] iROOM Cocktailbar & Nachtclub – Cocktailbar mit Nachtclub · Quelle: https://www.discos.de/dortmund
-- [ ] JunkYard – Elektronik-Club auf altem Schrottplatz · Quelle: https://techno-essentials.de/blogs/techno-essentials/die-besten-techno-clubs-in-dortmund-ein-muss-fur-jeden-raver
-- [ ] Le Grand – Club/Diskothek · Quelle: https://www.werkenntdenbesten.de/disco/dortmund
-- [ ] Maquina – Club/Diskothek · Quelle: https://www.discos.de/dortmund
-- [ ] Moog – Club/Diskothek · Quelle: https://www.werkenntdenbesten.de/disco/dortmund
-- [ ] Prisma Nachterlebniswelt – Grossraumdisko, mehrere Floors (Deutsche Strasse 6, Dortmund-Eving) · Quelle: https://www.discos.de/dortmund
-- [ ] Ruby – Club/Diskothek · Quelle: https://www.werkenntdenbesten.de/disco/dortmund
-- [ ] Rush Hour Nachtpalast – Diskothek/Nachtpalast · Quelle: https://www.werkenntdenbesten.de/disco/dortmund
-- [ ] Silent Sinners – Club/Diskothek · Quelle: https://www.werkenntdenbesten.de/disco/dortmund
-- [ ] Spirit – Club/Diskothek · Quelle: https://www.werkenntdenbesten.de/disco/dortmund
-- [ ] Stollen134 – Techno/House unter dem Westenhellweg · Quelle: https://rausgegangen.de/en/locations/stollen134/
-- [ ] The Village Diskothek – Kleine Kult-Diskothek · Quelle: https://www.werkenntdenbesten.de/disco/dortmund
-- [ ] Tresor.West – Techno-Club, industrielles Ambiente (Phoenixplatz 4, 44263 Dortmund; https://tresorwest.com/) · Quelle: https://tresorwest.com/
+- [~] Alter Weinkeller (`_review`: `alterweinkeller`)
+- [~] Anton's Bierkoenig (`_review`: `antonsbierkoenig`)
+- [~] Burgtorclub (`_review`: `burgtorclub`)
+- [~] Die Nightrooms (`_review`: `dienightrooms`)
+- [~] Diskothek Laufsteg (`_review`: `diskotheklaufsteg`)
+- [~] FZW (`_review`: `fzw`)
+- [~] Hirsch-Q (`_review`: `hirschq`)
+- [~] iROOM Cocktailbar & Nachtclub (`_review`: `iroomcocktailbarnachtclub`)
+- [~] JunkYard (`_review`: `junkyard`)
+- [~] Le Grand (`_review`: `legrand`)
+- [~] Maquina (`_review`: `maquina`)
+- [~] Moog (`_review`: `moog`)
+- [~] Prisma Nachterlebniswelt (`_review`: `prismanachterlebniswelt`)
+- [~] Ruby (`_review`: `rubydortmund`)
+- [~] Rush Hour Nachtpalast (`_review`: `rushhournachtpalast`)
+- [~] Silent Sinners (`_review`: `silentsinners`)
+- [~] Spirit (`_review`: `spirit`)
+- [~] Stollen134 (`_review`: `stollen134`)
+- [~] The Village Diskothek (`_review`: `thevillagediskothek`)
+- [~] Tresor.West (`_review`: `tresorwest`)
 
 ### Duisburg
 
-- [ ] Delta Duisburg – Grossraumdiskothek (Hamborner Str. 200, Duisburg) · Quelle: https://partyzettel.de/diskotheken/stadt/duisburg/
-- [ ] Disco B-Acht – Diskothek (Weseler Str. 121, Duisburg) · Quelle: https://partyzettel.de/diskotheken/stadt/duisburg/
-- [ ] High5Club – Club/Diskothek (Duesseldorfer Str. 5, Duisburg) · Quelle: https://partyzettel.de/diskotheken/stadt/duisburg/
-- [ ] Kultkeller – Kellerclub/Diskothek · Quelle: https://www.discos.de/duisburg
-- [ ] Oberbayern's Anton – Party-/Schlagerdisko · Quelle: https://www.discos.de/duisburg
-- [ ] Prive – Gothic/Metal/Pop am Innenhafen · Quelle: https://www.golocal.de/duisburg/nachtclubs/
-- [ ] PULP – Club/Diskothek · Quelle: https://www.discos.de/duisburg
-- [ ] Red Rooster Club – Club/Diskothek · Quelle: https://www.discos.de/duisburg
+- [~] Delta Duisburg (`_review`: `deltaduisburg`)
+- [~] Disco B-Acht (`_review`: `discobacht`)
+- [~] High5Club (`_review`: `high5club`)
+- [~] Kultkeller (`_review`: `kultkeller`)
+- [~] Oberbayern's Anton (`_review`: `oberbayernsanton`)
+- [~] Prive (`_review`: `prive`)
+- [~] PULP (`_review`: `pulp`)
+- [~] Red Rooster Club (`_review`: `redroosterclub`)
 
 ### Düsseldorf
 
-- [ ] Alter Schlachthof – Techno-Location im ehemaligen Schlachthof · Quelle: https://techno-essentials.de/blogs/techno-essentials/techno-clubs-duesseldorf
-- [ ] Ampere – Neuer Techno-Club im Stahlwerk · Quelle: https://groove.de/2025/09/18/ampere-neuer-techno-club-eroeffnet-im-duesseldorfer-stahlwerk/
-- [ ] Club 134 – Nachtclub, Techno/House/Electro · Quelle: https://www.mrduesseldorf.de/die-besten-clubs-in-duesseldorf/
-- [ ] Graf 39 – Neues Kulturzentrum mit Techno-Clubnaechten · Quelle: https://lifeinduesseldorf.com/best-electronic-music/
-- [ ] Lollipop Club – Club in alter Nagelfabrik, elektronische Beats · Quelle: https://www.mrduesseldorf.de/die-besten-clubs-in-duesseldorf/
-- [ ] Mahiki Club – Neu eroeffneter Club mit Tropen-Flair · Quelle: https://www.mrduesseldorf.de/die-besten-clubs-in-duesseldorf/
-- [ ] Nachtresidenz – Stilvoller Weekend-Club, House/R'n'B/Soul · Quelle: https://www.mrduesseldorf.de/die-besten-clubs-in-duesseldorf/
-- [ ] Rudas Studios – Ehemaliges Filmstudio, Partys wie Lollipop · Quelle: https://www.mrduesseldorf.de/die-besten-clubs-in-duesseldorf/
-- [ ] Schlösser Quartier Bohéme – Kulturlocation mit Bar, Club, Eventflaeche · Quelle: https://www.mrduesseldorf.de/die-besten-clubs-in-duesseldorf/
-- [ ] TheGate – Intimer Techno-Club nahe Ratinger Strasse · Quelle: https://techno-essentials.de/blogs/techno-essentials/techno-clubs-duesseldorf
-- [ ] Ufer 8 – Lounge und Tanzclub an der Rheinpromenade · Quelle: https://www.mrduesseldorf.de/die-besten-clubs-in-duesseldorf/
+- [~] Alter Schlachthof (`_review`: `alterschlachthof`)
+- [~] Ampere (`_review`: `ampere`)
+- [~] Club 134 (`_review`: `club134`)
+- [~] Graf 39 (`_review`: `graf39`)
+- [~] Lollipop Club (`_review`: `lollipopclub`)
+- [~] Mahiki Club (`_review`: `mahikiclub`)
+- [~] Nachtresidenz (`_review`: `nachtresidenz`)
+- [~] Rudas Studios (`_review`: `rudasstudios`)
+- [~] Schlösser Quartier Bohéme (`_review`: `schloesserquartierboheme`)
+- [~] TheGate (`_review`: `thegate`)
+- [~] Ufer 8 (`_review`: `ufer8`)
 
 ### Essen
 
-- [ ] 19down – Kellerclub · Quelle: https://www.essen-magazin.de/beste-clubs-in-essen
-- [ ] Adiamo Essen – Dance-Club · Quelle: https://www.yelp.com/search?cflt=danceclubs&find_loc=Essen,+Nordrhein-Westfalen
-- [ ] Delta (Erlebnisdiskothek) – Grossraumdisko mit 5 Floors · Quelle: https://www.essen-magazin.de/beste-clubs-in-essen
-- [ ] Essence – Club/Diskothek · Quelle: https://www.yelp.com/search?cflt=danceclubs&find_loc=Essen,+Nordrhein-Westfalen
-- [ ] Goethebunker – Techno-Club im ehemaligen Luftschutzbunker · Quelle: https://www.essen-magazin.de/beste-clubs-in-essen
-- [ ] Habana – Club/Tanzlokal · Quelle: https://www.yelp.com/search?cflt=danceclubs&find_loc=Essen,+Nordrhein-Westfalen
-- [ ] Hotel Shanghai – Club, Elektro und Live-Acts · Quelle: https://www.essen-magazin.de/beste-clubs-in-essen
-- [ ] Hudson's – Ue30-Club in Ruettenscheid · Quelle: https://www.essen-magazin.de/beste-clubs-in-essen
-- [ ] Solid Club – Club/Diskothek · Quelle: https://www.yelp.com/search?cflt=danceclubs&find_loc=Essen,+Nordrhein-Westfalen
-- [ ] StudioEssen – Club/Diskothek · Quelle: https://www.yelp.com/search?cflt=danceclubs&find_loc=Essen,+Nordrhein-Westfalen
+- [~] 19down (`_review`: `19down`)
+- [~] Adiamo Essen (`_review`: `adiamoessen`)
+- [~] Delta (`_review`: `delta`)
+- [~] Essence (`_review`: `essence`)
+- [~] Goethebunker (`_review`: `goethebunker`)
+- [~] Habana (`_review`: `habana`)
+- [~] Hotel Shanghai (`_review`: `hotelshanghai`)
+- [~] Hudson's (`_review`: `hudsons`)
+- [~] Solid Club (`_review`: `solidclub`)
+- [~] StudioEssen (`_review`: `studioessen`)
 
 ### Krefeld
 
-- [ ] Kulturfabrik (KuFa) – Kulturzentrum mit Partys und Konzerten (Dießemer Str. 13, 47799 Krefeld; http://www.kulturfabrik-krefeld.de/) · Quelle: https://www.krefeld.de/nachtleben
-- [ ] Meilenstein – Diskothek am Hauptbahnhof (Am Hauptbahnhof 1) · Quelle: https://www.stadtmagazin.com/krefeld/discothek-meilenstein
-- [ ] Mikroport Club – Club auf dem Diessemer-Strasse-Areal (Dießemer Str. 22) · Quelle: https://www.krefeld.de/nachtleben
-- [ ] Odeon Tanzpalast – Tanzpalast/Diskothek (Moerser Straße 40) · Quelle: https://www.krefeld.de/nachtleben
-- [ ] Pearl Club (Pearls Crefeld Clubbing) – Tanzclub mit Beachclub, Charts/HipHop/House (https://www.purple-pearls.de/) · Quelle: https://www.purple-pearls.de/
-- [ ] Schlachthof Krefeld – Club auf dem Diessemer-Strasse-Areal (Dießemer Str. 9) · Quelle: https://www.krefeld.de/nachtleben
+- [~] Kulturfabrik (`_review`: `kulturfabrik`)
+- [~] Meilenstein (`_review`: `meilenstein`)
+- [~] Mikroport Club (`_review`: `mikroportclub`)
+- [~] Odeon Tanzpalast (`_review`: `odeontanzpalast`)
+- [~] Pearl Club (`_review`: `pearlclub`)
+- [~] Schlachthof Krefeld (`_review`: `schlachthofkrefeld`)
 
 ### Köln
 
-- [ ] Artheater – Cafe, Theater und Underground-Club in Ehrenfeld · Quelle: https://theculturetrip.com/europe/germany/articles/the-best-techno-clubs-in-cologne
-- [ ] Bootshaus – Grosser Techno/EDM-Club, internationale DJs · Quelle: https://theculturetrip.com/europe/germany/articles/the-best-techno-clubs-in-cologne
-- [ ] Club Bahnhof Ehrenfeld – Jazz, Soul, Funk, Hip-Hop am Bahnhof Ehrenfeld · Quelle: https://www.veranstaltungenkoeln.de/tipps/clubs-koeln
-- [ ] Diamonds Club Cologne – Vielbesuchter Nachtclub mit VIP-Lounge · Quelle: https://www.veranstaltungenkoeln.de/tipps/clubs-koeln
-- [ ] Gewölbe – Elektronik-Club in Gewoelben am Bahnhof Koeln West · Quelle: https://theculturetrip.com/europe/germany/articles/the-best-techno-clubs-in-cologne
-- [ ] Odonien – Open-Air-Kunstareal mit Techno-Floors · Quelle: https://theculturetrip.com/europe/germany/articles/the-best-techno-clubs-in-cologne
-- [ ] Reineke Fuchs – Club im Belgischen Viertel, diverse Stile · Quelle: https://www.veranstaltungenkoeln.de/tipps/clubs-koeln
-- [ ] Warehouse Club – Techno-Club (https://www.warehouse-club.de/) · Quelle: https://www.warehouse-club.de/club/
+- [~] Artheater (`_review`: `artheater`)
+- [~] Bootshaus (`_review`: `bootshaus`)
+- [~] Club Bahnhof Ehrenfeld (`_review`: `clubbahnhofehrenfeld`)
+- [~] Diamonds Club Cologne (`_review`: `diamondsclubcologne`)
+- [~] Gewölbe (`_review`: `gewoelbe`)
+- [~] Odonien (`_review`: `odonien`)
+- [~] Reineke Fuchs (`_review`: `reinekefuchs`)
+- [~] Warehouse Club (`_review`: `warehouseclub`)
 
 ### Mönchengladbach
 
-- [ ] Frau Manfred – Subkultur-Nachtclub, Fr/Sa ab 23 Uhr (https://fraumanfred.de/) · Quelle: https://fraumanfred.de/
-- [ ] Goldwasser – Diskothek und Cocktailbar, R&B-Classics (http://goldwasser-mg.de/) · Quelle: http://goldwasser-mg.de/
-- [ ] Lovers Lane – Kult-Disko/Club · Quelle: https://11km.de/lovers-lane/
-- [ ] Nachtgalerie – Club/Diskothek laut Bewertungsportal · Quelle: https://www.golocal.de/moenchengladbach/diskotheken/
-- [ ] The Box – Beliebter Nachtclub mit Eventprogramm · Quelle: https://check-mg.de/nightlife/
+- [~] Frau Manfred (`_review`: `fraumanfred`)
+- [~] Goldwasser (`_review`: `goldwasser`)
+- [~] Lovers Lane (`_review`: `loverslane`)
+- [~] Nachtgalerie (`_review`: `nachtgalerie`)
+- [~] The Box (`_review`: `thebox`)
 
 ### Münster
 
-- [ ] Club Favela – Techno/House am Hawerkamp (Hawerkamp 31; https://clubfavela.de/) · Quelle: https://clubfavela.de/
-- [ ] Conny Kramer – Club mit Themenabenden, House bis Techno · Quelle: https://ms-aktuell.de/gastronomie/clubs-in-muenster/
-- [ ] Fusion Club – Elektronische Musik im Ex-Kino (https://www.fusion-club.de/) · Quelle: https://www.fusion-club.de/events/
-- [ ] Gazelle – Tanz- und Nachtclub am Servatiiplatz (https://www.gazelle.ms/) · Quelle: https://www.gazelle.ms/
-- [ ] Hafenkeller – Liveclub am Hafen (Jazz, Funk, Soul, Rock) · Quelle: https://www.muenster-geht-aus.de/tipps/clubs-in-muenster.html
-- [ ] Hawerkamp (Kulturareal) – Kulturzentrum mit Raves/Clubnächten · Quelle: https://ms-aktuell.de/gastronomie/clubs-in-muenster/
-- [ ] PULS – Club am alten Güterbahnhof · Quelle: https://www.muenster-geht-aus.de/tipps/clubs-in-muenster.html
+- [~] Club Favela (`_review`: `clubfavela`)
+- [~] Conny Kramer (`_review`: `connykramer`)
+- [~] Fusion Club (`_review`: `fusionclub`)
+- [~] Gazelle (`_review`: `gazelle`)
+- [~] Hafenkeller (`_review`: `hafenkeller`)
+- [~] Hawerkamp (`_review`: `hawerkamp`)
+- [~] PULS (`_review`: `puls`)
 
 ### Oberhausen
 
-- [ ] Helvete Metal Club – Metal-Club auf 2,5 Etagen · Quelle: https://www.oberhausen.de/de/index/leben-in-oberhausen/kinder-und-jugendliche/kinder-und-jugendportal/freizeitangebote/nachtleben/diskotheken-und-partys.php
-- [ ] Kulttempel – Diskothek mit fuenf Areas (Muelheimer Str. 24, 46045 Oberhausen; https://www.kulttempel.com/) · Quelle: https://www.kulttempel.com/
-- [ ] Steffy – Diskothek · Quelle: https://www.yelp.com/search?cflt=danceclubs&find_loc=Essen,+Nordrhein-Westfalen
-- [ ] Turbinenhalle – Veranstaltungshalle mit Disco-Partys (Im Lipperfeld 23, 46047 Oberhausen; https://turbinenhalle.de/) · Quelle: https://www.oberhausen.de/de/index/tourismus-freizeit/freizeit-und-erholung/unterhaltung-nachtleben/diskotheken.php
-- [ ] Zentrum Altenberg – Soziokulturelles Zentrum mit Disco · Quelle: https://www.oberhausen.de/de/index/tourismus-freizeit/freizeit-und-erholung/unterhaltung-nachtleben/diskotheken.php
+- [~] Helvete Metal Club (`_review`: `helvetemetalclub`)
+- [~] Kulttempel (`_review`: `kulttempel`)
+- [~] Steffy (`_review`: `steffy`)
+- [~] Turbinenhalle (`_review`: `turbinenhalle`)
+- [~] Zentrum Altenberg (`_review`: `zentrumaltenberg`)
 
 ### Paderborn
 
-- [ ] Boot – Musikclub · Quelle: https://www.tripadvisor.com/Attractions-g187384-Activities-c20-t99-Paderborn_North_Rhine_Westphalia.html
-- [ ] Capitol Musiktheater – Charts, Hip-Hop, Pop im Musiktheater (https://capitol-paderborn.de/) · Quelle: https://partyborn.de/capitol-club-diskothek-paderborn
-- [ ] Franz Ferdinand – Club mit Studenten-Donnerstagen · Quelle: https://partyborn.de/kategorie/diskotheken
-- [ ] Mango – Bar/Club an der Marienstraße · Quelle: https://www.tripadvisor.com/Attractions-g187384-Activities-c20-t99-Paderborn_North_Rhine_Westphalia.html
-- [ ] Penthouse – Elektronische Musik: House, Deep, Tech, Minimal · Quelle: https://www.paderborn-meinestadt.de/penthouse-eroeffnung/64385
-- [ ] Residenz Club & Diskothek – Mehrere Floors, Allround bis Techno · Quelle: https://partyborn.de/residenz-club-diskothek-paderborn
-- [ ] Wald – Kleiner Club am Marienplatz (Teil des Residenz-Komplexes) · Quelle: https://www.tripadvisor.com/Attractions-g187384-Activities-c20-t99-Paderborn_North_Rhine_Westphalia.html
+- [~] Boot (`_review`: `boot`)
+- [~] Capitol Musiktheater (`_review`: `capitolmusiktheater`)
+- [~] Franz Ferdinand (`_review`: `franzferdinand`)
+- [~] Mango (`_review`: `mango`)
+- [~] Penthouse (`_review`: `penthouse`)
+- [~] Residenz Club & Diskothek (`_review`: `residenzclubdiskothek`)
+- [~] Wald (`_review`: `wald`)
 
 ### Siegen
 
-- [ ] Blaue Lagune Bar & Nightclub – Bar und Nachtclub · Quelle: https://partyzettel.de/diskotheken/stadt/siegen/
-- [ ] Meyer – Bekannte Nightlife-Location (lt. WKH-Seite) · Quelle: https://www.wkh-siegen.de/
-- [ ] SPLIT Club & Diskothek – Wechselnde Partys Fr/Sa, 525 qm (https://www.split-diskothek.de/) · Quelle: https://www.split-diskothek.de/
-- [ ] Vortex – Bekannte Nightlife-Location (lt. WKH-Seite) · Quelle: https://www.wkh-siegen.de/
-- [ ] WKH (Wolkenkuckucksheim) – Bekanntester Club Südwestfalens, seit 2016 (Europastraße 9; https://www.wkh-siegen.de/) · Quelle: https://www.wkh-siegen.de/
+- [~] Blaue Lagune Bar & Nightclub (`_review`: `blauelagunebarnightclub`)
+- [~] Meyer (`_review`: `meyer`)
+- [~] SPLIT Club & Diskothek (`_review`: `splitclubdiskothek`)
+- [~] Vortex (`_review`: `vortex`)
+- [~] WKH (`_review`: `wkh`)
 
 ### Wuppertal
 
-- [ ] Club Pavillon – Konzert- und Clublocation · Quelle: https://www.livegigs.de/venues/wuppertal-club-pavillon
-- [ ] Eventground Wuppertal – Event- und Partylocation (https://www.eventground-wuppertal.de/) · Quelle: https://www.eventground-wuppertal.de/
-- [ ] kitchenclub – Club mit Mottopartys · Quelle: https://www.discos.de/wuppertal
-- [ ] Live Club Barmen – Kulturzentrum mit Partys/Discos (Geschwister-Scholl-Platz 4-6, 42275 Wuppertal) · Quelle: https://www.wuppertal.de/tourismus-freizeit/freizeit/fuer_erwachsene/102370100000211895.php
-- [ ] MAUKE – Livemusik- und Clublocation (Schlossbleiche / Wirmhof, Wuppertal) · Quelle: https://www.facebook.com/MAUKEclub/
-- [ ] Skyribar Club – Club/Diskothek (Uellendahler Strasse 316A, Wuppertal) · Quelle: https://www.goyellow.de/suche/diskothek/wuppertal
-- [ ] U-Club – Reggae/Rock-Club mit Konzerten · Quelle: https://www.fazemag.de/wuppertaler-nightlife-die-besten-locations-zum-ausgehen-und-feiern/
-- [ ] Underground – 80s-Disko und Livebands · Quelle: http://m.virtualnights.com/wuppertal/citytipp/die-besten-clubs-und-diskotheken-in-wuppertal.108
+- [~] Club Pavillon (`_review`: `clubpavillon`)
+- [~] Eventground Wuppertal (`_review`: `eventgroundwuppertal`)
+- [~] kitchenclub (`_review`: `kitchenclub`)
+- [~] Live Club Barmen (`_review`: `liveclubbarmen`)
+- [~] MAUKE (`_review`: `mauke`)
+- [~] Skyribar Club (`_review`: `skyribarclub`)
+- [~] U-Club (`_review`: `uclub`)
+- [~] Underground (`_review`: `underground`)
 
-## Rheinland-Pfalz (0 auf Karte · 0 in Prüfung · 27 offen)
+## Rheinland-Pfalz (0 auf Karte · 27 in Prüfung · 0 offen)
 
 ### Kaiserslautern
 
-- [ ] Country Heaven – Country-Tanzclub laut Listing · Quelle: https://www.inyourpocket.com/kaiserslautern/nightlife/clubs
-- [ ] Irish House – Pub mit Eventsaal, Livekonzerten (Eselsfürth 11, 67657 Kaiserslautern; https://irishhouse-kl.de/) · Quelle: https://irishhouse-kl.de/
-- [ ] Kammgarn (mit Cotton Club) – Kulturzentrum mit Konzerten, Partys · Quelle: https://www.inyourpocket.com/kaiserslautern/nightlife/clubs
-- [ ] Luther Club – Eventclub, Mottopartys, DJ-Nächte (Martin-Luther-Straße 8, Kaiserslautern; https://lutherclub.de/) · Quelle: https://lutherclub.de/
-- [ ] Markthalle – Club laut Listing · Quelle: https://www.inyourpocket.com/kaiserslautern/nightlife/clubs
-- [ ] Nachtschicht – Großraumdiskothek mit VIP-Lounges (https://nachtschicht-kaiserslautern.app/) · Quelle: https://nachtschicht-kaiserslautern.app/
-- [ ] Nirvana – Club laut Listing · Quelle: https://www.inyourpocket.com/kaiserslautern/nightlife/clubs
+- [~] Country Heaven (`_review`: `countryheaven`)
+- [~] Irish House (`_review`: `irishhouse`)
+- [~] Kammgarn (`_review`: `kammgarn`)
+- [~] Luther Club (`_review`: `lutherclub`)
+- [~] Markthalle (`_review`: `markthalle`)
+- [~] Nachtschicht (`_review`: `nachtschicht`)
+- [~] Nirvana (`_review`: `nirvana`)
 
 ### Koblenz
 
-- [ ] Agostea Nachtarena – Großraumdisko, u.a. Hardstyle · Quelle: https://freakmuzik.net/electric-city-koblenz-bekannteste-clubnight-ist-zurueck/
-- [ ] Circus Maximus – Restaurant, Bar & Club (https://circus-maximus.org/) · Quelle: https://circus-maximus.org/events/
-- [ ] Coyote Ugly – Partybar mit Tanz · Quelle: https://www.yelp.de/search?cflt=danceclubs&find_loc=Koblenz%2C+Rheinland-Pfalz
-- [ ] Druckluftkammer – Szeneclub im Altstadt-Gewölbekeller (https://druckluftkammer.de/) · Quelle: https://druckluftkammer.de/
-- [ ] Live Night – Club laut Yelp-Liste · Quelle: https://www.yelp.de/search?cflt=danceclubs&find_loc=Koblenz%2C+Rheinland-Pfalz
-- [ ] Palais – Club laut Partylisting · Quelle: https://partyzettel.de/diskotheken/stadt/koblenz/
-- [ ] S 38 – Club laut Yelp-Liste · Quelle: https://www.yelp.de/search?cflt=danceclubs&find_loc=Koblenz%2C+Rheinland-Pfalz
-- [ ] Wilde Heimat – Club & Bar, freitags (https://wilde-heimat-koblenz.de/) · Quelle: https://wilde-heimat-koblenz.de/
-- [ ] Zenit Club – Club laut Partylisting · Quelle: https://partyzettel.de/diskotheken/stadt/koblenz/
+- [~] Agostea Nachtarena (`_review`: `agosteanachtarena`)
+- [~] Circus Maximus (`_review`: `circusmaximus`)
+- [~] Coyote Ugly (`_review`: `coyoteugly`)
+- [~] Druckluftkammer (`_review`: `druckluftkammer`)
+- [~] Live Night (`_review`: `livenight`)
+- [~] Palais (`_review`: `palaiskoblenz`)
+- [~] S 38 (`_review`: `s38`)
+- [~] Wilde Heimat (`_review`: `wildeheimat`)
+- [~] Zenit Club (`_review`: `zenitclub`)
 
 ### Mainz
 
-- [ ] Bellini Club – Club für elektronische Musik (Rheinallee 159, Mainz-Mombach) · Quelle: https://nightlife.journal-frankfurt.de/nightlife_locations/bellini-club-mainz-mombach-rheinalle-159-11019726.html
-- [ ] Caveau – Kellerclub mit Livemusik · Quelle: https://web2.cylex.de/branchen/diskotheken/Mainz/
-- [ ] Imperial - The Club – Nachtclub (https://imperialmainz.de/) · Quelle: https://imperialmainz.de/
-- [ ] Red Cat Club – Eventlocation mit Partys · Quelle: https://prinz.de/mainz/locations/kategorie/clubs-bars/party/
-- [ ] Roxy – Partyclub in der Südstadt · Quelle: https://prinz.de/mainz/locations/kategorie/clubs-bars/party/
+- [~] Bellini Club (`_review`: `belliniclub`)
+- [~] Caveau (`_review`: `caveau`)
+- [~] Imperial - The Club (`_review`: `imperialtheclub`)
+- [~] Red Cat Club (`_review`: `redcatclub`)
+- [~] Roxy (`_review`: `roxy`)
 
 ### Trier
 
-- [ ] Club 11 – Club laut Listing · Quelle: https://veranstaltungen.meinestadt.de/trier/locations/clubs-diskotheken
-- [ ] Forum – Club laut Listing · Quelle: https://veranstaltungen.meinestadt.de/trier/locations/clubs-diskotheken
-- [ ] Metropolis – Diskothek, Hip-Hop, Studentenpartys (https://metropolis-club.de/) · Quelle: https://metropolis-club.de/
-- [ ] MJC Mergener Hof – Kulturzentrum mit Techno-Gewölbekeller (https://mjctrier.de/) · Quelle: https://mjctrier.de/tag/techno/
-- [ ] Mycro-Club – Club laut Listing · Quelle: https://veranstaltungen.meinestadt.de/trier/locations/clubs-diskotheken
-- [ ] villaWuller – Selbstverwalteter Elektro-Club (https://www.villawuller.de/) · Quelle: https://www.villawuller.de/
+- [~] Club 11 (`_review`: `club11`)
+- [~] Forum (`_review`: `forumtrier`)
+- [~] Metropolis (`_review`: `metropolis`)
+- [~] MJC Mergener Hof (`_review`: `mjcmergenerhof`)
+- [~] Mycro-Club (`_review`: `mycroclub`)
+- [~] villaWuller (`_review`: `villawuller`)
 
-## Saarland (0 auf Karte · 0 in Prüfung · 7 offen)
+## Saarland (0 auf Karte · 7 in Prüfung · 0 offen)
 
 ### Saarbrücken
 
-- [ ] Club Seven – Nachtclub im Stadtzentrum (Futterstraße 5-7, 66111 Saarbrücken) · Quelle: https://www.urlaub.saarland/gastronomie/club-seven-e577352990
-- [ ] Die Garage – Konzerthalle mit Clubnächten · Quelle: https://www.saarbruecken.de/leben_in_saarbruecken/gastronomie_restaurants_nachtleben/nachtleben/diskotheken_und_clubs
-- [ ] Discoplex A8 – Großraumdisko an der Saarlandhalle · Quelle: https://www.urlaub.saarland/gastronomie/discoplex-a8-abceceec9f
-- [ ] Kufa – Diskothek laut Listing · Quelle: https://partyzettel.de/diskotheken/stadt/saarbruecken/
-- [ ] Mauerpfeiffer (mit UBar) – Techno-Club, mehrere Floors (https://mauerpfeiffer.de/) · Quelle: https://mauerpfeiffer.de/
-- [ ] Silo (Silodom) – Techno/Elektro-Location im Osthafen · Quelle: https://www.premierinn.com/de/de/reiseziele/saarbruecken/bars-und-clubs.html
-- [ ] SOHO – Tanz- und Nachtclub (Kaiserstraße 10, Saarbrücken) · Quelle: https://www.premierinn.com/de/de/reiseziele/saarbruecken/bars-und-clubs.html
+- [~] Club Seven (`_review`: `clubseven`)
+- [~] Die Garage (`_review`: `diegarage`)
+- [~] Discoplex A8 (`_review`: `discoplexa8`)
+- [~] Kufa (`_review`: `kufa`)
+- [~] Mauerpfeiffer (`_review`: `mauerpfeiffer`)
+- [~] Silo (`_review`: `silo`)
+- [~] SOHO (`_review`: `soho`)
 
-## Sachsen (0 auf Karte · 0 in Prüfung · 30 offen)
+## Sachsen (0 auf Karte · 30 in Prüfung · 0 offen)
 
 ### Chemnitz
 
-- [ ] Atomino – Club/Kulturverein seit über 20 Jahren, Indie/Hip-Hop/Reggae, Konzerte und Tanzpartys · Quelle: https://handinhand-chemnitz.de/mitglieder/atomino
-- [ ] Club FX – Langjähriger Club, Alternative/House/Black · Quelle: https://www.chemnitz-online.de/news-lesen/clubs-bars-discos.html
-- [ ] Fuchsbau – Junger Nachtclub nahe Hauptbahnhof, 90er-Partys, Karaoke, Fuchsfridays · Quelle: https://www.chemnitz-online.de/news-lesen/clubs-bars-discos.html
-- [ ] Nikola Tesla – Club am Sonnenberg (Zietenstraße), Konzerte, Partys, Postpunk/60s/Soul · Quelle: https://handinhand-chemnitz.de/mitglieder/nikola-tesla
-- [ ] Pentagon³ – Tanz- und Partyevents, direkt neben dem Rathaus an der Brückenstraße · Quelle: https://www.chemnitz-online.de/news-lesen/clubs-bars-discos.html
-- [ ] Sanitätsstelle – Club/Location an der Annaberger Straße · Quelle: https://www.chemnitz-online.de/news-lesen/clubs-bars-discos.html
-- [ ] Weltecho – Kulturzentrum mit Clubnächten an der Annaberger Straße · Quelle: https://www.chemnitz-online.de/news-lesen/clubs-bars-discos.html
+- [~] Atomino (`_review`: `atomino`)
+- [~] Club FX (`_review`: `clubfx`)
+- [~] Fuchsbau (`_review`: `fuchsbau`)
+- [~] Nikola Tesla (`_review`: `nikolatesla`)
+- [~] Pentagon³ (`_review`: `pentagon3`)
+- [~] Sanitätsstelle (`_review`: `sanitaetsstelle`)
+- [~] Weltecho (`_review`: `weltecho`)
 
 ### Dresden
 
-- [ ] Bonnies Ranch – Club/Diskothek (Verzeichniseintrag) · Quelle: https://dresdennightlife.de/diskotheken/
-- [ ] Club Bodenlos – Club im Sandsteingewölbe unter dem Hilton am Neumarkt, 80er/90er/2000er und Charts · Quelle: https://dresden-magazin.com/dresden-mittendrin/clubs-in-dresden/
-- [ ] Club Paula – House/Techno seit 2010 in einem alten Trafogebäude · Quelle: https://dresden-magazin.com/en/heart-of-the-city/ten-cool-clubs-in-dresden/
-- [ ] Downtown – Diskothek, breites Spektrum von Charts bis Techno und Hip-Hop · Quelle: https://dresden-magazin.com/dresden-mittendrin/clubs-in-dresden/
-- [ ] Gong – Tanzbar und Diskothek an der Wilhelm-Franke-Straße · Quelle: https://dresdennightlife.de/diskotheken/
-- [ ] Groovestation – Club seit 1994, u.a. Techno/House-Sessions · Quelle: https://www.lollishome.de/en/news/post/dresdens-underground-music-scene/
-- [ ] L'Hibou – Club/Diskothek (Verzeichniseintrag) · Quelle: https://dresdennightlife.de/diskotheken/
-- [ ] Lofthouse – Club/Diskothek (Verzeichniseintrag) · Quelle: https://dresdennightlife.de/diskotheken/
-- [ ] Objekt klein a (oka) – Techno/House/Electro im Industriegebiet, großes Open-Air-Gelände · Quelle: https://dresden-magazin.com/en/heart-of-the-city/ten-cool-clubs-in-dresden/
-- [ ] Puschkin – Club und Konzertraum an der Leipziger Straße, bis 700 Gäste, Elektro im Roten Raum · Quelle: https://dresden-magazin.com/dresden-mittendrin/clubs-in-dresden/
-- [ ] Sektor Evolution – Technoclub im Industriegelände am nördlichen Elbufer · Quelle: https://dresden-magazin.com/en/heart-of-the-city/ten-cool-clubs-in-dresden/
-- [ ] Sputnik 2.0 – Club/Diskothek (Verzeichniseintrag) · Quelle: https://dresdennightlife.de/diskotheken/
-- [ ] TBA Club – Elektronik-Club direkt unter dem Bahnhof Dresden-Neustadt · Quelle: https://www.instagram.com/tba_club/
-- [ ] Times Club – Diskothek (Verzeichniseintrag) · Quelle: https://dresdennightlife.de/diskotheken/
-- [ ] Times Square Club – Diskothek (Verzeichniseintrag) · Quelle: https://dresdennightlife.de/diskotheken/
+- [~] Bonnies Ranch (`_review`: `bonniesranch`)
+- [~] Club Bodenlos (`_review`: `clubbodenlos`)
+- [~] Club Paula (`_review`: `clubpaula`)
+- [~] Downtown (`_review`: `downtown`)
+- [~] Gong (`_review`: `gong`)
+- [~] Groovestation (`_review`: `groovestation`)
+- [~] L'Hibou (`_review`: `lhibou`)
+- [~] Lofthouse (`_review`: `lofthouse`)
+- [~] Objekt klein a (`_review`: `objektkleina`)
+- [~] Puschkin (`_review`: `puschkin`)
+- [~] Sektor Evolution (`_review`: `sektorevolution`)
+- [~] Sputnik 2.0 (`_review`: `sputnik20`)
+- [~] TBA Club (`_review`: `tbaclub`)
+- [~] Times Club (`_review`: `timesclub`)
+- [~] Times Square Club (`_review`: `timessquareclub`)
 
 ### Leipzig
 
-- [ ] Axxon N. – Neuer Club-/Kulturort am Kohlrabizirkus · Quelle: https://www.leipzig-leben.de/veranstaltungen/nachtleben/clubs/
-- [ ] Distillery – Ältester Technoclub Ostdeutschlands, nach Pause wieder aktiv · Quelle: https://www.leipzig-leben.de/veranstaltungen/nachtleben/clubs/
-- [ ] DUQO – Kulturzentrum mit Bar und Clubpartys, eröffnet 2024 (Lagerhofstraße 2) · Quelle: https://www.leipzig-leben.de/veranstaltungen/nachtleben/clubs/
-- [ ] Elipamanoke – Vereinsgeführter Elektronik-/Technoclub in Plagwitz (Markranstädter Straße) · Quelle: https://technoedm.com/techno-club-rave-reviews/rave-on-leipzigs-techno-clubs-that-set-the-beat/
-- [ ] IfZ (Institut fuer Zukunft) – Underground-Technoclub im Leipziger Süden · Quelle: https://technoedm.com/techno-club-rave-reviews/rave-on-leipzigs-techno-clubs-that-set-the-beat/
-- [ ] Neue Welle – Minimalistischer Technoclub · Quelle: https://technoedm.com/techno-club-rave-reviews/rave-on-leipzigs-techno-clubs-that-set-the-beat/
-- [ ] Sky Club – Techno & House auf 3 Floors, Open-Air-Events (https://www.skyclub-leipzig.de/) · Quelle: https://www.skyclub-leipzig.de/
-- [ ] TWENTY ONE – Moderner Großclub, EDM/Black auf zwei Floors (https://www.twentyone-leipzig.de/) · Quelle: https://www.twentyone-leipzig.de/
+- [~] Axxon N. (`_review`: `axxonn`)
+- [~] Distillery (`_review`: `distillery`)
+- [~] DUQO (`_review`: `duqo`)
+- [~] Elipamanoke (`_review`: `elipamanoke`)
+- [~] IfZ (`_review`: `ifz`)
+- [~] Neue Welle (`_review`: `neuewelle`)
+- [~] Sky Club (`_review`: `skyclub`)
+- [~] TWENTY ONE (`_review`: `twentyone`)
 
-## Sachsen-Anhalt (0 auf Karte · 0 in Prüfung · 16 offen)
+## Sachsen-Anhalt (0 auf Karte · 16 in Prüfung · 0 offen)
 
 ### Halle (Saale)
 
-- [ ] Aurum Club – Tanz- und Partyclub, Stadtnorden · Quelle: https://www.waldkater.eu/aurum-club/
-- [ ] Charles Bronson – Technoclub seit 2009 · Quelle: https://halle365.de/veranstaltungsort/charles-bronson
-- [ ] Der Turm – Beliebter Club, meist voll · Quelle: https://halle365.de/veranstaltungsorte-clubs-diskotheken
-- [ ] Easy Schorre – Große Diskothek, Partynächte · Quelle: https://halle365.de/veranstaltungsorte-clubs-diskotheken
-- [ ] Papa Dula – Szeneclub, Elektro-Pop, Reggae · Quelle: https://halle365.de/veranstaltungsorte-clubs-diskotheken
-- [ ] Station Endlos – Kulturzentrum mit Clubnächten · Quelle: https://www.theclubmap.com/cities/halle/
-- [ ] Tante Manfred – Tanzclub und Konzertort · Quelle: https://halle365.de/veranstaltungsorte-clubs-diskotheken
-- [ ] Tanzbar Palette – Tanzbar seit 1954, Jugendstil-Ambiente · Quelle: https://halle365.de/veranstaltungsorte-clubs-diskotheken
+- [~] Aurum Club (`_review`: `aurumclub`)
+- [~] Charles Bronson (`_review`: `charlesbronson`)
+- [~] Der Turm (`_review`: `derturm`)
+- [~] Easy Schorre (`_review`: `easyschorre`)
+- [~] Papa Dula (`_review`: `papadula`)
+- [~] Station Endlos (`_review`: `stationendlos`)
+- [~] Tante Manfred (`_review`: `tantemanfred`)
+- [~] Tanzbar Palette (`_review`: `tanzbarpalette`)
 
 ### Magdeburg
 
-- [ ] Boys'n'Beats – Gay-Club, Partys (Liebknechtstraße 89) · Quelle: https://www.magdeburg.de/index.php?ModID=7&FID=698.14206.1&object=tx%7C698.14206.1
-- [ ] Buttergasse – Themenpartys in historischen Katakomben (Alter Markt 13; https://www.buttergasse.de/) · Quelle: https://www.buttergasse.de/
-- [ ] Geheimclub – Techno und House (Münchenhofstr. 37, 39124 Magdeburg) · Quelle: https://www.dates-md.de/locations/geheimclub-magdeburg/
-- [ ] Insel der Jugend – Electro, Konzerte, Open Airs (Maybachstraße 8, 39104 Magdeburg) · Quelle: https://www.dates-md.de/locations/insel-jugend/
-- [ ] Prinzzclub – House, Electro, Hip-Hop · Quelle: https://www.diestadtfelder.de/wohnratgeber/clubs-magdeburg/
-- [ ] SC Baracke – Studentenclub, Chartmusik (Universitätsplatz) · Quelle: https://partyzettel.de/diskotheken/stadt/magdeburg/
-- [ ] The Club – House, Soul, R'n'B, Hip-Hop (Hasselbachplatz 2) · Quelle: https://www.magdeburg.de/index.php?ModID=9&object=tx%7C37.6876.1&FID=115.217.1&NavID=37.766&La=1
-- [ ] The Factory – Disko, Charts, 80er/90er · Quelle: https://www.diestadtfelder.de/wohnratgeber/clubs-magdeburg/
+- [~] Boys'n'Beats (`_review`: `boysnbeats`)
+- [~] Buttergasse (`_review`: `buttergasse`)
+- [~] Geheimclub (`_review`: `geheimclub`)
+- [~] Insel der Jugend (`_review`: `inselderjugend`)
+- [~] Prinzzclub (`_review`: `prinzzclub`)
+- [~] SC Baracke (`_review`: `scbaracke`)
+- [~] The Club (`_review`: `theclub`)
+- [~] The Factory (`_review`: `thefactory`)
 
-## Schleswig-Holstein (0 auf Karte · 0 in Prüfung · 16 offen)
+## Schleswig-Holstein (0 auf Karte · 16 in Prüfung · 0 offen)
 
 ### Flensburg
 
-- [ ] Stereo – Junges Publikum, Livekonzerte und Mottopartys · Quelle: https://www.flensburger-foerde.de/kultur/nachtleben
-- [ ] Study Lounge – Moderner Club, Mi-Sa ab 23 Uhr, Black/House/Charts (http://study-lounge.de/) · Quelle: http://study-lounge.de/
-- [ ] Tanzlokal Sasa – Tanzlokal, DJs verschiedener Genres, kleine Konzerte · Quelle: https://djliljim.de/nachtleben-in-flensburg-clubs-und-diskotheken/
+- [~] Stereo (`_review`: `stereoflensburg`)
+- [~] Study Lounge (`_review`: `studylounge`)
+- [~] Tanzlokal Sasa (`_review`: `tanzlokalsasa`)
 
 ### Kiel
 
-- [ ] Atrium – Grossraumclub mit 4 Areas (https://atrium-kiel.de/) · Quelle: https://atrium-kiel.de/
-- [ ] Bunker Club – Techno/Trance-Club im Bunker (Waisenhofstr. 6, Kiel) · Quelle: https://kultur-rausch.de/bunkerclub
-- [ ] Club Pumpe – Kulturzentrum mit Clubnaechten, elektronische Musik · Quelle: https://www.eventbrite.de/d/germany--kiel/techno-party/
-- [ ] Ease-Club – Club im Nachtleben-Viertel Bergstrasse · Quelle: https://www.kiel-magazin.de/artikel/nachtleben-angesagte-clubs-und-bars-in-kiel
-- [ ] Kieler Schaubude – Szeneclub, Partys/Poetry-Slams, seit 2024 Bergstrasse · Quelle: https://www.kiel-magazin.de/artikel/nachtleben-angesagte-clubs-und-bars-in-kiel
-- [ ] Luna Club – Alternative DJ-Sets, Indie-Konzerte, Electro · Quelle: https://www.kiel-magazin.de/artikel/nachtleben-angesagte-clubs-und-bars-in-kiel
-- [ ] MAX Nachttheater – Disko plus Konzerte/Comedy/Theater · Quelle: https://www.kiel-magazin.de/artikel/nachtleben-angesagte-clubs-und-bars-in-kiel
-- [ ] Tucholsky – Diskothek seit 1970, Studentenpartys (https://tucholskykiel.de/index.php) · Quelle: https://tucholskykiel.de/index.php
+- [~] Atrium (`_review`: `atrium`)
+- [~] Bunker Club (`_review`: `bunkerclub`)
+- [~] Club Pumpe (`_review`: `clubpumpe`)
+- [~] Ease-Club (`_review`: `easeclub`)
+- [~] Kieler Schaubude (`_review`: `kielerschaubude`)
+- [~] Luna Club (`_review`: `lunaclub`)
+- [~] MAX Nachttheater (`_review`: `maxnachttheater`)
+- [~] Tucholsky (`_review`: `tucholsky`)
 
 ### Lübeck
 
-- [ ] A1 Musikpark – Grossraumdiskothek, mehrere Floors (Charts/House/RnB) (https://www.a1-musikpark.de/) · Quelle: https://www.a1-musikpark.de/
-- [ ] Blauer Engel – Konzerte und Partys, Reggae bis Electro (Clemensstrasse 8, Luebeck) · Quelle: https://www.wasgehtinluebeck.de/location.php?id=537
-- [ ] HÜX – Club und Diskothek im Altstadtkeller am Hüxterdamm (https://www.huex.de/) · Quelle: https://www.huex.de/
-- [ ] Soundsclub – Club mit breiter Musikauswahl (https://soundsclub.de/) · Quelle: https://soundsclub.de/
-- [ ] Treibsand – Linkes Kulturzentrum mit Konzerten und Tanznaechten (https://treibsand.net/) · Quelle: https://treibsand.net/
+- [~] A1 Musikpark (`_review`: `a1musikpark`)
+- [~] Blauer Engel (`_review`: `blauerengel`)
+- [~] HÜX (`_review`: `huex`)
+- [~] Soundsclub (`_review`: `soundsclub`)
+- [~] Treibsand (`_review`: `treibsand`)
 
-## Thüringen (0 auf Karte · 0 in Prüfung · 16 offen)
+## Thüringen (0 auf Karte · 16 in Prüfung · 0 offen)
 
 ### Erfurt
 
-- [ ] Casanova – Nachtclub · Quelle: https://partyzettel.de/diskotheken/stadt/erfurt/
-- [ ] Club Palais 13 – Black, House, Charts · Quelle: https://erfurt.rocks/veranstaltung/diskothek-club/
-- [ ] Cosmopolar – Wechselnde Partykonzepte, DJs (https://cosmopolar.com/) · Quelle: https://cosmopolar.com/
-- [ ] Eburg Club – Club/Diskothek · Quelle: https://partyzettel.de/diskotheken/stadt/erfurt/
-- [ ] HsD / Museumskeller – Konzert- und Partylocation, Juri-Gagarin-Ring (https://hsd-erfurt.de/) · Quelle: https://hsd-erfurt.de/
-- [ ] Kalif Storch – Technoclub am Güterbahnhof (Zum Güterbahnhof 20, 99085 Erfurt; https://www.kalifstorch.com/) · Quelle: https://www.erfurt-tourismus.de/en/events-markets/nightclubs/kalif-storch/
-- [ ] Klanggerüst – Livekultur und House-Partys · Quelle: https://feels-like-erfurt.de/die-besten-clubs-erfurt-wo-die-stadt-nachts-erwacht/
-- [ ] Mandala Beachclub – Beachclub-Partylocation · Quelle: https://partyzettel.de/diskotheken/stadt/erfurt/
+- [~] Casanova (`_review`: `casanova`)
+- [~] Club Palais 13 (`_review`: `clubpalais13`)
+- [~] Cosmopolar (`_review`: `cosmopolar`)
+- [~] Eburg Club (`_review`: `eburgclub`)
+- [~] HsD / Museumskeller (`_review`: `hsdmuseumskeller`)
+- [~] Kalif Storch (`_review`: `kalifstorch`)
+- [~] Klanggerüst (`_review`: `klanggeruest`)
+- [~] Mandala Beachclub (`_review`: `mandalabeachclub`)
 
 ### Jena
 
-- [ ] F-Haus – Studentenpartys und Konzerte seit 1999 · Quelle: https://www.visit-jena.de/kultur/clubs-szene/
-- [ ] Kassablanca Gleis 1 – Soziokulturzentrum, Clubnächte, Konzerte (Felsenkellerstraße 13a, 07745 Jena; https://www.kassablanca.de/) · Quelle: https://www.visit-jena.de/kunst-kultur-und-kulinarik/clubs-szene/kassablanca/
-- [ ] M-Pire Music Club – Party- und Eventlocation (https://mpire-jena.de/) · Quelle: https://mpire-jena.de/
-- [ ] Med-Club Jena – Club am Alten Saalbahnhof (Spitzweidenweg 28) · Quelle: https://partyzettel.de/diskotheken/stadt/jena/
-- [ ] Rosenkeller – Studentenclub seit 1966, Disco (https://rosenkeller.org/) · Quelle: https://rosenkeller.org/en/home/
+- [~] F-Haus (`_review`: `fhaus`)
+- [~] Kassablanca Gleis 1 (`_review`: `kassablancagleis1`)
+- [~] M-Pire Music Club (`_review`: `mpiremusicclub`)
+- [~] Med-Club Jena (`_review`: `medclubjena`)
+- [~] Rosenkeller (`_review`: `rosenkeller`)
 
 ### Weimar
 
-- [ ] Beatcorner – Musikkneipe mit Tanzfläche, Discoabende (https://beatcorner.de/) · Quelle: https://beatcorner.de/
-- [ ] Kasseturm – Ältester Studentenclub Deutschlands, Partys (Goetheplatz 10; https://kasseturm.de/) · Quelle: https://kasseturm.de/
-- [ ] Projekt Eins (ehem. Studentenclub Schützengasse) – Studentenpartys, Salsa; Programm derzeit unklar (Schützengasse 2, 99423 Weimar) · Quelle: https://veranstaltungen.meinestadt.de/weimar-thueringen/location-detail/11481
+- [~] Beatcorner (`_review`: `beatcorner`)
+- [~] Kasseturm (`_review`: `kasseturm`)
+- [~] Projekt Eins (`_review`: `projekteins`)

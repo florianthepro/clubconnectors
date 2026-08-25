@@ -1,0 +1,10 @@
+# Prisma Nachterlebniswelt – Dortmund
+id: prismanachterlebniswelt
+name: Prisma Nachterlebniswelt
+city: Dortmund
+address: Deutsche Strasse 6, Dortmund-Eving
+lat: NACHMESSEN
+lng: NACHMESSEN
+about: Die Prisma Nachterlebniswelt ist eine Großraumdiskothek mit mehreren Floors in der Deutschen Straße 6 in Dortmund-Eving.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.discos.de/dortmund; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: website, genres; danach nach de/nordrhein-westfalen/dortmund/ verschieben"

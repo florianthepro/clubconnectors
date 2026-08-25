@@ -1,0 +1,18 @@
+# Buttergasse – Magdeburg
+id: buttergasse
+name: Buttergasse
+city: Magdeburg
+address: Alter Markt 13
+lat: NACHMESSEN
+lng: NACHMESSEN
+website: "https://www.buttergasse.de/"
+about: Die Buttergasse am Alten Markt 13 in Magdeburg richtet Themenpartys in historischen Katakomben aus.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.buttergasse.de/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: genres; Zweifel: Themenpartys in Katakomben, evtl. eher Eventlocation als regulärer Club.; danach nach de/sachsen-anhalt/magdeburg/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.buttergasse.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

@@ -1,0 +1,17 @@
+# Gartenlaube – Heilbronn
+id: gartenlaube
+name: Gartenlaube
+city: Heilbronn
+lat: NACHMESSEN
+lng: NACHMESSEN
+website: "https://www.gartenlaube.com/"
+about: Die Gartenlaube ist eine seit Jahrzehnten bestehende Location in Heilbronn.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.gartenlaube.com/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, genres; Zweifel: Als Location ohne klare Betriebsart beschrieben; evtl. kein regulärer Nachtclub.; danach nach de/baden-wuerttemberg/heilbronn/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.gartenlaube.com/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

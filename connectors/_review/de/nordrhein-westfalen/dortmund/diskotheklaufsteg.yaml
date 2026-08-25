@@ -1,0 +1,9 @@
+# Diskothek Laufsteg – Dortmund
+id: diskotheklaufsteg
+name: Diskothek Laufsteg
+city: Dortmund
+lat: NACHMESSEN
+lng: NACHMESSEN
+about: Der Laufsteg ist eine Diskothek in Dortmund.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.discos.de/dortmund; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/nordrhein-westfalen/dortmund/ verschieben"

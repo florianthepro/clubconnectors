@@ -1,0 +1,10 @@
+# U-Club – Wuppertal
+id: uclub
+name: U-Club
+city: Wuppertal
+lat: NACHMESSEN
+lng: NACHMESSEN
+genres: Rock, Live
+about: Der U-Club in Wuppertal ist ein Club mit Reggae und Rock, in dem auch Konzerte stattfinden.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.fazemag.de/wuppertaler-nightlife-die-besten-locations-zum-ausgehen-und-feiern/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/nordrhein-westfalen/wuppertal/ verschieben"

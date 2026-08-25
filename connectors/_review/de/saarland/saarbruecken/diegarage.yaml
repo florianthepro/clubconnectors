@@ -1,0 +1,10 @@
+# Die Garage – Saarbrücken
+id: diegarage
+name: Die Garage
+city: Saarbrücken
+lat: NACHMESSEN
+lng: NACHMESSEN
+genres: Live
+about: Die Garage in Saarbrücken ist eine Konzerthalle, in der auch Clubnächte stattfinden.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.saarbruecken.de/leben_in_saarbruecken/gastronomie_restaurants_nachtleben/nachtleben/diskotheken_und_clubs; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; Zweifel: In erster Linie Konzerthalle, kein reiner Nachtclub.; danach nach de/saarland/saarbruecken/ verschieben"

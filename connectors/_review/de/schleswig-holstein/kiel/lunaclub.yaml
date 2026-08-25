@@ -1,0 +1,10 @@
+# Luna Club – Kiel
+id: lunaclub
+name: Luna Club
+city: Kiel
+lat: NACHMESSEN
+lng: NACHMESSEN
+genres: Indie, Electro, Live
+about: Der Luna Club in Kiel bietet alternative DJ-Sets, Indie-Konzerte und Electro.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.kiel-magazin.de/artikel/nachtleben-angesagte-clubs-und-bars-in-kiel; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/schleswig-holstein/kiel/ verschieben"

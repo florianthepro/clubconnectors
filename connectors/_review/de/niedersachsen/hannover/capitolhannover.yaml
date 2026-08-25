@@ -1,0 +1,10 @@
+# Capitol Hannover – Hannover
+id: capitolhannover
+name: Capitol Hannover
+city: Hannover
+lat: NACHMESSEN
+lng: NACHMESSEN
+genres: Live
+about: Das Capitol Hannover im Stadtteil Linden-Mitte bietet Live-Musik, Disco und Konzerte.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://socialmatch.de/blog/diskotheken-in-hannover/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/niedersachsen/hannover/ verschieben"

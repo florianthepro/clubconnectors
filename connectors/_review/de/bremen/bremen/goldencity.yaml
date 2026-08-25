@@ -1,0 +1,10 @@
+# Golden City – Bremen
+id: goldencity
+name: Golden City
+city: Bremen
+lat: NACHMESSEN
+lng: NACHMESSEN
+genres: Techno, House
+about: Das Golden City ist eine Veranstaltungsstätte für Techno- und House-Veranstaltungen in Bremen.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://techno-essentials.de/pages/techno-events-bremen; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; Zweifel: Als Event-Venue beschrieben, evtl. kein regulärer Nachtclub.; danach nach de/bremen/bremen/ verschieben"

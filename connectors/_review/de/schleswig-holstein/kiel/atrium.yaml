@@ -1,0 +1,17 @@
+# Atrium – Kiel
+id: atrium
+name: Atrium
+city: Kiel
+lat: NACHMESSEN
+lng: NACHMESSEN
+website: "https://atrium-kiel.de/"
+about: Das Atrium ist ein Großraumclub mit 4 Areas in Kiel.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://atrium-kiel.de/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, genres; danach nach de/schleswig-holstein/kiel/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://atrium-kiel.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

@@ -1,0 +1,9 @@
+# Kultkeller – Duisburg
+id: kultkeller
+name: Kultkeller
+city: Duisburg
+lat: NACHMESSEN
+lng: NACHMESSEN
+about: Der Kultkeller ist ein Kellerclub und eine Diskothek in Duisburg.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.discos.de/duisburg; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/nordrhein-westfalen/duisburg/ verschieben"

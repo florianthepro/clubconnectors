@@ -1,0 +1,18 @@
+# M8 – Schwerin
+id: m8
+name: M8
+city: Schwerin
+address: Mecklenburgstraße 8
+lat: NACHMESSEN
+lng: NACHMESSEN
+website: "https://m8-schwerin.de/"
+about: Das M8 ist eine Diskothek mit zwei Floors in der Mecklenburgstraße 8 im Zentrum von Schwerin.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://m8-schwerin.de/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: genres; danach nach de/mecklenburg-vorpommern/schwerin/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://m8-schwerin.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

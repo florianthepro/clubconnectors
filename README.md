@@ -34,9 +34,11 @@ flag/  data/  tools/  SPEC.md                 <- Icons, Cache-Sperre, Prüfer, S
 | Baden-Württemberg | 80 | Stuttgart, Freiburg, Karlsruhe, Mannheim, Heidelberg, Ulm, Konstanz, Tübingen, Reutlingen, Esslingen, Ravensburg, Friedrichshafen |
 | Berlin | 55 | Berlin |
 
-Noch leer: Nordrhein-Westfalen, Niedersachsen, Hessen, Sachsen, Rheinland-Pfalz,
-Schleswig-Holstein, Bremen, Brandenburg, Sachsen-Anhalt, Thüringen,
-Mecklenburg-Vorpommern, Saarland. Die Ordner entstehen mit dem ersten Connector.
+Noch ohne Karten-Einträge: Nordrhein-Westfalen, Niedersachsen, Hessen, Sachsen,
+Rheinland-Pfalz, Schleswig-Holstein, Bremen, Brandenburg, Sachsen-Anhalt,
+Thüringen, Mecklenburg-Vorpommern, Saarland. Für alle liegen aber bereits
+recherchierte Entwürfe in `connectors/_review/` (Überblick in `TODO.md`);
+die Länderordner entstehen mit dem ersten geprüften Connector.
 
 In `connectors/_review/` liegen Einträge, die noch nicht auf die Karte dürfen –
 Ordner mit `_` werden von Validator und Karte übergangen:
@@ -46,6 +48,14 @@ Ordner mit `_` werden von Validator und Karte übergangen:
 - **10 Hamburg-Entwürfe** aus Web-Recherche (Quellen jeweils im `source`-Feld).
   Adresse, Website, Genres und `about` sind belegt; die Koordinate steht auf
   `NACHMESSEN`, weil sie sich aus Suchtreffern nicht sauber verifizieren ließ.
+- **456 Recherche-Entwürfe aus allen 16 Bundesländern** (Überblick in
+  `TODO.md`). Jede Datei enthält nur, was die im `source`-Feld genannte
+  Fundstelle hergibt; die Koordinate steht auf `NACHMESSEN`, fehlende Felder
+  sind im `source`-Feld aufgezählt. Vor dem Verschieben jeden Eintrag einzeln
+  an der Quelle prüfen – manche Fundstellen sind dünn (reine
+  Verzeichnis-Listen), und einzelne Einträge sind womöglich eher
+  Eventlocation oder Bar als Club (dann steht ein Zweifel-Vermerk im
+  `source`-Feld).
 
 Wer die Koordinate nachmisst, trägt sie ein und verschiebt die Datei in den
 Länderordner – der Club erscheint dann von selbst auf der Karte (der

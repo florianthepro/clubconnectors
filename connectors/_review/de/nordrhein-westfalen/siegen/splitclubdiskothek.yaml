@@ -1,0 +1,17 @@
+# SPLIT Club & Diskothek – Siegen
+id: splitclubdiskothek
+name: SPLIT Club & Diskothek
+city: Siegen
+lat: NACHMESSEN
+lng: NACHMESSEN
+website: "https://www.split-diskothek.de/"
+about: Das SPLIT ist ein Club und eine Diskothek in Siegen mit einer Fläche von 525 Quadratmetern und wechselnden Partys.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.split-diskothek.de/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, genres; danach nach de/nordrhein-westfalen/siegen/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.split-diskothek.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

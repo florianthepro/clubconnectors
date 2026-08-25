@@ -1,0 +1,19 @@
+# Irish House – Kaiserslautern
+id: irishhouse
+name: Irish House
+city: Kaiserslautern
+address: Eselsfürth 11
+lat: NACHMESSEN
+lng: NACHMESSEN
+website: "https://irishhouse-kl.de/"
+genres: Live
+about: Das Irish House ist ein Pub mit Eventsaal in der Eselsfürth 11 in Kaiserslautern, in dem Livekonzerte stattfinden.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://irishhouse-kl.de/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Zweifel: Pub mit Eventsaal, kein klassischer Nachtclub.; danach nach de/rheinland-pfalz/kaiserslautern/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://irishhouse-kl.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

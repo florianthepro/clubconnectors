@@ -1,0 +1,10 @@
+# SOHO – Saarbrücken
+id: soho
+name: SOHO
+city: Saarbrücken
+address: Kaiserstraße 10
+lat: NACHMESSEN
+lng: NACHMESSEN
+about: Das SOHO ist ein Tanz- und Nachtclub in der Kaiserstraße 10 in Saarbrücken.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.premierinn.com/de/de/reiseziele/saarbruecken/bars-und-clubs.html; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: website, genres; danach nach de/saarland/saarbruecken/ verschieben"

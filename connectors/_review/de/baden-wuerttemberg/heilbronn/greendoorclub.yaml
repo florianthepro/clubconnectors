@@ -1,0 +1,18 @@
+# Green Door Club – Heilbronn
+id: greendoorclub
+name: Green Door Club
+city: Heilbronn
+lat: NACHMESSEN
+lng: NACHMESSEN
+website: "https://www.greendoor-hn.de/"
+genres: Mixed
+about: Der Green Door Club in Heilbronn spielt gemischte Musik von Latin bis Urban und richtet sich an ein Ü30-Publikum.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.greendoor-hn.de/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address; danach nach de/baden-wuerttemberg/heilbronn/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.greendoor-hn.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

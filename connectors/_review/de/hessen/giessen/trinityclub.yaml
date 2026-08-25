@@ -1,0 +1,17 @@
+# Trinity Club – Gießen
+id: trinityclub
+name: Trinity Club
+city: Gießen
+lat: NACHMESSEN
+lng: NACHMESSEN
+website: "https://trinityclub.de/"
+about: Der Trinity Club ist ein Nachtclub in Gießen.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://trinityclub.de/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, genres; danach nach de/hessen/giessen/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://trinityclub.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

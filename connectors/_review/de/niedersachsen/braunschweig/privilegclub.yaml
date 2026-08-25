@@ -1,0 +1,17 @@
+# Privileg Club – Braunschweig
+id: privilegclub
+name: Privileg Club
+city: Braunschweig
+lat: NACHMESSEN
+lng: NACHMESSEN
+website: "https://www.privileg-club.com/"
+about: Der Privileg Club ist eine Diskothek und ein Nachtclub in Braunschweig.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.privileg-club.com/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, genres; danach nach de/niedersachsen/braunschweig/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.privileg-club.com/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

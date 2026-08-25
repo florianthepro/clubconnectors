@@ -1,0 +1,18 @@
+# Goldwasser – Mönchengladbach
+id: goldwasser
+name: Goldwasser
+city: Mönchengladbach
+lat: NACHMESSEN
+lng: NACHMESSEN
+website: "http://goldwasser-mg.de/"
+genres: Black Music
+about: Das Goldwasser ist eine Diskothek mit Cocktailbar in Mönchengladbach, musikalisch geprägt von R&B-Classics.
+checked: 2026-08
+source: "Web-Recherche 08/2026: http://goldwasser-mg.de/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address; danach nach de/nordrhein-westfalen/moenchengladbach/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "http://goldwasser-mg.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

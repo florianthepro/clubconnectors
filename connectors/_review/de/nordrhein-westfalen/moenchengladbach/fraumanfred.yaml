@@ -1,0 +1,17 @@
+# Frau Manfred – Mönchengladbach
+id: fraumanfred
+name: Frau Manfred
+city: Mönchengladbach
+lat: NACHMESSEN
+lng: NACHMESSEN
+website: "https://fraumanfred.de/"
+about: Frau Manfred ist ein Subkultur-Nachtclub in Mönchengladbach.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://fraumanfred.de/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, genres; danach nach de/nordrhein-westfalen/moenchengladbach/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://fraumanfred.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

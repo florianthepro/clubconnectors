@@ -1,0 +1,18 @@
+# Capitol Musiktheater – Paderborn
+id: capitolmusiktheater
+name: Capitol Musiktheater
+city: Paderborn
+lat: NACHMESSEN
+lng: NACHMESSEN
+website: "https://capitol-paderborn.de/"
+genres: Mixed
+about: Im Capitol Musiktheater in Paderborn laufen Charts, Hip-Hop und Pop.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://partyborn.de/capitol-club-diskothek-paderborn; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address; Zweifel: Als Musiktheater beschrieben, möglicherweise eher Veranstaltungsort als klassischer Nachtclub.; danach nach de/nordrhein-westfalen/paderborn/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://capitol-paderborn.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

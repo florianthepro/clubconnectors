@@ -1,0 +1,9 @@
+# MAST Disco – Darmstadt
+id: mastdisco
+name: MAST Disco
+city: Darmstadt
+lat: NACHMESSEN
+lng: NACHMESSEN
+about: Die MAST Disco ist eine Diskothek in Darmstadt.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.goyellow.de/suche/diskothek/darmstadt; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/hessen/darmstadt/ verschieben"

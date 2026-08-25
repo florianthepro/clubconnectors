@@ -1,0 +1,18 @@
+# BT Club – Greifswald
+id: btclub
+name: BT Club
+city: Greifswald
+address: Brandteichstraße 22
+lat: NACHMESSEN
+lng: NACHMESSEN
+website: "https://bt-club.de/"
+about: Der BT Club ist eine Diskothek in einem Bunker in der Brandteichstraße 22 in Greifswald mit zwei Dancefloors für bis zu 500 Gäste.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://bt-club.de/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: genres; danach nach de/mecklenburg-vorpommern/greifswald/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://bt-club.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

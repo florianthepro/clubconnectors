@@ -1,0 +1,18 @@
+# Warehouse Club – Köln
+id: warehouseclub
+name: Warehouse Club
+city: Köln
+lat: NACHMESSEN
+lng: NACHMESSEN
+website: "https://www.warehouse-club.de/"
+genres: Techno
+about: Der Warehouse Club ist ein Techno-Club in Köln.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.warehouse-club.de/club/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address; danach nach de/nordrhein-westfalen/koeln/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.warehouse-club.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

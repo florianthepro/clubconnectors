@@ -1,0 +1,9 @@
+# Funpark – Marburg
+id: funpark
+name: Funpark
+city: Marburg
+lat: NACHMESSEN
+lng: NACHMESSEN
+about: Der Funpark in Marburg ist eine Kettendiskothek mit zwei Dancefloors und Mottopartys.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.op-marburg.de/lokales/marburg-biedenkopf/marburg/marburg-die-besten-kneipen-partys-und-nachtclubs-CP5KZZJZNVFDFAADOL6XGOGMT4.html; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/hessen/marburg/ verschieben"

@@ -1,0 +1,10 @@
+# Downtown – Dresden
+id: downtown
+name: Downtown
+city: Dresden
+lat: NACHMESSEN
+lng: NACHMESSEN
+genres: Mixed
+about: Das Downtown ist eine Diskothek in Dresden mit einem breiten Spektrum von Charts bis Techno und Hip-Hop.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://dresden-magazin.com/dresden-mittendrin/clubs-in-dresden/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/sachsen/dresden/ verschieben"

@@ -1,0 +1,10 @@
+# JunkYard – Dortmund
+id: junkyard
+name: JunkYard
+city: Dortmund
+lat: NACHMESSEN
+lng: NACHMESSEN
+genres: Electro
+about: Das JunkYard ist ein Club für elektronische Musik auf einem alten Schrottplatz in Dortmund.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://techno-essentials.de/blogs/techno-essentials/die-besten-techno-clubs-in-dortmund-ein-muss-fur-jeden-raver; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/nordrhein-westfalen/dortmund/ verschieben"

@@ -1,0 +1,9 @@
+# Matrix – Bochum
+id: matrix
+name: Matrix
+city: Bochum
+lat: NACHMESSEN
+lng: NACHMESSEN
+about: Das Matrix ist eine Diskothek in Bochum und die größte der Stadt.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.bochum-tourismus.de/bochum-entdecken/ausgehen/clubszene.html; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/nordrhein-westfalen/bochum/ verschieben"

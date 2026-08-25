@@ -1,0 +1,9 @@
+# Mango – Paderborn
+id: mango
+name: Mango
+city: Paderborn
+lat: NACHMESSEN
+lng: NACHMESSEN
+about: Das Mango ist eine Bar und ein Club an der Marienstraße in Paderborn.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.tripadvisor.com/Attractions-g187384-Activities-c20-t99-Paderborn_North_Rhine_Westphalia.html; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; Zweifel: Als Bar/Club geführt – möglicherweise eher Bar als regulärer Nachtclub.; danach nach de/nordrhein-westfalen/paderborn/ verschieben"

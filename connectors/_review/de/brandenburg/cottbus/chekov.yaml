@@ -1,0 +1,10 @@
+# Chekov – Cottbus
+id: chekov
+name: Chekov
+city: Cottbus
+lat: NACHMESSEN
+lng: NACHMESSEN
+genres: Live
+about: Das Chekov ist ein alternativer Kultur- und Konzertclub in Cottbus.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.theclubmap.com/cities/cottbus/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; Zweifel: Eher Kultur- und Konzertort als klassischer Nachtclub.; danach nach de/brandenburg/cottbus/ verschieben"

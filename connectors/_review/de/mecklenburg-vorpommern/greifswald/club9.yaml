@@ -1,0 +1,9 @@
+# Club 9 – Greifswald
+id: club9
+name: Club 9
+city: Greifswald
+lat: NACHMESSEN
+lng: NACHMESSEN
+about: Der Club 9 ist ein Studentenclub in Greifswald, in dem Partys stattfinden.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://stud.uni-greifswald.de/ersti-forum/allgemeine-informationen-und-veranstaltungen/beratungsangebote-1-1/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/mecklenburg-vorpommern/greifswald/ verschieben"

@@ -1,0 +1,18 @@
+# Metropolis – Trier
+id: metropolis
+name: Metropolis
+city: Trier
+lat: NACHMESSEN
+lng: NACHMESSEN
+website: "https://metropolis-club.de/"
+genres: Hip-Hop
+about: Das Metropolis ist eine Diskothek in Trier mit Hip-Hop und Studentenpartys.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://metropolis-club.de/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address; danach nach de/rheinland-pfalz/trier/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://metropolis-club.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

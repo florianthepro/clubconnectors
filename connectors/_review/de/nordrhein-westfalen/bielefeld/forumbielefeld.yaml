@@ -1,0 +1,10 @@
+# Forum – Bielefeld
+id: forumbielefeld
+name: Forum
+city: Bielefeld
+lat: NACHMESSEN
+lng: NACHMESSEN
+genres: Techno, Electro
+about: Das Forum ist ein Club in Bielefeld mit Techno und elektronischer Musik.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.bielefeld-guide.de/lifestyle/clubs-feiern-in-bielefeld/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/nordrhein-westfalen/bielefeld/ verschieben"

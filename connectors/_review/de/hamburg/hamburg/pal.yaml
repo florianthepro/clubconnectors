@@ -1,0 +1,11 @@
+# PAL – Hamburg
+id: pal
+name: PAL
+city: Hamburg
+address: Karolinenstrasse 45
+lat: NACHMESSEN
+lng: NACHMESSEN
+genres: Techno
+about: Das PAL ist ein Techno-Club in der Karolinenstraße 45 im Hamburger Karolinenviertel.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.nightflow.com/nightclubs-in-hamburg/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: website; danach nach de/hamburg/hamburg/ verschieben"

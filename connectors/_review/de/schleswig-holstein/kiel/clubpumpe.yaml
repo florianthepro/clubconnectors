@@ -1,0 +1,10 @@
+# Club Pumpe – Kiel
+id: clubpumpe
+name: Club Pumpe
+city: Kiel
+lat: NACHMESSEN
+lng: NACHMESSEN
+genres: Electro
+about: Club Pumpe ist ein Kulturzentrum in Kiel, in dem Clubnächte mit elektronischer Musik stattfinden.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.eventbrite.de/d/germany--kiel/techno-party/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; Zweifel: Kulturzentrum mit Clubnächten, kein reiner Nachtclub.; danach nach de/schleswig-holstein/kiel/ verschieben"

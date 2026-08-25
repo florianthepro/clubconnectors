@@ -1,0 +1,19 @@
+# Kassablanca Gleis 1 – Jena
+id: kassablancagleis1
+name: Kassablanca Gleis 1
+city: Jena
+address: Felsenkellerstraße 13a
+lat: NACHMESSEN
+lng: NACHMESSEN
+website: "https://www.kassablanca.de/"
+genres: Live
+about: Das Kassablanca Gleis 1 ist ein Soziokulturzentrum in der Felsenkellerstraße 13a in Jena mit Clubnächten und Konzerten.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.visit-jena.de/kunst-kultur-und-kulinarik/clubs-szene/kassablanca/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Zweifel: Soziokulturzentrum mit Clubnächten, kein reiner Nachtclub.; danach nach de/thueringen/jena/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.kassablanca.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

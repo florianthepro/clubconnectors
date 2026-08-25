@@ -1,0 +1,10 @@
+# Modernes – Bremen
+id: modernes
+name: Modernes
+city: Bremen
+lat: NACHMESSEN
+lng: NACHMESSEN
+genres: Live
+about: Das Modernes ist ein Club und eine Konzertlocation in Bremen.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.bremen.de/tanzen-und-feiern; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/bremen/bremen/ verschieben"

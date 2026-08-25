@@ -1,0 +1,18 @@
+# Pearl Club – Krefeld
+id: pearlclub
+name: Pearl Club
+city: Krefeld
+lat: NACHMESSEN
+lng: NACHMESSEN
+website: "https://www.purple-pearls.de/"
+genres: Mixed
+about: Der Pearl Club ist ein Tanzclub mit Beachclub in Krefeld; musikalisch stehen Charts, Hip-Hop und House im Programm.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.purple-pearls.de/; auch gelistet als: Pearls Crefeld Clubbing; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address; danach nach de/nordrhein-westfalen/krefeld/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.purple-pearls.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

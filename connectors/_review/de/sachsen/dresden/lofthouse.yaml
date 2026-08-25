@@ -1,0 +1,9 @@
+# Lofthouse – Dresden
+id: lofthouse
+name: Lofthouse
+city: Dresden
+lat: NACHMESSEN
+lng: NACHMESSEN
+about: Das Lofthouse ist ein Club und eine Diskothek in Dresden.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://dresdennightlife.de/diskotheken/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; Zweifel: Nur über einen Verzeichniseintrag belegt; aktueller Status unklar.; danach nach de/sachsen/dresden/ verschieben"

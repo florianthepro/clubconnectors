@@ -1,0 +1,9 @@
+# Schlösser Quartier Bohéme – Düsseldorf
+id: schloesserquartierboheme
+name: Schlösser Quartier Bohéme
+city: Düsseldorf
+lat: NACHMESSEN
+lng: NACHMESSEN
+about: Das Schlösser Quartier Bohéme ist eine Kulturlocation mit Bar, Club und Eventfläche in Düsseldorf.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.mrduesseldorf.de/die-besten-clubs-in-duesseldorf/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; Zweifel: Kulturlocation mit Bar und Eventfläche, nicht nur Club.; danach nach de/nordrhein-westfalen/duesseldorf/ verschieben"

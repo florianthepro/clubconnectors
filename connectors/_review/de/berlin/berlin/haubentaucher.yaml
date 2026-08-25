@@ -1,0 +1,9 @@
+# Haubentaucher – Berlin
+id: haubentaucher
+name: Haubentaucher
+city: Berlin
+lat: NACHMESSEN
+lng: NACHMESSEN
+about: Der Haubentaucher ist ein Pool-Club mit Biergarten auf dem RAW-Gelände in Berlin.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://de.wikipedia.org/wiki/RAW-Friedrichshain; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; Zweifel: Pool-Club mit Biergarten – evtl. eher Freiluft-Location als klassischer Nachtclub.; danach nach de/berlin/berlin/ verschieben"

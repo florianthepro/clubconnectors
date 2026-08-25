@@ -1,0 +1,9 @@
+# Mini Nest – Darmstadt
+id: mininest
+name: Mini Nest
+city: Darmstadt
+lat: NACHMESSEN
+lng: NACHMESSEN
+about: Das Mini Nest ist eine Diskothek in Darmstadt.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.goyellow.de/suche/diskothek/darmstadt; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; Zweifel: Nur als Branchenbucheintrag belegt; aktueller Status unklar.; danach nach de/hessen/darmstadt/ verschieben"

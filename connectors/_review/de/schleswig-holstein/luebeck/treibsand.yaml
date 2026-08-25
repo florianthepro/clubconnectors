@@ -1,0 +1,18 @@
+# Treibsand – Lübeck
+id: treibsand
+name: Treibsand
+city: Lübeck
+lat: NACHMESSEN
+lng: NACHMESSEN
+website: "https://treibsand.net/"
+genres: Live
+about: Der Treibsand ist ein linkes Kulturzentrum in Lübeck mit Konzerten und Tanznächten.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://treibsand.net/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address; Zweifel: Kulturzentrum mit Konzerten und Tanznächten, kein klassischer Nachtclub.; danach nach de/schleswig-holstein/luebeck/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://treibsand.net/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

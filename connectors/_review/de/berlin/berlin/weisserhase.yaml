@@ -1,0 +1,9 @@
+# Weißer Hase – Berlin
+id: weisserhase
+name: Weißer Hase
+city: Berlin
+lat: NACHMESSEN
+lng: NACHMESSEN
+about: Der Weiße Hase ist ein Club auf dem RAW-Gelände in Berlin.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://de.wikipedia.org/wiki/RAW-Friedrichshain; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/berlin/berlin/ verschieben"

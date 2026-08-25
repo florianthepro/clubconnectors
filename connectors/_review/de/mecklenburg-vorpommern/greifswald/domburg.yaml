@@ -1,0 +1,10 @@
+# DomBurg – Greifswald
+id: domburg
+name: DomBurg
+city: Greifswald
+address: Domstr. 21
+lat: NACHMESSEN
+lng: NACHMESSEN
+about: Die DomBurg ist ein Nachtclub in der Altstadt von Greifswald, in der Domstraße 21.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.golocal.de/greifswald/nachtclubs/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: website, genres; danach nach de/mecklenburg-vorpommern/greifswald/ verschieben"

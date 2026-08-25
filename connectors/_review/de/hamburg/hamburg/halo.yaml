@@ -1,0 +1,10 @@
+# Halo – Hamburg
+id: halo
+name: Halo
+city: Hamburg
+lat: NACHMESSEN
+lng: NACHMESSEN
+genres: Electro
+about: Das Halo ist ein Elektro-Club und eine Party-Location in Hamburg.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://de.ra.co/events/2242146; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/hamburg/hamburg/ verschieben"

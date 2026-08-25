@@ -1,0 +1,9 @@
+# Sonnendeck – Osnabrück
+id: sonnendeck
+name: Sonnendeck
+city: Osnabrück
+lat: NACHMESSEN
+lng: NACHMESSEN
+about: Das Sonnendeck ist ein Club in der Altstadt von Osnabrück.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://osnabruecker-anzeiger.de/osnabrueck-clubs/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; Zweifel: Im Hinweis nur als Location beschrieben, Betrieb als Nachtclub unklar.; danach nach de/niedersachsen/osnabrueck/ verschieben"

@@ -1,0 +1,10 @@
+# Prive – Duisburg
+id: prive
+name: Prive
+city: Duisburg
+lat: NACHMESSEN
+lng: NACHMESSEN
+genres: Rock
+about: Das Prive ist ein Club am Innenhafen in Duisburg mit Gothic, Metal und Pop.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.golocal.de/duisburg/nachtclubs/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/nordrhein-westfalen/duisburg/ verschieben"

@@ -1,0 +1,9 @@
+# Boot – Paderborn
+id: boot
+name: Boot
+city: Paderborn
+lat: NACHMESSEN
+lng: NACHMESSEN
+about: Beim Boot handelt es sich um einen Musikclub in Paderborn.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.tripadvisor.com/Attractions-g187384-Activities-c20-t99-Paderborn_North_Rhine_Westphalia.html; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/nordrhein-westfalen/paderborn/ verschieben"

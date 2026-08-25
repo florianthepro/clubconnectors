@@ -1,0 +1,17 @@
+# Gazelle – Münster
+id: gazelle
+name: Gazelle
+city: Münster
+lat: NACHMESSEN
+lng: NACHMESSEN
+website: "https://www.gazelle.ms/"
+about: Die Gazelle ist ein Tanz- und Nachtclub am Servatiiplatz in Münster.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.gazelle.ms/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, genres; danach nach de/nordrhein-westfalen/muenster/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.gazelle.ms/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

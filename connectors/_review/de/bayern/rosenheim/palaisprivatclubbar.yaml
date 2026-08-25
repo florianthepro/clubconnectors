@@ -1,0 +1,17 @@
+# Palais Privat Club & Bar – Rosenheim
+id: palaisprivatclubbar
+name: Palais Privat Club & Bar
+city: Rosenheim
+lat: NACHMESSEN
+lng: NACHMESSEN
+website: "https://palaisclub.de"
+about: Das Palais Privat Club & Bar in Rosenheim ist ein Privatclub mit Bar.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://palaisclub.de/out-of-rosenheim-2/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, genres; Zweifel: Privatclub und Bar; evtl. kein öffentlicher Nachtclub.; danach nach de/bayern/rosenheim/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://palaisclub.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

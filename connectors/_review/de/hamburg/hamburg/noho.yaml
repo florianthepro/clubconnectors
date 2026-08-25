@@ -1,0 +1,10 @@
+# NOHO – Hamburg
+id: noho
+name: NOHO
+city: Hamburg
+address: Nobistor 10
+lat: NACHMESSEN
+lng: NACHMESSEN
+about: Das NOHO ist ein Club am Nobistor 10 in Hamburg mit einer großen Discokugel.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.nightflow.com/nightclubs-in-hamburg/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: website, genres; danach nach de/hamburg/hamburg/ verschieben"

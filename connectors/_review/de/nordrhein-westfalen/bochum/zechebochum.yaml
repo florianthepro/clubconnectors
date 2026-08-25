@@ -1,0 +1,10 @@
+# Zeche Bochum – Bochum
+id: zechebochum
+name: Zeche Bochum
+city: Bochum
+lat: NACHMESSEN
+lng: NACHMESSEN
+genres: Live
+about: Die Zeche Bochum ist eine Konzerthalle und Diskothek in Bochum.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.bochum-tourismus.de/bochum-entdecken/ausgehen/clubszene.html; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/nordrhein-westfalen/bochum/ verschieben"

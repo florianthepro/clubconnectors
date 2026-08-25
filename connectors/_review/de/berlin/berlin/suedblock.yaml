@@ -1,0 +1,9 @@
+# Südblock – Berlin
+id: suedblock
+name: Südblock
+city: Berlin
+lat: NACHMESSEN
+lng: NACHMESSEN
+about: Der Südblock am Kottbusser Tor in Berlin ist ein queerer Party- und Eventort.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.berlin.de/en/clubs/friedrichshain-kreuzberg/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; Zweifel: Party- und Eventort, evtl. kein regulärer Nachtclub.; danach nach de/berlin/berlin/ verschieben"

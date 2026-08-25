@@ -1,0 +1,9 @@
+# Zentrum Altenberg – Oberhausen
+id: zentrumaltenberg
+name: Zentrum Altenberg
+city: Oberhausen
+lat: NACHMESSEN
+lng: NACHMESSEN
+about: Das Zentrum Altenberg ist ein soziokulturelles Zentrum mit Disco in Oberhausen.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.oberhausen.de/de/index/tourismus-freizeit/freizeit-und-erholung/unterhaltung-nachtleben/diskotheken.php; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; Zweifel: Soziokulturelles Zentrum, Disco ist nur Teil des Angebots.; danach nach de/nordrhein-westfalen/oberhausen/ verschieben"

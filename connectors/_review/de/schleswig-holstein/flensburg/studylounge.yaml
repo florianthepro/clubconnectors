@@ -1,0 +1,18 @@
+# Study Lounge – Flensburg
+id: studylounge
+name: Study Lounge
+city: Flensburg
+lat: NACHMESSEN
+lng: NACHMESSEN
+website: "http://study-lounge.de/"
+genres: Black Music, House
+about: Die Study Lounge ist ein Club in Flensburg mit Black Music, House und Charts.
+checked: 2026-08
+source: "Web-Recherche 08/2026: http://study-lounge.de/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address; danach nach de/schleswig-holstein/flensburg/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "http://study-lounge.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

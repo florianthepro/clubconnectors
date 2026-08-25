@@ -1,0 +1,19 @@
+# Nexxus – Marburg
+id: nexxus
+name: Nexxus
+city: Marburg
+address: Siemensstraße 10
+lat: NACHMESSEN
+lng: NACHMESSEN
+website: "https://www.nexxusclub.de/"
+genres: 80er/90er, House, Black Music
+about: Das Nexxus ist eine Diskothek in der Siemensstraße 10 in Marburg mit 90ern, House, Black Music und Charts.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.nexxusclub.de/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; danach nach de/hessen/marburg/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.nexxusclub.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

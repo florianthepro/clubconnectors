@@ -1,0 +1,18 @@
+# Sky Club – Leipzig
+id: skyclub
+name: Sky Club
+city: Leipzig
+lat: NACHMESSEN
+lng: NACHMESSEN
+website: "https://www.skyclub-leipzig.de/"
+genres: Techno, House
+about: Der Sky Club ist ein Club in Leipzig mit Techno und House auf 3 Floors.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.skyclub-leipzig.de/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address; danach nach de/sachsen/leipzig/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.skyclub-leipzig.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

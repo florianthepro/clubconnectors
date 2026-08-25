@@ -1,0 +1,10 @@
+# Hotel Shanghai – Essen
+id: hotelshanghai
+name: Hotel Shanghai
+city: Essen
+lat: NACHMESSEN
+lng: NACHMESSEN
+genres: Electro, Live
+about: Das Hotel Shanghai ist ein Club in Essen mit Elektro und Live-Acts.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.essen-magazin.de/beste-clubs-in-essen; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/nordrhein-westfalen/essen/ verschieben"

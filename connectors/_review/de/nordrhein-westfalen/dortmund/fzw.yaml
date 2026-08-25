@@ -1,0 +1,9 @@
+# FZW – Dortmund
+id: fzw
+name: FZW
+city: Dortmund
+lat: NACHMESSEN
+lng: NACHMESSEN
+about: Das FZW ist ein Kulturzentrum in Dortmund, in dem Clubnächte stattfinden.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.discos.de/dortmund; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; Zweifel: Kulturzentrum mit Clubnächten, kein reiner Nachtclub.; danach nach de/nordrhein-westfalen/dortmund/ verschieben"

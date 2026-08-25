@@ -1,0 +1,9 @@
+# Red Cat Club – Mainz
+id: redcatclub
+name: Red Cat Club
+city: Mainz
+lat: NACHMESSEN
+lng: NACHMESSEN
+about: Der Red Cat Club ist eine Eventlocation in Mainz, in der Partys stattfinden.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://prinz.de/mainz/locations/kategorie/clubs-bars/party/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; Zweifel: Als Eventlocation mit Partys geführt, evtl. kein regulärer Nachtclub.; danach nach de/rheinland-pfalz/mainz/ verschieben"

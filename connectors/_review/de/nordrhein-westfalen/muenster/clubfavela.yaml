@@ -1,0 +1,19 @@
+# Club Favela – Münster
+id: clubfavela
+name: Club Favela
+city: Münster
+address: Hawerkamp 31
+lat: NACHMESSEN
+lng: NACHMESSEN
+website: "https://clubfavela.de/"
+genres: Techno, House
+about: Der Club Favela liegt am Hawerkamp 31 in Münster und spielt Techno und House.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://clubfavela.de/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; danach nach de/nordrhein-westfalen/muenster/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://clubfavela.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

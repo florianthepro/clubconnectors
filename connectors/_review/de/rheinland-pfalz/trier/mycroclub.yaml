@@ -1,0 +1,9 @@
+# Mycro-Club – Trier
+id: mycroclub
+name: Mycro-Club
+city: Trier
+lat: NACHMESSEN
+lng: NACHMESSEN
+about: Der Mycro-Club ist ein laut Listing geführter Club in Trier.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://veranstaltungen.meinestadt.de/trier/locations/clubs-diskotheken; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; Zweifel: Nur über ein Listing belegt, aktueller Status unklar.; danach nach de/rheinland-pfalz/trier/ verschieben"

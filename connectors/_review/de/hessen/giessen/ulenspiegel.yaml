@@ -1,0 +1,9 @@
+# Ulenspiegel – Gießen
+id: ulenspiegel
+name: Ulenspiegel
+city: Gießen
+lat: NACHMESSEN
+lng: NACHMESSEN
+about: Das Ulenspiegel in Gießen ist ein Club und eine Musikkneipe.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.yelp.com/search?find_desc=Club+&+Disco=&find_loc=Gie%C3%9Fen%2C+Hessen%2C+Germany; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; Zweifel: Auch als Musikkneipe beschrieben, möglicherweise eher Kneipe als klassischer Nachtclub.; danach nach de/hessen/giessen/ verschieben"

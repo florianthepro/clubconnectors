@@ -1,0 +1,9 @@
+# Surprise Club – Berlin
+id: surpriseclub
+name: Surprise Club
+city: Berlin
+lat: NACHMESSEN
+lng: NACHMESSEN
+about: Der Surprise Club ist ein Club in Berlin und wird im Berlin.de-Verzeichnis geführt.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.berlin.de/en/clubs/a-z/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; Zweifel: Nur Verzeichniseintrag, aktueller Betrieb unbestätigt.; danach nach de/berlin/berlin/ verschieben"

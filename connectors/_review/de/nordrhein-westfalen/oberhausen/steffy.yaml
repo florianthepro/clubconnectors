@@ -1,0 +1,9 @@
+# Steffy – Oberhausen
+id: steffy
+name: Steffy
+city: Oberhausen
+lat: NACHMESSEN
+lng: NACHMESSEN
+about: Das Steffy ist eine Diskothek in Oberhausen.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.yelp.com/search?cflt=danceclubs&find_loc=Essen,+Nordrhein-Westfalen; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/nordrhein-westfalen/oberhausen/ verschieben"

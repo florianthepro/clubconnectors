@@ -1,0 +1,19 @@
+# Glad-House – Cottbus
+id: gladhouse
+name: Glad-House
+city: Cottbus
+address: Straße der Jugend 16
+lat: NACHMESSEN
+lng: NACHMESSEN
+website: "https://www.glad.house/"
+genres: Live
+about: Das Glad-House ist ein Jugendkulturzentrum in der Straße der Jugend 16 in Cottbus mit Konzerten und Themenpartys.
+checked: 2026-08
+source: "Web-Recherche 08/2026: https://www.glad.house/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Zweifel: Jugendkulturzentrum mit Partys, kein regulärer Nachtclub.; danach nach de/brandenburg/cottbus/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.glad.house/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto
