@@ -534,14 +534,27 @@ function host_limited(): bool
     if ($r !== null) {
         return $r;
     }
+    // open_basedir ist der Jail, mit dem Gratis-/Shared-Hoster jedes Konto
+    // in sein Verzeichnis einsperren. Ein eigener Server setzt ihn so gut wie
+    // nie – gesetzt heißt: eingeschränkter Hoster.
+    if ((string)ini_get('open_basedir') !== '') {
+        return $r = true;
+    }
+    // posix gehört auf jedem echten Linux-Server zur Standardausstattung.
+    // Fehlt es dort, hat der Hoster es abgeklemmt – ein sicheres Zeichen für
+    // einen eingeschränkten Shared-Host (genau so sieht InfinityFree aus).
+    // Windows kennt posix nie; dort ist das Fehlen kein Hinweis.
+    $windows = stripos(PHP_OS, 'WIN') === 0;
+    if (!$windows && !function_exists('posix_getpid')) {
+        return $r = true;
+    }
+    // Rückfall für alles andere: erst mehrere schwächere Zeichen zusammen
+    // zählen als eingeschränkt.
     $marks = 0;
-    if (!function_exists('posix_getpid')) {
+    if (!ini_get('allow_url_fopen')) {
         $marks++;
     }
     if (!@is_writable(sys_get_temp_dir())) {
-        $marks++;
-    }
-    if (!ini_get('allow_url_fopen')) {
         $marks++;
     }
     return $r = $marks >= 2;
@@ -909,8 +922,12 @@ if (isset($_GET['diag'])) {
         . (isset($dc['ts']) ? ', Stand ' . date('d.m. H:i', (int)$dc['ts']) : ' (noch leer – Seite einmal aufrufen und ~2 min warten)') . "\n";
     $tmp = sys_get_temp_dir();
     echo 'temp ' . $tmp . ': ' . (@is_writable($tmp) ? 'beschreibbar' : 'gesperrt (nutze Skriptordner)') . "\n";
+    $ob = (string)ini_get('open_basedir');
+    echo 'host-merkmale: posix ' . (function_exists('posix_getpid') ? 'da' : 'FEHLT')
+        . ', open_basedir ' . ($ob !== '' ? 'gesetzt' : 'nein')
+        . ', allow_url_fopen ' . (ini_get('allow_url_fopen') ? 'an' : 'aus') . "\n";
     echo 'host-typ: ' . (host_limited()
-        ? 'eingeschränkter Gratis-Hoster (posix/tmp/fopen) – Kachel-Proxy automatisch aus'
+        ? 'eingeschränkter Gratis-Hoster – Kachel-Proxy automatisch aus (Konto-Schutz)'
         : 'voll (Kachel-Proxy erlaubt)') . "\n";
     echo 'skriptordner: ' . (@is_writable(__DIR__) ? 'beschreibbar' : 'NICHT beschreibbar – kein Event-Cache') . "\n";
     if (function_exists('curl_init')) {
