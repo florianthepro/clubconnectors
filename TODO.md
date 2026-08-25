@@ -1,6 +1,6 @@
 # TODO – Clubliste Deutschland
 
-Stand: 2026-08-25 · **244** auf der Karte · **470** in Prüfung (`_review`) · **0** offen
+Stand: 2026-08-25 · **245** auf der Karte · **469** in Prüfung (`_review`) · **0** offen
 
 Legende:
 
@@ -474,15 +474,15 @@ geht auf die Karte.
 - [~] Nachtschicht Bremerhaven (`_review`: `nachtschichtbremerhaven`)
 - [~] SECRET (`_review`: `secret`)
 
-## Hamburg (0 auf Karte · 30 in Prüfung · 0 offen)
+## Hamburg (1 auf Karte · 29 in Prüfung · 0 offen)
 
 ### Hamburg
 
+- [x] Docks (`docks`)
 - [~] Baalsaal (`_review`: `baalsaal`)
 - [~] Bahnhof Pauli (`_review`: `bahnhofpauli`)
 - [~] Beat Boutique (`_review`: `beatboutique`)
 - [~] Cascadas (`_review`: `cascadas`)
-- [~] Docks (`_review`: `docks`)
 - [~] Edelfettwerk (`_review`: `edelfettwerk`)
 - [~] Frappant e.V. (`_review`: `frappantev`)
 - [~] Fundbureau (`_review`: `fundbureau`)
