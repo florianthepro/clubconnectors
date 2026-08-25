@@ -2,8 +2,17 @@
 id: kontextwiesbaden
 name: Kontext Wiesbaden
 city: Wiesbaden
+address: Welfenstraße 1b
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://kontext-wiesbaden.de/"
 about: Das Kontext Wiesbaden ist ein Club in Wiesbaden.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://partyzettel.de/diskotheken/stadt/wiesbaden/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/hessen/wiesbaden/ verschieben"
+source: "Web-Recherche 08/2026: partyzettel.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut kontext-wiesbaden.de; Adresse laut www.yelp.com, www.nochoffen.de; fehlt: genres; Zweifel: Laut WebSearch-Zusammenfassung schliesst das Kontext; ab 2026 soll in den Raeumen ein 'Habesha Imbiss' (eritreische Kueche) eroeffnen – vermutlich dauerhaft geschlossen; danach nach de/hessen/wiesbaden/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://kontext-wiesbaden.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

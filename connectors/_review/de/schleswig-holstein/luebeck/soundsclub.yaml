@@ -2,13 +2,14 @@
 id: soundsclub
 name: Soundsclub
 city: Lübeck
+address: An der Untertrave 81-83
 lat: NACHMESSEN
 lng: NACHMESSEN
 website: "https://soundsclub.de/"
 genres: Mixed
 about: Der Soundsclub ist ein Club mit breiter Musikauswahl in Lübeck.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://soundsclub.de/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address; danach nach de/schleswig-holstein/luebeck/ verschieben"
+source: "Web-Recherche 08/2026: https://soundsclub.de/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Adresse laut https://www.yelp.de/biz/sounds-l%C3%BCbeck; danach nach de/schleswig-holstein/luebeck/ verschieben"
 
 # Wie die Website ausgelesen wird
 scrape_url: "https://soundsclub.de/"

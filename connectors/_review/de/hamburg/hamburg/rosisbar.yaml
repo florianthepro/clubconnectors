@@ -2,9 +2,18 @@
 id: rosisbar
 name: Rosi's Bar
 city: Hamburg
+address: Hamburger Berg 7
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://rosis-stpauli.de/"
 genres: Black Music
 about: Rosi's Bar ist eine Tanzbar in Hamburg mit Funk, Ska und Sixties-Musik.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://theculturetrip.com/europe/germany/articles/10-best-nightclubs-around-reeperbahn-hamburg; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; Zweifel: Als Tanzbar geführt, möglicherweise eher Bar als Club.; danach nach de/hamburg/hamburg/ verschieben"
+source: "Web-Recherche 08/2026: theculturetrip.com; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut rosis-stpauli.de; Adresse laut www.yelp.com, finde-offen.de; Zweifel: Treffer kategorisieren es überwiegend als Bar/Kneipe auf St. Pauli (auch unter 'Zu den drei Hufeisen - Rosi's Bar' gelistet), eher Bar als klassischer Club; danach nach de/hamburg/hamburg/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://rosis-stpauli.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

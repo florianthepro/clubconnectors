@@ -2,8 +2,17 @@
 id: coyoteugly
 name: Coyote Ugly
 city: Koblenz
+address: Am Siechhaustal 1
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://coyote-ugly-koblenz.com/"
 about: Das Coyote Ugly ist eine Partybar in Koblenz, in der auch getanzt wird.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.yelp.de/search?cflt=danceclubs&find_loc=Koblenz%2C+Rheinland-Pfalz; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; Zweifel: Laut Hinweis Partybar, kein klassischer Nachtclub.; danach nach de/rheinland-pfalz/koblenz/ verschieben"
+source: "Web-Recherche 08/2026: www.yelp.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut coyote-ugly-koblenz.com; Adresse laut www.yelp.com, onlinestreet.de; fehlt: genres; Zweifel: Treffer teils als 'Coyote Ugly im Saloon Bar' bzw. Bars & Lounges geführt – Mischform aus Bar und Dance Club; danach nach de/rheinland-pfalz/koblenz/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://coyote-ugly-koblenz.com/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

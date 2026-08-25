@@ -2,8 +2,10 @@
 id: club11
 name: Club 11
 city: Trier
+address: Simeonstraße 11
 lat: NACHMESSEN
 lng: NACHMESSEN
+genres: Rock
 about: Beim Club 11 handelt es sich um einen Club in Trier.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://veranstaltungen.meinestadt.de/trier/locations/clubs-diskotheken; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/rheinland-pfalz/trier/ verschieben"
+source: "Web-Recherche 08/2026: veranstaltungen.meinestadt.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Adresse laut www.lifestyle-tr.de, m.virtualnights.com; Genres laut www.tripadvisor.com; fehlt: website; Zweifel: Tripadvisor führt die Location als 'Rockbar Club11' (Bar/Restaurant) - evtl. eher Rockbar als klassischer Club; E-Mail-Domain club11-trier.de tau…; danach nach de/rheinland-pfalz/trier/ verschieben"

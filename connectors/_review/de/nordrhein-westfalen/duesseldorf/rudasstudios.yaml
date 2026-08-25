@@ -2,8 +2,17 @@
 id: rudasstudios
 name: Rudas Studios
 city: Düsseldorf
+address: Kaistraße 7-9
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://rudas-studios.com/"
 about: Die Rudas Studios in Düsseldorf sind ein ehemaliges Filmstudio, das für Partys genutzt wird.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.mrduesseldorf.de/die-besten-clubs-in-duesseldorf/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; Zweifel: Ehemaliges Filmstudio, eher Eventlocation für Partyreihen als regulärer Nachtclub.; danach nach de/nordrhein-westfalen/duesseldorf/ verschieben"
+source: "Web-Recherche 08/2026: www.mrduesseldorf.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut rudas-studios.com; Adresse laut www.yelp.com, www.fiylo.de; fehlt: genres; Zweifel: Adressangaben uneinheitlich: Kaistraße 7-9 (Yelp, fiylo) vs. Zollhof 15 (fiylo) bzw. Zollhof 11 (WebSearch-Zusammenfassung) - Gebaeude offenbar Ecke Kaistraße/Zollhof; danach nach de/nordrhein-westfalen/duesseldorf/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://rudas-studios.com/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

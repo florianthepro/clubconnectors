@@ -2,8 +2,17 @@
 id: timesclub
 name: Times Club
 city: Dresden
+address: Königsbrücker Straße 13
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.timesclub-dresden.de"
 about: Der Times Club ist eine Diskothek in Dresden.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://dresdennightlife.de/diskotheken/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; Zweifel: Nur Verzeichniseintrag, aktueller Betrieb unbestätigt.; danach nach de/sachsen/dresden/ verschieben"
+source: "Web-Recherche 08/2026: dresdennightlife.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut adresse.dastelefonbuch.de; Adresse laut adresse.dastelefonbuch.de, www.gelbeseiten.de; fehlt: genres; Zweifel: Website timesclub-dresden.de stammt aus Verzeichnis-Snippets (Telefonbuch), nicht als eigener Suchtreffer erschienen; Foursquare führt…; danach nach de/sachsen/dresden/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.timesclub-dresden.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

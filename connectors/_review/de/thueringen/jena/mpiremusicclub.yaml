@@ -2,12 +2,13 @@
 id: mpiremusicclub
 name: M-Pire Music Club
 city: Jena
+address: Prüssingstraße 18
 lat: NACHMESSEN
 lng: NACHMESSEN
 website: "https://mpire-jena.de/"
 about: Der M-Pire Music Club ist eine Party- und Eventlocation in Jena.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://mpire-jena.de/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, genres; Zweifel: Als Party- und Eventlocation geführt, evtl. kein regulärer Nachtclub.; danach nach de/thueringen/jena/ verschieben"
+source: "Web-Recherche 08/2026: https://mpire-jena.de/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Adresse laut https://jena.deutschbranchenbuch.com/night-club/m-pire-music-club/; fehlt: genres; Zweifel: Einzelne Treffer zeigen Electro/EBM- und Dark-Party-Events (mvp.de, dark-party.de), Zusammenfassung nennt aber 'various musical formats' - Club-Genre nicht eindeutig, daher nicht gesetzt; danach nach de/thueringen/jena/ verschieben"
 
 # Wie die Website ausgelesen wird
 scrape_url: "https://mpire-jena.de/"

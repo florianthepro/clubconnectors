@@ -4,6 +4,15 @@ name: Zenit Club
 city: Koblenz
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://zenit-koblenz.de"
+genres: Electro, Hip-Hop, House
 about: Der Zenit Club ist ein Club in Koblenz und in einem Partyverzeichnis gelistet.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://partyzettel.de/diskotheken/stadt/koblenz/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/rheinland-pfalz/koblenz/ verschieben"
+source: "Web-Recherche 08/2026: partyzettel.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut zenit-koblenz.de; Genres laut www.trip.com; fehlt: address; Zweifel: Adress-Widerspruch: Ergebnistext nennt Poststraße 2A, Yelp-Titel Josef-Görres-Platz 18 – daher address=null. Zudem traegt das Facebook-Profil facebook.com/zenit.koblenz jetzt den Namen 'EX…; danach nach de/rheinland-pfalz/koblenz/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://zenit-koblenz.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

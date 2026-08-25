@@ -5,6 +5,14 @@ city: Hamburg
 address: Max-Brauer-Allee 204
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.waagenbau.com"
 about: Der Waagenbau ist ein Tunnel-Club unter den Sternbrücken in Hamburg-Altona, Max-Brauer-Allee 204.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.nightflow.com/nightclubs-in-hamburg/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: website, genres; danach nach de/hamburg/hamburg/ verschieben"
+source: "Web-Recherche 08/2026: www.nightflow.com; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut clubkombinat.de; fehlt: genres; Zweifel: Laut https://fink.hamburg/2024/11/wagenbau-hamburg-neuer-standort/ musste der Club den Standort unter der Sternbruecke verlassen und startet am Diebsteich (Altona) neu – vorhandene Adresse Max-Brauer-Allee 204 vermutlich veraltet; danach nach de/hamburg/hamburg/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.waagenbau.com"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

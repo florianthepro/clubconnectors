@@ -4,7 +4,15 @@ name: Ampere
 city: Düsseldorf
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://ampere-club.de/"
 genres: Techno
 about: Das Ampere ist ein Techno-Club im Stahlwerk in Düsseldorf.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://groove.de/2025/09/18/ampere-neuer-techno-club-eroeffnet-im-duesseldorfer-stahlwerk/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/nordrhein-westfalen/duesseldorf/ verschieben"
+source: "Web-Recherche 08/2026: https://groove.de/2025/09/18/ampere-neuer-techno-club-eroeffnet-im-duesseldorfer-stahlwerk/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut https://ampere-club.de/; fehlt: address; danach nach de/nordrhein-westfalen/duesseldorf/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://ampere-club.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

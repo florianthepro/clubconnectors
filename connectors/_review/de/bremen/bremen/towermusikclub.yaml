@@ -2,9 +2,18 @@
 id: towermusikclub
 name: Tower Musikclub
 city: Bremen
+address: Herdentorsteinweg 7a
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.tower-bremen.de/"
 genres: Techno, House, Rock
 about: Der Tower Musikclub in Bremen ist ein Musikclub mit Techno, House und Rock.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://techno-essentials.de/pages/techno-events-bremen; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/bremen/bremen/ verschieben"
+source: "Web-Recherche 08/2026: https://techno-essentials.de/pages/techno-events-bremen; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut https://www.tower-bremen.de/; Adresse laut https://miz.org/de/institutionen/tower-musikclub-i36885, https://www.bremen-city.de/de/cityguide/tower-musikclub/; danach nach de/bremen/bremen/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.tower-bremen.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

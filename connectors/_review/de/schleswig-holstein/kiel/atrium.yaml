@@ -2,12 +2,13 @@
 id: atrium
 name: Atrium
 city: Kiel
+address: Dieselstraße 3
 lat: NACHMESSEN
 lng: NACHMESSEN
 website: "https://atrium-kiel.de/"
 about: Das Atrium ist ein Großraumclub mit 4 Areas in Kiel.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://atrium-kiel.de/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, genres; danach nach de/schleswig-holstein/kiel/ verschieben"
+source: "Web-Recherche 08/2026: https://atrium-kiel.de/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Adresse laut https://www.kielisreal.de/content/360-Atrium-kiel?styleid=7, http://m.virtualnights.com/kiel/location/atrium.64509; fehlt: genres; Zweifel: Liegt laut Treffern in Raisdorf/Schwentinental bei Kiel (24223 Raisdorf), nicht in Kiel selbst - weicht vom city-Feld 'Kiel' ab; danach nach de/schleswig-holstein/kiel/ verschieben"
 
 # Wie die Website ausgelesen wird
 scrape_url: "https://atrium-kiel.de/"

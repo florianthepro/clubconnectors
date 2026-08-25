@@ -2,9 +2,18 @@
 id: oshodisco
 name: Osho Disco
 city: Hannover
+address: Raschplatz 7 L
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.osho-disco.de/"
 genres: House, Black Music
 about: Die Osho Disco ist eine Diskothek in der Innenstadt von Hannover mit Dance, House und Soul.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.visit-hannover.com/Nightlife/Clubs; auch gelistet als: Baggi; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/niedersachsen/hannover/ verschieben"
+source: "Web-Recherche 08/2026: https://www.visit-hannover.com/Nightlife/Clubs; auch gelistet als: Baggi; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut https://www.osho-disco.de/; Adresse laut https://www.yelp.com/biz/osho-discothek-hannover; danach nach de/niedersachsen/hannover/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.osho-disco.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

@@ -5,7 +5,15 @@ city: Weimar
 address: Schützengasse 2
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://kulturtragwerk.de"
 genres: Latin
 about: Projekt Eins ist ein Club in der Schützengasse 2 in Weimar mit Studentenpartys und Salsa.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://veranstaltungen.meinestadt.de/weimar-thueringen/location-detail/11481; auch gelistet als: ehem. Studentenclub Schützengasse; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: website; Zweifel: Programm laut Quelle unklar; möglicherweise kein regulärer Betrieb.; danach nach de/thueringen/weimar/ verschieben"
+source: "Web-Recherche 08/2026: veranstaltungen.meinestadt.de; auch gelistet als: ehem. Studentenclub Schützengasse; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; möglicherweise kein regulärer Betrieb.; Pruefung 08/2026 (1 Websuche je Club); Website laut kulturtragwerk.de; Zweifel: Ehemaliger Studentenclub Schützengasse, laut Treffern vom Verein KulturTragWerk e.V. als Kulturprojekt 'Proj…; danach nach de/thueringen/weimar/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://kulturtragwerk.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

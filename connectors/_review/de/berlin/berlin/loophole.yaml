@@ -5,6 +5,15 @@ city: Berlin
 address: Boddinstraße 60
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://loophole.berlin/"
+genres: Live
 about: Das Loophole ist ein kleiner Underground-Club in der Boddinstraße 60 in Berlin-Neukölln.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://theculturetrip.com/europe/germany/articles/the-best-nightclubs-in-and-around-neukolln; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: website, genres; danach nach de/berlin/berlin/ verschieben"
+source: "Web-Recherche 08/2026: theculturetrip.com; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut loophole.berlin; Genres laut loophole.berlin; Zweifel: Laut Treffern wurde der Standort Boddinstr. 60 vom Ordnungsamt geschlossen (Genehmigungsprobleme, Mieterhöhung); der Club sucht einen neuen Standort — an dieser Adresse möglicherweise dauerhaft zu; danach nach de/berlin/berlin/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://loophole.berlin/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

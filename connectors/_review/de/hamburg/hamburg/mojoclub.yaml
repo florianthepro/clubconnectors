@@ -5,7 +5,15 @@ city: Hamburg
 address: Reeperbahn 1
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.mojo.de/"
 genres: Live, Black Music, Electro
 about: Der Mojo Club ist ein Club für Jazz, Soul und Electronic an der Reeperbahn 1 in Hamburg, unter den Tanzenden Türmen.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.hamburg.de/kultur/musik/clubs/mojo-club-313024; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: website; danach nach de/hamburg/hamburg/ verschieben"
+source: "Web-Recherche 08/2026: https://www.hamburg.de/kultur/musik/clubs/mojo-club-313024; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut https://www.mojo.de/contact/; danach nach de/hamburg/hamburg/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.mojo.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

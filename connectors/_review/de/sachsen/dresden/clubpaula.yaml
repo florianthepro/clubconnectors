@@ -4,7 +4,15 @@ name: Club Paula
 city: Dresden
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.club-paula.de/"
 genres: House, Techno
 about: Der Club Paula in Dresden spielt seit 2010 House und Techno in einem alten Trafogebäude.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://dresden-magazin.com/en/heart-of-the-city/ten-cool-clubs-in-dresden/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/sachsen/dresden/ verschieben"
+source: "Web-Recherche 08/2026: https://dresden-magazin.com/en/heart-of-the-city/ten-cool-clubs-in-dresden/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut https://www.club-paula.de/; fehlt: address; Zweifel: Portale nennen abweichende Hausnummern (Meschwitzstraße 14/16/16A, u.a. dresden.deutschbranchenbuch.com) — Adresse daher nicht übernommen; danach nach de/sachsen/dresden/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.club-paula.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

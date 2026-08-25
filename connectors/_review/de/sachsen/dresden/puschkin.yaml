@@ -2,9 +2,18 @@
 id: puschkin
 name: Puschkin
 city: Dresden
+address: Leipziger Straße 12
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.clubpuschkin.de"
 genres: Live, Electro
 about: Das Puschkin ist ein Club und Konzertraum an der Leipziger Straße in Dresden für bis zu 700 Gäste. Im Roten Raum läuft elektronische Musik.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://dresden-magazin.com/dresden-mittendrin/clubs-in-dresden/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/sachsen/dresden/ verschieben"
+source: "Web-Recherche 08/2026: https://dresden-magazin.com/dresden-mittendrin/clubs-in-dresden/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut https://www.clubpuschkin.de; Adresse laut https://www.kulturkalender-dresden.de/dresden/club-puschkin, https://www.11880.com/branchenbuch/dresden/100081192B50851491/puschkin-club.html; danach nach de/sachsen/dresden/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.clubpuschkin.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

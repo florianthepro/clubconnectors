@@ -2,9 +2,18 @@
 id: tantemanfred
 name: Tante Manfred
 city: Halle (Saale)
+address: Kardinal-Albrecht-Straße 6
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.tante-manfred.de/"
 genres: Live
 about: Tante Manfred in Halle (Saale) ist ein Tanzclub und Konzertort.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://halle365.de/veranstaltungsorte-clubs-diskotheken; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/sachsen-anhalt/halle/ verschieben"
+source: "Web-Recherche 08/2026: https://halle365.de/veranstaltungsorte-clubs-diskotheken; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut https://www.tante-manfred.de/; Adresse laut https://www.tante-manfred.de/, https://halle365.de/veranstaltungsort/tante-manfred; danach nach de/sachsen-anhalt/halle/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.tante-manfred.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

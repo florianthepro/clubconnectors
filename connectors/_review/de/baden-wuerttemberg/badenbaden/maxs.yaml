@@ -2,8 +2,17 @@
 id: maxs
 name: Max's
 city: Baden-Baden
+address: Kaiserallee 4
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://maxs-baden.de/"
 about: Das Max's ist ein Club in Baden-Baden mit wechselnden Music Specials.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://cityfan.de/baden-baden/die-besten-bars-und-clubs-in-baden-badenbars-und-clubs-fuer-lange-naechte-in-baden-baden/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/baden-wuerttemberg/badenbaden/ verschieben"
+source: "Web-Recherche 08/2026: cityfan.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut maxs-baden.de; Adresse laut maxs-baden.de, www.golocal.de; fehlt: genres; Zweifel: Treffer nennen die Location 'Max's Bar Club Lounge' bzw. 'MAX´S Bar' - evtl. eher Bar/Lounge mit Diskothek als reiner Club; danach nach de/baden-wuerttemberg/badenbaden/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://maxs-baden.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

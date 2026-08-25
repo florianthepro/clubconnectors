@@ -2,8 +2,17 @@
 id: schloesserquartierboheme
 name: Schlösser Quartier Bohéme
 city: Düsseldorf
+address: Ratinger Straße 25
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.quartierboheme.de"
 about: Das Schlösser Quartier Bohéme ist eine Kulturlocation mit Bar, Club und Eventfläche in Düsseldorf.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.mrduesseldorf.de/die-besten-clubs-in-duesseldorf/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; Zweifel: Kulturlocation mit Bar und Eventfläche, nicht nur Club.; danach nach de/nordrhein-westfalen/duesseldorf/ verschieben"
+source: "Web-Recherche 08/2026: www.mrduesseldorf.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut www.quartierboheme.de; Adresse laut www.arrivalguides.com; fehlt: genres; Zweifel: Treffer beschreiben die Location als Kombination aus Restaurant, Bar, Lounge, Club und Eventlocation (Tripadvisor fuehrt sie als Restaurant) – kein reiner Club; danach nach de/nordrhein-westfalen/duesseldorf/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.quartierboheme.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

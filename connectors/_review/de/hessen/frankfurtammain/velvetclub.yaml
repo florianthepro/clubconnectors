@@ -2,8 +2,17 @@
 id: velvetclub
 name: Velvet Club
 city: Frankfurt am Main
+address: Weißfrauenstraße 12-16
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "http://www.velvet-ffm.de"
 about: Der Velvet Club ist ein Szeneclub in Frankfurt am Main.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://frankfurt-interaktiv.de/ausgehtipps/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/hessen/frankfurtammain/ verschieben"
+source: "Web-Recherche 08/2026: https://frankfurt-interaktiv.de/ausgehtipps/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut http://www.velvet-ffm.de; Adresse laut https://www.yelp.com/biz/velvet-club-frankfurt-am-main-2, https://www.branchenkompass-frankfurt.de/branchenbuch/velvet-club-frankfurt-innenstadt-gaststaetten-diskotheken_156278.html; fehlt: genres; danach nach de/hessen/frankfurtammain/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "http://www.velvet-ffm.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

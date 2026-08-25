@@ -2,12 +2,13 @@
 id: huex
 name: HÜX
 city: Lübeck
+address: Hüxterdamm 14
 lat: NACHMESSEN
 lng: NACHMESSEN
 website: "https://www.huex.de/"
 about: Das HÜX ist ein Club und eine Diskothek in einem Altstadtkeller am Hüxterdamm in Lübeck.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.huex.de/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, genres; danach nach de/schleswig-holstein/luebeck/ verschieben"
+source: "Web-Recherche 08/2026: https://www.huex.de/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Adresse laut https://www.huex.de/; fehlt: genres; danach nach de/schleswig-holstein/luebeck/ verschieben"
 
 # Wie die Website ausgelesen wird
 scrape_url: "https://www.huex.de/"

@@ -2,9 +2,18 @@
 id: objektkleina
 name: Objekt klein a
 city: Dresden
+address: Meschwitzstraße 9
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://objektkleina.com/"
 genres: Techno, House, Electro
 about: Objekt klein a ist ein Club für Techno, House und Electro im Industriegebiet von Dresden mit Open-Air-Gelände.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://dresden-magazin.com/en/heart-of-the-city/ten-cool-clubs-in-dresden/; auch gelistet als: oka; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/sachsen/dresden/ verschieben"
+source: "Web-Recherche 08/2026: https://dresden-magazin.com/en/heart-of-the-city/ten-cool-clubs-in-dresden/; auch gelistet als: oka; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut https://objektkleina.com/; Adresse laut https://miz.org/de/institutionen/objekt-klein-a-i36493, https://www.kulturkalender-dresden.de/dresden/objekt-klein-a-club; danach nach de/sachsen/dresden/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://objektkleina.com/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

@@ -2,9 +2,10 @@
 id: weltspiele
 name: Weltspiele
 city: Hannover
+address: Weidendamm 8
 lat: NACHMESSEN
 lng: NACHMESSEN
 genres: Techno
 about: Das Weltspiele ist ein Techno-Club in Hannover mit zwei Floors und Platz für bis zu 500 Gäste.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.theclubmap.com/cities/hannover/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/niedersachsen/hannover/ verschieben"
+source: "Web-Recherche 08/2026: www.theclubmap.com; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Adresse laut www.visit-hannover.com, www.tripadvisor.com; fehlt: website; Zweifel: Tripadvisor-URL fuehrt die Location als 'Club_Weidendamm' – evtl. frueherer oder alternativer Name; danach nach de/niedersachsen/hannover/ verschieben"

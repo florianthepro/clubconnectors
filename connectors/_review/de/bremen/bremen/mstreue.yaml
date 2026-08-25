@@ -2,13 +2,14 @@
 id: mstreue
 name: MS Treue
 city: Bremen
+address: Anleger Tiefer 3
 lat: NACHMESSEN
 lng: NACHMESSEN
 website: "https://www.mstreue.de/"
 genres: Techno, House
 about: Die MS Treue ist ein Clubschiff in Bremen, musikalisch stehen Techno, House und Trance im Programm.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.mstreue.de/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address; danach nach de/bremen/bremen/ verschieben"
+source: "Web-Recherche 08/2026: https://www.mstreue.de/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Adresse laut https://www.bars10.com/DE/Bremen/1420900694793742/MS-Treue; danach nach de/bremen/bremen/ verschieben"
 
 # Wie die Website ausgelesen wird
 scrape_url: "https://www.mstreue.de/"

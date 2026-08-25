@@ -7,7 +7,7 @@ lng: NACHMESSEN
 website: "https://www.nachtschicht-bhv.com/"
 about: Die Nachtschicht Bremerhaven ist eine Großraumdiskothek mit drei Bereichen in Bremerhaven.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.nachtschicht-bhv.com/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, genres; danach nach de/bremen/bremerhaven/ verschieben"
+source: "Web-Recherche 08/2026: www.nachtschicht-bhv.com; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); fehlt: address, genres; Zweifel: NWZ-Schlagzeile 'Diskothek schon wieder geschlossen?' deutet auf mögliche Schließung; Portale nennen als Website nachtschicht-bhv.de statt der hinterlegten nachtschicht-bhv.com; Straße Bürgermeister-Smidt-Str. in mehre…; danach nach de/bremen/bremerhaven/ verschieben"
 
 # Wie die Website ausgelesen wird
 scrape_url: "https://www.nachtschicht-bhv.com/"

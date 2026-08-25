@@ -2,9 +2,18 @@
 id: silbergold
 name: Silbergold
 city: Frankfurt am Main
+address: Heiligkreuzgasse 22
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://silbergold-club.de"
 genres: Electro, House, Indie
 about: Das Silbergold ist ein kleiner Club in Frankfurt am Main mit Electro, House und Indie.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://frankfurtrestaurants.de/en/behind-these-doors-the-party-continues-frankfurts-8-best-clubs/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/hessen/frankfurtammain/ verschieben"
+source: "Web-Recherche 08/2026: frankfurtrestaurants.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut silbergold-club.de; Adresse laut www.yelp.com, nightlife.journal-frankfurt.de; Zweifel: Eine Quelle (journal-kalender.de) nennt Hausnummer 22a statt 22; danach nach de/hessen/frankfurtammain/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://silbergold-club.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

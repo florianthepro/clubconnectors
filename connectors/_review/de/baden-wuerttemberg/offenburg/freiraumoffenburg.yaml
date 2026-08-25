@@ -4,6 +4,14 @@ name: Freiraum Offenburg
 city: Offenburg
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.freiraum-offenburg.de/"
 about: Der Freiraum Offenburg ist eine Disco- und Eventlocation in Offenburg.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://discotheken-clubs-offenburg.de/freiraum-offenburg/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; Zweifel: Auch Eventlocation, evtl. kein reiner Nachtclub.; danach nach de/baden-wuerttemberg/offenburg/ verschieben"
+source: "Web-Recherche 08/2026: discotheken-clubs-offenburg.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut www.freiraum-offenburg.de; fehlt: address, genres; Zweifel: Treffer praesentieren Freiraum eher als Eventlocation (Titel: 'Afterwork | Konzerte | Hochzeiten', discotheken-clubs-offenburg.de) als als klassischen Club; Adresse (Marlener Str. 5) nur im unzuorden…; danach nach de/baden-wuerttemberg/offenburg/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.freiraum-offenburg.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

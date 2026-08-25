@@ -2,12 +2,13 @@
 id: rosenkeller
 name: Rosenkeller
 city: Jena
+address: Johannisstraße 13
 lat: NACHMESSEN
 lng: NACHMESSEN
 website: "https://rosenkeller.org/"
 about: Der Rosenkeller ist ein Studentenclub mit Discobetrieb in Jena, der seit 1966 besteht.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://rosenkeller.org/en/home/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, genres; danach nach de/thueringen/jena/ verschieben"
+source: "Web-Recherche 08/2026: https://rosenkeller.org/en/home/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Adresse laut https://www.yelp.com/biz/rosenkeller-e-v-jena, https://www.visit-jena.de/kunst-kultur-und-kulinarik/clubs-szene/rosenkeller/; fehlt: genres; danach nach de/thueringen/jena/ verschieben"
 
 # Wie die Website ausgelesen wird
 scrape_url: "https://rosenkeller.org/"

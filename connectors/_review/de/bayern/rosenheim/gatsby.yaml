@@ -2,8 +2,17 @@
 id: gatsby
 name: Gatsby
 city: Rosenheim
+address: Am Roßacker 7
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://gatsby-rosenheim.com"
 about: Das Gatsby ist ein Club mit mehreren Floors in Rosenheim.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://festlguide.de/die-besten-party-locations-in-rosenheim/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/bayern/rosenheim/ verschieben"
+source: "Web-Recherche 08/2026: https://festlguide.de/die-besten-party-locations-in-rosenheim/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut https://gatsby-rosenheim.com; Adresse laut https://firmania.de/rosenheim/gatsby-rosenheim-8171224, https://finde-offen.de/rosenheim/gatsby-rosenheim-5370114; fehlt: genres; danach nach de/bayern/rosenheim/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://gatsby-rosenheim.com"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

@@ -5,6 +5,14 @@ city: Greifswald
 address: Makarenkostraße 49
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.kistehgw.de"
 about: Die Kiste e.V. ist ein Studentenclub in der Makarenkostraße 49 in Greifswald.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://stud.uni-greifswald.de/ersti-forum/allgemeine-informationen-und-veranstaltungen/beratungsangebote-1-1/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: website, genres; Zweifel: Studentenclub eines Vereins, kein klassischer Nachtclub.; danach nach de/mecklenburg-vorpommern/greifswald/ verschieben"
+source: "Web-Recherche 08/2026: https://stud.uni-greifswald.de/ersti-forum/allgemeine-informationen-und-veranstaltungen/beratungsangebote-1-1/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Zweifel: Studentenclub eines Vereins, kein klassischer Nachtclub.; Pruefung 08/2026 (1 Websuche je Club); Website laut https://kreis-vg.de/index.php?FID=3079.569.1&ModID=9&object=tx%2C3079.1; fehlt: genres; danach nach de/mecklenburg-vorpommern/greifswald/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.kistehgw.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

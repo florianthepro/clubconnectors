@@ -2,8 +2,9 @@
 id: lhibou
 name: L'Hibou
 city: Dresden
+address: Schlesischer Platz 1
 lat: NACHMESSEN
 lng: NACHMESSEN
 about: Das L'Hibou ist ein Club und eine Diskothek in Dresden.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://dresdennightlife.de/diskotheken/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/sachsen/dresden/ verschieben"
+source: "Web-Recherche 08/2026: dresdennightlife.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Adresse laut www.exmatrikulationsamt.de, www.residentadvisor.net; fehlt: website, genres; Zweifel: Laut WebSearch-Zusammenfassung dauerhaft geschlossen; frueher als 'SPUTNIK 2.0' bekannt, Location unter dem Bahnhof Dresden-Neustadt; danach nach de/sachsen/dresden/ verschieben"

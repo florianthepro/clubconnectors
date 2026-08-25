@@ -2,9 +2,18 @@
 id: eulexo
 name: Eule/XO
 city: Braunschweig
+address: Gieseler 3
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.instagram.com/eule.xo.club"
 genres: House, Hip-Hop, Black Music
 about: Eule/XO ist ein Club in Braunschweig mit drei Floors; im Bereich Eule laufen Pop- und House-Klassiker, im XO Hip-Hop, Trap, Afro und R&B.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://braunschweig-kompakt.de/bars-und-clubs-in-braunschweig/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/niedersachsen/braunschweig/ verschieben"
+source: "Web-Recherche 08/2026: https://braunschweig-kompakt.de/bars-und-clubs-in-braunschweig/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut https://www.instagram.com/eule.xo.club; Adresse laut https://kj.de/venue.html?id=18263, https://maps.apple.com/place?place-id=I142B4CF36DDC2F41; danach nach de/niedersachsen/braunschweig/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.instagram.com/eule.xo.club"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

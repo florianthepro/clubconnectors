@@ -2,9 +2,18 @@
 id: daxbierboerse
 name: DAX Bierbörse
 city: Hannover
+address: Hamburger Allee 4
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.bierboerse-hannover.de/"
 genres: Mixed
 about: Die DAX Bierbörse ist eine Disco mit Kneipen- und Retro-Flair in Hannover.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://socialmatch.de/blog/diskotheken-in-hannover/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/niedersachsen/hannover/ verschieben"
+source: "Web-Recherche 08/2026: socialmatch.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut www.bierboerse-hannover.de; Adresse laut www.yelp.com, www.goyellow.de; Zweifel: Treffer führen DAX überwiegend als Bar/Kneipe (Yelp und PRINZ: Kategorie 'Bars'), Konzept Bierbörse – evtl. eher Bar als klassischer Club; danach nach de/niedersachsen/hannover/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.bierboerse-hannover.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

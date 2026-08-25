@@ -2,8 +2,10 @@
 id: stationendlos
 name: Station Endlos
 city: Halle (Saale)
+address: Reideburger Straße 54
 lat: NACHMESSEN
 lng: NACHMESSEN
+genres: Live
 about: Die Station Endlos ist ein Kulturzentrum in Halle (Saale), in dem Clubnächte stattfinden.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.theclubmap.com/cities/halle/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; Zweifel: Kulturzentrum mit Clubnächten, kein klassischer Nachtclub.; danach nach de/sachsen-anhalt/halle/ verschieben"
+source: "Web-Recherche 08/2026: www.theclubmap.com; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Adresse laut onlinestreet.de; Genres laut halle365.de; fehlt: website; Zweifel: Treffer beschreiben eher Kulturort/'Plattform fuer Kunst' (Konzerte, Ausstellungen, Workshops) als reinen Club; RA listet es aber als Club. Hausnummer 54 nur aus Snippet-Aus…; danach nach de/sachsen-anhalt/halle/ verschieben"

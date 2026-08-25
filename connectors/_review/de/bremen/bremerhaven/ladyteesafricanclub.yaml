@@ -2,8 +2,17 @@
 id: ladyteesafricanclub
 name: Lady Tee's African Club
 city: Bremerhaven
+address: Bürgermeister-Smidt-Straße 169
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.instagram.com/ladyteesbar/"
 about: Lady Tee's African Club ist ein kleiner Club mit afrikanischer Musik in Bremerhaven.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://partyzettel.de/diskotheken/stadt/bremerhaven/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/bremen/bremerhaven/ verschieben"
+source: "Web-Recherche 08/2026: partyzettel.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut www.instagram.com; Adresse laut www.yelp.com, www.golocal.de; fehlt: genres; Zweifel: Treffer zeigen Mischform Bar/Snackbar/Restaurant ('Lady Tee's African Club & Snackbar', Restaurant-Portale) - evtl. kein reiner Club; keine eigene Website gefunden, daher Instagram-Profil eingetragen; danach nach de/bremen/bremerhaven/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.instagram.com/ladyteesbar/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

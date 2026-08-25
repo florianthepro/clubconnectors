@@ -2,8 +2,17 @@
 id: clubbernstein
 name: Club Bernstein
 city: Baden-Baden
+address: Kaiserallee 1
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.bernstein-club.com/"
 about: Der Club Bernstein ist ein Club im Casino in Baden-Baden.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://cityfan.de/baden-baden/die-besten-bars-und-clubs-in-baden-badenbars-und-clubs-fuer-lange-naechte-in-baden-baden/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; Zweifel: Öffnet laut Hinweis nur an einzelnen Tagen im Casino; evtl. kein durchgehender Clubbetrieb.; danach nach de/baden-wuerttemberg/badenbaden/ verschieben"
+source: "Web-Recherche 08/2026: cityfan.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; evtl. kein durchgehender Clubbetrieb.; Pruefung 08/2026 (1 Websuche je Club); Website laut www.baden-baden.com; Adresse laut www.baden-baden.com, adresse.dastelefonbuch.de; fehlt: genres; Zweifel: Liegt im Casino Baden-Baden; Falstaff listet ihn unter Bars - moeglicherweise eher Casino-Club/Bar als klassischer Club; danach nach de/baden-wuerttemberg/badenbaden/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.bernstein-club.com/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

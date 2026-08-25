@@ -2,8 +2,18 @@
 id: lefonque
 name: Le Fonque
 city: Hamburg
+address: Juliusstraße 33
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://fonque.de"
+genres: Black Music
 about: Das Le Fonque ist ein Vinyl-Club im Hamburger Stadtteil Sternschanze.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.tripadvisor.com/Attractions-g187331-Activities-c20-zfn20484382-Hamburg.html; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/hamburg/hamburg/ verschieben"
+source: "Web-Recherche 08/2026: www.tripadvisor.com; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut www.hamburg-travel.com; Adresse laut www.yelp.com, unilocal.net; Genres laut www.facebook.com; Zweifel: Treffer kategorisieren es ueberwiegend als Bar, nicht als Club (Yelp: 'Bars', hamburg-travel.com: 'Cozy bar with fluffy sound system'); danach nach de/hamburg/hamburg/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://fonque.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

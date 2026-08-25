@@ -2,8 +2,10 @@
 id: 42gradfieber
 name: 42 Grad Fieber
 city: Braunschweig
+address: Kalenwall 3
 lat: NACHMESSEN
 lng: NACHMESSEN
+genres: Mixed
 about: Das 42 Grad Fieber ist ein Club in einem Bunker in Braunschweig.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://braunschweig-kompakt.de/bars-und-clubs-in-braunschweig/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/niedersachsen/braunschweig/ verschieben"
+source: "Web-Recherche 08/2026: braunschweig-kompakt.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Adresse laut braunschweig.deutschbranchenbuch.com; Genres laut www.der-butler.com; fehlt: website; Zweifel: Keine eigene Website in den Treffern, nur Portale/Verzeichnisse; danach nach de/niedersachsen/braunschweig/ verschieben"

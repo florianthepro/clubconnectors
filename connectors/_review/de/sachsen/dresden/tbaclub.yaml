@@ -2,9 +2,18 @@
 id: tbaclub
 name: TBA Club
 city: Dresden
+address: Schlesischer Platz 1
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.tba-dresden.de/"
 genres: Electro
 about: Der TBA Club ist ein Club für elektronische Musik direkt unter dem Bahnhof Dresden-Neustadt in Dresden.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.instagram.com/tba_club/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/sachsen/dresden/ verschieben"
+source: "Web-Recherche 08/2026: www.instagram.com; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut www.tba-dresden.de; Adresse laut www.exmatrikulationsamt.de; Zweifel: Ein Treffer vermerkt den Club als dauerhaft geschlossen ('permanently closed'); dd-inside.de fuehrt die Location unter 'Sputnik 2.0 Bahnhof Neustadt' (evtl. Umbenennung/Nachfolger); danach nach de/sachsen/dresden/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.tba-dresden.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

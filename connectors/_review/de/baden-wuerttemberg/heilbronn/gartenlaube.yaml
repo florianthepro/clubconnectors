@@ -2,12 +2,13 @@
 id: gartenlaube
 name: Gartenlaube
 city: Heilbronn
+address: Viehweide 13
 lat: NACHMESSEN
 lng: NACHMESSEN
 website: "https://www.gartenlaube.com/"
 about: Die Gartenlaube ist eine seit Jahrzehnten bestehende Location in Heilbronn.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.gartenlaube.com/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, genres; Zweifel: Als Location ohne klare Betriebsart beschrieben; evtl. kein regulärer Nachtclub.; danach nach de/baden-wuerttemberg/heilbronn/ verschieben"
+source: "Web-Recherche 08/2026: www.gartenlaube.com; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; evtl. kein regulärer Nachtclub.; Pruefung 08/2026 (1 Websuche je Club); Adresse laut www.yelp.com, bogenschritt-verein.de; fehlt: genres; Zweifel: Vorhandene Website gartenlaube.com tauchte in den Treffern nicht auf (aber auch kein Widerspruch); Treffer beschreiben sie als Bar/Biergarten/Disco & Club; danach nach de/baden-wuerttemberg/heilbronn/ verschieben"
 
 # Wie die Website ausgelesen wird
 scrape_url: "https://www.gartenlaube.com/"

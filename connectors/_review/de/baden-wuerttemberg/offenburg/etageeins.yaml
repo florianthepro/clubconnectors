@@ -2,8 +2,17 @@
 id: etageeins
 name: Etage Eins
 city: Offenburg
+address: Marlener Straße 5
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.etageeins-og.de"
 about: Die Etage Eins ist eine Großraumdiskothek mit mehreren Themenbereichen in Offenburg.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.reservix.de/offenburg/venue/diskothek-etage-eins/v1903; auch gelistet als: E1; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/baden-wuerttemberg/offenburg/ verschieben"
+source: "Web-Recherche 08/2026: www.reservix.de; auch gelistet als: E1; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut www.etageeins-og.de; Adresse laut www.yelp.com; fehlt: genres; Zweifel: Zwei eigene Domains in den Treffern: etageeins-og.de (laut Yelp-Eintrag als Website genannt) und etageeins-offenburg.de (mit 'Über uns'-Seite) - unklar, welche aktuell ist; danach nach de/baden-wuerttemberg/offenburg/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.etageeins-og.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

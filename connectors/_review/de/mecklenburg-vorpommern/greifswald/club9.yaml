@@ -2,8 +2,17 @@
 id: club9
 name: Club 9
 city: Greifswald
+address: Rubenowstraße 4
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.instagram.com/club_9_hgw/"
 about: Der Club 9 ist ein Studentenclub in Greifswald, in dem Partys stattfinden.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://stud.uni-greifswald.de/ersti-forum/allgemeine-informationen-und-veranstaltungen/beratungsangebote-1-1/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/mecklenburg-vorpommern/greifswald/ verschieben"
+source: "Web-Recherche 08/2026: stud.uni-greifswald.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut www.instagram.com; Adresse laut branchenbuch.meinestadt.de; fehlt: genres; Zweifel: Keine eigene Website unter 10 Treffern (nur Instagram/Facebook, Uni- und Stadtseiten) - studentischer, ehrenamtlich betriebener Club; Hausnummer nur in einem Portal-Titel sichtbar,…; danach nach de/mecklenburg-vorpommern/greifswald/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.instagram.com/club_9_hgw/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

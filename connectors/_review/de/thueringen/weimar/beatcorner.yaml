@@ -5,9 +5,10 @@ city: Weimar
 lat: NACHMESSEN
 lng: NACHMESSEN
 website: "https://beatcorner.de/"
+genres: Live
 about: Die Beatcorner ist eine Musikkneipe mit Tanzfläche in Weimar, in der Discoabende stattfinden.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://beatcorner.de/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, genres; Zweifel: Musikkneipe mit Tanzfläche, kein regulärer Nachtclub.; danach nach de/thueringen/weimar/ verschieben"
+source: "Web-Recherche 08/2026: https://beatcorner.de/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Genres laut https://beatcorner.de/; fehlt: address; Zweifel: Eigene Website bezeichnet es als Musikkneipe (Live-Konzerte und Discoabende), kein reiner Club; danach nach de/thueringen/weimar/ verschieben"
 
 # Wie die Website ausgelesen wird
 scrape_url: "https://beatcorner.de/"

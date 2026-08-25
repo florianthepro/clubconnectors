@@ -2,13 +2,14 @@
 id: treibsand
 name: Treibsand
 city: Lübeck
+address: Willy-Brandt-Allee 9
 lat: NACHMESSEN
 lng: NACHMESSEN
 website: "https://treibsand.net/"
 genres: Live
 about: Der Treibsand ist ein linkes Kulturzentrum in Lübeck mit Konzerten und Tanznächten.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://treibsand.net/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address; Zweifel: Kulturzentrum mit Konzerten und Tanznächten, kein klassischer Nachtclub.; danach nach de/schleswig-holstein/luebeck/ verschieben"
+source: "Web-Recherche 08/2026: https://treibsand.net/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Adresse laut https://www.germanlisting.com/treibsandliveclublbeck, https://www.oeffnungszeitenbuch.de/filiale/Luebeck-treibsAND%2520-%2520Live%2520Club%2520Luebeck-3628268Y.html; Zweifel: Vorhandene Website treibsand.net tauchte in den Treffern nicht auf (aber auch kein Widerspruch); danach nach de/schleswig-holstein/luebeck/ verschieben"
 
 # Wie die Website ausgelesen wird
 scrape_url: "https://treibsand.net/"

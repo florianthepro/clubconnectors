@@ -2,9 +2,18 @@
 id: downtown
 name: Downtown
 city: Dresden
+address: Katharinenstraße 11-13
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.downtown-dresden.de/"
 genres: Mixed
 about: Das Downtown ist eine Diskothek in Dresden mit einem breiten Spektrum von Charts bis Techno und Hip-Hop.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://dresden-magazin.com/dresden-mittendrin/clubs-in-dresden/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/sachsen/dresden/ verschieben"
+source: "Web-Recherche 08/2026: https://dresden-magazin.com/dresden-mittendrin/clubs-in-dresden/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut https://www.downtown-dresden.de/; Adresse laut https://www.yelp.com/biz/downtown-dresden-dresden; danach nach de/sachsen/dresden/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.downtown-dresden.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

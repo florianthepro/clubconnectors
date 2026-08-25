@@ -2,9 +2,18 @@
 id: yachtklub
 name: Yachtklub
 city: Frankfurt am Main
+address: Deutschherrnufer 12
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://yachtklub.de/"
 genres: Mixed
 about: Der Yachtklub in Frankfurt am Main veranstaltet Partys auf dem Main mit gemischter Musik.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://frankfurtrestaurants.de/en/behind-these-doors-the-party-continues-frankfurts-8-best-clubs/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; Zweifel: Partys auf dem Main – evtl. Schiffs- oder Open-Air-Location statt festem Clubgebäude.; danach nach de/hessen/frankfurtammain/ verschieben"
+source: "Web-Recherche 08/2026: frankfurtrestaurants.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut yachtklub.de; Adresse laut yachtklub.de, www.yelp.com; Zweifel: Yelp kategorisiert als Bar, Eigenbeschreibung 'Das Bootshaus auf dem Main' – eher Bar/Freiluft-Location als klassischer Club; journal-frankfurt nennt abweichend Hausnummer 12a; danach nach de/hessen/frankfurtammain/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://yachtklub.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

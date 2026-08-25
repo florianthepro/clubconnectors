@@ -2,9 +2,18 @@
 id: molotow
 name: Molotow
 city: Hamburg
+address: Reeperbahn 136
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.molotowclub.com/"
 genres: Indie, Rock, Live
 about: Das Molotow ist ein Musikclub auf St. Pauli in Hamburg mit Ausrichtung auf Indie und Punk sowie Partys.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://en.wikipedia.org/wiki/Molotow_Club; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/hamburg/hamburg/ verschieben"
+source: "Web-Recherche 08/2026: en.wikipedia.org; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut www.molotowclub.com; Adresse laut www.molotowclub.com; Zweifel: Laut Treffern Standortwechsel: alter Standort Nobistor 14 (Yelp) zum 1.1.2025 geschlossen, 2025 an neuem Standort wiedereroeffnet; 'Reeperbahn 136' ist als Geschaeftsadresse angegeben, e…; danach nach de/hamburg/hamburg/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.molotowclub.com/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

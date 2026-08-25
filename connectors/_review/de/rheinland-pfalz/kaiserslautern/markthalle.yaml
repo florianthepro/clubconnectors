@@ -2,8 +2,18 @@
 id: markthalle
 name: Markthalle
 city: Kaiserslautern
+address: Marktstraße 9a
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.markthalle-kl.de/"
+genres: Hip-Hop
 about: Die Markthalle ist ein Club in Kaiserslautern.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.inyourpocket.com/kaiserslautern/nightlife/clubs; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; Zweifel: Nur Verzeichnistreffer, aktueller Betrieb unbestätigt.; danach nach de/rheinland-pfalz/kaiserslautern/ verschieben"
+source: "Web-Recherche 08/2026: www.inyourpocket.com; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Zweifel: Nur Verzeichnistreffer, aktueller Betrieb unbestätigt.; Pruefung 08/2026 (1 Websuche je Club); Website laut www.markthalle-kl.de; Adresse laut www.yelp.com, bogenschritt-verein.de; Genres laut www.markthalle-kl.de; danach nach de/rheinland-pfalz/kaiserslautern/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.markthalle-kl.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

@@ -2,9 +2,18 @@
 id: thegate
 name: TheGate
 city: Düsseldorf
+address: Ratinger Mauer 1
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://thegateclub.eu/"
 genres: Techno
 about: TheGate ist ein kleiner Techno-Club in Düsseldorf nahe der Ratinger Straße.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://techno-essentials.de/blogs/techno-essentials/techno-clubs-duesseldorf; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/nordrhein-westfalen/duesseldorf/ verschieben"
+source: "Web-Recherche 08/2026: https://techno-essentials.de/blogs/techno-essentials/techno-clubs-duesseldorf; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut https://thegateclub.eu/; Adresse laut https://allevents.in/dusseldorf/hard-gets-harder-vol-02/200028223936334, https://thegateclub.eu/?page_id=541; danach nach de/nordrhein-westfalen/duesseldorf/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://thegateclub.eu/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

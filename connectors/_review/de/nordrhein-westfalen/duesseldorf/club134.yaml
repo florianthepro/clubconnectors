@@ -2,9 +2,10 @@
 id: club134
 name: Club 134
 city: Düsseldorf
+address: Ronsdorfer Straße 134
 lat: NACHMESSEN
 lng: NACHMESSEN
 genres: Techno, House, Electro
 about: Der Club 134 ist ein Nachtclub in Düsseldorf mit Techno, House und Electro.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.mrduesseldorf.de/die-besten-clubs-in-duesseldorf/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/nordrhein-westfalen/duesseldorf/ verschieben"
+source: "Web-Recherche 08/2026: www.mrduesseldorf.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Adresse laut m.virtualnights.com, www.visitduesseldorf.de; fehlt: website; Zweifel: Laut Treffern kleiner Side-Club/Nebenraum des Stahlwerk Düsseldorf; keine eigene Website in den Treffern, nur Facebook-Seite; danach nach de/nordrhein-westfalen/duesseldorf/ verschieben"

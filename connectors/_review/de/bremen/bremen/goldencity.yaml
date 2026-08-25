@@ -4,7 +4,15 @@ name: Golden City
 city: Bremen
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.goldencity-bremen.de"
 genres: Techno, House
 about: Das Golden City ist eine Veranstaltungsstätte für Techno- und House-Veranstaltungen in Bremen.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://techno-essentials.de/pages/techno-events-bremen; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; Zweifel: Als Event-Venue beschrieben, evtl. kein regulärer Nachtclub.; danach nach de/bremen/bremen/ verschieben"
+source: "Web-Recherche 08/2026: techno-essentials.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut www.goldencity-bremen.de; fehlt: address; Zweifel: Treffer widerspruechlich: 'Golden City Hafenbar' als Bar/Kulturprojekt mit wechselnden Standorten (Hoerneckestr. 23 laut Yelp, Stephanikirchenweide 19 laut hb-people.de); prinz.de fuehrt es unter 'Bars & Kneipen' - eher Hafenbar/K…; danach nach de/bremen/bremen/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.goldencity-bremen.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

@@ -2,9 +2,18 @@
 id: p2club
 name: P2 Club
 city: Rosenheim
+address: Ruedorfferstraße 2
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "http://www.p2-club.de"
 genres: Rock
 about: Der P2 Club ist ein Rockmusik-Club in Rosenheim.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://rosenheimsbeste.de/localities/die-besten-clubs/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/bayern/rosenheim/ verschieben"
+source: "Web-Recherche 08/2026: rosenheimsbeste.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut www.p2-club.de; Adresse laut m.yelp.com, www.nochoffen.de; Zweifel: Ergebnistext nennt einmal 'Ruedorfferstraße 4', die Titel-Snippets von Yelp ('Ruedorfferstr. 2') und nochoffen.de ('Ruedorfferstraße 2') stimmen aber auf Nr. 2 ueberein; danach nach de/bayern/rosenheim/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "http://www.p2-club.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

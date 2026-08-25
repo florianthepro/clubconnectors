@@ -2,8 +2,17 @@
 id: trompete
 name: Trompete
 city: Berlin
+address: Lützowplatz 9
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.trompete-berlin.de"
 about: Die Trompete wird im Berlin.de-Verzeichnis als Club in Berlin geführt.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.berlin.de/en/clubs/a-z/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; Zweifel: Nur Verzeichniseintrag; aktueller Betrieb unklar.; danach nach de/berlin/berlin/ verschieben"
+source: "Web-Recherche 08/2026: https://www.berlin.de/en/clubs/a-z/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Zweifel: Nur Verzeichniseintrag; aktueller Betrieb unklar.; Pruefung 08/2026 (1 Websuche je Club); Website laut https://www.trompete-berlin.de; Adresse laut https://berlin.kauperts.de/eintrag/TROMPETE-Luetzowplatz-9-10785-Berlin; fehlt: genres; danach nach de/berlin/berlin/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.trompete-berlin.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

@@ -2,9 +2,18 @@
 id: stereoflensburg
 name: Stereo
 city: Flensburg
+address: Schiffbrücke 50
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://stereo-fl.de"
 genres: Live
 about: Das Stereo ist ein Club in Flensburg mit Livekonzerten und Mottopartys, der ein junges Publikum anspricht.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.flensburger-foerde.de/kultur/nachtleben; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/schleswig-holstein/flensburg/ verschieben"
+source: "Web-Recherche 08/2026: www.flensburger-foerde.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut stereo-fl.de; Adresse laut www.findglocal.com; Zweifel: Adresse nur in einem Treffer-Titel woertlich sichtbar (findglocal), von der Snippet-Zusammenfassung aber identisch bestaetigt; eigene Kontaktseite stereo-fl.de/kontakt war Treffer; danach nach de/schleswig-holstein/flensburg/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://stereo-fl.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

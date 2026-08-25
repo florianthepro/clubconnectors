@@ -2,9 +2,18 @@
 id: tanzlokalsasa
 name: Tanzlokal Sasa
 city: Flensburg
+address: Norderhofenden 2
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://www.sasa-flensburg.de/"
 genres: Mixed
 about: Das Tanzlokal Sasa ist ein Tanzlokal in Flensburg mit DJs verschiedener Genres und kleinen Konzerten.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://djliljim.de/nachtleben-in-flensburg-clubs-und-diskotheken/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/schleswig-holstein/flensburg/ verschieben"
+source: "Web-Recherche 08/2026: https://djliljim.de/nachtleben-in-flensburg-clubs-und-diskotheken/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut https://www.sasa-flensburg.de/; Adresse laut https://www.goyellow.de/home/cafe-kneipe-tanzlokal-sasa-flensburg--gq9kpg.html, https://www.dasoertliche.de/Themen/Tanzlokal-Sasa-Bar-Flensburg-Altstadt-Norderhofenden; danach nach de/schleswig-holstein/flensburg/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.sasa-flensburg.de/"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

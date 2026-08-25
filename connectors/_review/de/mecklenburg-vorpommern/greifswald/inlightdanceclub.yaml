@@ -5,6 +5,14 @@ city: Greifswald
 address: Mendelejewweg 18
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "http://www.inlight-club.de"
 about: Der InLight DanceClub ist ein Danceclub und eine Diskothek im Mendelejewweg 18 in Greifswald.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.golocal.de/greifswald/nachtclubs/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: website, genres; danach nach de/mecklenburg-vorpommern/greifswald/ verschieben"
+source: "Web-Recherche 08/2026: https://www.golocal.de/greifswald/nachtclubs/; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut http://www.inlight-club.de/kontakt.htm; fehlt: genres; danach nach de/mecklenburg-vorpommern/greifswald/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "http://www.inlight-club.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

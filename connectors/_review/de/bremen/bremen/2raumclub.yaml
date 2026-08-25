@@ -2,9 +2,18 @@
 id: 2raumclub
 name: 2RaumClub
 city: Bremen
+address: Rembertiring 7-9
 lat: NACHMESSEN
 lng: NACHMESSEN
+website: "https://2raumclub-bremen.de"
 genres: House, Black Music, Electro
 about: Der 2RaumClub ist ein Club in Bremen mit House, Black Music und EDM.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.bremen.de/tanzen-und-feiern; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website; danach nach de/bremen/bremen/ verschieben"
+source: "Web-Recherche 08/2026: https://www.bremen.de/tanzen-und-feiern; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut https://2raumclub-bremen.de; Adresse laut https://www.inqueery.de/guide/bremen/2raumclub, https://www.11880.com/branchenbuch/bremen/100081192B112658617/2raumclub-diskothek-nachtclub-bremen.html; danach nach de/bremen/bremen/ verschieben"
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://2raumclub-bremen.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

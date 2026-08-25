@@ -4,6 +4,7 @@ name: Nirvana
 city: Kaiserslautern
 lat: NACHMESSEN
 lng: NACHMESSEN
+genres: 80er/90er
 about: Das Nirvana ist ein Club in Kaiserslautern.
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://www.inyourpocket.com/kaiserslautern/nightlife/clubs; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; fehlt: address, website, genres; danach nach de/rheinland-pfalz/kaiserslautern/ verschieben"
+source: "Web-Recherche 08/2026: www.inyourpocket.com; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Genres laut www.facebook.com; fehlt: address, website; Zweifel: FB-Posts der Nirvana-Seite bewerben eine Party 'im Abwärts' - unklar, ob eigene Location oder anderes Venue. Yelp nennt nur 'Mühlstraße' ohne per Snippet belegbare Hausnummer; danach nach de/rheinland-pfalz/kaiserslautern/ verschieben"
