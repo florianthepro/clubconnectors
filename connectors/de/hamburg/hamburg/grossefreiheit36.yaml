@@ -3,13 +3,13 @@ id: grossefreiheit36
 name: Große Freiheit 36
 city: Hamburg
 address: Große Freiheit 36
-lat: NACHMESSEN
-lng: NACHMESSEN
+lat: 53.5512
+lng: 9.9580
 website: "https://grossefreiheit36.de"
 genres: Live, Rock
 about: "Konzert-Club auf der Großen Freiheit in St. Pauli, 1985 eröffnet. Großer Saal für internationale Live-Acts von Rock/Pop bis Hip-Hop, im Keller der historische Kaiserkeller; daneben Club-Partys."
 checked: 2026-08
-source: "Web-Recherche 08/2026: https://grossefreiheit36.de/, https://www.hamburg.de/kultur/musik/clubs/grosse-freiheit-36-313028; Koordinate fehlt – nachmessen; danach nach de/hamburg/hamburg/ verschieben"
+source: "Web-Recherche 08/2026: https://grossefreiheit36.de/, https://www.hamburg.de/kultur/musik/clubs/grosse-freiheit-36-313028; Koordinate fehlt – nachmessen; Koordinate aus https://www.wikidata.org/wiki/Q15137841 und https://aroundus.com/p/174464023-grosse-freiheit-36"
 
 # Wie die Website ausgelesen wird
 scrape_url: "https://grossefreiheit36.de"

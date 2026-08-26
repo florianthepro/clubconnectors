@@ -1,6 +1,6 @@
 # TODO – Clubliste Deutschland
 
-Stand: 2026-08-25 · **245** auf der Karte · **469** in Prüfung (`_review`) · **0** offen
+Stand: 2026-08-25 · **248** auf der Karte · **466** in Prüfung (`_review`) · **0** offen
 
 Legende:
 
@@ -338,7 +338,7 @@ geht auf die Karte.
 - [x] Odeon Lounge (`odeonlounge`)
 - [x] Zauberberg (`zauberbergwuerzb`)
 
-## Berlin (55 auf Karte · 33 in Prüfung · 0 offen)
+## Berlin (56 auf Karte · 32 in Prüfung · 0 offen)
 
 ### Berlin
 
@@ -381,6 +381,7 @@ geht auf die Karte.
 - [x] Pirates Berlin (`piratesberlin`)
 - [x] Privatclub (`privatclub`)
 - [x] Quasimodo (`quasimodo`)
+- [x] Ritter Butzke (`ritterbutzke`)
 - [x] Roadrunner's Paradise (`roadrunnersparadise`)
 - [x] Rosi's (`rosis`)
 - [x] Sameheads (`sameheads`)
@@ -414,7 +415,6 @@ geht auf die Karte.
 - [~] OST (`_review`: `ost`)
 - [~] OXI (`_review`: `oxi`)
 - [~] Prince Charles (`_review`: `princecharles`)
-- [~] Ritter Butzke (`_review`: `ritterbutzke`)
 - [~] RSO.Berlin (Revier Südost) (`_review`: `rsoberlinreviersuedost`)
 - [~] Salon zur Wilden Renate (`_review`: `salonzurwildenrenate`)
 - [~] SchwuZ (`_review`: `schwuz`)
@@ -474,11 +474,13 @@ geht auf die Karte.
 - [~] Nachtschicht Bremerhaven (`_review`: `nachtschichtbremerhaven`)
 - [~] SECRET (`_review`: `secret`)
 
-## Hamburg (1 auf Karte · 29 in Prüfung · 0 offen)
+## Hamburg (3 auf Karte · 27 in Prüfung · 0 offen)
 
 ### Hamburg
 
 - [x] Docks (`docks`)
+- [x] Große Freiheit 36 (`grossefreiheit36`)
+- [x] Kaiserkeller (`kaiserkeller`)
 - [~] Baalsaal (`_review`: `baalsaal`)
 - [~] Bahnhof Pauli (`_review`: `bahnhofpauli`)
 - [~] Beat Boutique (`_review`: `beatboutique`)
@@ -488,12 +490,10 @@ geht auf die Karte.
 - [~] Fundbureau (`_review`: `fundbureau`)
 - [~] GAGA (`_review`: `gaga`)
 - [~] Golden Pudel Club (`_review`: `goldenpudelclub`)
-- [~] Große Freiheit 36 (`_review`: `grossefreiheit36`)
 - [~] Gruenspan (`_review`: `gruenspan`)
 - [~] Hafenklang (`_review`: `hafenklang`)
 - [~] Halo (`_review`: `halo`)
 - [~] Indra Club (`_review`: `indraclub`)
-- [~] Kaiserkeller (`_review`: `kaiserkeller`)
 - [~] Le Fonque (`_review`: `lefonque`)
 - [~] Mojo Club (`_review`: `mojoclub`)
 - [~] Molotow (`_review`: `molotow`)

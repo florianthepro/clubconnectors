@@ -3,14 +3,13 @@ id: prime
 name: PRIME
 city: Bielefeld
 address: Duisburger Str. 25
-lat: NACHMESSEN
-lng: NACHMESSEN
+lat: 51.9765
+lng: 8.5013
 website: "https://www.prime-night.de/"
 genres: Mixed
 about: Das PRIME ist eine Großraumdiskothek mit 4 Areas in Bielefeld, musikalisch sind alle Genres vertreten.
 checked: 2026-08
-source: "Web-Recherche 08/2026: www.prime-night.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Adresse laut oeffnungszeitenbuch.de, www.11880.com; Zweifel: Portale fuehren den Club teils als 'Prime 54 Bielefeld Nightlife Club' (Brackwede) - moeglicherweise aelterer/anderer Name; danach nach de/nordrhein-westfalen/bielefeld/ verschieben"
-
+source: "Web-Recherche 08/2026: www.prime-night.de; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Adresse laut oeffnungszeitenbuch.de, www.11880.com; Zweifel: Portale fuehren den Club teils als 'Prime 54 Bielefeld Nightlife Club' (Brackwede) - moeglicherweise aelterer/anderer Name; danach nach de/nordrhein-westfalen/bielefeld/ verschieben; Koordinate aus https://mapcarta.com/N2422143688 und https://www.nochoffen.de/vip-prime-brackwede"
 # Wie die Website ausgelesen wird
 scrape_url: "https://www.prime-night.de/"
 scrape_events: auto

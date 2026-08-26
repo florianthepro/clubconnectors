@@ -3,14 +3,13 @@ id: salonzurwildenrenate
 name: Salon zur Wilden Renate
 city: Berlin
 address: Alt-Stralau 70
-lat: NACHMESSEN
-lng: NACHMESSEN
+lat: 52.4974
+lng: 13.4653
 website: "https://renate.cc"
 genres: Techno
 about: Der Salon zur Wilden Renate ist ein Club im Berliner Stadtteil Friedrichshain.
 checked: 2026-08
-source: "Web-Recherche 08/2026: www.the-berliner.com; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut www.berlin.de; Adresse laut www.yelp.com, www.berlin.de; Genres laut www.top10berlin.de; Zweifel: Yelp-Titel markiert den Club als 'CLOSED' – moeglicherweise dauerhaft geschlossen; danach nach de/berlin/berlin/ verschieben"
-
+source: "Web-Recherche 08/2026: www.the-berliner.com; Entwurf aus TODO.md - Fakten einzeln pruefen, Koordinate nachmessen; Pruefung 08/2026 (1 Websuche je Club); Website laut www.berlin.de; Adresse laut www.yelp.com, www.berlin.de; Genres laut www.top10berlin.de; Zweifel: Yelp-Titel markiert den Club als 'CLOSED' – moeglicherweise dauerhaft geschlossen; danach nach de/berlin/berlin/ verschieben; Koordinate aus https://www.wikidata.org/wiki/Q21036513 und https://mapcarta.com/N485640732"
 # Wie die Website ausgelesen wird
 scrape_url: "https://renate.cc"
 scrape_events: auto

@@ -48,7 +48,7 @@ Ordner mit `_` werden von Validator und Karte übergangen:
 - **10 Hamburg-Entwürfe** aus Web-Recherche (Quellen jeweils im `source`-Feld).
   Adresse, Website, Genres und `about` sind belegt; die Koordinate steht auf
   `NACHMESSEN`, weil sie sich aus Suchtreffern nicht sauber verifizieren ließ.
-- **456 Recherche-Entwürfe aus allen 16 Bundesländern** (Überblick in
+- **Recherche-Entwürfe aus allen 16 Bundesländern** (Überblick in
   `TODO.md`). Jede Datei enthält nur, was die im `source`-Feld genannte
   Fundstelle hergibt; die Koordinate steht auf `NACHMESSEN`, fehlende Felder
   sind im `source`-Feld aufgezählt. Vor dem Verschieben jeden Eintrag einzeln
