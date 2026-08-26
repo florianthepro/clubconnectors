@@ -26,13 +26,14 @@ flag/  data/  tools/  SPEC.md                 <- Icons, Cache-Sperre, Prüfer, S
 
 ## Stand
 
-**244 Connectoren** in 26 Städten, jeder einzeln belegt.
+**248 Connectoren** in 27 Städten, jeder einzeln belegt.
 
 | Bundesland | Clubs | Städte |
 |---|---:|---|
 | Bayern | 109 | München, Nürnberg, Augsburg, Würzburg, Regensburg, Erlangen, Fürth, Bamberg, Bayreuth, Landshut, Passau, Aschaffenburg, Kempten |
 | Baden-Württemberg | 80 | Stuttgart, Freiburg, Karlsruhe, Mannheim, Heidelberg, Ulm, Konstanz, Tübingen, Reutlingen, Esslingen, Ravensburg, Friedrichshafen |
-| Berlin | 55 | Berlin |
+| Berlin | 56 | Berlin |
+| Hamburg | 3 | Hamburg |
 
 Noch ohne Karten-Einträge: Nordrhein-Westfalen, Niedersachsen, Hessen, Sachsen,
 Rheinland-Pfalz, Schleswig-Holstein, Bremen, Brandenburg, Sachsen-Anhalt,
@@ -43,19 +44,17 @@ die Länderordner entstehen mit dem ersten geprüften Connector.
 In `connectors/_review/` liegen Einträge, die noch nicht auf die Karte dürfen –
 Ordner mit `_` werden von Validator und Karte übergangen:
 
-- **4 Bestandseinträge mit zu ungenauer Koordinate** (1–2 Nachkommastellen,
+- **3 Bestandseinträge mit zu ungenauer Koordinate** (1–2 Nachkommastellen,
   also bis zu einem Kilometer daneben).
-- **10 Hamburg-Entwürfe** aus Web-Recherche (Quellen jeweils im `source`-Feld).
-  Adresse, Website, Genres und `about` sind belegt; die Koordinate steht auf
-  `NACHMESSEN`, weil sie sich aus Suchtreffern nicht sauber verifizieren ließ.
 - **Recherche-Entwürfe aus allen 16 Bundesländern** (Überblick in
   `TODO.md`). Jede Datei enthält nur, was die im `source`-Feld genannte
-  Fundstelle hergibt; die Koordinate steht auf `NACHMESSEN`, fehlende Felder
-  sind im `source`-Feld aufgezählt. Vor dem Verschieben jeden Eintrag einzeln
-  an der Quelle prüfen – manche Fundstellen sind dünn (reine
-  Verzeichnis-Listen), und einzelne Einträge sind womöglich eher
-  Eventlocation oder Bar als Club (dann steht ein Zweifel-Vermerk im
-  `source`-Feld).
+  Fundstelle hergibt; fehlende Felder sind im `source`-Feld aufgezählt.
+  Die Koordinate steht meist auf `NACHMESSEN`; wo sie schon eingetragen ist,
+  ist sie doppelt belegt, der Eintrag bleibt aber wegen eines
+  Zweifel-Vermerks hier (z. B. laut Treffern geschlossen oder eher
+  Eventlocation/Bar als Club). Vor dem Verschieben jeden Eintrag einzeln an
+  der Quelle prüfen – manche Fundstellen sind dünn (reine
+  Verzeichnis-Listen).
 
 Wer die Koordinate nachmisst, trägt sie ein und verschiebt die Datei in den
 Länderordner – der Club erscheint dann von selbst auf der Karte (der
