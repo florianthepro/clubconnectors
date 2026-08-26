@@ -870,7 +870,10 @@ if (isset($_GET['diag'])) {
     header('Content-Type: text/plain; charset=utf-8');
     echo 'PHP ' . PHP_VERSION . "\n";
     foreach (['curl', 'gd', 'iconv', 'posix'] as $ext) {
-        echo $ext . ': ' . (extension_loaded($ext) ? 'ok' : 'FEHLT') . "\n";
+        $fehlt = $ext === 'gd'
+            ? 'fehlt (optional, nur fürs App-Icon; Ubuntu: sudo apt install php-gd)'
+            : 'FEHLT';
+        echo $ext . ': ' . (extension_loaded($ext) ? 'ok' : $fehlt) . "\n";
     }
     $rl = region_list();
     [, $src] = connector_root();
@@ -887,7 +890,9 @@ if (isset($_GET['diag'])) {
     // Alles über die eigene Domain?
     $vsrc = vendor_file('leaflet.js');
     echo 'leaflet: ' . ($vsrc ? 'eigene Domain (' . (strpos($vsrc, '/data/') !== false ? 'data/vendor' : 'vendor') . ')'
-        : 'FEHLT – fällt auf unpkg.com zurück') . "\n";
+        : 'FEHLT – fällt auf unpkg.com zurück ('
+          . (@is_writable(__DIR__) ? 'der nächste Connector-Abgleich holt es nach data/vendor'
+              : 'heilt sich, sobald der skriptordner beschreibbar ist – s. unten') . ')') . "\n";
     $du = function (string $sub) {
         // erst im öffentlichen Cache nachsehen, dort landet jetzt das meiste
         $d = pub_cache_dir() !== null ? pub_cache_dir() . '/' . $sub : '';
@@ -922,13 +927,29 @@ if (isset($_GET['diag'])) {
     }
     echo 'statische auslieferung: ' . (tile_static() ? 'an – Apache liefert gecachte Kacheln selbst aus'
         : 'aus (' . (implode(', ', $warum) ?: 'kachel-proxy aus') . '), alles läuft über PHP') . "\n";
-    echo 'kachel-schutz: ' . (tile_token() === '' ? 'keiner (ohne Schlüssel kein Token)'
+    if (!tile_static() && $warum) {
+        if (pub_cache_dir() === null) {
+            echo "  fix: skriptordner beschreibbar machen (s. unten), cache/ entsteht dann von selbst\n";
+        }
+        if (!can_rewrite()) {
+            echo "  fix: sudo a2enmod rewrite  und im Apache-vHost  AllowOverride All  für dieses\n"
+               . "  Verzeichnis setzen, dann  sudo systemctl reload apache2\n";
+        }
+    }
+    echo 'kachel-schutz: ' . (tile_token() === '' ? 'keiner (ohne Schlüssel kein Token'
+          . (@is_writable(__DIR__) ? '' : ' – data/secret.key entsteht von selbst, sobald der skriptordner beschreibbar ist') . ')'
         : 'Nachladen nur mit Herkunft von der eigenen Domain; bereits '
           . 'zwischengespeicherte Kacheln liefert Apache an jeden aus') . "\n";
     echo 'modus: ' . (local_mode() ? 'lokal (/data/connector)' : 'regionen (' . (implode(', ', $rl) ?: 'keine') . ')') . "\n";
     $dcc = region() !== '' ? region() : (local_mode() ? '' : ($rl[0] ?? ''));
     $t = load_connectors($dcc);
     echo 'connectoren: ' . count($t[0]) . ' Clubs, ' . count($t[1]) . " mit Scrape-URL\n";
+    if (!count($t[0]) && !local_mode()) {
+        echo @is_writable(__DIR__)
+            ? "  (leer – Seite einmal im Browser aufrufen, sie holt die Clubs selbst aus dem Repo)\n"
+            : "  (leer – entweder connectors/ aus dem Repo neben die index.php hochladen ODER den\n"
+            . "  skriptordner beschreibbar machen, dann holt die Seite die Clubs selbst; s. unten)\n";
+    }
     $dc = cache_read($dcc);
     $ev = $im = $in = 0;
     foreach ((array)($dc['data'] ?? []) as $e) {
@@ -947,7 +968,19 @@ if (isset($_GET['diag'])) {
     echo 'host-typ: ' . (host_limited()
         ? 'eingeschränkter Gratis-Hoster – Kachel-Proxy automatisch aus (Konto-Schutz)'
         : 'voll (Kachel-Proxy erlaubt)') . "\n";
-    echo 'skriptordner: ' . (@is_writable(__DIR__) ? 'beschreibbar' : 'NICHT beschreibbar – kein Event-Cache') . "\n";
+    if (@is_writable(__DIR__)) {
+        echo "skriptordner: beschreibbar\n";
+    } else {
+        // Ohne beschreibbaren Ordner: kein Connector-Abgleich, kein data/vendor,
+        // kein Schlüssel, kein ?sync. Events/Bilder cachen solange nach /tmp.
+        $wer = function_exists('posix_geteuid')
+            ? ((posix_getpwuid(posix_geteuid())['name'] ?? '') ?: get_current_user())
+            : get_current_user();
+        echo 'skriptordner: NICHT beschreibbar – Connector-Abgleich, data/ und ?sync gehen nicht,'
+            . " Events/Bilder cachen nur nach /tmp (weg bei Neustart)\n"
+            . '  fix (eigener Server): sudo chown -R ' . $wer . ': ' . __DIR__ . "\n"
+            . "  danach Seite neu aufrufen – Clubs, Leaflet und Schlüssel richten sich selbst ein\n";
+    }
     $disabled = array_map('trim', explode(',', strtolower((string)ini_get('disable_functions'))));
     $stl = in_array('set_time_limit', $disabled, true) ? 'gesperrt' : 'nutzbar';
     if (function_exists('curl_init')) {

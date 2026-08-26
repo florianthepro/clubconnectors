@@ -242,6 +242,35 @@ startet sofort. `connectors/` und `flag/` werden in dem Fall ignoriert.
   sagt, wie weit der nächste Club entfernt ist.
 - Die Karte merkt sich die zuletzt betrachtete Stelle (nur im Browser).
 
+## Eigener Server (Ubuntu + Apache)
+
+Auf dem eigenen Server gibt es keinen Hoster, der Ordnerrechte setzt – das
+macht man einmal selbst. Alles Übrige (Clubs holen, Leaflet nach
+`data/vendor`, `data/secret.key` für den Kachel-Schutz, Caches) richtet die
+Seite dann von allein ein. `?diag=1` nennt bei jedem Befund den passenden
+Befehl; die Kurzfassung:
+
+```bash
+# 1. PHP darf in den Web-Ordner schreiben (Pfad anpassen)
+sudo chown -R www-data: /var/www/html
+
+# 2. Optional, nur fürs Homescreen-Icon
+sudo apt install php-gd && sudo systemctl reload apache2
+
+# 3. Optional: Kacheln statisch ausliefern (spart PHP-Prozesse)
+sudo a2enmod rewrite          # plus AllowOverride All im vHost
+sudo systemctl reload apache2
+
+# 4. Optional: Admin/Sync aktivieren
+echo 'mein-geheimer-schluessel' | sudo -u www-data tee /var/www/html/data/admin.key
+```
+
+Danach die Seite einmal im Browser aufrufen: sie holt die Clubs aus dem Repo
+(Ladebalken), und `?diag=1` sollte durchgehend Grün zeigen – `leaflet: eigene
+Domain`, `kachel-schutz` an, `statische auslieferung: an` (mit Schritt 3).
+Ohne Schritt 1 läuft die Karte trotzdem, cacht aber nur nach `/tmp` (weg bei
+Neustart) und kann weder Clubs noch Leaflet dauerhaft speichern.
+
 ## Betrieb & Wartung
 
 - Aktualisierung: stündlich, aber effizient – unveränderte Seiten werden per
