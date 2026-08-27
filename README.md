@@ -14,6 +14,7 @@ connectors/de/bayern/muenchen/rotesonne.yaml <- ein Club
            │  └── Bundesland
            └── Land
 flag/  data/  tools/  SPEC.md                 <- Icons, Cache-Sperre, Prüfer, Standard
+.htaccess  Caddyfile                         <- statische Kacheln für Apache bzw. Caddy
 ```
 
 | | |

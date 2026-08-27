@@ -472,14 +472,33 @@ function pub_cache_dir(string $sub = ''): ?string
 }
 
 /*
- * Kann Apache Anfragen umschreiben? Die .htaccess setzt dafür eine Variable.
- * Damit ist zweierlei bewiesen: mod_rewrite ist da UND die .htaccess wird
- * überhaupt gelesen (AllowOverride). Beides muss stimmen, sonst laufen die
- * Kacheln ins Leere.
+ * Kann der Webserver Anfragen umschreiben? Apache setzt die Variable in der
+ * .htaccess (`[E=NCM_REWRITE:1]`), Caddy im Caddyfile (`env NCM_REWRITE 1`).
+ * Sie ist zugleich das Versprechen: „Ich liefere gecachte Kacheln direkt aus
+ * und leite fehlende an die index.php." Nur aus der FastCGI-/Prozess-Umgebung,
+ * nie aus einem Client-Header (`HTTP_*`) – den könnte der Aufrufer fälschen
+ * und die Kacheln liefen dann ins Leere.
  */
 function can_rewrite(): bool
 {
     return !empty($_SERVER['NCM_REWRITE']) || !empty($_SERVER['REDIRECT_NCM_REWRITE']);
+}
+
+/*
+ * Welcher Webserver bedient uns? Nur für die Hinweise in ?diag – die Logik
+ * hängt nie daran, sondern immer an can_rewrite(). '' heißt: unbekannt
+ * (dann werden beide Wege genannt).
+ */
+function server_kind(): string
+{
+    $s = strtolower((string)($_SERVER['SERVER_SOFTWARE'] ?? ''));
+    if (strpos($s, 'caddy') !== false) {
+        return 'caddy';
+    }
+    if (strpos($s, 'apache') !== false) {
+        return 'apache';
+    }
+    return '';
 }
 
 /*
@@ -923,23 +942,35 @@ if (isset($_GET['diag'])) {
         $warum[] = 'cache/ nicht beschreibbar';
     }
     if (!can_rewrite()) {
-        $warum[] = 'mod_rewrite/AllowOverride fehlt';
+        $warum[] = server_kind() === 'caddy'
+            ? 'NCM_REWRITE fehlt – Caddyfile nicht aktiv'
+            : (server_kind() === 'apache' ? 'mod_rewrite/AllowOverride fehlt'
+                : 'Webserver schreibt fehlende Kacheln nicht auf die index.php um');
     }
-    echo 'statische auslieferung: ' . (tile_static() ? 'an – Apache liefert gecachte Kacheln selbst aus'
+    echo 'statische auslieferung: ' . (tile_static() ? 'an – der Webserver liefert gecachte Kacheln selbst aus'
         : 'aus (' . (implode(', ', $warum) ?: 'kachel-proxy aus') . '), alles läuft über PHP') . "\n";
     if (!tile_static() && $warum) {
         if (pub_cache_dir() === null) {
             echo "  fix: skriptordner beschreibbar machen (s. unten), cache/ entsteht dann von selbst\n";
         }
         if (!can_rewrite()) {
-            echo "  fix: sudo a2enmod rewrite  und im Apache-vHost  AllowOverride All  für dieses\n"
-               . "  Verzeichnis setzen, dann  sudo systemctl reload apache2\n";
+            $srv = server_kind();
+            if ($srv === 'caddy') {
+                echo "  fix: den mitgelieferten Caddyfile verwenden – er liefert gecachte Kacheln\n"
+                   . "  direkt aus und setzt env NCM_REWRITE 1; danach  caddy reload\n";
+            } elseif ($srv === 'apache') {
+                echo "  fix: sudo a2enmod rewrite  und im Apache-vHost  AllowOverride All  für dieses\n"
+                   . "  Verzeichnis setzen, dann  sudo systemctl reload apache2\n";
+            } else {
+                echo "  fix: Caddy → mitgelieferten Caddyfile nutzen; Apache → mod_rewrite +\n"
+                   . "  AllowOverride All (Beispiele in APP.md)\n";
+            }
         }
     }
     echo 'kachel-schutz: ' . (tile_token() === '' ? 'keiner (ohne Schlüssel kein Token'
           . (@is_writable(__DIR__) ? '' : ' – data/secret.key entsteht von selbst, sobald der skriptordner beschreibbar ist') . ')'
         : 'Nachladen nur mit Herkunft von der eigenen Domain; bereits '
-          . 'zwischengespeicherte Kacheln liefert Apache an jeden aus') . "\n";
+          . 'zwischengespeicherte Kacheln liefert der Webserver an jeden aus') . "\n";
     echo 'modus: ' . (local_mode() ? 'lokal (/data/connector)' : 'regionen (' . (implode(', ', $rl) ?: 'keine') . ')') . "\n";
     $dcc = region() !== '' ? region() : (local_mode() ? '' : ($rl[0] ?? ''));
     $t = load_connectors($dcc);
@@ -1098,9 +1129,10 @@ if (isset($_GET['diag'])) {
         ? 'direkt vom Karten-CDN – kostet den eigenen Server nichts'
           . (PROXY_TILES && host_limited() ? ' (Proxy wegen Gratis-Hoster automatisch aus)' : '')
         : (tile_static()
-            ? 'über den eigenen Server, gecachte liefert Apache ohne PHP aus'
-            : 'ACHTUNG über den eigenen Server UND jede einzelne durch PHP – '
-              . 'auf Gratis-Hostern schnell gesperrt')) . "\n";
+            ? 'über den eigenen Server, gecachte liefert der Webserver ohne PHP aus'
+            : 'über den eigenen Server, jede einzelne durch PHP'
+              . (host_limited() ? ' – auf Gratis-Hostern schnell gesperrt'
+                  : ' (mit dem Caddyfile/mod_rewrite liefe das ohne PHP, s. „statische auslieferung")'))) . "\n";
     exit;
 }
 if (isset($_GET['update'])) {

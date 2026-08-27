@@ -242,34 +242,48 @@ startet sofort. `connectors/` und `flag/` werden in dem Fall ignoriert.
   sagt, wie weit der nächste Club entfernt ist.
 - Die Karte merkt sich die zuletzt betrachtete Stelle (nur im Browser).
 
-## Eigener Server (Ubuntu + Apache)
+## Eigener Server
 
 Auf dem eigenen Server gibt es keinen Hoster, der Ordnerrechte setzt – das
 macht man einmal selbst. Alles Übrige (Clubs holen, Leaflet nach
 `data/vendor`, `data/secret.key` für den Kachel-Schutz, Caches) richtet die
 Seite dann von allein ein. `?diag=1` nennt bei jedem Befund den passenden
-Befehl; die Kurzfassung:
+Befehl.
+
+Zwei Dinge gelten für jeden eigenen Server:
 
 ```bash
-# 1. PHP darf in den Web-Ordner schreiben (Pfad anpassen)
-sudo chown -R www-data: /var/www/html
+# 1. PHP darf in den Web-Ordner schreiben (Benutzer/Pfad anpassen)
+sudo chown -R www-data: /var/www/clubs
 
 # 2. Optional, nur fürs Homescreen-Icon
-sudo apt install php-gd && sudo systemctl reload apache2
-
-# 3. Optional: Kacheln statisch ausliefern (spart PHP-Prozesse)
-sudo a2enmod rewrite          # plus AllowOverride All im vHost
-sudo systemctl reload apache2
-
-# 4. Optional: Admin/Sync aktivieren
-echo 'mein-geheimer-schluessel' | sudo -u www-data tee /var/www/html/data/admin.key
+sudo apt install php-gd
 ```
 
-Danach die Seite einmal im Browser aufrufen: sie holt die Clubs aus dem Repo
-(Ladebalken), und `?diag=1` sollte durchgehend Grün zeigen – `leaflet: eigene
-Domain`, `kachel-schutz` an, `statische auslieferung: an` (mit Schritt 3).
 Ohne Schritt 1 läuft die Karte trotzdem, cacht aber nur nach `/tmp` (weg bei
-Neustart) und kann weder Clubs noch Leaflet dauerhaft speichern.
+Neustart) und kann weder Clubs noch Leaflet dauerhaft speichern. Danach die
+Seite einmal im Browser aufrufen: sie holt die Clubs aus dem Repo (Ladebalken).
+
+Der dritte, optionale Schritt spart bei Kacheln die PHP-Prozesse – bereits
+geholte Kacheln liefert dann der Webserver direkt von der Platte. Je nach
+Webserver:
+
+**Caddy** – den mitgelieferten `Caddyfile` verwenden (Domain und ggf. den
+php-fpm-Socket anpassen). Er liefert gecachte Kacheln statisch aus, setzt
+`env NCM_REWRITE 1` und schützt die Datenablagen. Dann `caddy reload`.
+
+**Apache** – `sudo a2enmod rewrite`, im vHost `AllowOverride All` für das
+Verzeichnis setzen, `sudo systemctl reload apache2`. Die mitgelieferte
+`.htaccess` erledigt den Rest.
+
+Admin/Sync ist ebenfalls optional:
+
+```bash
+echo 'mein-geheimer-schluessel' | sudo -u www-data tee /var/www/clubs/data/admin.key
+```
+
+Läuft alles, zeigt `?diag=1` durchgehend Grün: `leaflet: eigene Domain`,
+`kachel-schutz` an, `statische auslieferung: an`.
 
 ## Betrieb & Wartung
 
