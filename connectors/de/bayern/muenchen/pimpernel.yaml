@@ -10,3 +10,10 @@ genres: House, 80er/90er
 hours: "Mo,Di,Do,So 22:00-06:00; Mi,Fr,Sa 22:00-07:00"
 about: "House sowie 80er und 90er in der Müllerstraße in München, mit Afterhour."
 checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://pimpernel.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

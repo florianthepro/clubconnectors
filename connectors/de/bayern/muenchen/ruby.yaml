@@ -10,3 +10,10 @@ genres: 80er/90er
 hours: "Fr,Sa 22:00-04:00"
 about: "Danceclub mit 80er- und 90er-Musik in der Neuhauser Straße in München."
 checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.ruby-danceclub.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

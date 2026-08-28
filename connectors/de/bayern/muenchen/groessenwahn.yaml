@@ -10,3 +10,10 @@ genres: 80er/90er, Schlager
 hours: "Fr,Sa 21:00-03:00"
 about: "Im Tanzlokal Größenwahn in der Klenzestraße in München wird zu 80ern, 90ern und Schlager getanzt."
 checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.tanzlokal-groessenwahn.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

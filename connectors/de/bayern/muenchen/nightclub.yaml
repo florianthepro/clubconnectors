@@ -9,3 +9,10 @@ website: "https://www.bayerischerhof.de"
 genres: Black Music, Live
 about: "Black Music und Livekonzerte am Promenadeplatz in München."
 checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.bayerischerhof.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

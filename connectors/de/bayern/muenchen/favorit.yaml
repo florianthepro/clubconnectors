@@ -10,3 +10,10 @@ genres: House, 80er/90er
 hours: "Mo-Do,So 21:00-02:00; Fr,Sa 22:00-03:00"
 about: "Die Favorit Bar in der Damenstiftstraße in München ist eine DJ-Bar mit Tanzfläche. Gespielt werden House sowie 80er und 90er."
 checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.favoritbar.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

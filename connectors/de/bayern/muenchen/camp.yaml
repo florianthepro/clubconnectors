@@ -10,3 +10,10 @@ genres: Electro
 hours: "Sa 20:00-04:00"
 about: "Das CAMP in der Reisingerstraße in München verbindet Electro-Club und Barbetrieb."
 checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.camp-munich.com"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

@@ -10,3 +10,10 @@ genres: Schlager
 hours: "Fr,Sa 22:00-05:00"
 about: "Schlager-Club in der Theklastraße in München."
 checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.prosecco-bar.de"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto

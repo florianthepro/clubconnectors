@@ -11,3 +11,10 @@ hours: "Sa 23:00-05:00"
 about: "House sowie Musik der 80er und 90er gibt es im Charlie in der Schyrenstraße in München."
 pause: 2026-10-10
 checked: 2026-08
+
+# Wie die Website ausgelesen wird
+scrape_url: "https://www.charl.ie"
+scrape_events: auto
+scrape_images: auto
+scrape_info: auto
+scrape_closed: auto
