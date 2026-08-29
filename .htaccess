@@ -1,28 +1,9 @@
-# Nightclubmap – für Gratis-Hoster (InfinityFree & Co.) ausgelegt.
-# Dort zählt JEDER Abruf gegen ein Tageslimit. Was der Browser behalten darf,
-# kostet beim nächsten Besuch nichts mehr.
+# Nightclubmap – Apache. Die App braucht kein mod_rewrite.
+# Hier steht nur, was nicht ausgeliefert werden darf.
 
 Options -Indexes
 
-<IfModule mod_expires.c>
-    ExpiresActive On
-    # Leaflet und Flaggen ändern sich nie – ein Jahr im Browser behalten
-    ExpiresByType application/javascript "access plus 1 year"
-    ExpiresByType text/css              "access plus 1 year"
-    ExpiresByType image/png             "access plus 1 year"
-    ExpiresByType image/x-icon          "access plus 1 year"
-    ExpiresByType image/vnd.microsoft.icon "access plus 1 year"
-    ExpiresByType image/svg+xml         "access plus 1 year"
-</IfModule>
-
-<IfModule mod_headers.c>
-    <FilesMatch "\.(js|css|png|ico|svg)$">
-        Header set Cache-Control "public, max-age=31536000, immutable"
-    </FilesMatch>
-</IfModule>
-
-# Die YAML-Connectoren sind Daten, keine Webseiten – nicht ausliefern.
-<FilesMatch "\.(yaml|yml)$">
+<FilesMatch "\.(yaml|yml|json|stamp|key)$">
     <IfModule mod_authz_core.c>
         Require all denied
     </IfModule>
@@ -31,57 +12,3 @@ Options -Indexes
         Deny from all
     </IfModule>
 </FilesMatch>
-
-# Datenablagen sind keine Webseiten. Zweite Instanz neben data/.htaccess –
-# falls AllowOverride dort einmal ausfaellt, greift wenigstens das hier.
-<FilesMatch "\.(key|stamp)$">
-    <IfModule mod_authz_core.c>
-        Require all denied
-    </IfModule>
-    <IfModule !mod_authz_core.c>
-        Order allow,deny
-        Deny from all
-    </IfModule>
-</FilesMatch>
-
-<IfModule mod_mime.c>
-    AddType image/webp .webp
-    AddType image/avif .avif
-</IfModule>
-
-# Kacheln: liegt die Datei schon in cache/tile/, liefert Apache sie direkt aus
-# (kein PHP). Nur ein Fehltreffer landet in der index.php, die sie holt und
-# ablegt. Der Ordnername gibt NICHT den Stil vor - je Stil eine eigene Regel,
-# damit ueber den Pfad nichts Fremdes in die index.php wandert.
-<IfModule mod_rewrite.c>
-    RewriteEngine On
-    # Haengt die Seite in einem Unterordner, hier den Pfad eintragen:
-    # RewriteBase /karte
-
-    # Beweist der index.php, dass Umschreiben ueberhaupt moeglich ist.
-    RewriteRule ^ - [E=NCM_REWRITE:1]
-
-    # Fremde Seiten sollen den Cache nicht als eigene Bild-/Kachelquelle
-    # einbinden. Der Referer-Host muss gleich dem eigenen Host sein; die
-    # Rueckwaertsreferenz \1 vergleicht beide, ohne dass die Domain hier
-    # eingetragen werden muss.
-    # Ohne Referer wird durchgelassen - viele Browser senden aus
-    # Datenschutzgruenden keinen, und wer das ausnutzt, laesst sich auf
-    # diesem Weg nicht abhalten. Das Nachladen NEUER Kacheln (der teure Teil)
-    # verlangt die index.php trotzdem eine echte Herkunft, siehe tile_allowed().
-    RewriteCond %{HTTP_REFERER} !^$
-    RewriteCond %{HTTP_REFERER}::%{HTTP_HOST} !^https?://([^/:]+)(?::[0-9]+)?/.*::\1(?::[0-9]+)?$ [NC]
-    RewriteRule ^cache/ - [F,L]
-
-    # KEIN QSA: das haengt die Query des Aufrufers HINTEN an, und bei doppelt
-    # genanntem Parameter gewinnt in PHP der letzte - der Aufrufer koennte
-    # tile, m und r also selbst bestimmen. Stattdessen muss die Query genau
-    # das Token sein, das hier einzeln uebernommen wird.
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{QUERY_STRING} "^(?:t=([A-Za-z0-9]{0,64}))?$"
-    RewriteRule ^cache/tile/light_all/([0-9]{1,2})/([0-9]{1,7})/([0-9]{1,7})(@2x)?\.png$ index.php?tile=$1/$2/$3&m=light&r=$4&t=%1 [L,NS]
-
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{QUERY_STRING} "^(?:t=([A-Za-z0-9]{0,64}))?$"
-    RewriteRule ^cache/tile/dark_all/([0-9]{1,2})/([0-9]{1,7})/([0-9]{1,7})(@2x)?\.png$ index.php?tile=$1/$2/$3&m=dark&r=$4&t=%1 [L,NS]
-</IfModule>

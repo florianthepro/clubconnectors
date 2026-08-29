@@ -7,21 +7,22 @@ Die komplette Nightclub-Karte in einem Repo: die App **und** die Clubdaten.
   Club steht und wie seine Website ausgelesen wird** – nie, was gerade dort steht.
 
 ```
-index.php                                    <- die App (nur Logik)
+index.php                                    <- die App (nur Logik, ~1400 Zeilen)
 connectors/de/bayern/muenchen/rotesonne.yaml <- ein Club
            │  │     │         └── <id>.yaml
            │  │     └── Stadt
            │  └── Bundesland
            └── Land
-flag/  data/  tools/  SPEC.md                 <- Icons, Cache-Sperre, Prüfer, Standard
-.htaccess  Caddyfile                         <- statische Kacheln für Apache bzw. Caddy
+data/cache/live.json                         <- die einzige Datei, die die App schreibt
+tools/  SPEC.md                              <- Prüfer und Geocoder, Standard
+.htaccess  Caddyfile                         <- sperren die Daten für den Webserver
 ```
 
 | | |
 |---|---|
 | **Standard** | [SPEC.md](SPEC.md) – verbindlich, jede Regel ist maschinell geprüft |
 | **Prüfen** | `php tools/validate.php` (und `php tools/selftest.php` für den Prüfer selbst) |
-| **App-Handbuch** | [APP.md](APP.md) – Bedienung, Admin, `?sync`, Betrieb |
+| **App-Handbuch** | [APP.md](APP.md) – Aufspielen, Bedienung, Fehlersuche |
 | **Mitmachen** | [CONTRIBUTING.md](CONTRIBUTING.md) |
 | **Format-Version** | siehe [VERSION](VERSION) |
 
@@ -62,54 +63,18 @@ Ordner mit `_` werden von Validator und Karte übergangen:
   Was keinen sauberen Treffer hat, bleibt Entwurf und will von Hand geprüft
   werden – manche Fundstellen sind dünn (reine Verzeichnis-Listen).
 
-Wer die Koordinate nachmisst, trägt sie ein und verschiebt die Datei in den
-Länderordner – der Club erscheint dann von selbst auf der Karte (der
-Update-Abgleich der Seite holt neue Connectoren automatisch nach).
+Wer eine Koordinate von Hand nachmisst, trägt sie ein und verschiebt die Datei
+in den Länderordner – der Club ist beim nächsten Seitenaufruf auf der Karte.
 
 ## Aufspielen
 
-Zwei Wege, such dir den bequemeren aus.
+1. `index.php` und den Ordner `connectors/` ins Web-Root legen.
+2. PHP in `data/` schreiben lassen: `sudo chown -R www-data: /var/www/clubs`
+3. Seite aufrufen – die Karte ist da.
 
-**A) Nur `index.php` – der Rest passiert von selbst.** Wenn dein Hoster
-ausgehende Verbindungen erlaubt (siehe `?diag=1` → `outbound-test: … ok`),
-brauchst du nichts weiter als Apache + PHP:
-
-1. Die eine Datei `index.php` ins Web-Root legen.
-2. Seite aufrufen. Findet sie keine Clubs, holt sie sie beim ersten Aufruf
-   selbst aus diesem Repo („Clubs werden geladen …"), danach ist die Karte da.
-   Aktuell hält sie sich danach allein (einmal am Tag im Hintergrund).
-
-Kein Schlüssel, kein Ordner, kein Handgriff. Abschaltbar über
-`CONNECTOR_AUTO = false` oben in der Datei.
-
-**B) Alles hochladen – läuft überall, auch ohne ausgehende Verbindung.**
-
-1. Repo herunterladen: oben **Code → Download ZIP** (oder `git clone`).
-2. Entpacken, den **Inhalt** ins Web-Root legen (`index.php` und
-   `connectors/` nebeneinander).
-3. Seite aufrufen – die Karte ist sofort da.
-
-Das ist der einzige Weg, der überall funktioniert, auch auf kostenlosen
-Hostern. Aktualisieren: neue Version wieder herunterladen und hochladen
-(oder `git pull`).
-
-> **„Bald" auf der Seite?** Dann liegt die `index.php` ohne `connectors/`
-> daneben. `?diag=1` aufrufen: steht dort `connectoren: 0 Clubs`, fehlt der
-> Ordner – einfach `connectors/` aus diesem Repo mit hochladen. Der Ordner
-> muss klein geschrieben `connectors` heißen und direkt neben der
-> `index.php` liegen.
-
-### Optional: Clubs per Knopfdruck aktualisieren (`?sync`)
-
-Wenn dein Hoster **ausgehende Verbindungen erlaubt** (viele kostenlose tun
-das nicht), kann die Seite die Clubs selbst aus diesem Repo nachziehen:
-`data/admin.key` mit einem geheimen Schlüssel anlegen, dann
-`/?sync=1&key=<schlüssel>` aufrufen. Sie lädt das Repo als Archiv und tauscht
-`data/connectors/` in einem Zug aus – nutzt `zip`, und wenn das fehlt, das
-`tar.gz` über `phar` (fast überall vorhanden). Ob dein Hoster überhaupt raus
-darf, zeigt `?diag=1`: steht dort `outbound-test … FEHLER`, geht **kein**
-Sync (das ist eine Sperre des Hosters, kein Fehler der Seite) – dann bleibt
-es beim Hochladen von oben, das geht immer.
+Mehr braucht es nicht: kein Schlüssel, keine Datenbank, keine
+Umschreibregeln im Webserver. `?diag=1` sagt in acht Zeilen, ob etwas fehlt.
+Einzelheiten in [APP.md](APP.md).
 
 ## Warum App und Daten zusammen
 

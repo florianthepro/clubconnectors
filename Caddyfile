@@ -1,73 +1,22 @@
-# Nightclubmap – Caddy + PHP (php-fpm), eigener Server ohne Limits.
+# Nightclubmap – Caddy + PHP. Zwei Zeilen anpassen: Domain und php-fpm-Socket.
 #
-# Zwei Zeilen anpassen: die Domain (unten) und, falls nötig, den php-fpm-Socket.
-# Danach:  caddy reload   (oder  systemctl reload caddy).
-#
-# Was dieser Caddyfile leistet, das eine nackte PHP-Auslieferung nicht kann:
-#   * Bereits geholte Kacheln liefert Caddy direkt von der Platte – PHP läuft
-#     dann NUR beim allerersten Abruf je Kachel (Cache-Miss). Das ist der
-#     Unterschied zwischen „~100 PHP-Prozesse je Kartenansicht" und „fast null".
-#   * env NCM_REWRITE 1 sagt der index.php, dass genau das eingerichtet ist –
-#     sie schaltet dann in den statischen Kachel-Modus (?diag zeigt es an).
-#   * Datenablagen (Connectoren, Schlüssel, Cache-Bytes) werden nie als
-#     Webseite ausgeliefert.
+# Die App braucht vom Webserver nichts Besonderes: keine Umschreibregeln,
+# keinen Kachel-Cache, keine Umgebungsvariablen. Nur zweierlei:
+#   * die Clubdaten (*.yaml) und den Zwischenspeicher nicht ausliefern,
+#   * PHP ausführen.
 
 clubs.example.de {
 	root * /var/www/clubs
 	encode zstd gzip
 
-	# --- Datenablagen sind keine Webseiten. Als handle{}-Block, weil sich
-	#     handle-Blöcke gegenseitig ausschließen und in Schreibreihenfolge
-	#     ausgewertet werden: ein Treffer hier terminiert (respond 404) und
-	#     erreicht den file_server-Block weiter unten nie. (Caddy sortiert
-	#     Direktiven sonst nach fester Default-Reihenfolge, nicht nach Ort.)
-	#     Pfad-Matcher sind case-insensitiv, .. und %2f werden vorher
-	#     normalisiert – Groß-/Kleinschreibung und Traversal sind abgedeckt.
-	@geschuetzt path *.yaml *.yml *.key *.stamp /data /data/* /connectors /connectors/* /regions /regions/*
-	handle @geschuetzt {
+	# Daten sind keine Webseiten
+	@daten path *.yaml *.yml /data /data/* /connectors /connectors/*
+	handle @daten {
 		respond 404
 	}
 
-	# --- Kacheln: liegt die Datei schon in cache/tile/, liefert Caddy sie
-	#     direkt aus (file_server unten). Nur ein Fehltreffer (not file) wird
-	#     an die index.php umgeschrieben, die sie holt und ablegt. Je Stil
-	#     eine eigene Regel, damit über den Pfad nichts Fremdes in die
-	#     index.php wandert – der Stil entsteht dort und nur dort.
-	@tile_light {
-		path_regexp tl ^/cache/tile/light_all/(\d{1,2})/(\d{1,7})/(\d{1,7})(@2x)?\.png$
-		not file
-	}
-	rewrite @tile_light /index.php?tile={re.tl.1}/{re.tl.2}/{re.tl.3}&m=light&r={re.tl.4}&t={query.t}
-
-	@tile_dark {
-		path_regexp td ^/cache/tile/dark_all/(\d{1,2})/(\d{1,7})/(\d{1,7})(@2x)?\.png$
-		not file
-	}
-	rewrite @tile_dark /index.php?tile={re.td.1}/{re.td.2}/{re.td.3}&m=dark&r={re.td.4}&t={query.t}
-
-	# --- der Cache enthält nur fremde Bytes: nur statisch ausliefern, NIE an
-	#     PHP. Eigener handle{}-Block OHNE php_fastcgi – so wird eine (real nie
-	#     vorkommende) .php dort nicht ausgeführt, sondern höchstens als Datei
-	#     geliefert. nosniff verhindert MIME-Rateraten im Browser obendrauf. ---
-	@cache path /cache/*
-	handle @cache {
-		header X-Content-Type-Options nosniff
-		header Cache-Control "public, max-age=604800"
-		file_server
-	}
-
-	# --- unveränderliche Assets ein Jahr im Browser behalten ---
-	@assets path /vendor/* /flag/* *.js *.css *.svg *.ico
-	header @assets Cache-Control "public, max-age=31536000, immutable"
-
-	# --- alles Übrige: PHP oder statische Datei. env NCM_REWRITE 1 sagt der
-	#     index.php „ich bediene Kacheln statisch". php_fastcgi ist ein
-	#     Front-Controller: existierende Dateien liefert es direkt (→ file_server),
-	#     nur .php und fehlende Pfade gehen an php-fpm ---
 	handle {
-		php_fastcgi unix//run/php/php-fpm.sock {
-			env NCM_REWRITE 1
-		}
+		php_fastcgi unix//run/php/php-fpm.sock
 		file_server
 	}
 }
