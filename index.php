@@ -316,232 +316,6 @@ function region(): string
 }
 
 /* Liefert [clubs, connectors] einer Region (bzw. der lokalen Dateien) */
-/*
- * ---- Entwürfe mit OpenStreetMap-Koordinate auf die Karte ----
- *
- * In connectors/_review/ liegen recherchierte Clubs, denen genau eines fehlt:
- * die Koordinate (`lat: NACHMESSEN`). Adresse, Website und Quelle stehen drin.
- * ?geo holt die Koordinate zu diesen Adressen einmalig bei OpenStreetMap
- * (Nominatim) und legt sie in data/geo.json ab – ab dann sind die Clubs Teil
- * der Karte, ohne dass eine Datei im Repo angefasst werden muss.
- *
- * Bewusst NICHT automatisch im Hintergrund: Nominatim ist ein Spendenprojekt
- * und untersagt Massenabfragen ohne Zutun des Betreibers. Deshalb hinter dem
- * Admin-Schlüssel, ein Aufruf, höchstens eine Abfrage je Sekunde – und das
- * Ergebnis bleibt gespeichert, es wird nie zweimal dasselbe gefragt.
- */
-const GEO_UA = 'Nightclubmap/1.0 (Kartenanzeige, +https://github.com/florianthepro/clubconnectors)';
-const GEO_API = 'https://nominatim.openstreetmap.org/search';
-/* Die Seite holt die fehlenden Koordinaten von selbst, im Hintergrund, ein
-   paar je Aufruf. Der Aufwand ist endlich: jede Adresse wird höchstens
-   EINMAL gefragt, das Ergebnis (auch "nichts gefunden") bleibt gespeichert.
-   Auf false gestellt bleiben die Entwürfe von der Karte weg. */
-const GEO_AUTO = true;
-const GEO_PRO_AUFRUF = 3;    // Adressen je Hintergrund-Schritt (kurze Anfragen)
-const GEO_PAUSE = 1100000;   // Mikrosekunden zwischen zwei Abfragen (Nominatim: max. 1/s)
-const GEO_SECS = 22;         // Zeitbudget je ?geo-Aufruf, dann geht es per Weiterleitung weiter
-
-/* Gespeicherte Koordinaten: id => ['lat'=>..,'lng'=>..] bzw. id => false
-   für "nicht gefunden" (damit dieselbe Adresse nicht ewig neu gefragt wird). */
-function geo_store(?array $setzen = null): array
-{
-    static $c = null;
-    if ($setzen !== null) {
-        return $c = $setzen; // nach dem Speichern: Zwischenspeicher mitziehen
-    }
-    if ($c !== null) {
-        return $c;
-    }
-    $f = __DIR__ . '/data/geo.json';
-    $j = is_file($f) ? json_decode((string)@file_get_contents($f), true) : null;
-    return $c = is_array($j) ? $j : [];
-}
-
-/* Stempel „alle Entwürfe sind durch". Spart bei jedem Aufruf das Einlesen
-   von hunderten Dateien; ein Repo-Abgleich räumt ihn weg. */
-function geo_done_file(): ?string
-{
-    return cache_file('geo-done');
-}
-
-function geo_save(array $store): bool
-{
-    if (!is_dir(__DIR__ . '/data')) {
-        @mkdir(__DIR__ . '/data', 0755, true);
-    }
-    $f = __DIR__ . '/data/geo.json';
-    $j = json_encode($store, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
-    if ($j === false || @file_put_contents($f . '.tmp', $j) === false) {
-        return false;
-    }
-    geo_store($store);
-    return @rename($f . '.tmp', $f);
-}
-
-/* Der Entwurfsordner zu einer Region, oder '' wenn es ihn nicht gibt. */
-function review_dir(string $cc): string
-{
-    $d = connector_root()[0] . '/_review/' . $cc;
-    return is_dir($d) ? $d : '';
-}
-
-/*
- * Entwürfe einer Region, roh: [id => ['text'=>YAML, 'state'=>Bundesland-Ordner,
- * 'name'=>.., 'city'=>.., 'address'=>.., 'source'=>..]].
- * Übergangen wird, was laut Recherche gar kein Club mehr ist – ein als
- * geschlossen oder umbenannt vermerkter Eintrag gehört nicht auf die Karte.
- */
-function review_drafts(string $cc, ?array $nurIds = null): array
-{
-    $base = review_dir($cc);
-    if ($base === '') {
-        return [];
-    }
-    $out = [];
-    foreach (yaml_files($base) as $f) {
-        // Beim Seitenaufbau interessieren nur die Entwürfe, für die schon eine
-        // Koordinate vorliegt – der Rest wird gar nicht erst eingelesen.
-        if ($nurIds !== null && !isset($nurIds[basename($f, '.yaml')])) {
-            continue;
-        }
-        $text = (string)file_get_contents($f);
-        $y = yaml_flat($text);
-        if (empty($y['id']) || empty($y['name']) || empty($y['city']) || empty($y['address'])) {
-            continue; // ohne Adresse gibt es nichts zu suchen
-        }
-        $src = (string)($y['source'] ?? '');
-        if (preg_match('/geschlossen|CLOSED|umbenannt|Neuvermietung|abgerissen|aufgegeben/i', $src)) {
-            continue; // laut Quelle kein laufender Betrieb mehr
-        }
-        $rel = trim(str_replace('\\', '/', substr($f, strlen($base))), '/');
-        $parts = explode('/', $rel);
-        $out[$y['id']] = [
-            'text' => $text,
-            'state' => count($parts) > 1 ? $parts[0] : '',
-            'name' => (string)$y['name'],
-            'city' => (string)$y['city'],
-            'address' => (string)$y['address'],
-        ];
-    }
-    return $out;
-}
-
-/* Umlaute und Zeichensetzung weg – zum Vergleichen von Orts- und Straßennamen. */
-function geo_norm(string $s): string
-{
-    $s = strtr(mb_strtolower($s, 'UTF-8'), ['ä' => 'ae', 'ö' => 'oe', 'ü' => 'ue', 'ß' => 'ss']);
-    $s = str_replace(['strasse', 'str.'], 'str', $s);
-    return (string)preg_replace('/[^a-z0-9]/', '', $s);
-}
-
-/*
- * Eine Adresse bei Nominatim nachschlagen. Strukturiert (street/city/country)
- * statt als Freitext – das trifft genauer und ist die stabilere Schnittstelle.
- * Rückgabe: ['lat'=>float,'lng'=>float] oder null.
- *
- * Angenommen wird nur, was wirklich passt: die gefundene Straße muss zur
- * gesuchten passen UND der Ort zum gesuchten Ort. Sonst landet der Club
- * womöglich in der falschen Stadt – lieber kein Punkt als ein falscher.
- */
-function geo_lookup(string $street, string $city): ?array
-{
-    $url = GEO_API . '?' . http_build_query([
-        'street' => $street, 'city' => $city, 'country' => 'Deutschland',
-        'format' => 'jsonv2', 'addressdetails' => '1', 'limit' => '1',
-    ]);
-    $roh = geo_fetch($url);
-    if ($roh === null) {
-        return null;
-    }
-    $j = json_decode($roh, true);
-    if (!is_array($j) || !$j || !isset($j[0]['lat'], $j[0]['lon'])) {
-        return null;
-    }
-    $t = $j[0];
-    $lat = (float)$t['lat'];
-    $lng = (float)$t['lon'];
-    if ($lat < 47.2 || $lat > 55.1 || $lng < 5.8 || $lng > 15.1) {
-        return null; // außerhalb Deutschlands – dann stimmt etwas nicht
-    }
-    $adr = (array)($t['address'] ?? []);
-    $ort = (string)($adr['city'] ?? $adr['town'] ?? $adr['village'] ?? $adr['municipality'] ?? '');
-    $ortOk = geo_norm($ort) === geo_norm($city)
-        || strpos(geo_norm((string)($t['display_name'] ?? '')), geo_norm($city)) !== false;
-    $strGesucht = geo_norm((string)preg_replace('/\d+.*$/', '', $street));
-    $strGefunden = geo_norm((string)($adr['road'] ?? ''));
-    $strOk = $strGesucht !== '' && $strGefunden !== ''
-        && (strpos($strGefunden, $strGesucht) !== false || strpos($strGesucht, $strGefunden) !== false);
-    return ($ortOk && $strOk) ? ['lat' => round($lat, 5), 'lng' => round($lng, 5)] : null;
-}
-
-/*
- * Ein Häppchen Adressen auflösen. Rückgabe: [gefunden, ohneTreffer, nochOffen].
- * Eine Sperrdatei sorgt dafür, dass immer nur EIN Aufruf gleichzeitig fragt –
- * sonst würden viele Besucher gleichzeitig bei OpenStreetMap anklopfen.
- */
-function geo_step(string $cc, int $wieViele): array
-{
-    $fertig = geo_done_file();
-    if ($fertig !== null && is_file($fertig)) {
-        return [0, 0, 0]; // alles durch – keine Datei anfassen
-    }
-    $drafts = review_drafts($cc);
-    $store = geo_store();
-    $offen = [];
-    foreach ($drafts as $id => $d) {
-        if (!array_key_exists($id, $store)) {
-            $offen[$id] = $d;
-        }
-    }
-    if (!$offen) {
-        if ($fertig !== null) {
-            @file_put_contents($fertig, (string)time());
-        }
-        return [0, 0, 0];
-    }
-    $lockF = cache_file('geo.lock');
-    $lock = $lockF ? fopen($lockF, 'c') : false;
-    if (!$lock || !flock($lock, LOCK_EX | LOCK_NB)) {
-        if ($lock) {
-            fclose($lock);
-        }
-        return [0, 0, count($offen)]; // ein anderer Aufruf ist dran
-    }
-    @ignore_user_abort(true);
-    @set_time_limit(0);
-    $gefunden = $ohne = 0;
-    foreach (array_slice($offen, 0, max(1, $wieViele), true) as $id => $d) {
-        $tref = geo_lookup($d['address'] . ', ' . $d['city'], $d['city']);
-        $store[$id] = $tref ?? false; // auch das Nein merken, sonst ewig fragen
-        if ($tref) {
-            $gefunden++;
-        } else {
-            $ohne++;
-        }
-        geo_save($store);
-        usleep(GEO_PAUSE); // OpenStreetMap erlaubt höchstens eine Abfrage je Sekunde
-    }
-    flock($lock, LOCK_UN);
-    fclose($lock);
-    return [$gefunden, $ohne, count($offen) - $gefunden - $ohne];
-}
-
-/* Der reine Abruf – getrennt, damit die Auswertung oben ohne Netz prüfbar ist. */
-function geo_fetch(string $url): ?string
-{
-    if (!function_exists('curl_init')) {
-        return null;
-    }
-    $ch = curl_init($url);
-    curl_setopt_array($ch, [CURLOPT_RETURNTRANSFER => true, CURLOPT_FOLLOWLOCATION => true,
-        CURLOPT_TIMEOUT => 8, CURLOPT_USERAGENT => GEO_UA,
-        CURLOPT_HTTPHEADER => ['Accept: application/json', 'Accept-Language: de']]);
-    $b = curl_exec($ch);
-    $code = (int)curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    curl_close($ch);
-    return ($b !== false && $b !== '' && $code === 200) ? (string)$b : null;
-}
-
 function load_connectors(string $cc = ''): array
 {
     if (local_mode()) {
@@ -558,23 +332,6 @@ function load_connectors(string $cc = ''): array
         $rel = trim(str_replace('\\', '/', substr($f, strlen($base))), '/');
         $parts = explode('/', $rel);
         $texts[] = [(string)file_get_contents($f), count($parts) > 1 ? $parts[0] : ''];
-    }
-    // Entwürfe aus connectors/_review, für die ?geo eine Koordinate gefunden
-    // hat: die Zeilen "lat/lng: NACHMESSEN" werden durch die gefundenen Werte
-    // ersetzt, danach ist es für alles Weitere ein ganz normaler Club.
-    if (!local_mode() && $cc !== '') {
-        $geo = geo_store();
-        if ($geo) {
-            foreach (review_drafts($cc, $geo) as $rid => $d) {
-                $g = $geo[$rid] ?? null;
-                if (!is_array($g) || !isset($g['lat'], $g['lng'])) {
-                    continue;
-                }
-                $t = preg_replace('/^lat:.*$/mi', 'lat: ' . $g['lat'], $d['text'], 1);
-                $t = preg_replace('/^lng:.*$/mi', 'lng: ' . $g['lng'], (string)$t, 1);
-                $texts[] = [(string)$t . "\nosm: 1\n", $d['state']];
-            }
-        }
     }
     $clubs = [];
     $conn = [];
@@ -604,14 +361,6 @@ function load_connectors(string $cc = ''): array
         }
         if (!empty($y['note'])) {
             $club['note'] = $y['note'];
-        }
-        if (!empty($y['osm'])) {
-            // Koordinate stammt aus OpenStreetMap, nicht aus dem Connector –
-            // das sagt die Kachel dem Besucher auch.
-            $club['osm'] = true;
-        }
-        if (!empty($y['pause'])) {
-            $club['pause'] = $y['pause'];
         }
         $st = $y['state'] ?? $stateDir;
         if ($st !== '') {
@@ -1281,32 +1030,6 @@ if (isset($_GET['diag'])) {
     $dcc = region() !== '' ? region() : (local_mode() ? '' : ($rl[0] ?? ''));
     $t = load_connectors($dcc);
     echo 'connectoren: ' . count($t[0]) . ' Clubs, ' . count($t[1]) . " mit Scrape-URL\n";
-    // Entwürfe: wie viele warten noch auf ihre Koordinate?
-    $dEnt = $dcc !== '' ? review_drafts($dcc) : [];
-    if ($dEnt) {
-        $gs = geo_store();
-        $mitGeo = $ohneGeo = 0;
-        foreach ($dEnt as $rid => $x) {
-            if (is_array($gs[$rid] ?? null)) {
-                $mitGeo++;
-            } elseif (array_key_exists($rid, $gs)) {
-                $ohneGeo++;
-            }
-        }
-        echo 'entwürfe (_review): ' . count($dEnt) . ' mit Adresse, davon ' . $mitGeo
-            . ' mit Koordinate auf der Karte, ' . $ohneGeo . " ohne Treffer\n";
-        if (count($dEnt) > $mitGeo + $ohneGeo) {
-            echo '  ' . (count($dEnt) - $mitGeo - $ohneGeo) . ' noch nicht nachgeschlagen'
-                . (admin_key() === '' ? ' – data/admin.key anlegen, dann ?geo=1&key=<schlüssel> aufrufen'
-                    : ' – ?geo=1&key=<schlüssel> aufrufen') . "\n";
-        }
-    }
-    if (!count($t[0]) && !local_mode()) {
-        echo @is_writable(__DIR__)
-            ? "  (leer – Seite einmal im Browser aufrufen, sie holt die Clubs selbst aus dem Repo)\n"
-            : "  (leer – entweder connectors/ aus dem Repo neben die index.php hochladen ODER den\n"
-            . "  skriptordner beschreibbar machen, dann holt die Seite die Clubs selbst; s. unten)\n";
-    }
     $dc = cache_read($dcc);
     $ev = $im = $in = 0;
     foreach ((array)($dc['data'] ?? []) as $e) {
@@ -1538,75 +1261,6 @@ if (isset($_GET['update'])) {
     $nOffen = $update ? setup_offen($cc, $conn) : 0;
     echo json_encode(['update' => $update, 'checked' => true,
         'viele' => $update && ($nOffen > 40 || $nOffen > count($conn) / 4)]);
-    exit;
-}
-if (isset($_GET['geo'])) {
-    $cc = region() !== '' ? region() : (region_list()[0] ?? '');
-    $key = admin_key();
-    $admin = $key !== '' && hash_equals($key, (string)($_GET['key'] ?? ''));
-    if (!$admin && !GEO_AUTO) {
-        http_response_code(403);
-        header('Content-Type: application/json; charset=utf-8');
-        echo json_encode(['aus' => true]);
-        exit;
-    }
-    // Hintergrund-Schritt: JSON, ein Häppchen, die Seite ruft es wieder auf.
-    if (!$admin) {
-        header('Content-Type: application/json; charset=utf-8');
-        $vorher = geo_store();
-        [$gef, $ohne, $offen] = geo_step($cc, GEO_PRO_AUFRUF);
-        $neu = [];
-        if ($gef > 0) {
-            // Die eben dazugekommenen Clubs gleich mitschicken: die Seite
-            // setzt sie ohne Neuladen auf die Karte.
-            $frisch = array_diff_key(geo_store(), $vorher);
-            $ids = [];
-            foreach ($frisch as $id => $v) {
-                if (is_array($v)) {
-                    $ids[$id] = true;
-                }
-            }
-            if ($ids) {
-                foreach (load_connectors($cc)[0] as $club) {
-                    if (isset($ids[$club['id']])) {
-                        $neu[] = $club;
-                    }
-                }
-            }
-        }
-        echo json_encode(['gefunden' => $gef, 'ohne' => $ohne, 'offen' => $offen, 'clubs' => $neu],
-            JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
-        exit;
-    }
-    // Mit Admin-Schlüssel: sichtbare Seite, die sich selbst weiterklickt.
-    header('Content-Type: text/html; charset=utf-8');
-    $drafts = review_drafts($cc);
-    [$gef, $ohne, $offen] = geo_step($cc, 20);
-    $store = geo_store();
-    $mit = 0;
-    foreach ($store as $v) {
-        if (is_array($v)) {
-            $mit++;
-        }
-    }
-    $h = fn($x) => htmlspecialchars((string)$x, ENT_QUOTES, 'UTF-8');
-    $weiter = '?geo=1&key=' . rawurlencode((string)$_GET['key']) . ($cc !== '' ? '&c=' . rawurlencode($cc) : '');
-    echo '<!doctype html><html lang="de"><meta charset="utf-8">'
-        . '<meta name="viewport" content="width=device-width,initial-scale=1">';
-    if ($offen > 0) {
-        echo '<meta http-equiv="refresh" content="1;url=' . $h($weiter) . '">';
-    }
-    echo '<title>Koordinaten holen</title>'
-        . '<body style="font:15px/1.5 -apple-system,system-ui;max-width:44rem;margin:2rem auto;padding:0 1rem">'
-        . '<h1 style="font-size:1.3rem">Koordinaten aus OpenStreetMap</h1>'
-        . '<p>Entwürfe mit Adresse: <b>' . count($drafts) . '</b><br>'
-        . 'davon mit Koordinate (auf der Karte): <b>' . $mit . '</b><br>'
-        . 'gerade gefunden: <b>' . $gef . '</b>, ohne Treffer: <b>' . $ohne . '</b><br>'
-        . 'noch offen: <b>' . $offen . '</b></p>'
-        . ($offen > 0
-            ? '<p>Läuft weiter … (eine Abfrage je Sekunde, so will es OpenStreetMap)</p>'
-            : '<p><b>Fertig.</b> <a href="?">Zur Karte</a></p>')
-        . '</body></html>';
     exit;
 }
 if (isset($_GET['setup'])) {
@@ -6261,7 +5915,6 @@ syncUrl();
 // const-Bindungen stehen weiter unten und wären hier noch nicht benutzbar.
 setTimeout(() => {
     if (DATA.setup) { runSetup(false); }   // still puffern, nie mit Balken
-    geoFill();                             // fehlende Koordinaten im Hintergrund
 }, 0);
 if (!DATA.setup) {
     // Einmal je Besuch beim Server nachfragen, ob das Connector-Repo neuere
@@ -6272,7 +5925,7 @@ if (!DATA.setup) {
         fetch(EP('update=1')).then(r => r.json()).then(j => {
             // Nach einem Repo-Abgleich fehlen meist nur wenige Clubs –
             // die holt der stille Modus, ohne den Besucher aufzuhalten.
-            if (j && j.update) { runSetup(false); geoFill(); }
+            if (j && j.update) { runSetup(false); }
         }).catch(() => {});
     }, 2500);
 }
@@ -6314,58 +5967,6 @@ function setupSleep(ms) { return new Promise(r => setTimeout(r, ms)); }
  * still im Hintergrund: die Antworten bringen die frischen Bilder, Infos und
  * Programme gleich mit, sie landen ohne Neuladen in der offenen Karte.
  */
-/*
- * Clubs, deren Koordinate gerade erst dazukam, ohne Neuladen auf die Karte
- * setzen. Der Kartenausschnitt bleibt, wo er ist – niemandem soll die Karte
- * unter dem Finger wegspringen.
- */
-function addClubs(list) {
-    let n = 0;
-    for (const c of list || []) {
-        if (!c || !c.id || markers[c.id] || DATA.clubs.some(x => x.id === c.id)) continue;
-        DATA.clubs.push(c);
-        POS[c.id] = [c.lat, c.lng];
-        if (map && typeof L !== 'undefined') {
-            const m = L.marker(POS[c.id], { icon: pinIcon(c), title: c.name }).addTo(map);
-            if (HOVER) m.bindTooltip(() => tipEl(c), { direction: 'top', offset: [0, -10], className: 'tip', opacity: 1, interactive: true });
-            m.on('click', () => tapPin(c));
-            markers[c.id] = m;
-        }
-        n++;
-    }
-    // Nicht neu zeichnen, während jemand gerade etwas offen hat – sonst
-    // zuckt die Ansicht unter dem Finger. Die Pins sind trotzdem schon da.
-    if (n && uiIdle()) { renderChips(); render(); }
-    return n;
-}
-
-/*
- * Fehlende Koordinaten der Entwürfe nachholen. Läuft im Hintergrund, ein
- * Häppchen je Aufruf; die gefundenen Clubs erscheinen sofort auf der Karte.
- * Bricht ab, sobald nichts mehr offen ist – danach kostet das gar nichts mehr.
- */
-async function geoFill() {
-    // Höchstens ein paar Schritte je Besuch, mit Luft dazwischen: die Suche
-    // verteilt sich über mehrere Aufrufe, statt einen Besucher minutenlang
-    // an einer laufenden Leitung hängen zu lassen. Sie merkt sich, was schon
-    // gefragt wurde – beim nächsten Besuch geht es genau dort weiter.
-    for (let i = 0; i < 3; i++) {
-        if (document.hidden) return;
-        let j;
-        try {
-            j = await fetch(EP('geo=1')).then(r => r.json());
-        } catch (e) {
-            return;
-        }
-        if (!j || j.aus || !j.offen) {
-            if (j && j.clubs && j.clubs.length) addClubs(j.clubs);
-            return;
-        }
-        if (j.clubs && j.clubs.length) addClubs(j.clubs);
-        await setupSleep(4000);
-    }
-}
-
 async function runSetup(sichtbar = true) {
     const ov = $('setup');
     if (!ov) { return; }

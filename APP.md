@@ -285,6 +285,26 @@ echo 'mein-geheimer-schluessel' | sudo -u www-data tee /var/www/clubs/data/admin
 Läuft alles, zeigt `?diag=1` durchgehend Grün: `leaflet: eigene Domain`,
 `kachel-schutz` an, `statische auslieferung: an`.
 
+## Entwürfe auf die Karte holen
+
+In `connectors/_review/` liegen recherchierte Clubs, denen nur die Koordinate
+fehlt. Einmal im Repo-Ordner:
+
+```bash
+php tools/geocode.php --dry     # zeigt, was es fände, ändert nichts
+php tools/geocode.php           # holt die Koordinaten und verschiebt die Dateien
+php tools/validate.php          # muss 0 Fehler melden
+git add -A && git commit -m "Koordinaten aus OpenStreetMap" && git push
+```
+
+Das Skript darf jederzeit abgebrochen und erneut gestartet werden – schon
+erledigte Dateien überspringt es. Es fragt höchstens eine Adresse je Sekunde
+(so will es OpenStreetMap) und nimmt einen Treffer nur an, wenn Straße **und**
+Ort zur hinterlegten Adresse passen.
+
+Die laufende Seite geocodiert **nichts**. Sie zeigt genau die Connectoren, die
+im Repo liegen – das hält sie schnell und still.
+
 ## Betrieb & Wartung
 
 - Aktualisierung: stündlich, aber effizient – unveränderte Seiten werden per

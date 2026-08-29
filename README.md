@@ -50,12 +50,17 @@ Ordner mit `_` werden von Validator und Karte übergangen:
 - **Recherche-Entwürfe aus allen 16 Bundesländern** (Überblick in
   `TODO.md`). Jede Datei enthält nur, was die im `source`-Feld genannte
   Fundstelle hergibt; fehlende Felder sind im `source`-Feld aufgezählt.
-  Die Koordinate steht meist auf `NACHMESSEN`; wo sie schon eingetragen ist,
-  ist sie doppelt belegt, der Eintrag bleibt aber wegen eines
-  Zweifel-Vermerks hier (z. B. laut Treffern geschlossen oder eher
-  Eventlocation/Bar als Club). Vor dem Verschieben jeden Eintrag einzeln an
-  der Quelle prüfen – manche Fundstellen sind dünn (reine
-  Verzeichnis-Listen).
+  Es fehlt fast immer nur die Koordinate (`lat: NACHMESSEN`).
+
+  **Die holt `php tools/geocode.php` in einem Rutsch:** das Skript fragt jede
+  Adresse einmal bei OpenStreetMap, trägt die Koordinate ein und verschiebt
+  die Datei in den Länderordner – danach sind die Clubs Teil der Karte.
+  Bewusst hier und nicht in der laufenden Seite: die Koordinaten gehören als
+  Daten ins Repo, damit jede Installation sie sofort hat und kein Besucher
+  darauf wartet. Übersprungen wird, was laut Quelle geschlossen oder
+  umbenannt ist; ein Treffer zählt nur, wenn Straße und Ort passen.
+  Was keinen sauberen Treffer hat, bleibt Entwurf und will von Hand geprüft
+  werden – manche Fundstellen sind dünn (reine Verzeichnis-Listen).
 
 Wer die Koordinate nachmisst, trägt sie ein und verschiebt die Datei in den
 Länderordner – der Club erscheint dann von selbst auf der Karte (der
