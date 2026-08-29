@@ -31,12 +31,24 @@ const FETCH_SECS = 12;        // Zeitdeckel für einen Website-Abruf
 const MAX_BYTES  = 3145728;   // 3 MB je Seite reichen weit
 const MAX_BILDER = 8;
 const MAX_TERMINE = 12;
-/* Kartenkacheln. Kommen direkt vom Anbieter – kein eigener Proxy, kein
-   Kachel-Cache, keine Umschreibregeln im Webserver. */
-const TILE_HELL  = 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
-const TILE_DUNKEL = 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
+/*
+ * Kartenkacheln von OpenStreetMap. Bewusst diese Quelle: sie braucht keinen
+ * Schlüssel und keine Anmeldung. (CARTO verlangt seit Neuestem einen API-Key
+ * und legt sonst „API KEY REQUIRED" über die Karte.)
+ * Hell und Dunkel entstehen daraus per CSS-Filter – eine Quelle, zwei Looks.
+ */
+const TILE_URL = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
 /* Browsername für Club-Seiten: viele sperren unbekannte Aufrufer aus. */
 const UA = 'Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Mobile Safari/537.36';
+/*
+ * Woher die Clubdaten kommen, wenn sie nicht danebenliegen. Wer nur die
+ * index.php hochlädt, soll trotzdem eine volle Karte bekommen: fehlt der
+ * Ordner connectors/, holt die Seite ihn EINMAL aus dem Repo nach
+ * data/connectors/. Danach sind es normale Dateien auf der Platte.
+ */
+const REPO_ZIP = 'https://codeload.github.com/florianthepro/clubconnectors/zip/refs/heads/main';
+const REPO_NAME = 'florianthepro/clubconnectors';
+
 /* Geschlossene Liste aus SPEC.md Abschnitt 6 */
 const GENRES = ['80er/90er', 'Black Music', 'Drum and Bass', 'Electro', 'Goa', 'Hip-Hop',
     'House', 'Indie', 'Latin', 'Live', 'Mixed', 'Rock', 'Schlager', 'Techno'];
@@ -63,6 +75,92 @@ function connector_dir(): string
         }
     }
     return $d = '';
+}
+
+/*
+ * Die Clubdaten einmalig aus dem Repo holen. Rückgabe: [Anzahl, Meldung].
+ * Kein Hintergrundlauf, kein Stempel: entweder liegen die Dateien danach da –
+ * dann fragt niemand mehr – oder es steht auf der Seite, woran es lag.
+ */
+function clubdaten_holen(): array
+{
+    $ziel = __DIR__ . '/data/connectors';
+    if (!is_dir($ziel) && !@mkdir($ziel, 0775, true) && !is_dir($ziel)) {
+        return [0, 'Ordner data/connectors lässt sich nicht anlegen – PHP darf hier nicht schreiben.'];
+    }
+    if (!@is_writable($ziel)) {
+        return [0, 'data/connectors ist nicht beschreibbar – PHP darf hier nicht schreiben.'];
+    }
+    if (!class_exists('ZipArchive')) {
+        return [0, 'PHP-Erweiterung zip fehlt – bitte connectors/ von Hand neben die index.php legen.'];
+    }
+    // Nur einer lädt: ein zweiter Aufruf wartet nicht, er meldet sich einfach.
+    $sperre = $ziel . '/.holen.lock';
+    $lock = fopen($sperre, 'c');
+    if (!$lock || !flock($lock, LOCK_EX | LOCK_NB)) {
+        if ($lock) {
+            fclose($lock);
+        }
+        return [0, 'Wird gerade geholt – Seite gleich neu laden.'];
+    }
+    @set_time_limit(120);
+    $tmp = $ziel . '/.repo.zip';
+    $fh = @fopen($tmp, 'wb');
+    if (!$fh) {
+        flock($lock, LOCK_UN);
+        fclose($lock);
+        return [0, 'Kann nicht in data/connectors schreiben.'];
+    }
+    $ch = curl_init(REPO_ZIP);
+    curl_setopt_array($ch, [CURLOPT_FILE => $fh, CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_TIMEOUT => 90, CURLOPT_USERAGENT => 'Nightclubmap/2.0']);
+    $ok = curl_exec($ch);
+    $code = (int)curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    $fehler = curl_error($ch);
+    curl_close($ch);
+    fclose($fh);
+    if (!$ok || $code !== 200) {
+        @unlink($tmp);
+        flock($lock, LOCK_UN);
+        fclose($lock);
+        return [0, 'Der Server kommt nicht an github.com heran' . ($fehler ? ' (' . $fehler . ')' : '')
+            . ' – bitte connectors/ von Hand neben die index.php legen.'];
+    }
+    $zip = new ZipArchive();
+    if ($zip->open($tmp) !== true) {
+        @unlink($tmp);
+        flock($lock, LOCK_UN);
+        fclose($lock);
+        return [0, 'Das Archiv ließ sich nicht öffnen.'];
+    }
+    $n = 0;
+    for ($i = 0; $i < $zip->numFiles; $i++) {
+        $name = (string)$zip->getNameIndex($i);
+        // nur die ausgelieferten Connectoren: <repo>-main/connectors/de/... .yaml
+        if (!preg_match('#^[^/]+/connectors/((?:[a-z0-9-]+/)+[a-z0-9-]+\.yaml)$#i', $name, $m)) {
+            continue;
+        }
+        if (strpos($m[1], '_') === 0 || strpos($m[1], '/_') !== false) {
+            continue; // Entwürfe bleiben draußen
+        }
+        $inhalt = $zip->getFromIndex($i);
+        if ($inhalt === false) {
+            continue;
+        }
+        $datei = $ziel . '/' . $m[1];
+        if (!is_dir(dirname($datei)) && !@mkdir(dirname($datei), 0775, true)) {
+            continue;
+        }
+        if (@file_put_contents($datei, $inhalt) !== false) {
+            $n++;
+        }
+    }
+    $zip->close();
+    @unlink($tmp);
+    flock($lock, LOCK_UN);
+    fclose($lock);
+    @unlink($sperre);
+    return $n > 0 ? [$n, ''] : [0, 'Im Archiv war keine einzige Connector-Datei.'];
 }
 
 /*
@@ -540,6 +638,19 @@ if (isset($_GET['club'], $_GET['json'])) {
     exit;
 }
 
+/* Clubdaten holen. Löst die Seite genau dann aus, wenn noch keine da sind. */
+if (isset($_GET['holen'])) {
+    header('Content-Type: application/json; charset=utf-8');
+    header('Cache-Control: no-store');
+    if ($CLUBS) {
+        echo json_encode(['anzahl' => count($CLUBS), 'meldung' => '']);
+        exit;
+    }
+    [$n, $meldung] = clubdaten_holen();
+    echo json_encode(['anzahl' => $n, 'meldung' => $meldung], JSON_UNESCAPED_UNICODE);
+    exit;
+}
+
 /* Kurzer Selbstbericht – beantwortet die Frage „warum sehe ich nichts?" */
 if (isset($_GET['diag'])) {
     header('Content-Type: text/plain; charset=utf-8');
@@ -554,8 +665,13 @@ if (isset($_GET['diag'])) {
     }
     echo 'PHP ' . PHP_VERSION . "\n";
     echo 'curl: ' . (function_exists('curl_init') ? 'ok' : 'FEHLT – ohne curl kein Programm, keine Bilder') . "\n";
-    echo 'connectoren: ' . ($cd === '' ? 'KEIN ORDNER connectors/ gefunden' : $cd) . "\n";
+    echo 'connectoren: ' . ($cd === '' ? 'KEIN ORDNER gefunden' : $cd) . "\n";
     echo '  ' . count($CLUBS) . ' Clubs, ' . count($SCRAPE) . " davon mit Scrape-URL\n";
+    if (!$CLUBS) {
+        echo '  Die Seite holt sie beim Aufruf selbst aus ' . REPO_NAME . " (Ordner data/connectors).\n"
+           . '  Geht das nicht, connectors/ aus dem Repo neben die index.php legen.' . "\n"
+           . '  zip-Erweiterung: ' . (class_exists('ZipArchive') ? 'vorhanden' : 'FEHLT – ohne sie geht nur der Handweg') . "\n";
+    }
     echo 'zwischenspeicher: ' . ($cf === null ? 'NICHT BESCHREIBBAR – data/cache anlegen und PHP schreiben lassen'
         : $cf . ' (' . (is_file($cf) ? round((int)@filesize($cf) / 1024) . ' KB' : 'noch leer') . ')') . "\n";
     echo '  ' . count($cache) . ' Clubs geholt, ' . $mitDaten . " davon mit Inhalt\n";
@@ -581,7 +697,7 @@ foreach ($cache as $id => $e) {
 $staedte = array_values(array_unique(array_filter(array_column($CLUBS, 'city'))));
 sort($staedte);
 $titel = count($staedte) === 1 ? 'Clubs in ' . $staedte[0] : 'Clubkarte';
-$daten = json_encode(['clubs' => $CLUBS, 'live' => $live],
+$daten = json_encode(['clubs' => $CLUBS, 'live' => $live, 'leer' => count($CLUBS) === 0],
     JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG);
 $eigenesLeaflet = is_file(__DIR__ . '/vendor/leaflet.js') && is_file(__DIR__ . '/vendor/leaflet.css');
 ?>
@@ -652,6 +768,12 @@ button { cursor: pointer; }
 }
 .kartefehlt p { margin: 0; font-size: 15px; }
 .leaflet-container { font: inherit; background: var(--card); }
+/* Aus der bunten OSM-Karte wird ein ruhiger Untergrund: entfärbt, und im
+   Dunkelmodus invertiert. So bleibt die Aufmerksamkeit bei den Clubs. */
+.leaflet-tile { filter: grayscale(1) contrast(.92) brightness(1.06); }
+@media (prefers-color-scheme: dark) {
+    .leaflet-tile { filter: grayscale(1) invert(1) brightness(.82) contrast(1.05); }
+}
 .leaflet-control-attribution {
     background: rgba(255,255,255,.72) !important;
     font-size: 10px !important;
@@ -860,8 +982,7 @@ button { cursor: pointer; }
 <script>
 "use strict";
 const DATEN = <?= $daten ?>;
-const TILE_HELL = <?= json_encode(TILE_HELL) ?>;
-const TILE_DUNKEL = <?= json_encode(TILE_DUNKEL) ?>;
+const TILE_URL = <?= json_encode(TILE_URL) ?>;
 const GENRES = <?= json_encode(GENRES) ?>;
 const clubs = DATEN.clubs;
 const live = DATEN.live;
@@ -973,12 +1094,10 @@ function karteBauen() {
     }
     karte = L.map('map', { zoomControl: false, attributionControl: true })
         .setView([51.2, 10.4], 6);
-    const dunkel = matchMedia('(prefers-color-scheme: dark)');
-    const kacheln = L.tileLayer(dunkel.matches ? TILE_DUNKEL : TILE_HELL, {
-        maxZoom: 19, detectRetina: true,
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a> · ohne Gewähr',
+    L.tileLayer(TILE_URL, {
+        maxZoom: 19,
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>-Mitwirkende · ohne Gewähr',
     }).addTo(karte);
-    dunkel.addEventListener('change', e => kacheln.setUrl(e.matches ? TILE_DUNKEL : TILE_HELL));
     for (const c of clubs) {
         const m = L.marker([c.lat, c.lng], { icon: pinBild(c), title: c.name });
         m.on('click', () => kachelOeffnen(c, false));
@@ -1374,9 +1493,32 @@ document.addEventListener('click', e => {
     if (!e.target.closest('.bar')) { vorZu(); }
 }, true);
 
+/*
+ * Noch keine Clubdaten da? Dann liegt nur die index.php auf dem Server.
+ * Die Seite holt sie einmal selbst – ein Aufruf, danach nie wieder.
+ */
+function erstesHolen() {
+    const box = el('div', 'kartefehlt');
+    box.appendChild(el('p', '', 'Clubdaten werden geholt …'));
+    const zweite = el('p', '', 'Das dauert einen Moment und passiert nur dieses eine Mal.');
+    box.appendChild(zweite);
+    $('map').appendChild(box);
+    fetch('?holen=1').then(r => r.json()).then(j => {
+        if (j.anzahl > 0) { location.reload(); return; }
+        box.textContent = '';
+        box.appendChild(el('p', '', 'Es sind keine Clubdaten da.'));
+        box.appendChild(el('p', '', j.meldung || 'Bitte den Ordner connectors/ neben die index.php legen.'));
+    }).catch(() => {
+        box.textContent = '';
+        box.appendChild(el('p', '', 'Es sind keine Clubdaten da.'));
+        box.appendChild(el('p', '', 'Bitte den Ordner connectors/ neben die index.php legen.'));
+    });
+}
+
 /* ---- Start ---- */
 karteBauen();
 zeichnen();
+if (DATEN.leer) erstesHolen();
 // Deeplink: ?club=<id> öffnet die Kachel direkt
 const gewuenscht = new URLSearchParams(location.search).get('club');
 if (gewuenscht) {

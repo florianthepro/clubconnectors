@@ -9,16 +9,26 @@ die Clubdaten liegen als Connectoren in `connectors/`.
 
 ## Aufspielen
 
-1. `index.php` und den Ordner `connectors/` ins Web-Root legen.
+1. `index.php` ins Web-Root legen.
 2. Dafür sorgen, dass PHP in `data/` schreiben darf:
    `sudo chown -R www-data: /var/www/clubs`
-3. Seite aufrufen. Fertig.
+3. Seite aufrufen. Findet sie keine Clubdaten, holt sie sie einmal selbst aus
+   dem Repo (`data/connectors/`) und lädt neu. Fertig.
+
+Wer die Daten lieber selbst mitbringt, legt den Ordner `connectors/` neben die
+`index.php` – dann wird nichts geholt. Ohne die PHP-Erweiterung `zip` geht nur
+dieser Weg.
 
 `?diag=1` beantwortet in acht Zeilen, ob alles stimmt: PHP-Version, curl,
 gefundene Connectoren, Zwischenspeicher und ob der Server ins Netz kommt.
 
 Optional: Liegen `vendor/leaflet.js` und `vendor/leaflet.css` daneben, nimmt
 die Seite die statt der Fassung von unpkg.com.
+
+**Kein API-Schlüssel nötig.** Die Kacheln kommen von OpenStreetMap, das keinen
+verlangt. (CARTO, die frühere Quelle, verlangt inzwischen einen und legt sonst
+„API KEY REQUIRED" über die Karte.) Hell und Dunkel entstehen aus derselben
+Quelle per Filter.
 
 ## Wie sie arbeitet
 
@@ -49,7 +59,7 @@ Was aus dem Connector kommt (Name, Ort, Adresse, Musik, Öffnungszeiten,
 
 | Beobachtung | Ursache | Abhilfe |
 |---|---|---|
-| „KEIN ORDNER connectors/" in `?diag` | Ordner fehlt oder heißt anders | `connectors/` neben die `index.php` legen |
+| „0 Clubs" bleibt stehen | Daten ließen sich nicht holen | Grund steht auf der Seite und in `?diag`; sonst `connectors/` von Hand daneben legen |
 | „zwischenspeicher: NICHT BESCHREIBBAR" | PHP darf nicht in `data/` schreiben | `chown -R www-data: <web-root>` |
 | „netz: FEHLER" | Server kommt nicht raus | Firewall/Proxy prüfen. Karte, Zeiten und Adressen gehen trotzdem |
 | Karte bleibt leer | Leaflet nicht geladen | Meldung steht auf der Seite; Suche funktioniert weiter |
