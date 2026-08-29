@@ -332,20 +332,36 @@ function region(): string
  */
 const GEO_UA = 'Nightclubmap/1.0 (Kartenanzeige, +https://github.com/florianthepro/clubconnectors)';
 const GEO_API = 'https://nominatim.openstreetmap.org/search';
+/* Die Seite holt die fehlenden Koordinaten von selbst, im Hintergrund, ein
+   paar je Aufruf. Der Aufwand ist endlich: jede Adresse wird höchstens
+   EINMAL gefragt, das Ergebnis (auch "nichts gefunden") bleibt gespeichert.
+   Auf false gestellt bleiben die Entwürfe von der Karte weg. */
+const GEO_AUTO = true;
+const GEO_PRO_AUFRUF = 6;    // Adressen je Hintergrund-Schritt
 const GEO_PAUSE = 1100000;   // Mikrosekunden zwischen zwei Abfragen (Nominatim: max. 1/s)
 const GEO_SECS = 22;         // Zeitbudget je ?geo-Aufruf, dann geht es per Weiterleitung weiter
 
 /* Gespeicherte Koordinaten: id => ['lat'=>..,'lng'=>..] bzw. id => false
    für "nicht gefunden" (damit dieselbe Adresse nicht ewig neu gefragt wird). */
-function geo_store(): array
+function geo_store(?array $setzen = null): array
 {
     static $c = null;
+    if ($setzen !== null) {
+        return $c = $setzen; // nach dem Speichern: Zwischenspeicher mitziehen
+    }
     if ($c !== null) {
         return $c;
     }
     $f = __DIR__ . '/data/geo.json';
     $j = is_file($f) ? json_decode((string)@file_get_contents($f), true) : null;
     return $c = is_array($j) ? $j : [];
+}
+
+/* Stempel „alle Entwürfe sind durch". Spart bei jedem Aufruf das Einlesen
+   von hunderten Dateien; ein Repo-Abgleich räumt ihn weg. */
+function geo_done_file(): ?string
+{
+    return cache_file('geo-done');
 }
 
 function geo_save(array $store): bool
@@ -358,6 +374,7 @@ function geo_save(array $store): bool
     if ($j === false || @file_put_contents($f . '.tmp', $j) === false) {
         return false;
     }
+    geo_store($store);
     return @rename($f . '.tmp', $f);
 }
 
@@ -455,6 +472,58 @@ function geo_lookup(string $street, string $city): ?array
     $strOk = $strGesucht !== '' && $strGefunden !== ''
         && (strpos($strGefunden, $strGesucht) !== false || strpos($strGesucht, $strGefunden) !== false);
     return ($ortOk && $strOk) ? ['lat' => round($lat, 5), 'lng' => round($lng, 5)] : null;
+}
+
+/*
+ * Ein Häppchen Adressen auflösen. Rückgabe: [gefunden, ohneTreffer, nochOffen].
+ * Eine Sperrdatei sorgt dafür, dass immer nur EIN Aufruf gleichzeitig fragt –
+ * sonst würden viele Besucher gleichzeitig bei OpenStreetMap anklopfen.
+ */
+function geo_step(string $cc, int $wieViele): array
+{
+    $fertig = geo_done_file();
+    if ($fertig !== null && is_file($fertig)) {
+        return [0, 0, 0]; // alles durch – keine Datei anfassen
+    }
+    $drafts = review_drafts($cc);
+    $store = geo_store();
+    $offen = [];
+    foreach ($drafts as $id => $d) {
+        if (!array_key_exists($id, $store)) {
+            $offen[$id] = $d;
+        }
+    }
+    if (!$offen) {
+        if ($fertig !== null) {
+            @file_put_contents($fertig, (string)time());
+        }
+        return [0, 0, 0];
+    }
+    $lockF = cache_file('geo.lock');
+    $lock = $lockF ? fopen($lockF, 'c') : false;
+    if (!$lock || !flock($lock, LOCK_EX | LOCK_NB)) {
+        if ($lock) {
+            fclose($lock);
+        }
+        return [0, 0, count($offen)]; // ein anderer Aufruf ist dran
+    }
+    @ignore_user_abort(true);
+    @set_time_limit(0);
+    $gefunden = $ohne = 0;
+    foreach (array_slice($offen, 0, max(1, $wieViele), true) as $id => $d) {
+        $tref = geo_lookup($d['address'] . ', ' . $d['city'], $d['city']);
+        $store[$id] = $tref ?? false; // auch das Nein merken, sonst ewig fragen
+        if ($tref) {
+            $gefunden++;
+        } else {
+            $ohne++;
+        }
+        geo_save($store);
+        usleep(GEO_PAUSE); // OpenStreetMap erlaubt höchstens eine Abfrage je Sekunde
+    }
+    flock($lock, LOCK_UN);
+    fclose($lock);
+    return [$gefunden, $ohne, count($offen) - $gefunden - $ohne];
 }
 
 /* Der reine Abruf – getrennt, damit die Auswertung oben ohne Netz prüfbar ist. */
@@ -1433,6 +1502,11 @@ if (isset($_GET['update'])) {
                 @unlink($f);
             }
         }
+        // Neue Entwürfe im Repo? Dann auch wieder nach Koordinaten suchen.
+        $gf = geo_done_file();
+        if ($gf !== null && is_file($gf)) {
+            @unlink($gf);
+        }
     }
     // "viele": lohnt der Ladebalken? Sind nach der Repo-Änderung nur ein paar
     // Clubs neu, holt die Seite sie still im Hintergrund nach.
@@ -1442,74 +1516,72 @@ if (isset($_GET['update'])) {
     exit;
 }
 if (isset($_GET['geo'])) {
-    // Koordinaten für die Entwürfe holen. Hinter dem Admin-Schlüssel, weil
-    // das echte Abfragen bei einem fremden Dienst sind – das startet der
-    // Betreiber bewusst, nicht jeder Seitenaufruf.
-    header('Content-Type: text/html; charset=utf-8');
+    $cc = region() !== '' ? region() : (region_list()[0] ?? '');
     $key = admin_key();
-    if ($key === '' || !hash_equals($key, (string)($_GET['key'] ?? ''))) {
+    $admin = $key !== '' && hash_equals($key, (string)($_GET['key'] ?? ''));
+    if (!$admin && !GEO_AUTO) {
         http_response_code(403);
-        echo '<!doctype html><meta charset="utf-8"><p style="font:15px system-ui">'
-            . 'Nicht freigeschaltet. Datei <code>data/admin.key</code> mit einem '
-            . 'geheimen Schlüssel anlegen, dann <code>?geo=1&amp;key=&lt;schlüssel&gt;</code> aufrufen.';
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode(['aus' => true]);
         exit;
     }
-    $cc = region() !== '' ? region() : (region_list()[0] ?? '');
-    $drafts = review_drafts($cc);
-    $store = geo_store();
-    $offen = [];
-    foreach ($drafts as $id => $d) {
-        if (!array_key_exists($id, $store)) {
-            $offen[$id] = $d;
+    // Hintergrund-Schritt: JSON, ein Häppchen, die Seite ruft es wieder auf.
+    if (!$admin) {
+        header('Content-Type: application/json; charset=utf-8');
+        $vorher = geo_store();
+        [$gef, $ohne, $offen] = geo_step($cc, GEO_PRO_AUFRUF);
+        $neu = [];
+        if ($gef > 0) {
+            // Die eben dazugekommenen Clubs gleich mitschicken: die Seite
+            // setzt sie ohne Neuladen auf die Karte.
+            $frisch = array_diff_key(geo_store(), $vorher);
+            $ids = [];
+            foreach ($frisch as $id => $v) {
+                if (is_array($v)) {
+                    $ids[$id] = true;
+                }
+            }
+            if ($ids) {
+                foreach (load_connectors($cc)[0] as $club) {
+                    if (isset($ids[$club['id']])) {
+                        $neu[] = $club;
+                    }
+                }
+            }
         }
+        echo json_encode(['gefunden' => $gef, 'ohne' => $ohne, 'offen' => $offen, 'clubs' => $neu],
+            JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+        exit;
     }
-    $gefunden = 0;
+    // Mit Admin-Schlüssel: sichtbare Seite, die sich selbst weiterklickt.
+    header('Content-Type: text/html; charset=utf-8');
+    $drafts = review_drafts($cc);
+    [$gef, $ohne, $offen] = geo_step($cc, 20);
+    $store = geo_store();
+    $mit = 0;
     foreach ($store as $v) {
         if (is_array($v)) {
-            $gefunden++;
+            $mit++;
         }
     }
-    @set_time_limit(0);
-    @ignore_user_abort(true);
-    $ende = time() + GEO_SECS;
-    $neu = 0;
-    $ohne = 0;
-    foreach ($offen as $id => $d) {
-        if (time() >= $ende) {
-            break;
-        }
-        $tref = geo_lookup($d['address'] . ', ' . $d['city'], $d['city']);
-        // false = gefragt, nichts Passendes – nicht noch einmal fragen
-        $store[$id] = $tref ?? false;
-        if ($tref) {
-            $neu++;
-        } else {
-            $ohne++;
-        }
-        geo_save($store);
-        usleep(GEO_PAUSE); // Nominatim: höchstens eine Abfrage je Sekunde
-    }
-    $rest = max(0, count($offen) - $neu - $ohne);
     $h = fn($x) => htmlspecialchars((string)$x, ENT_QUOTES, 'UTF-8');
     $weiter = '?geo=1&key=' . rawurlencode((string)$_GET['key']) . ($cc !== '' ? '&c=' . rawurlencode($cc) : '');
     echo '<!doctype html><html lang="de"><meta charset="utf-8">'
         . '<meta name="viewport" content="width=device-width,initial-scale=1">';
-    if ($rest > 0) {
+    if ($offen > 0) {
         echo '<meta http-equiv="refresh" content="1;url=' . $h($weiter) . '">';
     }
     echo '<title>Koordinaten holen</title>'
-        . '<body style="font:15px/1.5 system-ui;max-width:44rem;margin:2rem auto;padding:0 1rem">'
+        . '<body style="font:15px/1.5 -apple-system,system-ui;max-width:44rem;margin:2rem auto;padding:0 1rem">'
         . '<h1 style="font-size:1.3rem">Koordinaten aus OpenStreetMap</h1>'
-        . '<p>Entwürfe in <code>connectors/_review</code>: <b>' . count($drafts) . '</b><br>'
-        . 'davon mit Koordinate: <b>' . ($gefunden + $neu) . '</b><br>'
-        . 'in diesem Durchgang gefunden: <b>' . $neu . '</b>, ohne Treffer: <b>' . $ohne . '</b><br>'
-        . 'noch offen: <b>' . $rest . '</b></p>';
-    echo $rest > 0
-        ? '<p>Läuft weiter … (eine Abfrage je Sekunde, so will es OpenStreetMap)</p>'
-        : '<p><b>Fertig.</b> Die gefundenen Clubs sind ab sofort auf der Karte.'
-          . ' Ohne Treffer bleiben sie Entwurf – dort stimmt meist die Adresse nicht.</p>'
-          . '<p><a href="?">Zur Karte</a></p>';
-    echo '</body></html>';
+        . '<p>Entwürfe mit Adresse: <b>' . count($drafts) . '</b><br>'
+        . 'davon mit Koordinate (auf der Karte): <b>' . $mit . '</b><br>'
+        . 'gerade gefunden: <b>' . $gef . '</b>, ohne Treffer: <b>' . $ohne . '</b><br>'
+        . 'noch offen: <b>' . $offen . '</b></p>'
+        . ($offen > 0
+            ? '<p>Läuft weiter … (eine Abfrage je Sekunde, so will es OpenStreetMap)</p>'
+            : '<p><b>Fertig.</b> <a href="?">Zur Karte</a></p>')
+        . '</body></html>';
     exit;
 }
 if (isset($_GET['setup'])) {
@@ -3855,11 +3927,12 @@ $live = live_payload((array)($cache['data'] ?? []));
  * grundlos auf – dann läuft dasselbe still im Hintergrund weiter und die
  * Karte füllt sich beim Zusehen ("on the fly").
  */
-$needSetup = false;
-if ($connectors && setup_needed($cc)) {
-    $nOffen = setup_offen($cc, $connectors);
-    $needSetup = ($nOffen > 40 || $nOffen > count($connectors) / 4) ? 'bar' : 'still';
-}
+/*
+ * Nichts hält den Besucher mehr auf. Die Karte steht sofort; was an Programm,
+ * Bildern und Infotext fehlt, holt die Seite still im Hintergrund nach ("puffern"),
+ * und der angetippte Club wird sowieso sofort einzeln geholt.
+ */
+$needSetup = ($connectors && setup_needed($cc)) ? 'still' : false;
 $cities = array_values(array_unique(array_map(fn($c) => $c['city'], $clubs)));
 $pageTitle = count($cities) === 1 ? 'Clubs ' . $cities[0] : 'Clubs';
 $payload = json_encode(
@@ -4354,11 +4427,12 @@ body {
 #sheet.drag { transition: none; }
 #sheet .shead { flex: none; position: relative; padding: 0 20px; touch-action: none; }
 #sheet .sbody { overflow-y: auto; padding: 0 20px calc(20px + env(safe-area-inset-bottom)); }
-#sheet .grip { width: 40px; height: 4px; border-radius: 2px; background: var(--line); margin: 2px auto 14px; }
-#sheet h2 { margin: 0 0 2px; font-size: 24px; letter-spacing: -0.02em; }
-#sheet .status { font-size: 16px; margin-bottom: 10px; }
-#sheet .status.st-open { font-weight: 700; }
-#sheet .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+#sheet .grip { width: 36px; height: 5px; border-radius: 3px; background: var(--line); margin: 2px auto 12px; }
+#sheet h2 { margin: 0 0 3px; font-size: 26px; line-height: 1.2; letter-spacing: -0.024em; font-weight: 700; }
+#sheet .status { font-size: 15px; margin-bottom: 14px; color: var(--muted); }
+#sheet .status.st-open { color: var(--ok); font-weight: 600; }
+#sheet .status.st-closed { color: var(--muted); }
+#sheet .tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 16px; }
 #sheet .tag {
     font-size: 13.5px;
     padding: 4px 10px;
@@ -4369,7 +4443,7 @@ body {
     font-family: inherit;
     cursor: pointer;
 }
-#sheet .tag::after { content: '\203A'; margin-left: 6px; opacity: .55; }
+#sheet .tag::after { content: ''; }
 #sheet .tag:active { background: var(--line); color: var(--fg); }
 #sheet section { margin-bottom: 16px; }
 #sheet h3 { margin: 0 0 6px; font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
@@ -4389,20 +4463,7 @@ body {
 .ev-title { font-weight: 650; padding: 3px 0; }
 .ev-img { width: 100%; max-height: 150px; object-fit: cover; border-radius: 10px; margin: 4px 0; background: var(--card); }
 .muted-p { color: var(--muted); }
-#sheet details.hrs { margin: 2px 0 16px; }
-#sheet summary {
-    cursor: pointer;
-    color: var(--fg);
-    font-size: 15px;
-    font-weight: 650;
-    padding: 6px 0;
-}
-#sheet details div { display: flex; gap: 12px; padding: 2px 0; }
-#sheet details span { flex: 0 0 auto; min-width: 58px; color: var(--muted); }
-#sheet details .today { font-weight: 700; }
-#sheet details .today span { color: inherit; }
-#sheet details .note { color: var(--muted); font-size: 14px; margin-top: 6px; display: block; }
-.actions { display: flex; gap: 10px; margin-top: 4px; }
+.actions { display: flex; gap: 10px; margin: 4px 0 0; }
 .actions a {
     flex: 1;
     text-align: center;
@@ -4426,16 +4487,6 @@ body {
     cursor: pointer;
 }
 /* Bilder im Club-Detail */
-.pics { display: flex; gap: 8px; overflow-x: auto; margin-bottom: 14px; -webkit-overflow-scrolling: touch; }
-.pics img {
-    flex: 0 0 auto;
-    height: 110px;
-    max-width: 250px;
-    border-radius: 10px;
-    object-fit: cover;
-    background: var(--card);
-    cursor: zoom-in;
-}
 .ev-img { cursor: zoom-in; }
 /* Bild-Vollansicht: Tipp aufs Foto öffnet, Tipp irgendwo schließt */
 #lb {
@@ -4466,8 +4517,35 @@ body {
 }
 .infotext { margin: 0; color: var(--fg); font-size: 15px; }
 /* Beschreibungstext des Clubs in der Kachel */
-#sheet .about { margin: 0 0 16px; color: var(--muted); font-size: 14.5px; line-height: 1.5; }
-#sheet .about.lead { color: var(--fg); font-size: 15px; }
+/* --- Kachel im Ruhe-Layout: ein Bild, ein Satz, dann Fakten --- */
+#sheet .hero { margin: 0 0 16px; }
+#sheet .hero .big {
+    display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover;
+    border-radius: 14px; background: var(--card); cursor: zoom-in;
+}
+/* Kleine Vorschauen: genug, um die Stimmung zu ahnen, aber sie sollen der
+   Beschreibung nicht den Platz wegnehmen. */
+#sheet .thumbs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 6px; }
+#sheet .thumbs img {
+    width: 100%; height: 62px; object-fit: cover;
+    border-radius: 9px; background: var(--card); cursor: zoom-in;
+}
+#sheet .lead { margin: 0 0 10px; font-size: 16px; line-height: 1.45; color: var(--fg); }
+#sheet .sub { margin: 0 0 16px; font-size: 14.5px; line-height: 1.5; color: var(--muted); }
+/* Faktenliste im Stil der Systemeinstellungen: eine Karte, feine Trennlinien */
+#sheet .rows {
+    background: var(--card); border-radius: 14px; overflow: hidden; margin: 0 0 18px;
+}
+#sheet .row { display: flex; gap: 14px; padding: 11px 14px; align-items: baseline; }
+#sheet .row + .row { border-top: 1px solid var(--line); }
+#sheet .row .k { flex: 0 0 92px; color: var(--muted); font-size: 14px; }
+#sheet .row .v { flex: 1; font-size: 15px; min-width: 0; }
+#sheet .row .v.st-open { font-weight: 600; }
+#sheet .hline { display: flex; justify-content: space-between; gap: 12px; padding: 1px 0; }
+#sheet .hline .d { color: var(--muted); }
+#sheet .hline.now { font-weight: 600; }
+#sheet .hline.now .d { color: inherit; }
+#sheet .nog { color: var(--muted); font-size: 12.5px; line-height: 1.45; margin: 14px 0 0; }
 /* Sonderschließungs-Hinweis von der Club-Website */
 .warnline {
     margin: 0 0 14px;
@@ -4553,6 +4631,10 @@ body {
 </div>
 <script>
 const DATA = <?= $payload ?>;
+/* Adresse eines eigenen Endpunkts, immer mit der Region. Steht bewusst ganz
+   oben: ein Deeplink (?club=…) öffnet die Kachel, bevor der Rest des Skripts
+   gelesen ist – und die fragt sofort ihren Connector ab. */
+const EP = q => (DATA.cc ? '?c=' + DATA.cc + '&' : '?') + q;
 const DAYS = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'];
 const MULTI_CITY = new Set(DATA.clubs.map(c => c.city)).size > 1;
 const DAYNUM = { Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6, Sun: 7 };
@@ -5137,18 +5219,6 @@ function render() {
             line.textContent = statusLine(c, s);
             line.className = 'status st-' + kindOf(s);
         }
-        // frisch gescrapte Bilder/Infos/Programme in die offene Kachel nachreichen
-        const body = $('sheet').querySelector('.sbody');
-        const alive = DATA.live[activeId] || {};
-        const imgs = cleanImgs(alive.images).slice(0, 4);
-        if (body && imgs.length && !body.querySelector('.pics')) {
-            const anker = body.querySelector('.about.lead') || body.querySelector('.tags');
-            if (anker) anker.after(buildPics(imgs));
-        }
-        if (body && alive.info && !body.querySelector('.about:not(.lead)')) {
-            const anker = body.querySelector('.pics') || body.querySelector('.about.lead') || body.querySelector('.tags');
-            if (anker) anker.after(el('p', 'about', alive.info));
-        }
         if (progRefresh) progRefresh();
     }
     // offene Vorschlagsliste nur neu bauen, wenn gerade nicht getippt wird –
@@ -5626,6 +5696,138 @@ function closeLb() {
 }
 /* Bild-Liste säubern: http→https (Mixed Content) und Größen-Dubletten raus */
 /* Aufräumen macht der Server (live_payload) – hier nur noch harte Dubletten */
+/*
+ * Der Inhalt einer Club-Kachel. Als eigene Funktion, weil ihn zwei Wege
+ * brauchen: das Öffnen – und die Auffrischung alle 5 Sekunden, die den
+ * Inhalt an Ort und Stelle ersetzt, ohne die Seite neu zu laden.
+ */
+function sheetBody(c, body) {
+    const s = refStatus(c);
+    const live = DATA.live[c.id] || {};
+    if (live.warn) body.appendChild(el('p', 'warnline', 'Hinweis der Website: „' + live.warn + '“'));
+
+    // --- 1. Bild: der erste Eindruck. Ein großes Foto statt einer Reihe
+    //     Briefmarken – man soll die Stimmung sehen, nicht Bildchen zählen.
+    const imgs = cleanImgs(live.images);
+    if (imgs.length) body.appendChild(buildHero(imgs));
+
+    // --- 2. Was einen erwartet: erst der belegte Satz aus dem Connector,
+    //     dann, falls die Website mehr hergibt, deren eigene Beschreibung.
+    if (c.about) body.appendChild(el('p', 'lead', c.about));
+    if (live.info && live.info !== c.about) {
+        const t = live.info.length > 320 ? live.info.slice(0, 300).replace(/\s+\S*$/, '') + ' …' : live.info;
+        body.appendChild(el('p', 'sub', t));
+    }
+
+    // --- 3. Musik als antippbare Marken
+    if (c.genres.length) {
+        const tags = el('div', 'tags');
+        for (const g of c.genres) {
+            const t = el('button', 'tag', g);
+            t.title = 'Karte auf ' + g + ' filtern';
+            t.onclick = () => {
+                state.music = { mode: 'or', genres: [g] };
+                closeSheet();
+                renderChips();
+                render();
+            };
+            tags.appendChild(t);
+        }
+        body.appendChild(tags);
+    }
+
+    // --- 4. Die Fakten als ruhige Liste, eine Zeile je Sache
+    const card = el('div', 'rows');
+    if ((c.hours || []).length) {
+        let refDay;
+        if (state.date) {
+            refDay = dayOfIso(state.date);
+        } else {
+            const { day, min } = nowParts();
+            const prev = day === 1 ? 7 : day - 1;
+            const carry = c.hours.some(([days, o, cl]) => toMin(cl) < toMin(o) && days.includes(prev) && min < toMin(cl));
+            refDay = carry ? prev : day;
+        }
+        const box = el('div', 'hrsbox');
+        for (const [days, o, cl] of c.hours) {
+            const line = el('div', days.includes(refDay) ? 'hline now' : 'hline');
+            line.append(el('span', 'd', days.map(d => DAYS[d - 1]).join(', ')),
+                        el('span', 't', o + ' – ' + cl));
+            box.appendChild(line);
+        }
+        card.appendChild(infoRow('Geöffnet', box));
+    } else {
+        card.appendChild(infoRow('Geöffnet', 'Nur zu Veranstaltungen'));
+    }
+    if (c.addr) card.appendChild(infoRow('Adresse', c.addr + ', ' + c.city));
+    if (c.note) card.appendChild(infoRow('Hinweis', c.note));
+    body.appendChild(card);
+
+    // --- 5. Programm
+    body.appendChild(progSection(c));
+
+    const act = el('div', 'actions');
+    const app = appRoute(c);
+    const route = el('a', 'primary', 'Route');
+    route.href = app.href;
+    if (app.href.indexOf('geo:') !== 0) {
+        route.target = '_blank';
+        route.rel = 'noopener';
+    }
+    act.appendChild(route);
+    if (c.url) {
+        const site = el('a', '', c.url.includes('instagram.') ? 'Instagram' : 'Website');
+        site.href = c.url;
+        site.target = '_blank';
+        site.rel = 'noopener';
+        act.appendChild(site);
+    }
+    body.appendChild(act);
+    body.appendChild(el('p', 'nog', c.osm
+        ? 'Standort aus OpenStreetMap zur angegebenen Adresse – alle Angaben ohne Gewähr.'
+        : 'Alle Angaben ohne Gewähr.'));
+}
+
+/*
+ * Der Connector des offenen Clubs. Beim Öffnen sofort, danach alle 5 Sekunden –
+ * ohne Neuladen der Seite. Das ist billig: der Server antwortet aus seinem
+ * Zwischenspeicher und geht selbst höchstens alle paar Minuten auf die
+ * Club-Website. Neu gezeichnet wird nur, wenn sich wirklich etwas geändert hat,
+ * sonst würde die Kachel unter dem Finger flackern.
+ */
+/* Kachelinhalt neu aufbauen, ohne dass es ruckelt: gleiche Stelle, gleicher
+   Scrollstand – der Besucher merkt nur, dass mehr da ist als eben noch. */
+function refreshSheet(c) {
+    if (sheetKind !== 'club' || activeId !== c.id) return;
+    const sb = $('sheet').querySelector('.sbody');
+    if (!sb) return;
+    const oben = sb.scrollTop;
+    sb.textContent = '';
+    sheetBody(c, sb);
+    sb.scrollTop = oben;
+}
+
+let liveTimer = null;
+function stopLive() {
+    if (liveTimer) { clearInterval(liveTimer); liveTimer = null; }
+}
+function startLive(c) {
+    stopLive();
+    if (c.nolive) return;
+    const hol = () => {
+        if (activeId !== c.id) { stopLive(); return; }
+        fetch(EP('fresh=' + encodeURIComponent(c.id))).then(r => r.json()).then(j => {
+            if (!j || !j.live || activeId !== c.id) return;
+            if (JSON.stringify(j.live) === JSON.stringify(DATA.live[c.id] || null)) return;
+            DATA.live[c.id] = j.live;
+            refreshSheet(c);
+            render();
+        }).catch(() => {});
+    };
+    hol();
+    liveTimer = setInterval(hol, 5000);
+}
+
 function cleanImgs(list) {
     const seen = new Set(), out = [];
     for (const u of list || []) {
@@ -5635,19 +5837,55 @@ function cleanImgs(list) {
     }
     return out;
 }
-function buildPics(imgs) {
-    const pics = el('div', 'pics');
-    for (const u of imgs) {
-        const img = el('img');
-        img.src = u;
-        img.loading = 'lazy';
-        img.alt = '';
-        img.referrerPolicy = 'no-referrer'; // Hotlink-Schutz vieler Clubseiten umgehen
-        img.onerror = () => img.remove();
-        img.onclick = () => openLb(u);
-        pics.appendChild(img);
+/*
+ * Der erste Eindruck: ein großes Bild, darunter höchstens drei kleine.
+ * Lieber ein Foto, das die Stimmung zeigt, als acht Briefmarken nebeneinander.
+ * Lädt ein Bild nicht (viele Clubseiten sperren fremdes Einbetten), rutscht
+ * das nächste nach – es bleibt nie eine leere Fläche stehen.
+ */
+function buildHero(imgs) {
+    const box = el('div', 'hero');
+    const gross = el('img', 'big');
+    const rest = imgs.slice(1, 4);
+    gross.src = imgs[0];
+    gross.alt = '';
+    gross.loading = 'eager';
+    gross.referrerPolicy = 'no-referrer';
+    gross.onclick = () => openLb(gross.src);
+    gross.onerror = () => {
+        // kaputtes Bild durch das nächste ersetzen, sonst klafft ein Loch
+        const next = rest.shift();
+        if (next) { gross.src = next; renderThumbs(); } else { box.remove(); }
+    };
+    box.appendChild(gross);
+    const strip = el('div', 'thumbs');
+    function renderThumbs() {
+        strip.textContent = '';
+        for (const u of rest) {
+            const t = el('img');
+            t.src = u;
+            t.alt = '';
+            t.loading = 'lazy';
+            t.referrerPolicy = 'no-referrer';
+            t.onerror = () => t.remove();
+            t.onclick = () => openLb(u);
+            strip.appendChild(t);
+        }
+        strip.hidden = rest.length === 0;
     }
-    return pics;
+    renderThumbs();
+    box.appendChild(strip);
+    return box;
+}
+
+/* Eine Zeile der Faktenliste: links wofür, rechts was. */
+function infoRow(label, wert, kind) {
+    const row = el('div', 'row');
+    row.appendChild(el('div', 'k', label));
+    const v = el('div', 'v' + (kind ? ' st-' + kind : ''));
+    if (typeof wert === 'string') { v.textContent = wert; } else { v.appendChild(wert); }
+    row.appendChild(v);
+    return row;
 }
 
 function sheetBase(title) {
@@ -5717,6 +5955,7 @@ function showSheet(kind) {
 }
 function closeSheet() {
     if (!sheetKind) return;
+    stopLive();
     ovlClose();
     document.documentElement.classList.remove('sheet-open');
     const sheet = $('sheet');
@@ -5802,96 +6041,15 @@ function openSheet(c, pan) {
     }
     activeId = c.id;
     syncUrl();
-    // Diesen Club frisch nachladen und ins offene Sheet einspielen. Kein
-    // Ratelimit – ein Abruf je Öffnen ist unkritisch. render() reicht die
-    // frischen Bilder/Infos/Programme in die schon offene Kachel nach.
-    // Clubs ohne Scrape-Quelle gar nicht erst fragen – da kommt nie etwas.
-    if (!c.nolive) fetch(EP('fresh=' + encodeURIComponent(c.id))).then(r => r.json()).then(j => {
-        if (j && j.live && activeId === c.id) {
-            DATA.live[c.id] = j.live;
-            render();
-        }
-    }).catch(() => {});
+    // Beim Öffnen wird der Connector dieses Clubs aktiv und bleibt es:
+    // alle 5 Sekunden kommt der Stand nach, ohne dass die Seite neu lädt.
+    startLive(c);
     const s = refStatus(c);
     const live = DATA.live[c.id] || {};
     const { head, body } = sheetBase(c.name);
     head.appendChild(el('div', 'status st-' + kindOf(s), statusLine(c, s)));
 
-    if (live.warn) body.appendChild(el('p', 'warnline', 'Hinweis der Website: „' + live.warn + '“'));
-
-    const tags = el('div', 'tags');
-    for (const g of c.genres) {
-        const t = el('button', 'tag', g);
-        t.title = 'Karte auf ' + g + ' filtern';
-        t.onclick = () => {
-            // Tipp auf einen Stil: Karte auf diese Musik filtern
-            state.music = { mode: 'or', genres: [g] };
-            closeSheet();
-            renderChips();
-            render();
-        };
-        tags.appendChild(t);
-    }
-    body.appendChild(tags);
-
-    // Kurzprofil aus dem Connector: steht immer da, egal was die Website
-    // liefert – damit man weiß, was einen erwartet, bevor Fotos laden.
-    if (c.about) body.appendChild(el('p', 'about lead', c.about));
-
-    const imgs = cleanImgs(live.images).slice(0, 4);
-    if (imgs.length) body.appendChild(buildPics(imgs));
-
-    if (live.info && live.info !== c.about) body.appendChild(el('p', 'about', live.info));
-
-    body.appendChild(progSection(c));
-
-    // Öffnungszeiten komplett hinter einem Ausklapper
-    const det = el('details', 'hrs');
-    det.appendChild(el('summary', '', 'Öffnungszeiten'));
-    if ((c.hours || []).length) {
-        let refDay;
-        if (state.date) {
-            refDay = dayOfIso(state.date);
-        } else {
-            // läuft noch die Nacht vom Vortag, dessen Zeile markieren
-            const { day, min } = nowParts();
-            const prev = day === 1 ? 7 : day - 1;
-            const carry = c.hours.some(([days, o, cl]) => toMin(cl) < toMin(o) && days.includes(prev) && min < toMin(cl));
-            refDay = carry ? prev : day;
-        }
-        for (const [days, o, cl] of c.hours) {
-            const row = el('div', days.includes(refDay) ? 'today' : '');
-            row.append(el('span', '', days.map(d => DAYS[d - 1]).join(', ')), document.createTextNode(o + ' – ' + cl));
-            det.appendChild(row);
-        }
-    } else {
-        det.appendChild(el('div', '', 'Nur bei Events'));
-    }
-    if (c.note) det.appendChild(el('span', 'note', c.note));
-    body.appendChild(det);
-
-    const act = el('div', 'actions');
-    const app = appRoute(c);
-    const route = el('a', 'primary', 'Route');
-    route.href = app.href;
-    if (app.href.indexOf('geo:') !== 0) {
-        route.target = '_blank';
-        route.rel = 'noopener';
-    }
-    act.appendChild(route);
-    if (c.url) {
-        const site = el('a', '', c.url.includes('instagram.') ? 'Instagram' : 'Website');
-        site.href = c.url;
-        site.target = '_blank';
-        site.rel = 'noopener';
-        act.appendChild(site);
-    }
-    body.appendChild(act);
-    // Ehrlich sagen, woher der Punkt kommt: bei Entwürfen stammt er aus
-    // OpenStreetMap, nicht aus einer geprüften Angabe des Clubs.
-    body.appendChild(el('p', 'nog', c.osm
-        ? 'Standort aus OpenStreetMap zur angegebenen Adresse – alle Angaben ohne Gewähr.'
-        : 'Alle Angaben ohne Gewähr.'));
+    sheetBody(c, body);
 
     showSheet('club');
     if (map) {
@@ -5961,7 +6119,12 @@ render();
 syncUrl();
 // Ladebalken zuerst anstoßen: ein Fehler im Standort-Teil darunter darf ihn
 // niemals verschlucken (alles hier liegt in EINEM <script>-Block).
-if (DATA.setup) { runSetup(DATA.setup === 'bar'); }
+// Beides erst, wenn der ganze Block fertig ausgewertet ist: EP() und andere
+// const-Bindungen stehen weiter unten und wären hier noch nicht benutzbar.
+setTimeout(() => {
+    if (DATA.setup) { runSetup(false); }   // still puffern, nie mit Balken
+    geoFill();                             // fehlende Koordinaten im Hintergrund
+}, 0);
 if (!DATA.setup) {
     // Einmal je Besuch beim Server nachfragen, ob das Connector-Repo neuere
     // Stände hat. Meistens ein Billig-Ping; höchstens alle paar Stunden lädt
@@ -5971,7 +6134,7 @@ if (!DATA.setup) {
         fetch(EP('update=1')).then(r => r.json()).then(j => {
             // Nach einem Repo-Abgleich fehlen meist nur wenige Clubs –
             // die holt der stille Modus, ohne den Besucher aufzuhalten.
-            if (j && j.update) { runSetup(j.viele === true); }
+            if (j && j.update) { runSetup(false); geoFill(); }
         }).catch(() => {});
     }, 2500);
 }
@@ -6003,9 +6166,6 @@ setInterval(() => {
     if (fp !== lastFp) { lastFp = fp; render(); }
 }, 60000);
 
-/* Hintergrund-Aktualisierung anstoßen und frische Daten (Bilder, Programm)
-   ohne Neuladen einsammeln, bis die Erstbefüllung durch ist */
-const EP = q => (DATA.cc ? '?c=' + DATA.cc + '&' : '?') + q;
 // Erstbefüllung: leerer Cache -> Ladebalken, der alles einmal holt. Danach
 // wird jeder Club beim Öffnen frisch nachgeholt (siehe openSheet). Kein
 // Hintergrundlauf, kein Polling – läuft überall, auch auf Gratis-Hostern.
@@ -6016,6 +6176,49 @@ function setupSleep(ms) { return new Promise(r => setTimeout(r, ms)); }
  * still im Hintergrund: die Antworten bringen die frischen Bilder, Infos und
  * Programme gleich mit, sie landen ohne Neuladen in der offenen Karte.
  */
+/*
+ * Clubs, deren Koordinate gerade erst dazukam, ohne Neuladen auf die Karte
+ * setzen. Der Kartenausschnitt bleibt, wo er ist – niemandem soll die Karte
+ * unter dem Finger wegspringen.
+ */
+function addClubs(list) {
+    let n = 0;
+    for (const c of list || []) {
+        if (!c || !c.id || markers[c.id] || DATA.clubs.some(x => x.id === c.id)) continue;
+        DATA.clubs.push(c);
+        POS[c.id] = [c.lat, c.lng];
+        if (map && typeof L !== 'undefined') {
+            const m = L.marker(POS[c.id], { icon: pinIcon(c), title: c.name }).addTo(map);
+            if (HOVER) m.bindTooltip(() => tipEl(c), { direction: 'top', offset: [0, -10], className: 'tip', opacity: 1, interactive: true });
+            m.on('click', () => tapPin(c));
+            markers[c.id] = m;
+        }
+        n++;
+    }
+    if (n) { renderChips(); render(); }
+    return n;
+}
+
+/*
+ * Fehlende Koordinaten der Entwürfe nachholen. Läuft im Hintergrund, ein
+ * Häppchen je Aufruf; die gefundenen Clubs erscheinen sofort auf der Karte.
+ * Bricht ab, sobald nichts mehr offen ist – danach kostet das gar nichts mehr.
+ */
+async function geoFill() {
+    for (let i = 0; i < 500; i++) {
+        let j;
+        try {
+            j = await fetch(EP('geo=1')).then(r => r.json());
+        } catch (e) {
+            return;
+        }
+        if (!j || j.aus) return;
+        if (j.clubs && j.clubs.length) addClubs(j.clubs);
+        if (!j.offen) return;
+        await setupSleep(400);
+    }
+}
+
 async function runSetup(sichtbar = true) {
     const ov = $('setup');
     if (!ov) { return; }
