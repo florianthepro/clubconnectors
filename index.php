@@ -4314,30 +4314,44 @@ body {
 }
 .dd-h:first-child { margin-top: 0; }
 .dd-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
-.dd-q { font-size: 16px; font-weight: 650; margin-bottom: 12px; }
-.dd-choice {
-    display: block;
-    width: 100%;
-    text-align: left;
-    padding: 13px 14px;
-    margin-bottom: 8px;
-    border: 1.5px solid var(--line);
-    border-radius: 12px;
-    background: none;
-    color: var(--fg);
-    font: inherit;
-    font-size: 15px;
-    cursor: pointer;
+/* Auswahlmenü als Liste: eine Zeile je Möglichkeit, rechts wie viele Clubs
+   dahinter stecken, links der Haken für das, was gerade gilt. */
+.dlist { background: var(--card); border-radius: 13px; overflow: hidden; }
+.dlist .drow {
+    display: flex; align-items: center; gap: 12px;
+    width: 100%; padding: 12px 14px;
+    background: none; border: 0; color: var(--fg);
+    font: inherit; font-size: 16px; text-align: left; cursor: pointer;
+    position: relative;
 }
-.dd-choice b { font-weight: 750; }
+.dlist .drow + .drow { border-top: 1px solid var(--line); }
+.dlist .drow .lbl { flex: 1; min-width: 0; }
+.dlist .drow .lbl .hint { display: block; color: var(--muted); font-size: 13px; margin-top: 2px; }
+.dlist .drow .cnt { color: var(--muted); font-size: 14px; font-variant-numeric: tabular-nums; }
+/* Der Haken steht nur bei dem, was gerade gilt – der Platz bleibt aber
+   reserviert, sonst rutschen die Zeilen beim Umschalten hin und her. */
+.dlist .drow .tick { display: flex; width: 18px; color: var(--fg); opacity: 0; }
+.dlist .drow.on .tick { opacity: 1; }
+.dlist .drow.on .lbl { font-weight: 600; }
+.dlist .drow:disabled { opacity: .4; cursor: default; }
+/* Tag ohne Treffer: sichtbar, aber zurückhaltend */
+.dlist .drow.leer .lbl, .dlist .drow.leer .cnt { color: var(--muted); }
+.dlist .drow .cal { display: flex; width: 18px; color: var(--muted); }
+.dlist .drow:active { background: var(--line); }
+/* Der Systemkalender liegt unsichtbar über der ganzen Zeile */
+.dlist .datepick input[type=date] {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    opacity: 0; border: 0; padding: 0; cursor: pointer;
+}
 .dd-cancel {
+    display: block;
     border: 0;
     background: none;
     color: var(--muted);
     font: inherit;
     font-size: 14px;
     cursor: pointer;
-    padding: 6px 0;
+    padding: 10px 2px 2px;
 }
 .seg {
     display: inline-flex;
@@ -5521,78 +5535,109 @@ const ICONS = {
     cal: '<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/></svg>',
     trash: '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>',
     loc: '<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="6.5"/><path d="M12 1.5V5M12 19v3.5M1.5 12H5M19 12h3.5"/><circle cx="12" cy="12" r="1.6" fill="currentColor" stroke="none"/></svg>',
+    check: '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>',
 };
+
+/*
+ * Eine Zeile in einem Auswahlmenü: links wofür, rechts wie viele Clubs, und
+ * ein Haken, wenn es gerade gilt. Eine Liste liest sich schneller als eine
+ * Wolke aus Knöpfen – und sie lässt sich sortieren.
+ */
+function ddRow(label, anzahl, aktiv, fn, deaktiviert) {
+    const b = el('button', 'drow' + (aktiv ? ' on' : ''));
+    b.appendChild(el('span', 'lbl', label));
+    if (anzahl !== null && anzahl !== undefined) {
+        b.appendChild(el('span', 'cnt', String(anzahl)));
+    }
+    const t = el('span', 'tick');
+    t.innerHTML = ICONS.check;
+    b.appendChild(t);
+    if (deaktiviert) {
+        b.disabled = true;
+    } else {
+        b.onclick = fn;
+    }
+    return b;
+}
+
+/* Rahmen einer Menüliste – die feinen Trennlinien macht das CSS. */
+function ddList() {
+    return el('div', 'dlist');
+}
 
 function renderTimeDD() {
     const dd = $('dd');
     dd.textContent = '';
     const sync = () => { renderTimeDD(); renderChips(); render(); syncUrl(); };
-    const btn = (label, on, dim, fn) => {
-        const b = el('button', 'chip' + (on ? ' on' : '') + (dim ? ' dim' : ''), label);
-        b.onclick = fn;
-        return b;
-    };
-    const trash = (label, fn) => {
-        const t = el('button', 'trash');
-        t.innerHTML = ICONS.trash;
-        t.setAttribute('aria-label', label);
-        t.onclick = fn;
-        return t;
-    };
     const today = nightIso();
     const tomorrow = addDays(today, 1);
-    // Tage ohne einen einzigen passenden Club (Musik + Suche einbezogen) gar nicht anbieten
-    const okToday = DATA.clubs.some(c => {
-        const s = status(c);
-        return (s.open || s.tonight) && musicMatch(c) && searchMatch(c);
-    });
-    const okOn = iso => DATA.clubs.some(c => statusOn(c, iso).open && musicMatch(c) && searchMatch(c));
-    const okAll = DATA.clubs.some(c => musicMatch(c) && searchMatch(c));
-    const customDate = !!state.date && state.date !== today && state.date !== tomorrow;
-    const r = el('div', 'dd-row');
-    if (okToday || state.date === today) {
-        r.appendChild(btn('Heute', state.date === today, customDate, () => { state.date = today; sync(); }));
+    // Wie viele Clubs blieben an diesem Tag übrig (Musik und Suche zählen mit)?
+    const nHeute = DATA.clubs.filter(c => {
+        const st = status(c);
+        return (st.open || st.tonight) && musicMatch(c) && searchMatch(c);
+    }).length;
+    const nAuf = iso => DATA.clubs.filter(c => statusOn(c, iso).open && musicMatch(c) && searchMatch(c)).length;
+    const nMorgen = nAuf(tomorrow);
+    const nAlle = DATA.clubs.filter(c => musicMatch(c) && searchMatch(c)).length;
+    const eigenes = !!state.date && state.date !== today && state.date !== tomorrow;
+
+    const liste = ddList();
+    // Immer dieselbe Reihenfolge wie im Kalender: heute, morgen, anderer Tag,
+    // alle. Auch ein Tag ohne Treffer bleibt stehen (nur blass) – ein Menü,
+    // dessen Einträge verschwinden, verwirrt mehr, als es hilft. Wer dort
+    // landet, bekommt den Hinweis mit „Alle Tage" als Ausweg.
+    const tagRow = (label, iso, n) => {
+        const r = ddRow(label, n, state.date === iso && !eigenes, () => { state.date = iso; sync(); });
+        if (!n) r.classList.add('leer');
+        return r;
+    };
+    liste.appendChild(tagRow('Heute', today, nHeute));
+    liste.appendChild(tagRow('Morgen', tomorrow, nMorgen));
+    // Anderer Tag: die Zeile trägt den systemeigenen Datumswähler in sich
+    const wahl = el('button', 'drow datepick' + (eigenes ? ' on' : ''));
+    wahl.appendChild(el('span', 'lbl', eigenes ? fmtDate(state.date) : 'Anderer Tag …'));
+    if (eigenes) {
+        wahl.appendChild(el('span', 'cnt', String(nAuf(state.date))));
     }
-    if (okOn(tomorrow) || state.date === tomorrow) {
-        r.appendChild(btn('Morgen', state.date === tomorrow, customDate, () => { state.date = tomorrow; sync(); }));
-    }
-    const db = el('button', 'chip icobtn' + (customDate ? ' on' : ''));
-    db.innerHTML = ICONS.cal;
-    if (customDate) db.append(' ' + fmtDate(state.date));
+    const ic = el('span', eigenes ? 'tick' : 'cal');
+    ic.innerHTML = eigenes ? ICONS.check : ICONS.cal;
+    wahl.appendChild(ic);
     const di = el('input');
     di.type = 'date';
     di.min = addDays(today, -14);
     di.max = addDays(today, 14);
     di.setAttribute('aria-label', 'Tag wählen');
-    db.tabIndex = -1;
     if (state.date) di.value = state.date;
-    di.onchange = () => {
-        state.date = di.value || today;
-        sync();
-    };
-    db.appendChild(di);
-    r.appendChild(db);
-    if (customDate) {
-        r.appendChild(trash('Datum auf heute setzen', () => { state.date = today; sync(); }));
+    di.onchange = () => { state.date = di.value || today; sync(); };
+    wahl.appendChild(di);
+    liste.appendChild(wahl);
+    if (nAlle || state.date === null) {
+        liste.appendChild(ddRow('Alle Tage', nAlle, state.date === null, () => { state.date = null; sync(); }));
     }
-    if (okAll || state.date === null) {
-        r.appendChild(btn('Alle Tage', state.date === null, false, () => { state.date = null; sync(); }));
+    dd.appendChild(liste);
+    if (eigenes) {
+        const z = el('button', 'dd-cancel', 'Wieder heute zeigen');
+        z.onclick = () => { state.date = today; sync(); };
+        dd.appendChild(z);
     }
-    dd.appendChild(r);
 }
-
 function renderMusicDD() {
     const dd = $('dd');
     dd.textContent = '';
     const sync = () => { renderMusicDD(); renderChips(); render(); };
     const sel = state.music.genres;
     const fits = c => dayFit(c) && searchMatch(c);
+
+    // Zwischenfrage: soll der neue Stil dazukommen oder eingrenzen?
     if (musicPending) {
-        dd.appendChild(el('div', 'dd-q', 'Wie kombinieren?'));
-        const choice = (word, mode) => {
-            const have = state.music.genres.join(' ' + word + ' ');
-            const b = el('button', 'dd-choice');
-            b.append('Clubs, die ', el('b', '', have), ' ', el('b', '', word), ' ', el('b', '', musicPending), ' anbieten');
+        dd.appendChild(el('div', 'dd-h', 'Wie kombinieren?'));
+        const liste = ddList();
+        const wahl = (word, mode, erklaerung) => {
+            const b = el('button', 'drow');
+            const t = el('span', 'lbl');
+            t.append(el('b', '', sel.join(' ' + word + ' ') + ' ' + word + ' ' + musicPending));
+            t.appendChild(el('span', 'hint', erklaerung));
+            b.appendChild(t);
             b.onclick = () => {
                 state.music.mode = mode;
                 state.music.genres.push(musicPending);
@@ -5601,16 +5646,17 @@ function renderMusicDD() {
             };
             return b;
         };
-        // "und" nur anbieten, wenn die Kombination überhaupt einen Club trifft
-        if (DATA.clubs.some(c => fits(c) && [...sel, musicPending].every(x => c.genres.includes(x)))) {
-            dd.appendChild(choice('und', 'and'));
-        }
-        dd.appendChild(choice('oder', 'or'));
+        const undOk = DATA.clubs.some(c => fits(c) && [...sel, musicPending].every(x => c.genres.includes(x)));
+        if (undOk) liste.appendChild(wahl('und', 'and', 'nur Clubs mit beidem'));
+        liste.appendChild(wahl('oder', 'or', 'Clubs mit einem davon'));
+        dd.appendChild(liste);
         const cancel = el('button', 'dd-cancel', 'Abbrechen');
         cancel.onclick = () => { musicPending = null; sync(); };
         dd.appendChild(cancel);
         return;
     }
+
+    // Verknüpfung nur zeigen, wenn sie überhaupt etwas ändern kann
     if (sel.length >= 2) {
         dd.appendChild(el('div', 'dd-h', 'Verknüpfung'));
         const andOk = DATA.clubs.some(c => fits(c) && sel.every(x => c.genres.includes(x)));
@@ -5620,55 +5666,57 @@ function renderMusicDD() {
         if (andOk || state.music.mode === 'and') {
             bAnd.onclick = () => { state.music.mode = 'and'; sync(); };
         } else {
-            bAnd.disabled = true; // ohne gemeinsamen Club nicht wählbar
+            bAnd.disabled = true;
         }
         bOr.onclick = () => { state.music.mode = 'or'; sync(); };
         seg.append(bAnd, bOr);
         dd.appendChild(seg);
     }
-    dd.appendChild(el('div', 'dd-h', 'Musik'));
-    // Nur Richtungen anbieten, die mit den übrigen aktiven Filtern
-    // mindestens einen Club liefern; Gewähltes bleibt immer sichtbar
-    const offered = GENRES.filter(k => {
-        if (sel.includes(k)) return true;
-        return DATA.clubs.some(c => {
+
+    // Wie viele Clubs brächte jeder Stil? Das ist zugleich die Sortierung:
+    // was am meisten bringt, steht oben. Gewähltes bleibt immer sichtbar.
+    const zahl = {};
+    for (const k of GENRES) {
+        zahl[k] = DATA.clubs.filter(c => {
             if (!fits(c) || !c.genres.includes(k)) return false;
-            return !(sel.length && state.music.mode === 'and') || sel.every(x => c.genres.includes(x));
-        });
-    });
-    const row = el('div', 'dd-row');
+            if (sel.length && state.music.mode === 'and' && !sel.includes(k)) {
+                return sel.every(x => c.genres.includes(x));
+            }
+            return true;
+        }).length;
+    }
+    const offered = GENRES.filter(k => sel.includes(k) || zahl[k] > 0)
+        .sort((a, b) => (zahl[b] - zahl[a]) || a.localeCompare(b, 'de'));
+
     if (!offered.length) {
-        // Sackgasse vermeiden: erklären und einen Ausweg anbieten
         dd.appendChild(el('div', 'sg-note', 'Zur aktuellen Auswahl passt kein Stil.'));
         const b = el('button', 'chip', 'Filter zurücksetzen');
         b.onclick = resetFilters;
         dd.appendChild(b);
         return;
     }
+    dd.appendChild(el('div', 'dd-h', 'Musik'));
+    const liste = ddList();
     for (const k of offered) {
         const on = sel.includes(k);
-        const ch = el('button', 'chip' + (on ? ' on' : ''), k);
-        ch.onclick = () => {
+        liste.appendChild(ddRow(k, zahl[k], on, () => {
             if (on) {
                 state.music.genres = state.music.genres.filter(x => x !== k);
             } else if (state.music.genres.length >= 1) {
-                musicPending = k; // Und/Oder-Frage stellen
+                musicPending = k; // erst fragen: und oder oder?
             } else {
                 state.music.genres.push(k);
             }
             sync();
-        };
-        row.appendChild(ch);
+        }));
     }
-    dd.appendChild(row);
-    if (state.music.genres.length) {
+    dd.appendChild(liste);
+    if (sel.length) {
         const reset = el('button', 'dd-cancel', 'Musikfilter entfernen');
-        reset.style.display = 'block';
         reset.onclick = () => { state.music = { mode: 'or', genres: [] }; sync(); };
         dd.appendChild(reset);
     }
 }
-
 /* ---- Sheets ---- */
 let activeId = null, lastFocus = null, sheetKind = null, progRefresh = null;
 
