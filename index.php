@@ -337,7 +337,7 @@ const GEO_API = 'https://nominatim.openstreetmap.org/search';
    EINMAL gefragt, das Ergebnis (auch "nichts gefunden") bleibt gespeichert.
    Auf false gestellt bleiben die Entwürfe von der Karte weg. */
 const GEO_AUTO = true;
-const GEO_PRO_AUFRUF = 6;    // Adressen je Hintergrund-Schritt
+const GEO_PRO_AUFRUF = 3;    // Adressen je Hintergrund-Schritt (kurze Anfragen)
 const GEO_PAUSE = 1100000;   // Mikrosekunden zwischen zwei Abfragen (Nominatim: max. 1/s)
 const GEO_SECS = 22;         // Zeitbudget je ?geo-Aufruf, dann geht es per Weiterleitung weiter
 
@@ -534,7 +534,7 @@ function geo_fetch(string $url): ?string
     }
     $ch = curl_init($url);
     curl_setopt_array($ch, [CURLOPT_RETURNTRANSFER => true, CURLOPT_FOLLOWLOCATION => true,
-        CURLOPT_TIMEOUT => 15, CURLOPT_USERAGENT => GEO_UA,
+        CURLOPT_TIMEOUT => 8, CURLOPT_USERAGENT => GEO_UA,
         CURLOPT_HTTPHEADER => ['Accept: application/json', 'Accept-Language: de']]);
     $b = curl_exec($ch);
     $code = (int)curl_getinfo($ch, CURLINFO_HTTP_CODE);
@@ -1316,6 +1316,31 @@ if (isset($_GET['diag'])) {
     }
     echo 'cache: ' . $ev . ' Clubs mit Events, ' . $im . ' mit Bildern, ' . $in . ' mit Infotext'
         . (isset($dc['ts']) ? ', Stand ' . date('d.m. H:i', (int)$dc['ts']) : ' (noch leer – Seite einmal aufrufen und ~2 min warten)') . "\n";
+    // Der wichtigste Punkt überhaupt: kann die Seite Ergebnisse behalten?
+    // Ohne Zwischenspeicher müsste sie bei jedem Aufruf neu bei den
+    // Club-Websites nachfragen – genau daran erkennt man es hier.
+    $cf = cache_file('live');
+    $cdir = $cf ? dirname($cf) : '';
+    echo 'zwischenspeicher: ' . ($cdir === '' ? 'KEIN ORT – weder data/cache noch /tmp beschreibbar'
+        : $cdir . (cache_ok() ? ' (beschreibbar)' : ' – SCHREIBEN SCHLÄGT FEHL')) . "\n";
+    if ($cdir !== '' && is_dir($cdir)) {
+        $dateien = array_values(array_diff(@scandir($cdir) ?: [], ['.', '..']));
+        $daten = 0;
+        $bytes = 0;
+        foreach ($dateien as $dn) {
+            if (substr($dn, -5) === '.json') {
+                $daten++;
+                $bytes += (int)@filesize($cdir . '/' . $dn);
+            }
+        }
+        echo '  inhalt: ' . count($dateien) . ' Dateien, davon ' . $daten . ' mit Daten ('
+            . round($bytes / 1024) . " KB)\n";
+        if ($daten === 0) {
+            echo "  NUR STEMPEL, KEINE DATEN: es wurde noch nie ein Scrape-Ergebnis gespeichert.\n"
+               . "  Meist heißt das: kein Connector mit Scrape-URL, oder der Server kommt nicht\n"
+               . "  ins Netz (siehe outbound-test unten).\n";
+        }
+    }
     $tmp = sys_get_temp_dir();
     echo 'temp ' . $tmp . ': ' . (@is_writable($tmp) ? 'beschreibbar' : 'gesperrt (nutze Skriptordner)') . "\n";
     $ob = (string)ini_get('open_basedir');
@@ -1703,20 +1728,28 @@ if (isset($_GET['fresh'])) {
     [, $conn] = load_connectors($cc);
     $id = (string)$_GET['fresh'];
     $out = null;
+    // Neu holen NUR beim Öffnen der Kachel (open=1). Die 5-Sekunden-Abfragen
+    // danach schauen ausschließlich in den Zwischenspeicher – sonst klopfte
+    // die Seite bei jedem Takt erneut an der Club-Website an.
+    $darfHolen = !empty($_GET['open']);
     if (isset($conn[$id])) {
         $cache = cache_read($cc);
         $ft = (int)($cache['data'][$id]['ft'] ?? 0);
-        // nur wirklich neu holen, wenn die letzte Aktualisierung her ist –
-        // sonst reicht der Cache und die Kachel geht ohne Wartezeit auf
-        if (time() - $ft >= club_fresh()) {
+        if ($darfHolen && time() - $ft >= club_fresh() && cache_ok()) {
             @set_time_limit(0);
             scrape_refresh($cache['data'] ?? [], [$id => $conn[$id]], 1, $cc, club_secs(), true, $conn);
             $cache = cache_read($cc);
         }
         $lp = live_payload([$id => ($cache['data'][$id] ?? [])]);
         $out = $lp[$id] ?? null;
+        if ($out === []) {
+            $out = null; // noch nichts da – sauber als "nichts" melden
+        }
     }
-    echo json_encode(['id' => $id, 'live' => $out],
+    // Signatur des Inhalts: die Seite baut die Kachel nur neu, wenn sie sich
+    // wirklich geändert hat. Ohne das flackerte sie bei jedem Takt.
+    echo json_encode(['id' => $id, 'live' => $out, 'cached' => cache_ok(),
+        'sig' => $out === null ? '' : md5((string)json_encode($out))],
         JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG);
     exit;
 }if (isset($_GET['check'])) {
@@ -3442,12 +3475,33 @@ function cache_read(string $cc = ''): array
     return ($c['v'] ?? 0) === CACHE_V ? $c : []; // Formatwechsel: neu aufbauen
 }
 
-function cache_write(string $file, array $data): void
+function cache_write(string $file, array $data): bool
 {
     $json = json_encode(['v' => CACHE_V, 'ts' => time(), 'data' => $data], JSON_UNESCAPED_UNICODE | JSON_INVALID_UTF8_SUBSTITUTE);
-    if ($json !== false && @file_put_contents($file . '.tmp', $json) !== false) {
-        @rename($file . '.tmp', $file);
+    if ($json === false || @file_put_contents($file . '.tmp', $json) === false) {
+        return false;
     }
+    return @rename($file . '.tmp', $file);
+}
+
+/*
+ * Lässt sich der Zwischenspeicher überhaupt beschreiben? Ohne ihn müsste jede
+ * Anfrage neu bei den Club-Websites nachfragen – deshalb wird das geprüft und
+ * nicht stillschweigend hingenommen. Ergebnis gilt für diesen Aufruf.
+ */
+function cache_ok(): bool
+{
+    static $ok = null;
+    if ($ok !== null) {
+        return $ok;
+    }
+    $f = cache_file('probe');
+    if (!$f) {
+        return $ok = false;
+    }
+    $gut = @file_put_contents($f, (string)time()) !== false;
+    @unlink($f);
+    return $ok = $gut;
 }
 
 /*
@@ -5855,26 +5909,62 @@ function refreshSheet(c) {
     sb.scrollTop = oben;
 }
 
-let liveTimer = null;
+let liveTimer = null, liveSig = null, liveStill = 0;
 function stopLive() {
     if (liveTimer) { clearInterval(liveTimer); liveTimer = null; }
 }
+
+/*
+ * Der Connector des offenen Clubs. Beim Öffnen einmal richtig holen, danach
+ * alle 5 Sekunden nur noch nachsehen, ob etwas Neues da ist – die Abfragen
+ * danach gehen nie wieder auf die Club-Website, sie lesen den Zwischenspeicher.
+ *
+ * Neu gebaut wird die Kachel nur, wenn der Server eine andere Signatur meldet.
+ * Sonst passiert sichtbar nichts: kein Blinken, keine neu ladenden Bilder,
+ * kein Sprung im Scrollstand.
+ *
+ * Aufgehört wird, sobald es nichts mehr zu holen gibt (der Server kann nicht
+ * zwischenspeichern), der Tab in den Hintergrund geht oder eine Minute lang
+ * nichts Neues kam. Zurück im Vordergrund geht es von selbst weiter.
+ */
 function startLive(c) {
     stopLive();
+    liveSig = null;
+    liveStill = 0;
     if (c.nolive) return;
-    const hol = () => {
+    const hol = (ersteAbfrage) => {
         if (activeId !== c.id) { stopLive(); return; }
-        fetch(EP('fresh=' + encodeURIComponent(c.id))).then(r => r.json()).then(j => {
-            if (!j || !j.live || activeId !== c.id) return;
-            if (JSON.stringify(j.live) === JSON.stringify(DATA.live[c.id] || null)) return;
-            DATA.live[c.id] = j.live;
-            refreshSheet(c);
-            render();
-        }).catch(() => {});
+        if (document.hidden) return;   // im Hintergrund nichts abfragen
+        fetch(EP('fresh=' + encodeURIComponent(c.id) + (ersteAbfrage ? '&open=1' : '')))
+            .then(r => r.json()).then(j => {
+                if (!j || activeId !== c.id) return;
+                if (j.cached === false) { stopLive(); return; } // ohne Speicher kein Takt
+                const sig = j.sig || '';
+                if (sig === liveSig) {
+                    // nichts Neues: nach einer Minute Stille aufhören
+                    if (++liveStill >= 12) stopLive();
+                    return;
+                }
+                liveStill = 0;
+                liveSig = sig;
+                if (!j.live) return;
+                DATA.live[c.id] = j.live;
+                refreshSheet(c);
+                render();
+            }).catch(() => {});
     };
-    hol();
-    liveTimer = setInterval(hol, 5000);
+    hol(true);
+    liveTimer = setInterval(() => hol(false), 5000);
 }
+/* Zurück im Vordergrund: den Takt wieder aufnehmen, aber nur wenn eine
+   Kachel offen ist – im Hintergrund läuft nie etwas weiter. */
+addEventListener('visibilitychange', () => {
+    if (document.hidden) { stopLive(); return; }
+    if (sheetKind === 'club' && activeId) {
+        const c = DATA.clubs.find(x => x.id === activeId);
+        if (c) startLive(c);
+    }
+});
 
 function cleanImgs(list) {
     const seen = new Set(), out = [];
@@ -6243,7 +6333,9 @@ function addClubs(list) {
         }
         n++;
     }
-    if (n) { renderChips(); render(); }
+    // Nicht neu zeichnen, während jemand gerade etwas offen hat – sonst
+    // zuckt die Ansicht unter dem Finger. Die Pins sind trotzdem schon da.
+    if (n && uiIdle()) { renderChips(); render(); }
     return n;
 }
 
@@ -6253,17 +6345,24 @@ function addClubs(list) {
  * Bricht ab, sobald nichts mehr offen ist – danach kostet das gar nichts mehr.
  */
 async function geoFill() {
-    for (let i = 0; i < 500; i++) {
+    // Höchstens ein paar Schritte je Besuch, mit Luft dazwischen: die Suche
+    // verteilt sich über mehrere Aufrufe, statt einen Besucher minutenlang
+    // an einer laufenden Leitung hängen zu lassen. Sie merkt sich, was schon
+    // gefragt wurde – beim nächsten Besuch geht es genau dort weiter.
+    for (let i = 0; i < 3; i++) {
+        if (document.hidden) return;
         let j;
         try {
             j = await fetch(EP('geo=1')).then(r => r.json());
         } catch (e) {
             return;
         }
-        if (!j || j.aus) return;
+        if (!j || j.aus || !j.offen) {
+            if (j && j.clubs && j.clubs.length) addClubs(j.clubs);
+            return;
+        }
         if (j.clubs && j.clubs.length) addClubs(j.clubs);
-        if (!j.offen) return;
-        await setupSleep(400);
+        await setupSleep(4000);
     }
 }
 
@@ -6276,7 +6375,11 @@ async function runSetup(sichtbar = true) {
     const sub = ov.querySelector('.sub');
     const total0 = DATA.total || 1;
     let stall = 0, last = null;
-    while (true) {
+    // Der stille Lauf hat eine Obergrenze je Besuch. Was dann noch fehlt,
+    // kommt beim nächsten Aufruf – niemand soll dauerhaft im Hintergrund
+    // Anfragen schicken, nur weil die Seite offen ist.
+    const maxRunden = sichtbar ? 400 : 12;
+    for (let runde = 0; runde < maxRunden; runde++) {
         let j;
         try {
             j = await fetch(EP('setup=1' + (sichtbar ? '' : '&quiet=1'))).then(r => r.json());
