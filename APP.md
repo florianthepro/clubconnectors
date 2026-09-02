@@ -3,7 +3,7 @@
 > Was die `index.php` tut, wie man sie aufspielt und was zu tun ist, wenn
 > etwas fehlt. Der Connector-Standard steht in [SPEC.md](SPEC.md).
 
-`index.php` ist die ganze App – rund 1400 Zeilen, eine Datei, keine
+`index.php` ist die ganze App – rund 1500 Zeilen, eine Datei, keine
 Abhängigkeiten außer PHP mit `curl`. Sie enthält **keine einzige Clubadresse**;
 die Clubdaten liegen als Connectoren in `connectors/`.
 

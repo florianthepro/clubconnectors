@@ -1,8 +1,3 @@
 # Nur diese Installation betreffend – gehört nie ins Repo
-data/secret.key
-data/admin.key
 data/cache/
 data/connectors/
-data/vendor/
-data/*.stamp
-/cache/

@@ -1,7 +1,8 @@
 # Mitgelieferte Fremdbibliothek
 
-Damit die Karte **ohne jede fremde Domain** läuft, liegt Leaflet hier im Repo
-und wird von der eigenen `index.php` ausgeliefert (`?asset=…`).
+Damit die Karte **ohne jede fremde Domain** laufen kann, liegt Leaflet hier im
+Repo: liegen `vendor/leaflet.js` und `vendor/leaflet.css` neben der `index.php`,
+nimmt die Seite die statt der Fassung von unpkg.com.
 
 ## Leaflet 1.9.4
 

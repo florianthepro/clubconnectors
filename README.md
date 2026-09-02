@@ -7,7 +7,7 @@ Die komplette Nightclub-Karte in einem Repo: die App **und** die Clubdaten.
   Club steht und wie seine Website ausgelesen wird** – nie, was gerade dort steht.
 
 ```
-index.php                                    <- die App (nur Logik, ~1400 Zeilen)
+index.php                                    <- die App (nur Logik, ~1500 Zeilen)
 connectors/de/bayern/muenchen/rotesonne.yaml <- ein Club
            │  │     │         └── <id>.yaml
            │  │     └── Stadt
@@ -68,7 +68,8 @@ in den Länderordner – der Club ist beim nächsten Seitenaufruf auf der Karte.
 
 ## Aufspielen
 
-1. `index.php` und den Ordner `connectors/` ins Web-Root legen.
+1. `index.php` ins Web-Root legen. `connectors/` daneben ist optional –
+   fehlt er, holt die Seite die Daten beim ersten Aufruf einmal selbst.
 2. PHP in `data/` schreiben lassen: `sudo chown -R www-data: /var/www/clubs`
 3. Seite aufrufen – die Karte ist da.
 

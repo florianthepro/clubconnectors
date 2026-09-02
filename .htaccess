@@ -3,7 +3,7 @@
 
 Options -Indexes
 
-<FilesMatch "\.(yaml|yml|json|stamp|key)$">
+<FilesMatch "\.(yaml|yml|json)$">
     <IfModule mod_authz_core.c>
         Require all denied
     </IfModule>

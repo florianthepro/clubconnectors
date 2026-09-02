@@ -62,19 +62,41 @@ const LAENDER = ['baden-wuerttemberg' => 'Baden-Württemberg', 'bayern' => 'Baye
 
 /* ---------- 2. Clubdaten lesen ---------- */
 
-/* Wo liegen die Connectoren? Erster Treffer gewinnt. */
-function connector_dir(): string
+/*
+ * Wo liegen die Connectoren? Beide Orte zählen: connectors/ (selbst
+ * hingelegt) und data/connectors/ (von der Seite geholt). Bei gleicher id
+ * gewinnt connectors/.
+ */
+function connector_dirs(): array
 {
-    static $d = null;
-    if ($d !== null) {
-        return $d;
-    }
+    $out = [];
     foreach (['connectors', 'data/connectors'] as $rel) {
         if (is_dir(__DIR__ . '/' . $rel)) {
-            return $d = __DIR__ . '/' . $rel;
+            $out[] = __DIR__ . '/' . $rel;
         }
     }
-    return $d = '';
+    return $out;
+}
+
+/*
+ * Alle .yaml unter einem Ordner als [Pfad, Pfad relativ zur Wurzel]. Ordner
+ * und Dateien, die mit '_' beginnen, werden übergangen – dort liegen
+ * Entwürfe (siehe README).
+ */
+function yaml_dateien(string $wurzel): Generator
+{
+    $it = new RecursiveIteratorIterator(
+        new RecursiveCallbackFilterIterator(
+            new RecursiveDirectoryIterator($wurzel, FilesystemIterator::SKIP_DOTS),
+            fn($f) => $f->getFilename()[0] !== '_' && $f->getFilename()[0] !== '.'
+        )
+    );
+    foreach ($it as $datei) {
+        if (substr($datei->getFilename(), -5) === '.yaml') {
+            $rel = str_replace('\\', '/', substr($datei->getPathname(), strlen($wurzel) + 1));
+            yield [$datei->getPathname(), $rel];
+        }
+    }
 }
 
 /*
@@ -90,6 +112,11 @@ function clubdaten_holen(): array
     }
     if (!@is_writable($ziel)) {
         return [0, 'data/connectors ist nicht beschreibbar – PHP darf hier nicht schreiben.'];
+    }
+    // Liegt dort schon etwas, wird nicht noch einmal geholt – sonst würde die
+    // Seite bei unlesbaren Dateien endlos neu laden.
+    if (yaml_dateien($ziel)->valid()) {
+        return [0, 'In data/connectors liegen schon Dateien, aber keine ist ein lesbarer Connector – Ordner leeren und Seite neu laden.'];
     }
     if (!class_exists('ZipArchive')) {
         return [0, 'PHP-Erweiterung zip fehlt – bitte connectors/ von Hand neben die index.php legen.'];
@@ -192,31 +219,23 @@ function yaml_flat(string $text): array
 }
 
 /*
- * Alle Clubs. Ordner, die mit '_' beginnen, werden übergangen – dort liegen
- * Entwürfe (siehe README). Rückgabe: [clubs, scrapebare].
+ * Alle Clubs. Rückgabe: [clubs, scrapebare].
  * Ein Club ohne gültige Koordinate zählt nicht: er hätte auf der Karte
  * keinen Ort, und geraten wird hier nichts.
  */
 function load_clubs(): array
 {
-    $wurzel = connector_dir();
-    if ($wurzel === '') {
-        return [[], []];
-    }
     $clubs = [];
     $scrape = [];
     $gesehen = [];
-    $it = new RecursiveIteratorIterator(
-        new RecursiveCallbackFilterIterator(
-            new RecursiveDirectoryIterator($wurzel, FilesystemIterator::SKIP_DOTS),
-            fn($f) => $f->getFilename()[0] !== '_' && $f->getFilename()[0] !== '.'
-        )
-    );
-    foreach ($it as $datei) {
-        if (substr($datei->getFilename(), -5) !== '.yaml') {
-            continue;
+    $dateien = [];
+    foreach (connector_dirs() as $wurzel) {
+        foreach (yaml_dateien($wurzel) as $d) {
+            $dateien[] = $d;
         }
-        $y = yaml_flat((string)@file_get_contents($datei->getPathname()));
+    }
+    foreach ($dateien as [$pfad, $rel]) {
+        $y = yaml_flat((string)@file_get_contents($pfad));
         if (empty($y['id']) || empty($y['name']) || isset($gesehen[$y['id']])) {
             continue;
         }
@@ -225,7 +244,7 @@ function load_clubs(): array
         }
         $gesehen[$y['id']] = true;
         // Bundesland steckt im Pfad: connectors/de/<land>/<stadt>/<id>.yaml
-        $teile = explode('/', str_replace('\\', '/', substr($datei->getPathname(), strlen($wurzel) + 1)));
+        $teile = explode('/', $rel);
         $landSlug = $y['state'] ?? ($teile[1] ?? '');
         $club = [
             'id' => $y['id'],
@@ -616,13 +635,13 @@ function club_holen(array $cfg): array
 if (isset($_GET['club'], $_GET['json'])) {
     header('Content-Type: application/json; charset=utf-8');
     header('Cache-Control: no-store');
-    $id = (string)$_GET['club'];
+    $id = is_string($_GET['club']) ? $_GET['club'] : '';
     $cache = cache_lesen();
     $eintrag = $cache[$id] ?? null;
     $frisch = $eintrag && (time() - (int)($eintrag['ft'] ?? 0)) < CLUB_TTL;
     $gespeichert = true;
     if (isset($SCRAPE[$id]) && !$frisch) {
-        @set_time_limit(FETCH_SECS * 3);
+        @set_time_limit(FETCH_SECS * 4);   // bis zu drei Seitenabrufe, plus Luft
         $eintrag = club_holen($SCRAPE[$id]);
         $cache[$id] = $eintrag;
         $gespeichert = cache_schreiben($cache);
@@ -654,7 +673,7 @@ if (isset($_GET['holen'])) {
 /* Kurzer Selbstbericht – beantwortet die Frage „warum sehe ich nichts?" */
 if (isset($_GET['diag'])) {
     header('Content-Type: text/plain; charset=utf-8');
-    $cd = connector_dir();
+    $cd = connector_dirs();
     $cf = cache_datei();
     $cache = cache_lesen();
     $mitDaten = 0;
@@ -665,7 +684,7 @@ if (isset($_GET['diag'])) {
     }
     echo 'PHP ' . PHP_VERSION . "\n";
     echo 'curl: ' . (function_exists('curl_init') ? 'ok' : 'FEHLT – ohne curl kein Programm, keine Bilder') . "\n";
-    echo 'connectoren: ' . ($cd === '' ? 'KEIN ORDNER gefunden' : $cd) . "\n";
+    echo 'connectoren: ' . ($cd ? implode(', ', $cd) : 'KEIN ORDNER gefunden') . "\n";
     echo '  ' . count($CLUBS) . ' Clubs, ' . count($SCRAPE) . " davon mit Scrape-URL\n";
     if (!$CLUBS) {
         echo '  Die Seite holt sie beim Aufruf selbst aus ' . REPO_NAME . " (Ordner data/connectors).\n"
@@ -763,8 +782,9 @@ button { cursor: pointer; }
 /* ---- Karte ---- */
 #map { position: fixed; inset: 0; background: var(--card); }
 .kartefehlt {
-    position: absolute; inset: 0; display: grid; align-content: center;
-    gap: 6px; padding: 0 32px; text-align: center; color: var(--muted);
+    position: absolute; inset: 0; z-index: 900;   /* über den Kartenebenen */
+    display: grid; align-content: center; gap: 6px; padding: 0 32px;
+    text-align: center; color: var(--muted); background: var(--card);
 }
 .kartefehlt p { margin: 0; font-size: 15px; }
 .leaflet-container { font: inherit; background: var(--card); }
@@ -832,7 +852,7 @@ button { cursor: pointer; }
 }
 .liste { background: var(--card); border-radius: var(--rand); overflow: hidden; }
 .zeile {
-    display: flex; align-items: center; gap: 12px; width: 100%;
+    display: flex; align-items: center; gap: 12px; width: 100%; cursor: pointer;
     padding: 12px 14px; background: none; border: 0; text-align: left;
     font-size: 16px; position: relative;
 }
@@ -998,7 +1018,7 @@ function el(tag, klasse, text) {
 /* Umlaute und Groß/Klein egal – „muenchen" soll München finden. */
 const falte = s => (s || '').toLowerCase()
     .replace(/ä/g, 'ae').replace(/ö/g, 'oe').replace(/ü/g, 'ue').replace(/ß/g, 'ss')
-    .normalize('NFD').replace(/[̀-ͯ]/g, '');
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 
 /* ---- Zeitrechnung ---- */
 /* Die Nacht gehört zum Vortag: um 3 Uhr früh ist „heute" noch gestern. */
@@ -1075,7 +1095,8 @@ const sichtbare = () => clubs.filter(c => passtMusik(c) && passtSuche(c) && pass
 
 /* ---- Karte ---- */
 function pinBild(c, aktiv) {
-    const auf = stand.tag === nachtDatum() ? geradeOffen(c) : offenAm(c, stand.tag || nachtDatum());
+    const tag = stand.tag || nachtDatum();
+    const auf = offenAm(c, tag) || termineAm(c, tag).length > 0;
     return L.divIcon({
         className: '',
         html: '<div class="pin' + (auf ? ' auf' : '') + (aktiv ? ' aktiv' : '') + '"></div>',
@@ -1137,14 +1158,14 @@ function zeichnen() { pinsSetzen(); kopfSetzen(); }
 
 /* ---- Menüs: eine Zeile je Möglichkeit, rechts wie viele Clubs ---- */
 const HAKEN = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>';
-function menuZeile(text, anzahl, aktiv, klick) {
-    const b = el('button', 'zeile' + (aktiv ? ' an' : '') + (anzahl === 0 ? ' leer' : ''));
+function menuZeile(text, anzahl, aktiv, klick, tag) {
+    const b = el(tag || 'button', 'zeile' + (aktiv ? ' an' : '') + (anzahl === 0 ? ' leer' : ''));
     b.appendChild(el('span', 'was', text));
     if (anzahl !== null) b.appendChild(el('span', 'wieviel', String(anzahl)));
     const h = el('span', 'haken');
     h.innerHTML = HAKEN;
     b.appendChild(h);
-    b.onclick = klick;
+    if (klick) b.onclick = klick;
     return b;
 }
 function menuZu() { stand.menu = null; $('menu').hidden = true; kopfSetzen(); }
@@ -1170,9 +1191,10 @@ function tagMenu(m) {
     const eigen = stand.tag !== null && stand.tag !== heute && stand.tag !== morgen;
     liste.appendChild(menuZeile('Heute', zaehl(heute), stand.tag === heute, () => waehle(heute)));
     liste.appendChild(menuZeile('Morgen', zaehl(morgen), stand.tag === morgen, () => waehle(morgen)));
-    // Anderer Tag: der Systemkalender liegt unsichtbar über der Zeile
+    // Anderer Tag: ein <label> mit dem Datumsfeld darin – so öffnet ein Tipp
+    // auf die ganze Zeile den Systemkalender, auch auf dem iPhone.
     const wahl = menuZeile(eigen ? datumText(stand.tag) : 'Anderer Tag …',
-        eigen ? zaehl(stand.tag) : null, eigen, () => {});
+        eigen ? zaehl(stand.tag) : null, eigen, null, 'label');
     const feld = document.createElement('input');
     feld.type = 'date';
     feld.min = plusTage(heute, -7);
@@ -1180,6 +1202,11 @@ function tagMenu(m) {
     feld.setAttribute('aria-label', 'Tag wählen');
     if (stand.tag) feld.value = stand.tag;
     feld.onchange = () => waehle(feld.value || heute);
+    wahl.onclick = e => {
+        if (!feld.showPicker) return;           // dann übernimmt der Browser
+        e.preventDefault();
+        try { feld.showPicker(); } catch (_) { feld.focus(); }
+    };
     wahl.appendChild(feld);
     liste.appendChild(wahl);
     liste.appendChild(menuZeile('Alle Tage', zaehl(null), stand.tag === null, () => waehle(null)));
@@ -1276,17 +1303,16 @@ function kachelOeffnen(c, springen) {
         fetch('?club=' + encodeURIComponent(c.id) + '&json=1')
             .then(r => r.json())
             .then(j => {
-                if (offenerClub !== c.id) return;
                 live[c.id] = j.live || {};
-                kachelZeichnen(c, false);
                 zeichnen();
+                if (offenerClub === c.id) kachelZeichnen(c, false);
             })
             .catch(() => { if (offenerClub === c.id) kachelZeichnen(c, false); });
     }
 }
 function bildBlock(bilder) {
     const box = el('div', 'bilder');
-    const rest = bilder.slice(1, 4);
+    const rest = bilder.slice(1);   // drei werden gezeigt, der Rest springt bei Fehlern ein
     const gross = el('img', 'gross');
     gross.src = bilder[0];
     gross.alt = '';
@@ -1301,7 +1327,7 @@ function bildBlock(bilder) {
     const reihe = el('div', 'klein');
     function kleineNeu() {
         reihe.textContent = '';
-        for (const u of rest) {
+        for (const u of rest.slice(0, 3)) {
             const t = document.createElement('img');
             t.src = u;
             t.alt = '';
@@ -1407,7 +1433,7 @@ function kachelZeichnen(c, laedt) {
     route.target = '_blank';
     route.rel = 'noopener';
     tun.appendChild(route);
-    if (c.url) {
+    if (/^https?:\/\//i.test(c.url || '')) {
         const w = el('a', '', c.url.includes('instagram.') ? 'Instagram' : 'Website');
         w.href = c.url;
         w.target = '_blank';
@@ -1516,9 +1542,8 @@ function erstesHolen() {
 }
 
 /* ---- Start ---- */
-karteBauen();
+if (DATEN.leer) erstesHolen(); else karteBauen();
 zeichnen();
-if (DATEN.leer) erstesHolen();
 // Deeplink: ?club=<id> öffnet die Kachel direkt
 const gewuenscht = new URLSearchParams(location.search).get('club');
 if (gewuenscht) {
